@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bokning.aspx" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
     <Content Include="medlemsregistrering.aspx" />
@@ -86,6 +87,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bokning.aspx.cs">
+      <DependentUpon>bokning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bokning.aspx.designer.cs">
+      <DependentUpon>bokning.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Classes\access.cs" />
     <Compile Include="Classes\games.cs" />
     <Compile Include="Classes\member.cs" />
