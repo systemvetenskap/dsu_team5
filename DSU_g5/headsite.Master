@@ -5,18 +5,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset ="utf-8" />
-  
-    <title></title>
+    <title>Hålslaget GK - Vi slår hål på golfetablissemanget</title>
+    <link href="CSS/CSS_main.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-        
-        </asp:ContentPlaceHolder>
-    </div>
+        <header>
+
+        </header>
+        <nav id="masterNav">
+            <div id="masterNavTop">
+                <a href="#">Logga in</a>
+            </div>
+            <div id="masterNavBottom">     
+                <ul id="masterNavMenu">
+                    <li>
+                        <a href="#">menyval 1</a>
+                        <ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">menyval 2</a>
+                        <ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">menyval 3</a>
+                        <ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">menyval 4</a>
+                        <ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">menyval 5</a>
+                        <ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">menyval 6</a>
+                        <ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="pageContent">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            <!-- här är de individuella sidornas innehåll --> 
+            </asp:ContentPlaceHolder>
+        </div>
+        <footer>
+            <p>© 2016 Hålslaget GK | Lite info | Lite mer info | Kanske nån länk om vi har tur</p>
+        </footer>
     </form>
 </body>
 </html>

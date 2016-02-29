@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bokning.aspx" />
+    <Content Include="CSS\CSS_main.css" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
     <Content Include="medlemsregistrering.aspx" />
