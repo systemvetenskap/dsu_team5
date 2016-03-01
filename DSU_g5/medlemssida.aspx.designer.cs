@@ -148,13 +148,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbGender;
         
         /// <summary>
-        /// tbGender control.
+        /// ddlGender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbGender;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGender;
         
         /// <summary>
         /// lbHcp control.
@@ -193,22 +193,31 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbGolfId;
         
         /// <summary>
-        /// lbMemberCategory control.
+        /// lbCategoryId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbMemberCategory;
+        protected global::System.Web.UI.WebControls.Label lbCategoryId;
         
         /// <summary>
-        /// txMemberCategory control.
+        /// ddlCategoryId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txMemberCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategoryId;
+        
+        /// <summary>
+        /// ddlCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         
         /// <summary>
         /// btAdd control.

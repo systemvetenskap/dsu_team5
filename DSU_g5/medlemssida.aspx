@@ -25,7 +25,7 @@
         <asp:TextBox ID="tbMail" runat="server"></asp:TextBox>
 
         <asp:Label ID="lbGender" runat="server" Text="Kön"></asp:Label>
-        <asp:TextBox ID="tbGender" runat="server"></asp:TextBox>
+        <asp:DropDownList ID="ddlGender" runat="server" Height="20px" Width="120px"></asp:DropDownList>
 
         <asp:Label ID="lbHcp" runat="server" Text="HCP"></asp:Label>
         <asp:TextBox ID="tbHcp" runat="server"></asp:TextBox>
@@ -33,12 +33,14 @@
         <asp:Label ID="lbGolfId" runat="server" Text="Golf Id"></asp:Label>
         <asp:TextBox ID="tbGolfId" runat="server"></asp:TextBox>
         
-         <asp:Label ID="lbMemberCategory" runat="server" Text="Medlems kategori"></asp:Label>
-        <asp:TextBox ID="txMemberCategory" runat="server"></asp:TextBox>
-
-        <asp:Button ID="btAdd" runat="server" Text="Lägg till" />
+        <asp:Label ID="lbCategoryId" runat="server" Text="Medlems kategori id"></asp:Label>
+        <asp:DropDownList ID="ddlCategoryId" runat="server" Height="20px" Width="120px"></asp:DropDownList>
+        <asp:DropDownList ID="ddlCategory" runat="server" Height="20px" Width="120px"></asp:DropDownList>
+        
+        <asp:Button ID="btAdd" runat="server" Text="Lägg till" OnClick="btAdd_Click" />
         <asp:Button ID="btUpdate" runat="server" Text="Uppdatera" />
         <asp:Button ID="btRemove" runat="server" Text="Ta bort" />
+
      </section>
 
 </asp:Content>
