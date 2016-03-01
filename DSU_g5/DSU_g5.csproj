@@ -50,10 +50,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Security">
-      <HintPath>..\..\..\..\..\..\Program Files\PostgreSQL\Npgsql\ms.net45\Mono.Security.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\PostgreSQL\Npgsql\ms.net45\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql">
-      <HintPath>..\..\..\..\..\..\Program Files\PostgreSQL\Npgsql\ms.net45\Npgsql.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\PostgreSQL\Npgsql\ms.net45\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -72,6 +72,7 @@
     <Content Include="admin.aspx" />
     <Content Include="bokning.aspx" />
     <Content Include="CSS\CSS_main.css" />
+    <Content Include="CSS\CSS_medlemssida.css" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
     <Content Include="medlemsregistrering.aspx" />

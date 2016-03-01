@@ -61,9 +61,9 @@
   background-color: #0d0;
 }
 
-#masterNavBottom ul li:hover ul {
+/*#masterNavBottom ul li:hover ul {
   display: block;
-} 
+}*/ 
 
 .subMenu {
   display: none;
@@ -75,7 +75,7 @@
 
 #pageContent {
   background-color: white;
-  margin: 15% 15% 0% 15%;
+  margin: 1% 15% 0% 15%;
   padding: 1.5%
 }
 
