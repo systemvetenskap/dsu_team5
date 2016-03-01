@@ -26,10 +26,16 @@
     <asp:Table ID="Table1" runat="server"></asp:Table>--%>
 
 
+
     <asp:Button ID="BtnShowTable" runat="server" Text="Button" OnClick="BtnShowTable_Click" />
 
+
+
     <asp:Table ID="Table1" runat="server">
+
     </asp:Table>
+
+
 
 
     <table id="tabletable" style="width: 100%;">
