@@ -70,6 +70,7 @@ namespace DSU_g5
 
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
+            
             //lblTest.Text = sender.ToString();
             DateTime selectedDate = calBokning.SelectedDate;
             lblTest.Text = selectedDate.ToString();
@@ -84,9 +85,9 @@ namespace DSU_g5
                 
                 Response.Write("<script>alert('" + felmeddelandeR + "')</script>");
                 
+                
 
             }
-
             else
             {
                 Response.Write("<script>alert('" + felmeddelandeF + "')</script>");
