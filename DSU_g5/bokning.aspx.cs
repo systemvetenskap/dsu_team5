@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,7 +16,7 @@ namespace DSU_g5
         protected void Page_Load(object sender, EventArgs e)
         {
             List<DateTime> tider = new List<DateTime>();
-
+            populateGrvBokning();
         }
 
         protected void BtnShowTable_Click(object sender, EventArgs e)
@@ -99,6 +100,41 @@ namespace DSU_g5
             ListBox1.DataSource = methods.getBookedMember(selectedDate);
         }
 
+        /// <summary>
+        /// Populerar grvBokning
+        /// </summary>
+        protected void populateGrvBokning()
+        {
+            int hours = 11;
+            int startingHour = 8;
+            DataTable dt = new DataTable();
 
+            //skapa kolumner
+            for (int i = 0; i < hours; i++)
+            {
+                dt.Columns.Add((startingHour + i).ToString().PadLeft(2, '0'));
+            }
+
+            //lägg på rader och cellvärden
+            for (int i = 0; i < 6; i++)
+            {
+                DataRow dr = dt.NewRow();
+                foreach (DataColumn dc in dt.Columns)
+                {
+                    //avbryt efter första raden om vi är på den sista kolumnen
+                    if (Convert.ToInt32(dc.ColumnName) == startingHour + hours - 1 && i > 0){
+                        break;
+                    }
+                    else
+                    {
+                        dr[dc.ColumnName] = ":" + i + "0";
+                    }
+                }
+                dt.Rows.Add(dr);
+            }
+
+            grvBokning.DataSource = dt;
+            grvBokning.DataBind();
+        }
     }
 }

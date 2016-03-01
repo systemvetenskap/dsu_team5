@@ -150,5 +150,9 @@
     <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>
     <asp:ListBox ID="ListBox1" runat="server"></asp:ListBox>
 
+    <br />
+    <br />
+    <asp:GridView ID="grvBokning" runat="server"></asp:GridView>
+
 
 </asp:Content>
