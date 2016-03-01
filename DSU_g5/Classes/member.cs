@@ -18,5 +18,11 @@ namespace DSU_g5
         public double hcp { get; set; }
         public int golfId { get; set; }
 
+
+
+        public override string ToString()
+        {
+            return firstName + " " + lastName;
+        }
     }
 }
