@@ -11,7 +11,57 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            List<DateTime> tider = new List<DateTime>();
 
+        }
+
+        protected void BtnShowTable_Click(object sender, EventArgs e)
+        {
+            int totRow = 7;
+            int currentRowCount;
+            int totCellsInRow = 11;
+            int currentCellCount;
+
+
+            for (currentRowCount = 1; currentRowCount <= totRow; currentRowCount++)
+            {
+                TableRow tRow = new TableRow();
+                Table1.Rows.Add(tRow);
+
+                for (currentCellCount = 1; currentCellCount <= totCellsInRow; currentCellCount++)
+                {
+                    TableCell tCell = new TableCell();
+                    tRow.Cells.Add(tCell);
+
+                    string textInCell = currentRowCount + " " + currentCellCount;
+
+                    tCell.Controls.Add(new LiteralControl("Rad/Celln"));
+                    HyperLink h = new HyperLink();
+                    h.Text = currentRowCount + ":" + currentCellCount;
+                    h.NavigateUrl = "http://www.nba.com/";
+                    tCell.Controls.Add(h);
+
+                    if(currentRowCount % 2 != 0)
+                    {
+                        //tRow.BorderColor = System.Drawing.Color.Black;
+                        //tRow.BorderStyle =
+                        tRow.BackColor = System.Drawing.Color.Red;
+                    
+                    }
+
+                    else if(currentRowCount % 2 == 0)
+                    {
+                        //tRow.BorderColor = System.Drawing.Color.Yellow;
+                        tRow.BackColor = System.Drawing.Color.Green;
+                    }
+                }
+            }
+
+        }
+
+        protected void btnTest0800_Click(object sender, EventArgs e)
+        {
+            lblTest.Text = "Hej";
         }
     }
 }
