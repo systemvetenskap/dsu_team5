@@ -116,6 +116,7 @@
     <Compile Include="Classes\member.cs" />
     <Compile Include="Classes\member_category.cs" />
     <Compile Include="Classes\methods.cs" />
+    <Compile Include="Classes\news.cs" />
     <Compile Include="Classes\staff.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

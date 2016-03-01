@@ -11,7 +11,8 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            news newNews = new news();
+            //newNews.newsInfo = .Text;
         }
     }
 }
