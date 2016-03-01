@@ -74,6 +74,7 @@ namespace DSU_g5
             DateTime selectedDate = calBokning.SelectedDate;
             lblTest.Text = selectedDate.ToString();
 
+
             string felmeddelandeR = "RÄTTT!!!!";
             string felmeddelandeF = "FEL!!!!";
 
@@ -82,11 +83,7 @@ namespace DSU_g5
             {
                 
                 Response.Write("<script>alert('" + felmeddelandeR + "')</script>");
-
-
-                //Tider för valt datum
-
-
+                
 
             }
 

@@ -58,7 +58,7 @@
         </tr>
         
         <tr>
-            <td>00 <asp:Button ID="btnTest0800" runat="server" Text="08:00☺☺☺" OnClick="btnTest0800_Click" /></td>
+            <td>00 <asp:LinkButton ID="lbtnTest0800" runat="server">LinkButton</asp:LinkButton> </td>
             <td>00 <asp:LinkButton ID="lbtnTest0900" runat="server">LinkButton</asp:LinkButton></td>
             <td>00</td>
             <td>00</td>
