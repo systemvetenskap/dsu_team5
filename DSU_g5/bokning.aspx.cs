@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
+
 namespace DSU_g5
 {
     public partial class bokning : System.Web.UI.Page
@@ -26,7 +28,7 @@ namespace DSU_g5
             for (currentRowCount = 1; currentRowCount <= totRow; currentRowCount++)
             {
                 TableRow tRow = new TableRow();
-                Table1.Rows.Add(tRow);
+                TestTable.Rows.Add(tRow);
 
                 for (currentCellCount = 1; currentCellCount <= totCellsInRow; currentCellCount++)
                 {
@@ -63,5 +65,37 @@ namespace DSU_g5
         {
             lblTest.Text = "Hej";
         }
+
+
+
+        protected void calBokning_SelectionChanged(object sender, EventArgs e)
+        {
+            //lblTest.Text = sender.ToString();
+            DateTime selectedDate = calBokning.SelectedDate;
+            lblTest.Text = selectedDate.ToString();
+
+            string felmeddelandeR = "RÄTTT!!!!";
+            string felmeddelandeF = "FEL!!!!";
+
+
+            if (selectedDate.ToString() == "2016-03-31 00:00:00")
+            {
+                
+                Response.Write("<script>alert('" + felmeddelandeR + "')</script>");
+
+
+                //Tider för valt datum
+
+
+
+            }
+
+            else
+            {
+                Response.Write("<script>alert('" + felmeddelandeF + "')</script>");
+            }
+        }
+
+
     }
 }

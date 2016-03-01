@@ -2,7 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:Calendar ID="calBokning" runat="server"></asp:Calendar>
+    
+    
+    <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged">
+
+    </asp:Calendar>
 
 
 <%--    <table style="width: 100%;">
@@ -31,8 +35,8 @@
 
 
 
-    <asp:Table ID="Table1" runat="server">
-
+    <asp:Table ID="TestTable" runat="server">
+        <%--<asp:TableHeaderRow>08</asp:TableHeaderRow>--%>
     </asp:Table>
 
 
@@ -54,7 +58,8 @@
         </tr>
         
         <tr>
-            <td>00 <asp:Button ID="btnTest0800" runat="server" Text="Button" OnClick="btnTest0800_Click" /></td>
+            <td>00 <asp:Button ID="btnTest0800" runat="server" Text="08:00☺☺☺" OnClick="btnTest0800_Click" /></td>
+            <td>00 <asp:LinkButton ID="lbtnTest0900" runat="server">LinkButton</asp:LinkButton></td>
             <td>00</td>
             <td>00</td>
             <td>00</td>

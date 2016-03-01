@@ -31,13 +31,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Button BtnShowTable;
         
         /// <summary>
-        /// Table1 control.
+        /// TestTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table Table1;
+        protected global::System.Web.UI.WebControls.Table TestTable;
         
         /// <summary>
         /// btnTest0800 control.
@@ -47,6 +47,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnTest0800;
+        
+        /// <summary>
+        /// lbtnTest0900 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnTest0900;
         
         /// <summary>
         /// lblTest control.
