@@ -23,13 +23,14 @@ namespace DSU_g5
             string sql = "";
             try
             {
-                sql = "SELECT first_name, last_name, gender, g.member_id, hcp, times, dates " +
+                sql = "SELECT first_name, last_name, gender, gm.member_id, hcp, times, dates " +
                         "FROM member_new m " +
-                        "INNER JOIN games g on g.member_id = m.id_member " +
+                        "INNER JOIN game_member gm ON gm.member_id = m.id_member " +
+                        "INNER JOIN game g ON g.game_id = gm.game_id " +
                         "INNER JOIN game_dates gd ON g.date_id = gd.dates_id " +
                         "INNER JOIN game_starts gs ON g.time_id = gs.time_id " +
                         "WHERE gd.dates = '"+selectedDate+"' " +
-                        "GROUP BY m.first_name, m.last_name, m.gender, g. member_id, m.hcp, gs.times, dates";
+                        "GROUP BY m.first_name, m.last_name, m.gender, gm.member_id, m.hcp, gs.times, dates";
                 conn.Open();
 
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
