@@ -14,25 +14,6 @@ namespace DSU_g5
     {
         public static List<member> getBookedMember(DateTime selectedDate)
         {
-
-            //ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["Halslaget"];
-            //NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
-
-            //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-
-
-
-            //NpgsqlConnection conn = new NpgsqlConnection("Server=webblabb.miun.se;Port=5432;Database=dsu_g5;User Id=dsu_g5;Password=dsu_g5;SSL=true");
-
-            //List<member> bookingmembers = new List<member>();
-
-
-
-
-
-
-
-
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             List<member> bookingmembers = new List<member>();
             member m;
@@ -65,13 +46,11 @@ namespace DSU_g5
 
                     gs = new game_starts();
                     gs.times = Convert.ToDateTime(dr["times"].ToString());
-
                     gd = new game_dates();
                     gd.dates = DateTime.Parse(dr["dates"].ToString());
 
 
                     bookingmembers.Add(m);
-
                 }
                 
             }

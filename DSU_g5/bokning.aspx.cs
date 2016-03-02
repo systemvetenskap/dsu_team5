@@ -77,27 +77,9 @@ namespace DSU_g5
         {
             selectedDate = calBokning.SelectedDate;
             //lblTest.Text = sender.ToString();
-            lblTest.Text = selectedDate.ToString();
-            
+            lblTest.Text = selectedDate.ToString();            
             tbDates.Text = selectedDate.ToString();
            
-
-            string felmeddelandeR = "RÄTTT!!!!";
-            string felmeddelandeF = "FEL!!!!";
-
-
-            if (selectedDate.ToString() == "2016-03-31 00:00:00")
-            {
-                
-                Response.Write("<script>alert('" + felmeddelandeR + "')</script>");
-                
-                
-
-            }
-            else
-            {
-                Response.Write("<script>alert('" + felmeddelandeF + "')</script>");
-            }
         }
 
 
@@ -106,14 +88,10 @@ namespace DSU_g5
             string chosenDate = tbDates.Text;
             trimDate = chosenDate.Substring(0, 10);
             trimDateTime = Convert.ToDateTime(trimDate);
-
             ListBox1.DataSource = methods.getBookedMember(trimDateTime);
             ListBox1.DataBind();
         }
 
-        /// <summary>
-        /// Populerar grvBokning
-        /// </summary>
         protected void populateGrvBokning()
         {
             int hours = 11;
