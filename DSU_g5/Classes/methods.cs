@@ -20,19 +20,21 @@ namespace DSU_g5
 
             //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
-            NpgsqlConnection conn = new NpgsqlConnection("Server=webblabb.miun.se;Port=5432;Database=dsu_g5;User Id=dsu_g5;Password=dsu_g5;SSL=true");
-
-            List<member> bookingmembers = new List<member>();
 
 
+            //NpgsqlConnection conn = new NpgsqlConnection("Server=webblabb.miun.se;Port=5432;Database=dsu_g5;User Id=dsu_g5;Password=dsu_g5;SSL=true");
 
-
-
-
-
-
-            //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             //List<member> bookingmembers = new List<member>();
+
+
+
+
+
+
+
+
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            List<member> bookingmembers = new List<member>();
             member m;
             game_starts gs;
             game_dates gd;
