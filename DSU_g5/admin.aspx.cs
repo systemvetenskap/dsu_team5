@@ -22,12 +22,21 @@ namespace DSU_g5
             methods.addNews(newNews);
         }
 
-        protected void btnPublish_Click(object sender, EventArgs e)
+        protected void btnUpdateNews_Click(object sender, EventArgs e)
         {
             news newNews = new news();
             newNews.newsInfo = textNews.InnerText;
 
-            methods.addNews(newNews);
+            methods.updateNews(newNews);
         }
+
+        protected void btnRemoveNews_Click(object sender, EventArgs e)
+        {
+            news newNews = new news();
+            newNews.newsInfo = textNews.InnerText;
+
+            //methods.updateNews(newNews);
+        }
+
     }
 }
