@@ -76,6 +76,7 @@
     <Content Include="CSS\CSS_bokning.css" />
     <Content Include="CSS\CSS_main.css" />
     <Content Include="CSS\CSS_medlemssida.css" />
+    <Content Include="CSS\CSS_index.css" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
     <Content Include="medlemsregistrering.aspx" />
