@@ -11,25 +11,16 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             ddlGender.Items.Add("Male");
             ddlGender.Items.Add("Female");
 
-            ddlCategoryId.Items.Add("1");
-            ddlCategoryId.Items.Add("2");
-            ddlCategoryId.Items.Add("3");
-            ddlCategoryId.Items.Add("4");
-
-            ddlCategory.Items.Add("Junior 0 - 12 år");
-            ddlCategory.Items.Add("Junior 13 - 21 år");
-            ddlCategory.Items.Add("Senior");
-            ddlCategory.Items.Add("Studerande");
-
             // Under utveckling
-            //List<member_category> memberCategoryList = new List<member_category>();
-            //memberCategoryList = getMemberCategory();
-            //ddlCategory.DataSource = memberCategoryList;
-            //ddlCategory.DataBind();
+            // populate(1021);
+            List<member_category> memberCategoryList = new List<member_category>();
+            memberCategoryList = methods.getMemberCategoryList();
+            ddlCategory.DataSource = memberCategoryList;
+            ddlCategory.DataBind();
 
         }
 
@@ -45,47 +36,56 @@ namespace DSU_g5
             newMember.gender = ddlGender.Text;
             newMember.hcp = Convert.ToDouble(tbHcp.Text);
             newMember.golfId = tbGolfId.Text;
-            newMember.categoryId = Convert.ToInt32(ddlCategoryId.Text);
             newMember.category = ddlCategory.Text;
 
-            // Under utveckling
-            //member_category newMemberCategory = new member_category();
-            //newMemberCategory = (member_category)ddlCategory.SelectedValue;
-            //newMember.categoryId = newMemberCategory.categoryId;
-            //newMember.category = newMemberCategory.category;
+            users newUser = new users();
+            newUser.userName = tbUserName.Text;
+            newUser.userPassword = tbUserPassword.Text;
 
-            methods.addMember(newMember);
+            methods.addMember(newMember, newUser);
         }
 
-        public List<member_category> getMemberCategory()
+        protected void btRemove_Click(object sender, EventArgs e)
         {
-            List<member_category> memberCategoryList = new List<member_category>();
-            
-            member_category nyMemberCategory1 = new member_category();            
-            nyMemberCategory1.categoryId = 1;
-            nyMemberCategory1.category = "Junior 0 - 12 år";
-            nyMemberCategory1.cleaningFee = 0;
-            memberCategoryList.Add(nyMemberCategory1);
+            member newMember = new member();
+            newMember.memberId = Convert.ToInt32(tbIdMember.Text);
 
-            member_category nyMemberCategory2 = new member_category(); 
-            nyMemberCategory2.categoryId = 2;
-            nyMemberCategory2.category = "Junior 13 - 21 år";
-            nyMemberCategory2.cleaningFee = 0;
-            memberCategoryList.Add(nyMemberCategory2);
+            users newUser = new users();
+            newUser.idUser = Convert.ToInt32(tbIdUser.Text);
 
-            member_category nyMemberCategory3 = new member_category(); 
-            nyMemberCategory3.categoryId = 3;
-            nyMemberCategory3.category = "Senior";
-            nyMemberCategory3.cleaningFee = 0;
-            memberCategoryList.Add(nyMemberCategory3);
+            methods.removeMember(newMember, newUser);
+        }
 
-            member_category nyMemberCategory4 = new member_category(); 
-            nyMemberCategory4.categoryId = 4;
-            nyMemberCategory4.category = "Studerande";
-            nyMemberCategory4.cleaningFee = 0;
-            memberCategoryList.Add(nyMemberCategory4);
-            
-            return memberCategoryList;
+        public void populate(int id_member)
+        {
+            member newMember = new member();
+            newMember = methods.getMember(id_member);
+            if (newMember.memberId > 0)
+            {
+                tbIdMember.Text = newMember.memberId.ToString();
+                tbFirstName.Text = newMember.firstName;
+                tbLastName.Text = newMember.lastName;
+                tbAddress.Text = newMember.address;
+                tbPostalCode.Text = newMember.postalCode;
+                tbCity.Text = newMember.city;
+                tbMail.Text = newMember.mail;
+                ddlGender.Text = newMember.gender.ToString();
+                tbHcp.Text = newMember.hcp.ToString();
+                tbMail.Text = newMember.mail;
+                tbGolfId.Text = newMember.golfId;
+                newMember.categoryId = Convert.ToInt32(ddlCategoryId.Text);
+                ddlCategory.Text = newMember.category;
+            }
+            users newUser = new users();
+            newUser = methods.getUser(newMember.memberId);
+            if (newUser.idUser > 0)
+            {
+                tbIdUser.Text = newUser.idUser.ToString();
+                tbUserName.Text = newUser.userName;
+                tbUserPassword.Text = newUser.userPassword;
+                tbFkIdMember.Text = newUser.fkIdMember.ToString();
+            }
         }
     }
 }
+

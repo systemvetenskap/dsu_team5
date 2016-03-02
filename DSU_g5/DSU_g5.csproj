@@ -120,6 +120,7 @@
     <Compile Include="Classes\member_category.cs" />
     <Compile Include="Classes\methods.cs" />
     <Compile Include="Classes\staff.cs" />
+    <Compile Include="Classes\users.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
