@@ -54,7 +54,7 @@ namespace DSU_g5
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
 
-                while(dr.Read())
+                while (dr.Read())
                 {
                     m = new member();
                     m.memberId = int.Parse(dr["member_id"].ToString());
@@ -73,13 +73,13 @@ namespace DSU_g5
                     bookingmembers.Add(m);
 
                 }
-                
+
             }
             catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
             }
-            
+
             return bookingmembers;
         }
 
@@ -119,10 +119,10 @@ namespace DSU_g5
                 command.Parameters["newHcp"].Value = newMember.hcp;
                 command.Parameters.Add(new NpgsqlParameter("newGolfId", NpgsqlDbType.Varchar));
                 command.Parameters["newGolfId"].Value = newMember.golfId;
-                
+
                 command.Parameters.Add(new NpgsqlParameter("newFkCategoryId", NpgsqlDbType.Integer));
                 command.Parameters["newFkCategoryId"].Value = newMember.categoryId;
-                
+
                 // Ej obligatorisk
                 command.Parameters.Add(new NpgsqlParameter("newMemberCategori", NpgsqlDbType.Varchar));
                 command.Parameters["newMemberCategori"].Value = newMember.category;
@@ -142,8 +142,44 @@ namespace DSU_g5
             }
 
         }
+
+        public static void addNews(news newNews)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlTransaction trans = null;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+
+            try
+            {
+                string sql = string.Empty;
+                conn.Open();
+                trans = conn.BeginTransaction();
+                command.Connection = conn;
+                command.Transaction = trans;
+                sql = "INSERT INTO news (news_info) VALUES(:newNewsInfo) RETURNING news_id" ;
+
+                command.CommandText = sql;
+                int newsID = Convert.ToInt32(command.ExecuteScalar());
+                trans.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                trans.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
     }
 }
+
+
+
     
 
 

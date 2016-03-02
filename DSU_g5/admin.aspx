@@ -5,6 +5,6 @@
      <section id="adminsida">
         <asp:Label ID="lblNews" runat="server" Text="Nyheter"></asp:Label>
         <textarea id="textNews" runat="server" cols="24" rows="20">jfksjsdlg</textarea>
-        <asp:Button ID="publishNews" runat="server" Text="Publicera nyheter" />
+        <asp:Button ID="publishNews" runat="server" Text="Publicera nyheter" OnClick="btnPublish_Click" />
      </section>
 </asp:Content>
