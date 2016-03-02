@@ -27,8 +27,8 @@ namespace DSU_g5
                         "FROM member_new m " +
                         "INNER JOIN game_member gm ON gm.member_id = m.id_member " +
                         "INNER JOIN game g ON g.game_id = gm.game_id " +
-                        "INNER JOIN game_dates gd ON g.date_id = gd.dates_id " +
-                        "INNER JOIN game_starts gs ON g.time_id = gs.time_id " +
+                        "INNER JOIN game_dates gd ON gd.dates_id = g.date_id " +
+                        "INNER JOIN game_starts gs ON gs.time_id = g.time_id " +
                         "WHERE gd.dates = '"+selectedDate+"' " +
                         "GROUP BY m.first_name, m.last_name, m.gender, gm.member_id, m.hcp, gs.times, dates";
                 conn.Open();
