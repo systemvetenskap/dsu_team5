@@ -69,7 +69,6 @@ namespace DSU_g5
                     }
                 }
             }
-
         }
 
         protected void btnTest0800_Click(object sender, EventArgs e)
@@ -144,6 +143,11 @@ namespace DSU_g5
 
             grvBokning.DataSource = dt;
             grvBokning.DataBind();
+        }
+
+        protected void BtnBookAll_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

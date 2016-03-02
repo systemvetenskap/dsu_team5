@@ -168,7 +168,7 @@
     <br />
     <br />
 
-    <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple"></asp:ListBox>
+    <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple"></asp:ListBox><asp:Button ID="BtnBookAll" runat="server" Text="Button" OnClick="BtnBookAll_Click" />
 
 
 </asp:Content>

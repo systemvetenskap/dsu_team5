@@ -12,6 +12,22 @@ namespace DSU_g5
 
     public static class methods
     {
+        public static void bookMember()
+        {
+            string sql;
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            try
+            {
+                sql = ""
+            }
+
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public static List<member> getBookedMember(DateTime selectedDate)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
