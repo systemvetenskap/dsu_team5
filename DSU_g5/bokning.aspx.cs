@@ -94,6 +94,10 @@ namespace DSU_g5
 
         protected void populateGrvBokning()
         {
+            DateTime datum = new DateTime();
+            List<member> bookedMembers = new List<member>();
+            bookedMembers = methods.getBookedMember(datum);
+
             int hours = 11;
             int startingHour = 8;
             DataTable dt = new DataTable();
@@ -116,7 +120,9 @@ namespace DSU_g5
                     }
                     else
                     {
-                        dr[dc.ColumnName] = ":" + i + "0";
+                        int timeID = i + 1 + dt.Columns.IndexOf(dc) * 6;
+                        dr[dc.ColumnName] = ":" + i + "0" + " " + timeID;
+                        //+medlemmar inbokade                        
                     }
                 }
                 dt.Rows.Add(dr);
