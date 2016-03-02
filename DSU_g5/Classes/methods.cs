@@ -143,7 +143,27 @@ namespace DSU_g5
 
         }
 
-        public static void addNews(news newNews)
+
+
+        //public static void addNews(string newsinfo)
+        //{
+        //    NpgsqlConnection conn1 = new NpgsqlConnection("Server=webblabb.miun.se;Port=5432;Database=pgmvaru_g4;User Id=pgmvaru_g4;Password=trapets;ssl=true");
+
+        //    try
+        //    {
+        //        conn1.Open();
+
+
+        //        NpgsqlCommand command1 = new NpgsqlCommand(@"INSERT INTO news(newsInfo) VALUES (:newNewsInfo)", conn);
+
+
+        //        command1.Parameters.Add(new NpgsqlParameter("newNewsInfo", DbType.varchar));
+        //        command1.Parameters[0].Value = newsInfo;
+
+        
+                
+                
+         public static void addNews(news newNews)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction trans = null;
@@ -160,10 +180,13 @@ namespace DSU_g5
                 command.Transaction = trans;
                 sql = "INSERT INTO news (news_info) VALUES(:newNewsInfo) RETURNING news_id" ;
 
+                command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
+                command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
+
                 command.CommandText = sql;
                 int newsID = Convert.ToInt32(command.ExecuteScalar());
                 trans.Commit();
-
+                int numberOfAffectedRows = command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

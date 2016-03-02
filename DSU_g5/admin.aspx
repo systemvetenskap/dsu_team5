@@ -6,5 +6,7 @@
         <asp:Label ID="lblNews" runat="server" Text="Nyheter"></asp:Label>
         <textarea id="textNews" runat="server" cols="24" rows="20">jfksjsdlg</textarea>
         <asp:Button ID="publishNews" runat="server" Text="Publicera nyheter" OnClick="btnPublish_Click" />
+        <asp:Button ID="updateNews" runat="server" Text="Uppdatera nyhet" OnClick="btnUpdateNews_Click" />
+        <asp:Button ID="removeNews" runat="server" Text="Ta bort nyhet" OnClick="btnRemoveNews_Click" />
      </section>
 </asp:Content>
