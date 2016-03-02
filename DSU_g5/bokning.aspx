@@ -164,7 +164,7 @@
 
     <br />
     <br />
-    <asp:GridView ID="grvBokning" runat="server"></asp:GridView>
+    <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
     <br />
     <br />
 
