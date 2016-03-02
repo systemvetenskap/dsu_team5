@@ -1,15 +1,11 @@
 ﻿#medlemssida
 {
     width: 100%;
-    height: 300px;
-    /*height: auto;*/
-    /*padding: 1%;*/
-    /*float: none;*/
+    height: 400px;
 }
 
 .memberlabel {
     width: 150px;
-    /*background-color:blue;*/
     float: left;
 }
 

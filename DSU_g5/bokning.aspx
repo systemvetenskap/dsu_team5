@@ -10,7 +10,7 @@
     </asp:Calendar>
 
 
-    <asp:TextBox ID="tbDates" runat="server"></asp:TextBox>
+    <asp:TextBox ID="tbDates" runat="server" MaxLength="10"></asp:TextBox>
 
 
 <%--    <table style="width: 100%;">
@@ -95,63 +95,63 @@
             <td>10</td>
             <td>10</td>
             <td>10</td>
+            <%--<asp:TableHeaderRow>08</asp:TableHeaderRow>--%>
+        </tr>
+
+        <tr>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
             <%--<td>10</td>--%>
         </tr>
 
         <tr>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
             <%--<td>20</td>--%>
         </tr>
 
         <tr>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
             <%--<td>30</td>--%>
         </tr>
 
         <tr>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
             <%--<td>40</td>--%>
-        </tr>
-
-        <tr>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <%--<td>50</td>--%>
         </tr>
     
 
@@ -164,7 +164,11 @@
 
     <br />
     <br />
-    <asp:GridView ID="grvBokning" runat="server"></asp:GridView>
+    <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
+    <br />
+    <br />
+
+    <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" ></asp:ListBox><asp:Button ID="BtnBookAll" runat="server" Text="Button" OnClick="BtnBookAll_Click" />
 
 
 </asp:Content>

@@ -123,6 +123,7 @@
     <Compile Include="Classes\methods.cs" />
     <Compile Include="Classes\news.cs" />
     <Compile Include="Classes\staff.cs" />
+    <Compile Include="Classes\users.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

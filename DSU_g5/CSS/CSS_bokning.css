@@ -3,3 +3,21 @@
   height: 40px;
   border: 3px black solid;
 }
+
+.lbCell {
+  background-color: #7f8;
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 4px;
+}
+
+.lbCell:hover {
+  background-color: #afc;
+}
+
+/*#lbAllMembers{
+    position: absolute;
+    right:0;
+    top: 800px;
+}*/
