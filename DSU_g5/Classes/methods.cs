@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Npgsql;
+using NpgsqlTypes;
 using System.Configuration;
 using System.Diagnostics;
 
@@ -55,6 +56,66 @@ namespace DSU_g5
             }
             
             return bookingmembers;
+        }
+
+        public static void addMember(member newMember)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlTransaction tran = null;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                conn.Open();
+                tran = conn.BeginTransaction();
+                command.Connection = conn;
+                command.Transaction = tran;
+                string plsql = string.Empty;
+                plsql = plsql + "INSERT INTO member_new (first_name, last_name, address, postal_code,  city, mail, gender, hcp, golf_id, fk_category_id, member_category)";
+                plsql = plsql + " VALUES (:newFirstName, :newLastName, :newAddress, :newPostalCode, :newCity, :newMail, :newGender, :newHcp, :newGolfId, :newFkCategoryId, :newMemberCategori)";
+                plsql = plsql + " RETURNING id_member";
+
+                command.Parameters.Add(new NpgsqlParameter("newFirstName", NpgsqlDbType.Varchar));
+                command.Parameters["newFirstName"].Value = newMember.firstName;
+                command.Parameters.Add(new NpgsqlParameter("newLastName", NpgsqlDbType.Varchar));
+                command.Parameters["newLastName"].Value = newMember.lastName;
+                command.Parameters.Add(new NpgsqlParameter("newAddress", NpgsqlDbType.Varchar));
+                command.Parameters["newAddress"].Value = newMember.address;
+                command.Parameters.Add(new NpgsqlParameter("newPostalCode", NpgsqlDbType.Varchar));
+                command.Parameters["newPostalCode"].Value = newMember.postalCode;
+                command.Parameters.Add(new NpgsqlParameter("newCity", NpgsqlDbType.Varchar));
+                command.Parameters["newCity"].Value = newMember.city;
+                command.Parameters.Add(new NpgsqlParameter("newMail", NpgsqlDbType.Varchar));
+                command.Parameters["newMail"].Value = newMember.mail;
+                command.Parameters.Add(new NpgsqlParameter("newGender", NpgsqlDbType.Varchar));
+                command.Parameters["newGender"].Value = newMember.gender;
+                command.Parameters.Add(new NpgsqlParameter("newHcp", NpgsqlDbType.Double));
+                command.Parameters["newHcp"].Value = newMember.hcp;
+                command.Parameters.Add(new NpgsqlParameter("newGolfId", NpgsqlDbType.Varchar));
+                command.Parameters["newGolfId"].Value = newMember.golfId;
+                
+                command.Parameters.Add(new NpgsqlParameter("newFkCategoryId", NpgsqlDbType.Integer));
+                command.Parameters["newFkCategoryId"].Value = newMember.categoryId;
+                
+                // Ej obligatorisk
+                command.Parameters.Add(new NpgsqlParameter("newMemberCategori", NpgsqlDbType.Varchar));
+                command.Parameters["newMemberCategori"].Value = newMember.category;
+
+                command.CommandText = plsql;
+                int id_member = Convert.ToInt32(command.ExecuteScalar());
+                tran.Commit();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                tran.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+
         }
     }
 }
