@@ -8,6 +8,12 @@ namespace DSU_g5
     public class news
     {
         public int newsId { get; set; }
+        public string newsName { get; set; }
         public string newsInfo { get; set; }
+
+        public override string ToString()
+        {
+            return newsName;
+        }
     }
 }
