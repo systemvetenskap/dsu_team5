@@ -95,63 +95,63 @@
             <td>10</td>
             <td>10</td>
             <td>10</td>
+            <%--<asp:TableHeaderRow>08</asp:TableHeaderRow>--%>
+        </tr>
+
+        <tr>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
+            <td>20</td>
             <%--<td>10</td>--%>
         </tr>
 
         <tr>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
-            <td>20</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
             <%--<td>20</td>--%>
         </tr>
 
         <tr>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
             <%--<td>30</td>--%>
         </tr>
 
         <tr>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
             <%--<td>40</td>--%>
-        </tr>
-
-        <tr>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <%--<td>50</td>--%>
         </tr>
     
 
@@ -165,6 +165,10 @@
     <br />
     <br />
     <asp:GridView ID="grvBokning" runat="server"></asp:GridView>
+    <br />
+    <br />
+
+    <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple"></asp:ListBox>
 
 
 </asp:Content>

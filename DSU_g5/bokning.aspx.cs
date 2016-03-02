@@ -20,6 +20,10 @@ namespace DSU_g5
         {
             List<DateTime> tider = new List<DateTime>();
             populateGrvBokning();
+
+            lbAllMembers.DataSource = methods.showAllMembersForBooking();
+            lbAllMembers.DataBind();
+
         }
 
         protected void BtnShowTable_Click(object sender, EventArgs e)
