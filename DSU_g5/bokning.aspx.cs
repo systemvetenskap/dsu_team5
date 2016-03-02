@@ -13,6 +13,9 @@ namespace DSU_g5
     public partial class bokning : System.Web.UI.Page
     {
         DateTime selectedDate;
+        string trimDate;
+        DateTime trimDateTime;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             List<DateTime> tider = new List<DateTime>();
@@ -73,10 +76,11 @@ namespace DSU_g5
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
             selectedDate = calBokning.SelectedDate;
-            tbDates.Text = selectedDate.ToString();
             //lblTest.Text = sender.ToString();
             lblTest.Text = selectedDate.ToString();
-
+            
+            tbDates.Text = selectedDate.ToString();
+           
 
             string felmeddelandeR = "RÄTTT!!!!";
             string felmeddelandeF = "FEL!!!!";
@@ -96,9 +100,14 @@ namespace DSU_g5
             }
         }
 
+
         protected void Button1_Click(object sender, EventArgs e)
         {
-            ListBox1.DataSource = methods.getBookedMember(selectedDate);
+            string chosenDate = tbDates.Text;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate);
+
+            ListBox1.DataSource = methods.getBookedMember(trimDateTime);
             ListBox1.DataBind();
         }
 

@@ -47,7 +47,7 @@ namespace DSU_g5
                         "INNER JOIN games g on g.member_id = m.id_member " +
                         "INNER JOIN game_dates gd ON g.date_id = gd.dates_id " +
                         "INNER JOIN game_starts gs ON g.time_id = gs.time_id " +
-                        "WHERE gd.dates = '2016-03-05' " +
+                        "WHERE gd.dates = '"+selectedDate+"' " +
                         "GROUP BY m.first_name, m.last_name, m.gender, g. member_id, m.hcp, gs.times, dates";
                 conn.Open();
 

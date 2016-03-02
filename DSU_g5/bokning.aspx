@@ -10,7 +10,7 @@
     </asp:Calendar>
 
 
-    <asp:TextBox ID="tbDates" runat="server"></asp:TextBox>
+    <asp:TextBox ID="tbDates" runat="server" MaxLength="10"></asp:TextBox>
 
 
 <%--    <table style="width: 100%;">
