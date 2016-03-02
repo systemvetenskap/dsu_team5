@@ -126,7 +126,7 @@ namespace DSU_g5
             }
 
             return bookingmembers;
-                }
+        }
                 
         
         
@@ -406,6 +406,85 @@ namespace DSU_g5
                 conn.Close();
             }
             return memberCategoryList;
+        }
+
+        public static List<games> getGamesByDate(DateTime selectedDate)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            List<games> gameList = new List<games>();
+
+            string date = selectedDate.ToString().Split(' ')[0];
+            string sql = "";
+            try
+            {
+                sql = "SELECT game_id, dates, times, game_starts.time_id "+
+                      "FROM game, game_dates, game_starts "+
+                      "WHERE game.date_id = game_dates.dates_id "+
+                      "AND game.time_id = game_starts.time_id "+
+                      "AND dates = '" + date + "';";
+
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+               
+                while (dr.Read())
+                {
+                    games g = new games();
+                    g.date = DateTime.Parse(dr["dates"].ToString());
+                    g.time = Convert.ToDateTime(dr["times"].ToString());
+                    g.timeId = int.Parse(dr["time_id"].ToString());
+                    int gameId = int.Parse(dr["game_id"].ToString());
+                    g.memberInGameList = getBookedMembersByGameId(gameId);
+
+                    gameList.Add(g);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            return gameList;
+        }
+
+        public static List<member> getBookedMembersByGameId(int gameId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            List<member> memberList = new List<member>();
+
+            string sql = "";
+            try
+            {
+                sql = "SELECT id_member, first_name, last_name, address, postal_code, city, mail, gender, hcp, golf_id, member_category "+
+                      "FROM game, game_member, member_new "+
+                      "WHERE game.game_id = game_member.game_id "+
+                      "AND game_member.member_id = member_new.id_member "+
+                      "AND game.game_id = "+ gameId +";";
+
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                
+                while (dr.Read())
+                {
+                    member m = new member();
+                    m.memberId = int.Parse(dr["id_member"].ToString());
+                    m.firstName = dr["first_name"].ToString();
+                    m.lastName = dr["last_name"].ToString();
+                    m.gender = dr["gender"].ToString();
+                    m.hcp = double.Parse(dr["hcp"].ToString());
+
+                    memberList.Add(m);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            return memberList;
         }
     }
 }

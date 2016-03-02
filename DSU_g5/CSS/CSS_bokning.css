@@ -16,6 +16,18 @@
   background-color: #afc;
 }
 
+.lbCell_full {
+  background-color: #f66;
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 4px;
+}
+
+.lbCell_full:hover {
+  background-color: #f88;
+}
+
 /*#lbAllMembers{
     position: absolute;
     right:0;

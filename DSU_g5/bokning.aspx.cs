@@ -158,9 +158,8 @@ namespace DSU_g5
 
         protected void grvBokning_DataBound(object sender, EventArgs e)
         {
-            DateTime datum = new DateTime();
-            List<member> bookedMembers = new List<member>();
-            bookedMembers = methods.getBookedMember(datum);
+            DateTime datum = new DateTime(2016, 3, 5);
+            List<games> gamesList = methods.getGamesByDate(datum);
 
             try
             {
@@ -180,7 +179,33 @@ namespace DSU_g5
                             string klass = "lbCell";
 
                             //loopa igenom bokningar för att hitta deltagare och bokningsmöjlighet
-                            //foreach ()
+                            foreach (games g in gamesList)
+                            {
+                                if (g.timeId == timeID)
+                                {
+                                    double totalHcp = 0;
+                                    foreach (member m in g.memberInGameList)
+                                    {
+                                        //deltagarnas kön
+                                        if (m.gender == "Male")
+                                        {
+                                            deltagare += "M";
+                                        }
+                                        else 
+                                        {
+                                            deltagare += "F";
+                                        }
+
+                                        //deltagarnas totala handicap
+                                        totalHcp += m.hcp;
+                                    }
+
+                                    if (g.memberInGameList.Count >= 4 || totalHcp > 100)
+                                    {
+                                        klass = "lbCell_full";
+                                    }
+                                }
+                            }
 
                             //lägg till linkbutton
                             LinkButton lb = new LinkButton();
