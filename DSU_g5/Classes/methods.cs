@@ -13,23 +13,66 @@ namespace DSU_g5
 
     public static class methods
     {
-        public static void bookMember(DateTime date, int timeId, member chosenM)
+
+        public static void bookMember(DateTime date, int timeId, int chosenMid)
         {
             string sqlInsToGame;
             string sqlInsToGM;
 
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            int dateID = 0;
 
             try
             {
-                sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES((SELECT dates_id FROM game_dates WHERE dates = '" + date + "'), '" + timeId + "') RETURNING id";
+                string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '"+ date +"'";
+                
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
 
+                if(dr.Read())
+                {
+                    dateID = int.Parse(dr["dates_id"].ToString());
+                }
+
+                else
+                {
+                    Debug.WriteLine("Finns ej detta datum i databasen");
+                    return;
+                }
+                dr.Close();
+
+
+                //int dID = dateID;
+
+                //Går att byta ut date nedan. Då bör en date-klass skapas som får det värdet istället.
+                sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
+
+                sqlInsToGM = "INSERT INTO game_member (game_id, member_id) VALUES (@gId, @mId)";
+
+                NpgsqlCommand cmdInsToGame = new NpgsqlCommand(sqlInsToGame, conn);
+                cmdInsToGame.Parameters.AddWithValue("da", dateID);
+                cmdInsToGame.Parameters.AddWithValue("t", timeId);
+
+                int gameID = Convert.ToInt32(cmdInsToGame.ExecuteScalar());
+                conn.Close(); //kanske stäng
+
+
+
+                NpgsqlCommand cmdInsToGameMem = new NpgsqlCommand(sqlInsToGM, conn);
+                cmdInsToGameMem.Parameters.AddWithValue("gId", gameID);
+                cmdInsToGameMem.Parameters.AddWithValue("mId", chosenMid);
+
+                conn.Open();
+                cmdInsToGameMem.ExecuteNonQuery();
+                conn.Close();
 
             }
 
-            catch (Exception ex)
+            catch (NpgsqlException ex)
             {
-
+                Debug.WriteLine(ex.Message);
             }
         }
 
@@ -102,7 +145,7 @@ namespace DSU_g5
            
             try
             {
-                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID  FROM member_new";
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID FROM member_new";
 
                 conn.Open();
 

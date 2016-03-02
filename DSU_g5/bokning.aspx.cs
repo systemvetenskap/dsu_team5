@@ -17,6 +17,7 @@ namespace DSU_g5
         DateTime selectedDate;
         string trimDate;
         DateTime trimDateTime;
+        string mid;
 
         member selectedMember;
 
@@ -28,11 +29,13 @@ namespace DSU_g5
             //lbAllMembers.DataSource = methods.showAllMembersForBooking();
             //lbAllMembers.DataBind();
 
-
-            lbAllMembers.DataSource = methods.showAllMembersForBooking();
-            lbAllMembers.DataBind();
-            lbAllMembers.DataMember = "mId";
-            lbAllMembers.DataTextField = "namn";
+            if(!IsPostBack)
+            {
+                lbAllMembers.DataValueField = "mID";
+                lbAllMembers.DataTextField = "namn";
+                lbAllMembers.DataSource = methods.showAllMembersForBooking();
+                lbAllMembers.DataBind();
+            }
 
         }
 
@@ -100,9 +103,9 @@ namespace DSU_g5
         { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
             try
             {
-                string chosenDate = tbDates.Text;
-                trimDate = chosenDate.Substring(0, 10);
-                trimDateTime = Convert.ToDateTime(trimDate);
+                //string chosenDate = tbDates.Text;
+                //trimDate = chosenDate.Substring(0, 10);
+                //trimDateTime = Convert.ToDateTime(trimDate);
                 ListBox1.DataSource = methods.getBookedMember(trimDateTime);
                 ListBox1.DataBind();
             }
@@ -155,8 +158,16 @@ namespace DSU_g5
 
         protected void BtnBookAll_Click(object sender, EventArgs e)
         {
+            string placeholderMid = lblPlaceholderMemberId.Text;
+            int memberID = Convert.ToInt32(placeholderMid);
 
-            methods.bookMember(trimDateTime, 11, selectedMember);
+
+            string chosenDate = tbDates.Text;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate);
+
+
+            methods.bookMember(trimDateTime, 11, memberID);
         }
 
 
@@ -165,10 +176,18 @@ namespace DSU_g5
         {
             ListBox lb = (ListBox)sender;
             ListItem li = lb.SelectedItem;
-            
-            
-            //string mid = li.Value;
-            //Debug.WriteLine(mid);
+
+
+
+
+            //string mid = this.lbAllMembers.SelectedItem.Text.ToString();
+            mid = li.Value;
+            lblPlaceholderMemberId.Text = mid;
+            Debug.WriteLine(mid);
+
+
+
+
 
             //member m = new member();
             //m.firstName = li.Text.Split(' ')[0];
