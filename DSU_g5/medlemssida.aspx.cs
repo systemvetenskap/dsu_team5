@@ -73,7 +73,7 @@ namespace DSU_g5
                 tbHcp.Text = newMember.hcp.ToString();
                 tbMail.Text = newMember.mail;
                 tbGolfId.Text = newMember.golfId;
-                newMember.categoryId = Convert.ToInt32(ddlCategoryId.Text);
+                //newMember.categoryId = Convert.ToInt32(ddlCategoryId.Text);
                 ddlCategory.Text = newMember.category;
             }
             users newUser = new users();
