@@ -22,7 +22,7 @@ namespace DSU_g5
 
         public override string ToString()
         {
-            return firstName + " " + lastName;
+            return firstName + " " + lastName + " ," + hcp + " ," + gender;
         }
     }
 }

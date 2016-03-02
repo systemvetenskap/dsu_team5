@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -84,12 +86,20 @@ namespace DSU_g5
 
 
         protected void Button1_Click(object sender, EventArgs e)
-        {
-            string chosenDate = tbDates.Text;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate);
-            ListBox1.DataSource = methods.getBookedMember(trimDateTime);
-            ListBox1.DataBind();
+        { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
+            try
+            {
+                string chosenDate = tbDates.Text;
+                trimDate = chosenDate.Substring(0, 10);
+                trimDateTime = Convert.ToDateTime(trimDate);
+                ListBox1.DataSource = methods.getBookedMember(trimDateTime);
+                ListBox1.DataBind();
+            }
+            catch (NpgsqlException ex)
+            {
+                //Debug.WriteLine(ex.Message);
+                Response.Write("<script>alert('" + "Välj ett datum" + "')</script>");
+            }
         }
 
         protected void populateGrvBokning()
