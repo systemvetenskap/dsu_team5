@@ -10,6 +10,11 @@ namespace DSU_g5
         public int categoryId { get; set; }
         public string category { get; set; }
         public int cleaningFee { get; set; }
+        
+        public override string ToString()
+        {
+            return categoryId + " " + category;
+        }
 
     }
 }

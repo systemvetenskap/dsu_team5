@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="bokning.aspx.cs" Inherits="DSU_g5.bokning" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="CSS/CSS_bokning.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
@@ -149,6 +150,10 @@
 
     <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>
     <asp:ListBox ID="ListBox1" runat="server"></asp:ListBox>
+
+    <br />
+    <br />
+    <asp:GridView ID="grvBokning" runat="server"></asp:GridView>
 
 
 </asp:Content>
