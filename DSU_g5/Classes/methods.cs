@@ -6,20 +6,25 @@ using Npgsql;
 using NpgsqlTypes;
 using System.Configuration;
 using System.Diagnostics;
+using System.Data;
 
 namespace DSU_g5
 {
 
     public static class methods
     {
-        public static void bookMember()
+        public static void bookMember(DateTime date, int timeId, member chosenM)
         {
-            string sql;
+            string sqlInsToGame;
+            string sqlInsToGM;
+
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
             try
             {
-                sql = ""
+                sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES((SELECT dates_id FROM game_dates WHERE dates = '" + date + "'), '" + timeId + "') RETURNING id";
+
+
             }
 
             catch (Exception ex)
@@ -83,35 +88,26 @@ namespace DSU_g5
         
         
         //Admin får se alla medlemmar i en lista. Möjliggör för att lägga in personer på bokning.
-        public static List<member> showAllMembersForBooking()
+        public static DataTable showAllMembersForBooking()
         {
+            //GÖR DT i metoden.
+            //NpgsqlDataAdapter istället för Command
+            //använda value
+
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            
-            List<member> membersForBookingList = new List<member>();
-            member m;
+
             string sql;
 
+            DataTable dt = new DataTable();
+           
             try
             {
-                sql = "SELECT * FROM member_new ORDER BY id_member ASC";
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID  FROM member_new";
 
                 conn.Open();
 
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                NpgsqlDataReader dr = cmd.ExecuteReader();
-
-                while(dr.Read())
-                {
-                    m = new member();
-                    m.memberId = int.Parse(dr["id_member"].ToString());
-                    m.firstName = dr["first_name"].ToString();
-                    m.lastName = dr["last_name"].ToString();
-                    m.hcp = double.Parse(dr["hcp"].ToString());
-                    m.gender = dr["gender"].ToString();
-
-                    membersForBookingList.Add(m);
-                }
-
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
             }
 
             catch (NpgsqlException ex)
@@ -119,7 +115,41 @@ namespace DSU_g5
                 Debug.WriteLine(ex.Message);
             }
 
-            return membersForBookingList;
+            return dt;
+
+            //List<member> membersForBookingList = new List<member>();
+            //member m;
+            //string sql;
+
+            //try
+            //{
+            //    sql = "SELECT * FROM member_new ORDER BY id_member ASC";
+
+            //    conn.Open();
+
+            //    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            //    NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            //    while(dr.Read())
+            //    {
+            //        m = new member();
+            //        m.memberId = int.Parse(dr["id_member"].ToString());
+            //        m.firstName = dr["first_name"].ToString();
+            //        m.lastName = dr["last_name"].ToString();
+            //        m.hcp = double.Parse(dr["hcp"].ToString());
+            //        m.gender = dr["gender"].ToString();
+
+            //        membersForBookingList.Add(m);
+            //    }
+
+            //}
+
+            //catch (NpgsqlException ex)
+            //{
+            //    Debug.WriteLine(ex.Message);
+            //}
+
+            //return membersForBookingList;
         }
 
 

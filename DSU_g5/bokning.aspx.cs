@@ -18,13 +18,21 @@ namespace DSU_g5
         string trimDate;
         DateTime trimDateTime;
 
+        member selectedMember;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             List<DateTime> tider = new List<DateTime>();
             populateGrvBokning();
 
+            //lbAllMembers.DataSource = methods.showAllMembersForBooking();
+            //lbAllMembers.DataBind();
+
+
             lbAllMembers.DataSource = methods.showAllMembersForBooking();
             lbAllMembers.DataBind();
+            lbAllMembers.DataMember = "mId";
+            lbAllMembers.DataTextField = "namn";
 
         }
 
@@ -147,6 +155,30 @@ namespace DSU_g5
 
         protected void BtnBookAll_Click(object sender, EventArgs e)
         {
+
+            methods.bookMember(trimDateTime, 11, selectedMember);
+        }
+
+
+
+        protected void lbAllMembers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox lb = (ListBox)sender;
+            ListItem li = lb.SelectedItem;
+            
+            
+            //string mid = li.Value;
+            //Debug.WriteLine(mid);
+
+            //member m = new member();
+            //m.firstName = li.Text.Split(' ')[0];
+
+            //selectedMember = (member)lb.Items[li.Selected].Attributes.;
+
+            //selectedMember = member.Parse(li);
+
+           // selectedMember = (member)lbAllMembers.SelectedItem;
+
 
         }
     }
