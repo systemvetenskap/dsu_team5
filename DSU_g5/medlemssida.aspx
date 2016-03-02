@@ -3,43 +3,60 @@
     <link href="CSS/CSS_medlemssida.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     <section id="medlemssida">
-        <asp:Label ID="lbIdMember" runat="server" Text="Medlems ID"></asp:Label>
-        <asp:TextBox ID="tbIdMember" runat="server" ></asp:TextBox>
 
-        <asp:Label ID="lbFirstName" runat="server" Text="Förnamn"></asp:Label>
-        <asp:TextBox ID="tbFirstName" runat="server" ></asp:TextBox>
+        <asp:Label ID="lbIdMember" CssClass="memberlabel" runat="server" Text="Medlems ID"></asp:Label>
+        <asp:TextBox ID="tbIdMember" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
 
-        <asp:Label ID="lbLastName" runat="server" Text="Efternamn"></asp:Label>
-        <asp:TextBox ID="tbLastName" runat="server"></asp:TextBox>
-        <asp:Label ID="lbAddress" runat="server" Text="Address"></asp:Label>
-        <asp:TextBox ID="tbAddress" runat="server"></asp:TextBox>
+        <asp:Label ID="lbFirstName" CssClass="memberlabel" runat="server" Text="Förnamn"></asp:Label>
+        <asp:TextBox ID="tbFirstName" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
 
-        <asp:Label ID="lbPostalCode" runat="server" Text="Postkod"></asp:Label>
-        <asp:TextBox ID="tbPostalCode" runat="server"></asp:TextBox>
-
-        <asp:Label ID="lbCity" runat="server" Text="Stad"></asp:Label>
-        <asp:TextBox ID="tbCity" runat="server"></asp:TextBox>
-
-        <asp:Label ID="lbMail" runat="server" Text="E-post"></asp:Label>
-        <asp:TextBox ID="tbMail" runat="server"></asp:TextBox>
-
-        <asp:Label ID="lbGender" runat="server" Text="Kön"></asp:Label>
-        <asp:DropDownList ID="ddlGender" runat="server" Height="20px" Width="120px"></asp:DropDownList>
-
-        <asp:Label ID="lbHcp" runat="server" Text="HCP"></asp:Label>
-        <asp:TextBox ID="tbHcp" runat="server"></asp:TextBox>
-
-        <asp:Label ID="lbGolfId" runat="server" Text="Golf Id"></asp:Label>
-        <asp:TextBox ID="tbGolfId" runat="server"></asp:TextBox>
+        <asp:Label ID="lbLastName" CssClass="memberlabel" runat="server" Text="Efternamn"></asp:Label>
+        <asp:TextBox ID="tbLastName" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
         
-        <asp:Label ID="lbCategoryId" runat="server" Text="Medlems kategori id"></asp:Label>
-        <asp:DropDownList ID="ddlCategoryId" runat="server" Height="20px" Width="120px"></asp:DropDownList>
-        <asp:DropDownList ID="ddlCategory" runat="server" Height="20px" Width="120px"></asp:DropDownList>
-        
-        <asp:Button ID="btAdd" runat="server" Text="Lägg till" OnClick="btAdd_Click" />
-        <asp:Button ID="btUpdate" runat="server" Text="Uppdatera" />
-        <asp:Button ID="btRemove" runat="server" Text="Ta bort" />
+        <asp:Label ID="lbAddress" CssClass="memberlabel" runat="server" Text="Address"></asp:Label>
+        <asp:TextBox ID="tbAddress" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbPostalCode" CssClass="memberlabel" runat="server" Text="Postkod"></asp:Label>
+        <asp:TextBox ID="tbPostalCode" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbCity" CssClass="memberlabel" runat="server" Text="Stad"></asp:Label>
+        <asp:TextBox ID="tbCity" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbMail" CssClass="memberlabel" runat="server" Text="E-post"></asp:Label>
+        <asp:TextBox ID="tbMail" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbGender" CssClass="memberlabel" runat="server" Text="Kön"></asp:Label>
+        <asp:DropDownList ID="ddlGender" CssClass="membertextbox" runat="server"></asp:DropDownList>
+        <br />
+
+        <asp:Label ID="lbHcp" CssClass="memberlabel" runat="server" Text="HCP"></asp:Label>
+        <asp:TextBox ID="tbHcp" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbGolfId" CssClass="memberlabel" runat="server" Text="Golf Id"></asp:Label>
+        <asp:TextBox ID="tbGolfId" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbCategoryId" CssClass="memberlabel" runat="server" Text="Medlems kategori id" ></asp:Label>
+        <asp:DropDownList ID="ddlCategoryId" CssClass="membertextbox" runat="server"></asp:DropDownList>
+        <br />
+
+        <asp:Label ID="lbCategory" CssClass="memberlabel" runat="server" Text="Medlems kategori" ></asp:Label>
+        <asp:DropDownList ID="ddlCategory" CssClass="membertextbox" runat="server"></asp:DropDownList>
+        <br />
+        <br />
+        <asp:Button ID="btAdd" CssClass="memberbutton" runat="server" Text="Lägg till" OnClick="btAdd_Click" />
+        <asp:Button ID="btUpdate" CssClass="memberbutton" runat="server" Text="Uppdatera" />
+        <asp:Button ID="btRemove" CssClass="memberbutton" runat="server" Text="Ta bort" />
 
      </section>
 
