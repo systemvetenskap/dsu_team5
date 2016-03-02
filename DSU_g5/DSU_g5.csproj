@@ -76,6 +76,7 @@
     <Content Include="CSS\CSS_bokning.css" />
     <Content Include="CSS\CSS_main.css" />
     <Content Include="CSS\CSS_medlemssida.css" />
+    <Content Include="CSS\CSS_index.css" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
     <Content Include="medlemsregistrering.aspx" />
@@ -84,6 +85,10 @@
     <Content Include="Npgsql.dll" />
     <Content Include="packages.config" />
     <Content Include="headsite.Master" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -153,6 +158,11 @@
     </Compile>
     <Compile Include="headsite.Master.designer.cs">
       <DependentUpon>headsite.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

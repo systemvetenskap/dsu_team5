@@ -73,6 +73,7 @@ namespace DSU_g5
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
             selectedDate = calBokning.SelectedDate;
+            tbDates.Text = selectedDate.ToString();
             //lblTest.Text = sender.ToString();
             lblTest.Text = selectedDate.ToString();
 
@@ -98,6 +99,7 @@ namespace DSU_g5
         protected void Button1_Click(object sender, EventArgs e)
         {
             ListBox1.DataSource = methods.getBookedMember(selectedDate);
+            ListBox1.DataBind();
         }
 
         /// <summary>
