@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <section id="adminsida">
         <asp:Label ID="lblNews" runat="server" Text="Nyheter"></asp:Label>
-        <textarea id="textNews" cols="24" rows="20"></textarea>
+        <textarea id="textNews" runat="server" cols="24" rows="20">jfksjsdlg</textarea>
         <asp:Button ID="publishNews" runat="server" Text="Publicera nyheter" />
      </section>
 </asp:Content>
