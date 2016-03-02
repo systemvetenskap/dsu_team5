@@ -14,20 +14,39 @@ namespace DSU_g5
     {
         public static List<member> getBookedMember(DateTime selectedDate)
         {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            //ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["Halslaget"];
+            //NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+
+            //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            NpgsqlConnection conn = new NpgsqlConnection("Server=webblabb.miun.se;Port=5432;Database=dsu_g5;User Id=dsu_g5;Password=dsu_g5;SSL=true");
+
             List<member> bookingmembers = new List<member>();
+
+
+
+
+
+
+
+
+            //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            //List<member> bookingmembers = new List<member>();
             member m;
             game_starts gs;
+            game_dates gd;
 
             string sql = "";
             try
             {
-                sql = "SELECT first_name, last_name, gender, g.member_id, hcp, times " +
-                        "FROM member m " +
-                        "INNER JOIN games g on g.member_id = m.id_member "+
-                        "INNER JOIN game_dates gd ON g.date_id = gd.dates_id "+
-                        "INNER JOIN game_starts gs ON g.time_id = gs.time_id "+
-                        "WHERE gd.dates = '" + selectedDate + "'";
+                sql = "SELECT first_name, last_name, gender, g.member_id, hcp, times, dates " +
+                        "FROM member_new m " +
+                        "INNER JOIN games g on g.member_id = m.id_member " +
+                        "INNER JOIN game_dates gd ON g.date_id = gd.dates_id " +
+                        "INNER JOIN game_starts gs ON g.time_id = gs.time_id " +
+                        "WHERE gd.dates = '2016-03-05' " +
+                        "GROUP BY m.first_name, m.last_name, m.gender, g. member_id, m.hcp, gs.times, dates";
                 conn.Open();
 
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
@@ -44,6 +63,10 @@ namespace DSU_g5
 
                     gs = new game_starts();
                     gs.times = Convert.ToDateTime(dr["times"].ToString());
+
+                    gd = new game_dates();
+                    gd.dates = DateTime.Parse(dr["dates"].ToString());
+
 
                     bookingmembers.Add(m);
 

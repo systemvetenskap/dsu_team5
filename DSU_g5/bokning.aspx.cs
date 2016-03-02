@@ -98,6 +98,7 @@ namespace DSU_g5
         protected void Button1_Click(object sender, EventArgs e)
         {
             ListBox1.DataSource = methods.getBookedMember(selectedDate);
+            ListBox1.DataBind();
         }
 
         /// <summary>
