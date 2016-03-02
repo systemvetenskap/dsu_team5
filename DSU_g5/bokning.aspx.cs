@@ -73,6 +73,7 @@ namespace DSU_g5
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
             selectedDate = calBokning.SelectedDate;
+            tbDates.Text = selectedDate.ToString();
             //lblTest.Text = sender.ToString();
             lblTest.Text = selectedDate.ToString();
 

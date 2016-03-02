@@ -10,6 +10,9 @@
     </asp:Calendar>
 
 
+    <asp:TextBox ID="tbDates" runat="server"></asp:TextBox>
+
+
 <%--    <table style="width: 100%;">
         <tr>
             <td>&nbsp;</td>
@@ -32,13 +35,22 @@
 
 
 
-    <asp:Button ID="BtnShowTable" runat="server" Text="Button" OnClick="BtnShowTable_Click" />
+    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
 
 
 
     <asp:Table ID="TestTable" runat="server">
         <%--<asp:TableHeaderRow>08</asp:TableHeaderRow>--%>
     </asp:Table>
+
+
+
+
+    <br />
+
+
+
+    <asp:Button ID="BtnShowTable" runat="server" Text="Button" OnClick="BtnShowTable_Click" />
 
 
 
@@ -144,7 +156,6 @@
     
 
     </table>
-    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
     <br />
     <br />
 
