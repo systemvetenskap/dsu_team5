@@ -46,17 +46,31 @@
         <asp:TextBox ID="tbGolfId" CssClass="membertextbox" runat="server"></asp:TextBox>
         <br />
 
-        <asp:Label ID="lbCategoryId" CssClass="memberlabel" runat="server" Text="Medlems kategori id" ></asp:Label>
-        <asp:DropDownList ID="ddlCategoryId" CssClass="membertextbox" runat="server"></asp:DropDownList>
-        <br />
-
         <asp:Label ID="lbCategory" CssClass="memberlabel" runat="server" Text="Medlems kategori" ></asp:Label>
         <asp:DropDownList ID="ddlCategory" CssClass="membertextbox" runat="server"></asp:DropDownList>
         <br />
         <br />
+
+        <asp:Label ID="lbIdUser" CssClass="memberlabel" runat="server" Text="AnvändarId"></asp:Label>
+        <asp:TextBox ID="tbIdUser" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbUserName" CssClass="memberlabel" runat="server" Text="Användarnamn"></asp:Label>
+        <asp:TextBox ID="tbUserName" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbUserPassword" CssClass="memberlabel" runat="server" Text="Lösenord"></asp:Label>
+        <asp:TextBox ID="tbUserPassword" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+
+        <asp:Label ID="lbFkIdMember" CssClass="memberlabel" runat="server" Text="MedlemsId"></asp:Label>
+        <asp:TextBox ID="tbFkIdMember" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <br />
+        <br />
+
         <asp:Button ID="btAdd" CssClass="memberbutton" runat="server" Text="Lägg till" OnClick="btAdd_Click" />
         <asp:Button ID="btUpdate" CssClass="memberbutton" runat="server" Text="Uppdatera" />
-        <asp:Button ID="btRemove" CssClass="memberbutton" runat="server" Text="Ta bort" />
+        <asp:Button ID="btRemove" CssClass="memberbutton" runat="server" Text="Ta bort" OnClick="btRemove_Click" />
 
      </section>
 

@@ -24,5 +24,7 @@ namespace DSU_g5
         {
             return firstName + " " + lastName;
         }
+
+        public string id_member { get; set; }
     }
 }
