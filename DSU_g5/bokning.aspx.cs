@@ -120,8 +120,8 @@ namespace DSU_g5
                     }
                     else
                     {
-                        int timeID = i + 1 + dt.Columns.IndexOf(dc) * 6;
-                        dr[dc.ColumnName] = ":" + i + "0" + " " + timeID;
+                        //int timeID = i + 1 + dt.Columns.IndexOf(dc) * 6;
+                        dr[dc.ColumnName] = ":" + i + "0";
                         //+medlemmar inbokade                        
                     }
                 }
@@ -130,6 +130,60 @@ namespace DSU_g5
 
             grvBokning.DataSource = dt;
             grvBokning.DataBind();
+        }
+
+        protected void grvBokning_DataBound(object sender, EventArgs e)
+        {
+            DateTime datum = new DateTime();
+            List<member> bookedMembers = new List<member>();
+            bookedMembers = methods.getBookedMember(datum);
+
+            try
+            {
+                GridView gridview = (GridView)sender;
+
+                int column = 0;
+                foreach (GridViewRow gr in gridview.Rows)
+                {
+                    foreach (TableCell tc in gr.Cells)
+                    {
+                        //radindex + 1 + columnindex * 6
+                        int timeID = gr.RowIndex + 1 + column * 6;
+
+                        if (timeID < 62)
+                        {
+                            string deltagare = "";
+                            string klass = "lbCell";
+
+                            //loopa igenom bokningar för att hitta deltagare och bokningsmöjlighet
+                            //foreach ()
+
+                            //lägg till linkbutton
+                            LinkButton lb = new LinkButton();
+                            lb.Text = tc.Text + "<br/><br/>" + deltagare;                            
+                            lb.CssClass = klass;
+                            lb.CommandArgument = timeID.ToString();
+                            lb.Click += new EventHandler(lb_Click);
+                            tc.Controls.Add(lb);
+
+                            column++;
+                        }                        
+                    }
+                    column = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void lb_Click(object sender, EventArgs e)
+        {
+            LinkButton lb = sender as LinkButton;
+            string msg = lb.CommandArgument;
+
+            Response.Write("<script>alert('"+ msg +"')</script>");
         }
     }
 }

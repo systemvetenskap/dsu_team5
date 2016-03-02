@@ -3,3 +3,15 @@
   height: 40px;
   border: 3px black solid;
 }
+
+.lbCell {
+  background-color: #7f8;
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 4px;
+}
+
+.lbCell:hover {
+  background-color: #afc;
+}
