@@ -178,6 +178,8 @@ namespace DSU_g5
             LinkButton lb = sender as LinkButton;
             string msg = lb.CommandArgument;
 
+            hfPlaceholderMemberId.Value = lb.CommandArgument;
+
             Response.Write("<script>alert('"+ msg +"')</script>");
         }
 
@@ -186,16 +188,17 @@ namespace DSU_g5
         {
             string placeholderMid = hfPlaceholderMemberId.Value;
             int memberID = Convert.ToInt32(placeholderMid);
-
-
+            
             string chosenDate = hfChosenDate.Value;
-
             trimDate = chosenDate.Substring(0, 10);
             trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
             
+            string placeholderTid = hfTimeId.Value;
+            int timeID = Convert.ToInt32(placeholderTid);
 
+            
             //11 är nu hårdkodat och är TimeID. Detta ska bytas ut mot det man väljer i datagriden.
-            methods.bookMember(trimDateTime, 11, memberID);
+            methods.bookMember(trimDateTime, timeID, memberID);
         }
 
 
