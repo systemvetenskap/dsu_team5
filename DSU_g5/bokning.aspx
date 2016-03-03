@@ -8,6 +8,7 @@
     <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged">
 
     </asp:Calendar>
+    
 
 
 
@@ -134,7 +135,11 @@
 
     <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox><asp:Button ID="BtnBookAll" runat="server" Text="Button" OnClick="BtnBookAll_Click" />
 
-
+        <asp:Calendar ID="startCalendar" runat="server">
+    </asp:Calendar>
+        <asp:Calendar ID="endCalendar" runat="server">
+    </asp:Calendar>
+    <asp:Button ID="btnAddSeason" runat="server" Text="Sesong" OnClick="btnAddSeason_Click"/>
     <asp:HiddenField ID="hfPlaceholderMemberId" runat="server" />
     <asp:HiddenField ID="hfChosenDate" runat="server" />
     <asp:HiddenField ID="hfTimeId" runat="server" />
