@@ -73,6 +73,7 @@
   <ItemGroup>
     <Content Include="admin.aspx" />
     <Content Include="bokning.aspx" />
+    <Content Include="CSS\CSS_admin.css" />
     <Content Include="CSS\CSS_bokning.css" />
     <Content Include="CSS\CSS_main.css" />
     <Content Include="CSS\CSS_medlemssida.css" />
