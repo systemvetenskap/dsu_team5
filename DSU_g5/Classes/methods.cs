@@ -448,6 +448,81 @@ namespace DSU_g5
 
             return memberList;
         }
+
+
+        public static void addNews(news newNews)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlTransaction trans = null;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+
+            try
+            {
+                string sql = string.Empty;
+                conn.Open();
+                trans = conn.BeginTransaction();
+                command.Connection = conn;
+                command.Transaction = trans;
+                sql = "INSERT INTO news (news_info) VALUES(:newNewsInfo) RETURNING news_id";
+
+                command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
+                command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
+
+                command.CommandText = sql;
+                int newsID = Convert.ToInt32(command.ExecuteScalar());
+                trans.Commit();
+                int numberOfAffectedRows = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                trans.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        public static void updateNews(news newNews)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlTransaction trans = null;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                string sql = string.Empty;
+                conn.Open();
+                trans = conn.BeginTransaction();
+                command.Connection = conn;
+                command.Transaction = trans;
+                sql = "UPDATE news SET news_info = :newNewsInfo WHERE news_id = :newNewsId RETURNING news_id";
+
+                command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
+                command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
+                command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
+                command.Parameters["newNewsId"].Value = newNews.newsId;
+
+                command.CommandText = sql;
+                int news_id = Convert.ToInt32(command.ExecuteScalar());
+                trans.Commit();
+                int numberOfAffectedRows = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                trans.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+
     }
 }
     
