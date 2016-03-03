@@ -35,6 +35,7 @@ namespace DSU_g5
                 lbAllMembers.DataBind();
             }
 
+
         }
 
  
@@ -48,16 +49,16 @@ namespace DSU_g5
 
         protected void Button1_Click(object sender, EventArgs e)
         { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
-            try
-            {
-                ListBox1.DataSource = methods.getBookedMember(trimDateTime);
-                ListBox1.DataBind();
-            }
-            catch (NpgsqlException ex)
-            {
-                //Debug.WriteLine(ex.Message);
-                Response.Write("<script>alert('" + "Välj ett datum" + "')</script>");
-            }
+            //try
+            //{
+            //    ListBox1.DataSource = methods.getBookedMember(trimDateTime);
+            //    ListBox1.DataBind();
+            //}
+            //catch (NpgsqlException ex)
+            //{
+            //    //Debug.WriteLine(ex.Message);
+            //    Response.Write("<script>alert('" + "Välj ett datum" + "')</script>");
+            //}
         }
 
         protected void populateGrvBokning()
