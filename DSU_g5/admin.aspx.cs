@@ -11,7 +11,7 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             List<news> newsList = new List<news>();
             newsList = methods.getNewsList();
             ddlNewsName.DataSource = newsList;
@@ -32,7 +32,7 @@ namespace DSU_g5
             newNews.newsInfo = textNews.InnerText;
             newNews.newsId = 1;
 
-           methods.updateNews(newNews);
+            methods.updateNews(newNews);
         }
 
         protected void btnRemoveNews_Click(object sender, EventArgs e)
@@ -40,13 +40,22 @@ namespace DSU_g5
             news newNews = new news();
             newNews.newsInfo = textNews.InnerText;
 
-            //methods.removeNews(newNews);
+            methods.removeNews(newNews);
         }
 
-    //    protected void ddlNewsName_SelectedIndexChanged(object sender, EventArgs e)
-    //    {
-    //        news chosenNews = new news();
-    //        chosenNews = (news)ddlNewsName.SelectedItem; 
-    //    }
-      }
+        protected void ddlNewsName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList newsName = (DropDownList)sender;
+            ListItem li = newsName.SelectedItem;
+            int id = Convert.ToInt32(li.Value);
+            string value = li.Text;
+
+
+
+        }
+
+    }
 }
+            
+            
+

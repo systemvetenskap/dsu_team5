@@ -12,9 +12,9 @@
         <br />
         <asp:Label ID="lblUpdateNews" CSSclass="newslabel" runat="server" Text="Uppdatera nyhet"></asp:Label>
         <br />
-        <asp:DropDownList ID="ddlNewsName" CSSclass="newsddl" runat="server" OnSelectedIndexChanged="ddlNewsName_SelectedIndexChanged"></asp:DropDownList>
+        <asp:DropDownList ID="ddlNewsName" CSSclass="newsddl" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlNewsName_SelectedIndexChanged"></asp:DropDownList>
         <br />
- 
+  
         <textarea id="textNews" runat="server" cols="24" rows="20">jfksjsdlg</textarea>
         <br />
         <asp:Button ID="publishNews" CSSclass="newsbutton" runat="server" Text="Publicera nyheter" OnClick="btnPublish_Click" />
