@@ -560,9 +560,39 @@ namespace DSU_g5
             }
         }
 
+        public static List<news> getNewsList()
+        {
+            List<news> newsList = new List<news>();
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            //news newNews = new news();
+            try
+            {
+                conn.Open();
+                string sql = string.Empty;
+                sql = "SELECT news_id,news_info,news_name FROM news;";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    news newNews = new news();
+                    newNews.newsId = (int)(dr["news_id"]);
+                    newNews.newsInfo = (string)(dr["news_info"]);
+                    newNews.newsName = (string)(dr["news_name"]);
+                    newsList.Add(newNews);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newsList;
+        }
+
 
     }
+
 }
+
     
 
 

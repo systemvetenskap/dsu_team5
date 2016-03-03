@@ -11,7 +11,11 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
+            List<news> newsList = new List<news>();
+            newsList = methods.getNewsList();
+            ddlNewsName.DataSource = newsList;
+            ddlNewsName.DataBind();
         }
 
         protected void btnPublish_Click(object sender, EventArgs e)
@@ -26,8 +30,9 @@ namespace DSU_g5
         {
             news newNews = new news();
             newNews.newsInfo = textNews.InnerText;
+            newNews.newsId = 1;
 
-            methods.updateNews(newNews);
+           methods.updateNews(newNews);
         }
 
         protected void btnRemoveNews_Click(object sender, EventArgs e)
@@ -35,8 +40,13 @@ namespace DSU_g5
             news newNews = new news();
             newNews.newsInfo = textNews.InnerText;
 
-            //methods.updateNews(newNews);
+            //methods.removeNews(newNews);
         }
 
-    }
+    //    protected void ddlNewsName_SelectedIndexChanged(object sender, EventArgs e)
+    //    {
+    //        news chosenNews = new news();
+    //        chosenNews = (news)ddlNewsName.SelectedItem; 
+    //    }
+      }
 }

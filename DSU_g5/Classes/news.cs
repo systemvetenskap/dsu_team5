@@ -13,7 +13,9 @@ namespace DSU_g5
 
         public override string ToString()
         {
-            return newsName;
+            return newsId.ToString() + " " + newsName;
+
+
         }
     }
 }
