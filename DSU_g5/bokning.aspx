@@ -29,7 +29,7 @@
         <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
         <div id="bokningarInfo">
             <asp:ListBox ID="lbBookedMembers" runat="server" OnSelectedIndexChanged="lbBookedMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
-            <p id="pBokningarInfo"></p>
+            <p id="pBokningarInfo" runat="server"></p>
         </div>
     </div>
     <br />
