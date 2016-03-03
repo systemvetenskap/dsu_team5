@@ -205,8 +205,6 @@ namespace DSU_g5
 
 
 
-
-
         protected void lbAllMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListBox lb = (ListBox)sender;
@@ -218,6 +216,22 @@ namespace DSU_g5
 
             Debug.WriteLine(mid);
 
+        }
+
+        protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
+        {
+            //SKAPA EN VOIDMETOD();
+            string placeholderMid = hfPlaceholderMemberId.Value;
+            int memberID = Convert.ToInt32(placeholderMid);
+            
+            string chosenDate = hfChosenDate.Value;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+            
+            string placeholderTid = hfTimeId.Value;
+            int timeID = Convert.ToInt32(placeholderTid);
+
+            methods.unBookMember(trimDateTime, timeID, memberID);
         }
     }
 }

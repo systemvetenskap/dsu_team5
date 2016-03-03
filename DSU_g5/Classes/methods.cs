@@ -23,7 +23,7 @@ namespace DSU_g5
 
             try
             {
-                string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '"+ date +"'";
+                string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
                 
                 NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
                 conn.Open();
@@ -73,6 +73,76 @@ namespace DSU_g5
                 Debug.WriteLine(ex.Message);
             }
         }
+
+        public static void unBookMember(DateTime date, int timeId, int chosenMemberId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            
+            int dateId = 0;
+            int gameId = 0;
+
+            string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
+
+
+            try
+            {
+                conn.Open();
+
+                NpgsqlCommand cmdGetDateId = new NpgsqlCommand(sqlGetDateId, conn);
+                NpgsqlDataReader dr = cmdGetDateId.ExecuteReader();
+
+                if(dr.Read())
+                {
+                    dateId = int.Parse(dr["dates_id"].ToString());
+                }
+                else
+                {
+                    Debug.WriteLine("Finns ej detta datum_id i databasen");
+                    return;
+                }
+                dr.Close();
+                conn.Close();
+
+
+                conn.Open();
+                string sqlGetGameId = "SELECT game_id FROM game WHERE date_id = '" + dateId + "' AND time_id = '" + timeId + "'";
+                NpgsqlCommand cmdGetGameId = new NpgsqlCommand(sqlGetGameId, conn);
+                NpgsqlDataReader dRead = cmdGetGameId.ExecuteReader();
+                
+                if(dRead.Read())
+                {
+                    gameId = int.Parse(dRead["game_id"].ToString());
+                }
+                else
+                {
+                    Debug.WriteLine("Finns ej detta game_id i databasen");
+                    return;
+                }
+                dRead.Close();
+
+
+                string sqlDelFromGM = "DELETE FROM game_member WHERE game_id = '" + gameId + "' AND member_id = '" + chosenMemberId + "'";
+                NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
+                cmdDelGM.ExecuteNonQuery();
+                conn.Close();
+
+
+
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                conn.Close();
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+
+        }
+
 
         public static List<member> getBookedMember(DateTime selectedDate)
         {
