@@ -47,8 +47,8 @@ namespace DSU_g5
         {
             DropDownList newsName = (DropDownList)sender;
             ListItem li = newsName.SelectedItem;
-            int id = Convert.ToInt32(li.Value);
             string value = li.Text;
+            //int id = Convert.ToInt32(li.Value);
 
         }
 
