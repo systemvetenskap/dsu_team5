@@ -18,7 +18,7 @@ namespace DSU_g5
         string trimDate;
         DateTime trimDateTime;
         string mid;
-        string msg;
+
         member selectedMember;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -31,61 +31,17 @@ namespace DSU_g5
             {
                 lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
                 lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
-            lbAllMembers.DataSource = methods.showAllMembersForBooking();
-            lbAllMembers.DataBind();
+                lbAllMembers.DataSource = methods.showAllMembersForBooking();
+                lbAllMembers.DataBind();
             }
 
         }
 
-        protected void BtnShowTable_Click(object sender, EventArgs e)
-        {
-            int totRow = 7;
-            int currentRowCount;
-            int totCellsInRow = 11;
-            int currentCellCount;
-
-
-            for (currentRowCount = 1; currentRowCount <= totRow; currentRowCount++)
-            {
-                TableRow tRow = new TableRow();
-                TestTable.Rows.Add(tRow);
-
-                for (currentCellCount = 1; currentCellCount <= totCellsInRow; currentCellCount++)
-                {
-                    TableCell tCell = new TableCell();
-                    tRow.Cells.Add(tCell);
-
-                    string textInCell = currentRowCount + " " + currentCellCount;
-
-                    tCell.Controls.Add(new LiteralControl("Rad/Celln"));
-                    HyperLink h = new HyperLink();
-                    h.Text = currentRowCount + ":" + currentCellCount;
-                    h.NavigateUrl = "http://www.nba.com/";
-                    tCell.Controls.Add(h);
-
-                    if(currentRowCount % 2 != 0)
-                    {
-                        //tRow.BorderColor = System.Drawing.Color.Black;
-                        //tRow.BorderStyle =
-                        tRow.BackColor = System.Drawing.Color.Red;
-                    
-                    }
-
-                    else if(currentRowCount % 2 == 0)
-                    {
-                        //tRow.BorderColor = System.Drawing.Color.Yellow;
-                        tRow.BackColor = System.Drawing.Color.Green;
-                    }
-                }
-            }
-        }
-
-
-
+ 
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
             selectedDate = calBokning.SelectedDate;
-            tbDates.Text = selectedDate.ToString();
+            hfChosenDate.Value = selectedDate.ToShortDateString();
             //lblTest.Text = selectedDate.ToString();            
         }
 
@@ -221,8 +177,6 @@ namespace DSU_g5
         {
             LinkButton lb = sender as LinkButton;
             string msg = lb.CommandArgument;
-            
-
 
             Response.Write("<script>alert('"+ msg +"')</script>");
         }
@@ -230,13 +184,15 @@ namespace DSU_g5
 
         protected void BtnBookAll_Click(object sender, EventArgs e)
         {
-            string placeholderMid = lblPlaceholderMemberId.Text;
+            string placeholderMid = hfPlaceholderMemberId.Value;
             int memberID = Convert.ToInt32(placeholderMid);
-            int tid = int.Parse(msg);
 
-            string chosenDate = tbDates.Text;
+
+            string chosenDate = hfChosenDate.Value;
+
             trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate);
+            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+            
 
             //11 är nu hårdkodat och är TimeID. Detta ska bytas ut mot det man väljer i datagriden.
             methods.bookMember(trimDateTime, 11, memberID);
@@ -252,9 +208,9 @@ namespace DSU_g5
             ListItem li = lb.SelectedItem;
             
 
-            //string mid = this.lbAllMembers.SelectedItem.Text.ToString();
             mid = li.Value;
-            lblPlaceholderMemberId.Text = mid;
+            hfPlaceholderMemberId.Value = mid;
+
             Debug.WriteLine(mid);
 
         }

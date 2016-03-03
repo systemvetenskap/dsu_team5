@@ -10,47 +10,12 @@
     </asp:Calendar>
 
 
-    <asp:TextBox ID="tbDates" runat="server" MaxLength="10"></asp:TextBox>
 
-
-<%--    <table style="width: 100%;">
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-    </table>
-
-    <asp:Table ID="Table1" runat="server"></asp:Table>--%>
-
-
-
-    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
-
-
-
-    <asp:Table ID="TestTable" runat="server">
-        <%--<asp:TableHeaderRow>08</asp:TableHeaderRow>--%>
-    </asp:Table>
-
+    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button1" />
 
 
 
     <br />
-
-
-
-    <asp:Button ID="BtnShowTable" runat="server" Text="Button" OnClick="BtnShowTable_Click" />
 
 
 
@@ -171,10 +136,8 @@
     <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox><asp:Button ID="BtnBookAll" runat="server" Text="Button" OnClick="BtnBookAll_Click" />
 
 
-    <asp:Label ID="lblPlaceholderMemberId" runat="server" Text="Label"></asp:Label>
-
-
     <asp:HiddenField ID="hfPlaceholderMemberId" runat="server" />
+    <asp:HiddenField ID="hfChosenDate" runat="server" />
 
 
 </asp:Content>
