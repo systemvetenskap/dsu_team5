@@ -11,7 +11,6 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             List<news> newsList = new List<news>();
             newsList = methods.getNewsList();
             ddlNewsName.DataSource = newsList;

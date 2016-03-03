@@ -666,10 +666,15 @@ namespace DSU_g5
                 trans = conn.BeginTransaction();
                 command.Connection = conn;
                 command.Transaction = trans;
-                sql = "INSERT INTO news (news_info) VALUES(:newNewsInfo) RETURNING news_id";
+                sql = "INSERT INTO news (news_info, news_name, news_date) VALUES(:newNewsInfo, :newNewsName, :newNewsDate) RETURNING news_id";
 
                 command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
                 command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
+                command.Parameters.Add(new NpgsqlParameter("newNewsName", NpgsqlDbType.Varchar));
+                command.Parameters["newNewsName"].Value = newNews.newsName;
+                command.Parameters.Add(new NpgsqlParameter("newNewsDate", NpgsqlDbType.Date));
+                command.Parameters["newNewsDate"].Value = newNews.newsDate;
+
 
                 command.CommandText = sql;
                 int newsID = Convert.ToInt32(command.ExecuteScalar());
@@ -747,9 +752,9 @@ namespace DSU_g5
         #region loggin
         #endregion loggin
 
-
-public static List<news> getNewsList()
-{
+        #region news
+        public static List<news> getNewsList()
+    {
     List<news> newsList = new List<news>();
     NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
@@ -811,7 +816,7 @@ public static void removeNews(news newNews)
         conn.Close();
     }
 }
-
+        #endregion news
     }
 }
 
