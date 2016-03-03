@@ -17,6 +17,7 @@ namespace DSU_g5
         DateTime selectedDate;
         string trimDate;
         DateTime trimDateTime;
+        string mid;
 
         member selectedMember;
 
@@ -28,11 +29,13 @@ namespace DSU_g5
             //lbAllMembers.DataSource = methods.showAllMembersForBooking();
             //lbAllMembers.DataBind();
 
-
+            if(!IsPostBack)
+            {
+                lbAllMembers.DataValueField = "mID";
+                lbAllMembers.DataTextField = "namn";
             lbAllMembers.DataSource = methods.showAllMembersForBooking();
             lbAllMembers.DataBind();
-            lbAllMembers.DataMember = "mId";
-            lbAllMembers.DataTextField = "namn";
+            }
 
         }
 
@@ -99,13 +102,13 @@ namespace DSU_g5
         protected void Button1_Click(object sender, EventArgs e)
         { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
             try
-        {
-            string chosenDate = tbDates.Text;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate);
-            ListBox1.DataSource = methods.getBookedMember(trimDateTime);
-            ListBox1.DataBind();
-        }
+            {
+                //string chosenDate = tbDates.Text;
+                //trimDate = chosenDate.Substring(0, 10);
+                //trimDateTime = Convert.ToDateTime(trimDate);
+                ListBox1.DataSource = methods.getBookedMember(trimDateTime);
+                ListBox1.DataBind();
+            }
             catch (NpgsqlException ex)
             {
                 //Debug.WriteLine(ex.Message);
@@ -155,9 +158,8 @@ namespace DSU_g5
 
         protected void grvBokning_DataBound(object sender, EventArgs e)
         {
-            DateTime datum = new DateTime();
-            List<member> bookedMembers = new List<member>();
-            bookedMembers = methods.getBookedMember(datum);
+            DateTime datum = new DateTime(2016, 3, 5);
+            List<games> gamesList = methods.getGamesByDate(datum);
 
             try
             {
@@ -177,7 +179,33 @@ namespace DSU_g5
                             string klass = "lbCell";
 
                             //loopa igenom bokningar för att hitta deltagare och bokningsmöjlighet
-                            //foreach ()
+                            foreach (games g in gamesList)
+                            {
+                                if (g.timeId == timeID)
+                                {
+                                    double totalHcp = 0;
+                                    foreach (member m in g.memberInGameList)
+                                    {
+                                        //deltagarnas kön
+                                        if (m.gender == "Male")
+                                        {
+                                            deltagare += "M";
+                                        }
+                                        else 
+                                        {
+                                            deltagare += "F";
+                                        }
+
+                                        //deltagarnas totala handicap
+                                        totalHcp += m.hcp;
+                                    }
+
+                                    if (g.memberInGameList.Count >= 4 || totalHcp > 100)
+                                    {
+                                        klass = "lbCell_full";
+                                    }
+                                }
+                            }
 
                             //lägg till linkbutton
                             LinkButton lb = new LinkButton();
@@ -209,8 +237,16 @@ namespace DSU_g5
 
         protected void BtnBookAll_Click(object sender, EventArgs e)
         {
+            string placeholderMid = lblPlaceholderMemberId.Text;
+            int memberID = Convert.ToInt32(placeholderMid);
 
-            methods.bookMember(trimDateTime, 11, selectedMember);
+
+            string chosenDate = tbDates.Text;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate);
+
+
+            methods.bookMember(trimDateTime, 11, memberID);
         }
 
 
@@ -220,9 +256,17 @@ namespace DSU_g5
             ListBox lb = (ListBox)sender;
             ListItem li = lb.SelectedItem;
             
+
+
+
+            //string mid = this.lbAllMembers.SelectedItem.Text.ToString();
+            mid = li.Value;
+            lblPlaceholderMemberId.Text = mid;
+            Debug.WriteLine(mid);
+
             
-            //string mid = li.Value;
-            //Debug.WriteLine(mid);
+
+
 
             //member m = new member();
             //m.firstName = li.Text.Split(' ')[0];

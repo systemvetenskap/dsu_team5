@@ -13,23 +13,66 @@ namespace DSU_g5
 
     public static class methods
     {
-        public static void bookMember(DateTime date, int timeId, member chosenM)
+
+        public static void bookMember(DateTime date, int timeId, int chosenMid)
         {
             string sqlInsToGame;
             string sqlInsToGM;
 
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            int dateID = 0;
 
             try
             {
-                sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES((SELECT dates_id FROM game_dates WHERE dates = '" + date + "'), '" + timeId + "') RETURNING id";
+                string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '"+ date +"'";
+                
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
 
+                if(dr.Read())
+                {
+                    dateID = int.Parse(dr["dates_id"].ToString());
+                }
+
+                else
+                {
+                    Debug.WriteLine("Finns ej detta datum i databasen");
+                    return;
+                }
+                dr.Close();
+
+
+                //int dID = dateID;
+
+                //Går att byta ut date nedan. Då bör en date-klass skapas som får det värdet istället.
+                sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
+
+                sqlInsToGM = "INSERT INTO game_member (game_id, member_id) VALUES (@gId, @mId)";
+
+                NpgsqlCommand cmdInsToGame = new NpgsqlCommand(sqlInsToGame, conn);
+                cmdInsToGame.Parameters.AddWithValue("da", dateID);
+                cmdInsToGame.Parameters.AddWithValue("t", timeId);
+
+                int gameID = Convert.ToInt32(cmdInsToGame.ExecuteScalar());
+                conn.Close(); //kanske stäng
+
+
+
+                NpgsqlCommand cmdInsToGameMem = new NpgsqlCommand(sqlInsToGM, conn);
+                cmdInsToGameMem.Parameters.AddWithValue("gId", gameID);
+                cmdInsToGameMem.Parameters.AddWithValue("mId", chosenMid);
+
+                conn.Open();
+                cmdInsToGameMem.ExecuteNonQuery();
+                conn.Close();
 
             }
 
-            catch (Exception ex)
+            catch (NpgsqlException ex)
             {
-
+                Debug.WriteLine(ex.Message);
             }
         }
 
@@ -83,7 +126,7 @@ namespace DSU_g5
             }
 
             return bookingmembers;
-                }
+        }
                 
         
         
@@ -102,7 +145,7 @@ namespace DSU_g5
            
             try
             {
-                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID  FROM member_new";
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID FROM member_new";
 
                 conn.Open();
 
@@ -365,108 +408,85 @@ namespace DSU_g5
             return memberCategoryList;
         }
 
-        public static void addNews(news newNews)
+        public static List<games> getGamesByDate(DateTime selectedDate)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            NpgsqlTransaction trans = null;
+            List<games> gameList = new List<games>();
 
-            NpgsqlCommand command = new NpgsqlCommand();
-            command.Connection = conn;
-
+            string date = selectedDate.ToString().Split(' ')[0];
+            string sql = "";
             try
             {
-                string sql = string.Empty;
+                sql = "SELECT game_id, dates, times, game_starts.time_id "+
+                      "FROM game, game_dates, game_starts "+
+                      "WHERE game.date_id = game_dates.dates_id "+
+                      "AND game.time_id = game_starts.time_id "+
+                      "AND dates = '" + date + "';";
+
                 conn.Open();
-                trans = conn.BeginTransaction();
-                command.Connection = conn;
-                command.Transaction = trans;
-                sql = "INSERT INTO news (news_info) VALUES(:newNewsInfo) RETURNING news_id";
 
-                command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
-                command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+               
+                while (dr.Read())
+                {
+                    games g = new games();
+                    g.date = DateTime.Parse(dr["dates"].ToString());
+                    g.time = Convert.ToDateTime(dr["times"].ToString());
+                    g.timeId = int.Parse(dr["time_id"].ToString());
+                    int gameId = int.Parse(dr["game_id"].ToString());
+                    g.memberInGameList = getBookedMembersByGameId(gameId);
 
-                command.CommandText = sql;
-                int newsID = Convert.ToInt32(command.ExecuteScalar());
-                trans.Commit();
-                int numberOfAffectedRows = command.ExecuteNonQuery();
+                    gameList.Add(g);
+                }
             }
-            catch (Exception ex)
+            catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
-                trans.Rollback();
             }
-            finally
-            {
-                conn.Close();
-            }
+
+            return gameList;
         }
-        public static void updateNews(news newNews)
+
+        public static List<member> getBookedMembersByGameId(int gameId)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            NpgsqlTransaction trans = null;
+            List<member> memberList = new List<member>();
 
-            NpgsqlCommand command = new NpgsqlCommand();
-            command.Connection = conn;
+            string sql = "";
             try
             {
-                string sql = string.Empty;
+                sql = "SELECT id_member, first_name, last_name, address, postal_code, city, mail, gender, hcp, golf_id, member_category "+
+                      "FROM game, game_member, member_new "+
+                      "WHERE game.game_id = game_member.game_id "+
+                      "AND game_member.member_id = member_new.id_member "+
+                      "AND game.game_id = "+ gameId +";";
+
                 conn.Open();
-                trans = conn.BeginTransaction();
-                command.Connection = conn;
-                command.Transaction = trans;
-                sql = "UPDATE news SET news_info = :newNewsInfo WHERE news_id = :newNewsId RETURNING news_id";
 
-                command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
-                command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
-                command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
-                command.Parameters["newNewsId"].Value = newNews.newsId;
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                
+                while (dr.Read())
+                {
+                    member m = new member();
+                    m.memberId = int.Parse(dr["id_member"].ToString());
+                    m.firstName = dr["first_name"].ToString();
+                    m.lastName = dr["last_name"].ToString();
+                    m.gender = dr["gender"].ToString();
+                    m.hcp = double.Parse(dr["hcp"].ToString());
 
-                command.CommandText = sql;
-                int news_id = Convert.ToInt32(command.ExecuteScalar());
-                trans.Commit();
-                int numberOfAffectedRows = command.ExecuteNonQuery();
+                    memberList.Add(m);
+                }
             }
-            catch (Exception ex)
+            catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
-                trans.Rollback();
             }
-            finally
-            {
-                conn.Close();
-            }
+
+            return memberList;
         }
-
-        //public static void removeNews(int news_id)
-        //{
-        //    NpgsqlConnection conn1 = new NpgsqlConnection("Server=webblabb.miun.se;Port=5432;Database=pgmvaru_g4;User Id=pgmvaru_g4;Password=trapets;ssl=true");
-
-        //    try
-        //    {
-        //        news fs = new news();
-        //        conn1.Open();
-        //        string sql = "DELETE * FROM akt WHERE id = :valdaktid";
-        //        NpgsqlCommand command1 = new NpgsqlCommand(sql);
-
-        //        command1.Parameters.Add(new NpgsqlParameter("id", DbType.String));
-        //        command1.Parameters[0].Value = news_id;
-
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //    finally
-        //    {
-
-        //        conn1.Close();
-        //    }
-
-        //}
-
-
     }
-
 }
     
 
