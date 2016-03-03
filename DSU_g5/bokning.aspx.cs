@@ -47,6 +47,7 @@ namespace DSU_g5
             //lblTest.Text = selectedDate.ToString();
 
             populateGrvBokning();
+            pBokningarInfo.InnerHtml = "";
         }
 
 
@@ -96,9 +97,7 @@ namespace DSU_g5
                         }
                         else
                         {
-                            //int timeID = i + 1 + dt.Columns.IndexOf(dc) * 6;
-                            dr[dc.ColumnName] = ":" + i + "0";
-                            //+medlemmar inbokade                        
+                            dr[dc.ColumnName] = ":" + i + "0";                       
                         }
                     }
                     dt.Rows.Add(dr);
@@ -189,12 +188,11 @@ namespace DSU_g5
         {
             try
             {
+                //hämta data om bokningar på vald tid
                 LinkButton lb = sender as LinkButton;
                 string timeId = lb.CommandArgument;
                 DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
                 hfTimeId.Value = timeId;
-
-                //DateTime datum = new DateTime(2016, 3, 7);
                 List<games> gamesList = methods.getGamesByDate(datum);
 
                 int gameId = 0;
@@ -208,10 +206,34 @@ namespace DSU_g5
 
                 lbBookedMembers.DataValueField = "mID";
                 lbBookedMembers.DataTextField = "namn";
-                lbBookedMembers.DataSource = methods.showAllMembersForBookingByGameId(gameId);
+                lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
                 lbBookedMembers.DataBind();
 
-                //info till <p>
+                //presentera om golfrunda och deltagare: datum, tid, deltagare, handicap, golf-ID, totalt handicap
+                string info = datum.ToShortDateString();
+                double totalHcp = 0;
+                int iteration = 0;
+
+                foreach (games g in gamesList)
+                {
+                    if (g.timeId.ToString() == timeId)
+                    {
+                        if (iteration < 1)
+                        {
+                            info += "<br/>" + g.time.ToShortTimeString();
+                        }
+                        
+                        foreach (member m in g.memberInGameList)
+                        {
+                            info += "<br/><br/>" + m.firstName + " " + m.lastName + "<br/>Handicap: " + m.hcp + "<br/>Golf-ID: " + m.golfId;
+                            totalHcp += m.hcp;
+                        }
+                        iteration++;
+                    }
+                }
+
+                info += "<br/><br/>Totalt handicap: " + Math.Round(totalHcp, 2);
+                pBokningarInfo.InnerHtml = info;
             }
             catch (Exception ex)
             {

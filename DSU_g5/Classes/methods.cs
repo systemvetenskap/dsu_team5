@@ -235,20 +235,25 @@ namespace DSU_g5
             return dt;           
         }
 
-        //Returnerar en datatable med medlemmar inbokade på en viss tid
-        public static DataTable showAllMembersForBookingByGameId(int gameId)
+        //Returnerar en datatable med medlemmar inbokade på en viss tid på ett visst datum
+        public static DataTable showAllMembersForBookingByDateAndTime(DateTime datum, int timeID)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
             string sql;
-
+            string date = datum.ToShortDateString();
             DataTable dt = new DataTable();
 
             try
             {
-                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID, game_id FROM member_new, game_member "+
-                      "WHERE member_id = id_member "+
-                      "AND game_id = "+ gameId +";";
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID "+
+                      "FROM member_new, game_member, game, game_dates, game_starts "+
+                      "WHERE member_new.id_member = game_member.member_id "+
+                      "AND game_member.game_id = game.game_id "+
+                      "AND game.time_id = game_starts.time_id "+
+                      "AND game.date_id = game_dates.dates_id "+
+                      "AND game_starts.time_id = "+ timeID +" "+
+                      "AND game_dates.dates = '"+ date +"';";
 
                 conn.Open();
 
