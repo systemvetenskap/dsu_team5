@@ -8,7 +8,7 @@
     <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged">
 
     </asp:Calendar>
-    
+
 
 
 
@@ -134,6 +134,9 @@
     <br />
 
     <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox><asp:Button ID="BtnBookAll" runat="server" Text="Button" OnClick="BtnBookAll_Click" />
+
+    <asp:Button ID="BtnDelMemberFromGame" runat="server" Text="Ta bort" OnClick="BtnDelMemberFromGame_Click" />
+
 
         <asp:Calendar ID="startCalendar" runat="server">
     </asp:Calendar>
