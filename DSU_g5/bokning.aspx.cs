@@ -221,7 +221,7 @@ namespace DSU_g5
         {
             LinkButton lb = sender as LinkButton;
             string msg = lb.CommandArgument;
-            int tid = int.Parse(msg);
+            
 
 
             Response.Write("<script>alert('"+ msg +"')</script>");
@@ -230,8 +230,7 @@ namespace DSU_g5
 
         protected void BtnBookAll_Click(object sender, EventArgs e)
         {
-            //string placeholderMid = lblPlaceholderMemberId.Text;
-            string placeholderMid = hfPlaceholderMemberId.Value;
+            string placeholderMid = lblPlaceholderMemberId.Text;
             int memberID = Convert.ToInt32(placeholderMid);
             int tid = int.Parse(msg);
 
@@ -255,9 +254,7 @@ namespace DSU_g5
 
             //string mid = this.lbAllMembers.SelectedItem.Text.ToString();
             mid = li.Value;
-            //lblPlaceholderMemberId.Text = mid;
-            hfPlaceholderMemberId.Value = mid;
-
+            lblPlaceholderMemberId.Text = mid;
             Debug.WriteLine(mid);
 
         }
