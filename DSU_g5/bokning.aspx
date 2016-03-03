@@ -19,7 +19,6 @@
 
 
 
-
     <table id="tabletable" style="width: 100%;">
         <tr>
             <th>08</th>
@@ -138,6 +137,7 @@
 
     <asp:HiddenField ID="hfPlaceholderMemberId" runat="server" />
     <asp:HiddenField ID="hfChosenDate" runat="server" />
+    <asp:HiddenField ID="hfTimeId" runat="server" />
 
 
 </asp:Content>
