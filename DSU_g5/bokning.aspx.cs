@@ -26,13 +26,11 @@ namespace DSU_g5
             List<DateTime> tider = new List<DateTime>();
             populateGrvBokning();
 
-            //lbAllMembers.DataSource = methods.showAllMembersForBooking();
-            //lbAllMembers.DataBind();
 
             if(!IsPostBack)
             {
-                lbAllMembers.DataValueField = "mID";
-                lbAllMembers.DataTextField = "namn";
+                lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
+                lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
             lbAllMembers.DataSource = methods.showAllMembersForBooking();
             lbAllMembers.DataBind();
             }
@@ -82,20 +80,13 @@ namespace DSU_g5
             }
         }
 
-        protected void btnTest0800_Click(object sender, EventArgs e)
-        {
-            lblTest.Text = "Hej";
-        }
-
 
 
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
             selectedDate = calBokning.SelectedDate;
-            //lblTest.Text = sender.ToString();
-            lblTest.Text = selectedDate.ToString();            
             tbDates.Text = selectedDate.ToString();
-           
+            //lblTest.Text = selectedDate.ToString();            
         }
 
 
@@ -103,9 +94,6 @@ namespace DSU_g5
         { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
             try
             {
-                //string chosenDate = tbDates.Text;
-                //trimDate = chosenDate.Substring(0, 10);
-                //trimDateTime = Convert.ToDateTime(trimDate);
                 ListBox1.DataSource = methods.getBookedMember(trimDateTime);
                 ListBox1.DataBind();
             }
@@ -227,15 +215,18 @@ namespace DSU_g5
             }
         }
 
+
+
         private void lb_Click(object sender, EventArgs e)
         {
             LinkButton lb = sender as LinkButton;
             string msg = lb.CommandArgument;
             int tid = int.Parse(msg);
-            
+
 
             Response.Write("<script>alert('"+ msg +"')</script>");
         }
+
 
         protected void BtnBookAll_Click(object sender, EventArgs e)
         {
@@ -247,9 +238,11 @@ namespace DSU_g5
             trimDate = chosenDate.Substring(0, 10);
             trimDateTime = Convert.ToDateTime(trimDate);
 
-
-            methods.bookMember(trimDateTime, tid, memberID);
+            //11 är nu hårdkodat och är TimeID. Detta ska bytas ut mot det man väljer i datagriden.
+            methods.bookMember(trimDateTime, 11, memberID);
         }
+
+
 
 
 
@@ -259,26 +252,10 @@ namespace DSU_g5
             ListItem li = lb.SelectedItem;
             
 
-
-
             //string mid = this.lbAllMembers.SelectedItem.Text.ToString();
             mid = li.Value;
             lblPlaceholderMemberId.Text = mid;
             Debug.WriteLine(mid);
-
-            
-
-
-
-            //member m = new member();
-            //m.firstName = li.Text.Split(' ')[0];
-
-            //selectedMember = (member)lb.Items[li.Selected].Attributes.;
-
-            //selectedMember = member.Parse(li);
-
-           // selectedMember = (member)lbAllMembers.SelectedItem;
-
 
         }
     }

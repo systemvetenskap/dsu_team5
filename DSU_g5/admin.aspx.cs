@@ -13,5 +13,30 @@ namespace DSU_g5
         {
 
         }
+
+        protected void btnPublish_Click(object sender, EventArgs e)
+        {
+            news newNews = new news();
+            newNews.newsInfo = textNews.InnerText;
+
+            methods.addNews(newNews);
+        }
+
+        protected void btnUpdateNews_Click(object sender, EventArgs e)
+        {
+            news newNews = new news();
+            newNews.newsInfo = textNews.InnerText;
+
+            methods.updateNews(newNews);
+        }
+
+        protected void btnRemoveNews_Click(object sender, EventArgs e)
+        {
+            news newNews = new news();
+            newNews.newsInfo = textNews.InnerText;
+
+            //methods.updateNews(newNews);
+        }
+
     }
 }
