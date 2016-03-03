@@ -14,12 +14,15 @@ namespace DSU_g5
 {
     public partial class bokning : System.Web.UI.Page
     {
+        #region VARIABLER FÖR DETTA SCOPE
+
         DateTime selectedDate;
         string trimDate;
         DateTime trimDateTime;
         string mid;
-
         member selectedMember;
+
+        #endregion
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,17 +42,8 @@ namespace DSU_g5
 
         }
 
- 
-        protected void calBokning_SelectionChanged(object sender, EventArgs e)
-        {
-            selectedDate = calBokning.SelectedDate;
-            hfChosenDate.Value = selectedDate.ToShortDateString();
-            //lblTest.Text = selectedDate.ToString();
 
-            populateGrvBokning();
-        }
-
-
+        #region KNAPPAR
         protected void Button1_Click(object sender, EventArgs e)
         { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
             //try
@@ -63,7 +57,55 @@ namespace DSU_g5
             //    Response.Write("<script>alert('" + "Välj ett datum" + "')</script>");
             //}
         }
+        protected void BtnBookAll_Click(object sender, EventArgs e)
+        {
+            string placeholderMid = hfPlaceholderMemberId.Value;
+            int memberID = Convert.ToInt32(placeholderMid);
+            
+            string chosenDate = hfChosenDate.Value;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+            
+            string placeholderTid = hfTimeId.Value;
+            int timeID = Convert.ToInt32(placeholderTid);
 
+            
+            //11 är nu hårdkodat och är TimeID. Detta ska bytas ut mot det man väljer i datagriden.
+            methods.bookMember(trimDateTime, timeID, memberID);
+        }
+        protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
+        {
+            //SKAPA EN VOIDMETOD();
+            string placeholderMid = hfPlaceholderMemberId.Value;
+            int memberID = Convert.ToInt32(placeholderMid);
+            
+            string chosenDate = hfChosenDate.Value;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+            
+            string placeholderTid = hfTimeId.Value;
+            int timeID = Convert.ToInt32(placeholderTid);
+
+            methods.unBookMember(trimDateTime, timeID, memberID);
+        }
+
+        protected void btnAddSeason_Click(object sender, EventArgs e)
+        {
+            DateTime startDate = startCalendar.SelectedDate;
+            DateTime endDate = endCalendar.SelectedDate;
+
+            while (startDate <= endDate)
+            {
+                methods.addSeason(startDate);
+                startDate = startDate.AddDays(1);
+            }
+        }
+
+        #endregion
+
+
+
+        #region BOKNINGSSCHEMA (GRIDVIEW MED LINKBUTTON)
         protected void populateGrvBokning()
         {
             try
@@ -112,7 +154,6 @@ namespace DSU_g5
                 //Response.Write("<script>alert('" + ex.Message + "')</script>");
             }
         }
-
         protected void grvBokning_DataBound(object sender, EventArgs e)
         {
             try
@@ -184,7 +225,6 @@ namespace DSU_g5
                 
             }
         }
-
         private void lb_Click(object sender, EventArgs e)
         {
             try
@@ -219,26 +259,19 @@ namespace DSU_g5
             }
         }
 
+        #endregion
 
-        protected void BtnBookAll_Click(object sender, EventArgs e)
+
+
+        #region SELECTED INDEX CHANGED
+        protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
-            string placeholderMid = hfPlaceholderMemberId.Value;
-            int memberID = Convert.ToInt32(placeholderMid);
-            
-            string chosenDate = hfChosenDate.Value;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
-            
-            string placeholderTid = hfTimeId.Value;
-            int timeID = Convert.ToInt32(placeholderTid);
+            selectedDate = calBokning.SelectedDate;
+            hfChosenDate.Value = selectedDate.ToShortDateString();
+            //lblTest.Text = selectedDate.ToString();
 
-            
-            //11 är nu hårdkodat och är TimeID. Detta ska bytas ut mot det man väljer i datagriden.
-            methods.bookMember(trimDateTime, timeID, memberID);
+            populateGrvBokning();
         }
-
-
-
         protected void lbAllMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListBox lb = (ListBox)sender;
@@ -252,32 +285,10 @@ namespace DSU_g5
 
         }
 
-        protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
-        {
-            //SKAPA EN VOIDMETOD();
-            string placeholderMid = hfPlaceholderMemberId.Value;
-            int memberID = Convert.ToInt32(placeholderMid);
-            
-            string chosenDate = hfChosenDate.Value;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
-            
-            string placeholderTid = hfTimeId.Value;
-            int timeID = Convert.ToInt32(placeholderTid);
+        #endregion
 
-            methods.unBookMember(trimDateTime, timeID, memberID);
-        }
 
-        protected void btnAddSeason_Click(object sender, EventArgs e)
-        {
-            DateTime startDate = startCalendar.SelectedDate;
-            DateTime endDate = endCalendar.SelectedDate;
 
-            while (startDate <= endDate)
-            {
-                methods.addSeason(startDate);
-                startDate = startDate.AddDays(1);
-            }
-        }
+
     }
 }

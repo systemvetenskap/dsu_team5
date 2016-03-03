@@ -13,6 +13,7 @@ namespace DSU_g5
 
     public static class methods
     {
+        #region BOKNING OCH AVBOKNING AV MEDLEMMAR - ADMIN
 
         public static void bookMember(DateTime date, int timeId, int chosenMid)
         {
@@ -25,7 +26,7 @@ namespace DSU_g5
             {
                 string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
                 
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -150,6 +151,8 @@ namespace DSU_g5
 
         }
 
+        #endregion
+
 
         public static List<member> getBookedMember(DateTime selectedDate)
         {
@@ -202,7 +205,8 @@ namespace DSU_g5
 
             return bookingmembers;
                 }
-                
+        
+        
         //Admin får se alla medlemmar i en lista. Möjliggör för att lägga in personer på bokning.
         public static DataTable showAllMembersForBooking()
         {
@@ -232,6 +236,7 @@ namespace DSU_g5
             
             return dt;
         }
+
 
         //Returnerar en datatable med medlemmar inbokade på en viss tid
         public static DataTable showAllMembersForBookingByGameId(int gameId)
@@ -264,6 +269,9 @@ namespace DSU_g5
 
             return dt;
         }
+
+
+
 
         #region medlemssida
         public static void addMember(member newMember, users newUser)
