@@ -24,145 +24,103 @@ namespace DSU_g5
         protected void Page_Load(object sender, EventArgs e)
         {
             List<DateTime> tider = new List<DateTime>();
+            
             populateGrvBokning();
-
-            //lbAllMembers.DataSource = methods.showAllMembersForBooking();
-            //lbAllMembers.DataBind();
+            lbBookedMembers.Items.Clear();
 
             if(!IsPostBack)
             {
-                lbAllMembers.DataValueField = "mID";
-                lbAllMembers.DataTextField = "namn";
-            lbAllMembers.DataSource = methods.showAllMembersForBooking();
-            lbAllMembers.DataBind();
+                lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
+                lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
+                lbAllMembers.DataSource = methods.showAllMembersForBooking();
+                lbAllMembers.DataBind();
             }
 
+
         }
 
-        protected void BtnShowTable_Click(object sender, EventArgs e)
-        {
-            int totRow = 7;
-            int currentRowCount;
-            int totCellsInRow = 11;
-            int currentCellCount;
-
-
-            for (currentRowCount = 1; currentRowCount <= totRow; currentRowCount++)
-            {
-                TableRow tRow = new TableRow();
-                TestTable.Rows.Add(tRow);
-
-                for (currentCellCount = 1; currentCellCount <= totCellsInRow; currentCellCount++)
-                {
-                    TableCell tCell = new TableCell();
-                    tRow.Cells.Add(tCell);
-
-                    string textInCell = currentRowCount + " " + currentCellCount;
-
-                    tCell.Controls.Add(new LiteralControl("Rad/Celln"));
-                    HyperLink h = new HyperLink();
-                    h.Text = currentRowCount + ":" + currentCellCount;
-                    h.NavigateUrl = "http://www.nba.com/";
-                    tCell.Controls.Add(h);
-
-                    if(currentRowCount % 2 != 0)
-                    {
-                        //tRow.BorderColor = System.Drawing.Color.Black;
-                        //tRow.BorderStyle =
-                        tRow.BackColor = System.Drawing.Color.Red;
-                    
-                    }
-
-                    else if(currentRowCount % 2 == 0)
-                    {
-                        //tRow.BorderColor = System.Drawing.Color.Yellow;
-                        tRow.BackColor = System.Drawing.Color.Green;
-                    }
-                }
-            }
-        }
-
-        protected void btnTest0800_Click(object sender, EventArgs e)
-        {
-            lblTest.Text = "Hej";
-        }
-
-
-
+ 
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
             selectedDate = calBokning.SelectedDate;
-            //lblTest.Text = sender.ToString();
-            lblTest.Text = selectedDate.ToString();            
-            tbDates.Text = selectedDate.ToString();
-           
+            hfChosenDate.Value = selectedDate.ToShortDateString();
+            //lblTest.Text = selectedDate.ToString();
+
+            populateGrvBokning();
         }
 
 
         protected void Button1_Click(object sender, EventArgs e)
         { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
-            try
-            {
-                //string chosenDate = tbDates.Text;
-                //trimDate = chosenDate.Substring(0, 10);
-                //trimDateTime = Convert.ToDateTime(trimDate);
-                ListBox1.DataSource = methods.getBookedMember(trimDateTime);
-                ListBox1.DataBind();
-            }
-            catch (NpgsqlException ex)
-            {
-                //Debug.WriteLine(ex.Message);
-                Response.Write("<script>alert('" + "Välj ett datum" + "')</script>");
-            }
+            //try
+            //{
+            //    ListBox1.DataSource = methods.getBookedMember(trimDateTime);
+            //    ListBox1.DataBind();
+            //}
+            //catch (NpgsqlException ex)
+            //{
+            //    //Debug.WriteLine(ex.Message);
+            //    Response.Write("<script>alert('" + "Välj ett datum" + "')</script>");
+            //}
         }
 
         protected void populateGrvBokning()
         {
-            DateTime datum = new DateTime();
-            List<member> bookedMembers = new List<member>();
-            bookedMembers = methods.getBookedMember(datum);
-
-            int hours = 11;
-            int startingHour = 8;
-            DataTable dt = new DataTable();
-
-            //skapa kolumner
-            for (int i = 0; i < hours; i++)
+            try
             {
-                dt.Columns.Add((startingHour + i).ToString().PadLeft(2, '0'));
-            }
+                //DateTime datum = new DateTime();
+                DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+                List<member> bookedMembers = new List<member>();
+                bookedMembers = methods.getBookedMember(datum);
 
-            //lägg på rader och cellvärden
-            for (int i = 0; i < 6; i++)
-            {
-                DataRow dr = dt.NewRow();
-                foreach (DataColumn dc in dt.Columns)
+                int hours = 11;
+                int startingHour = 8;
+                DataTable dt = new DataTable();
+
+                //skapa kolumner
+                for (int i = 0; i < hours; i++)
                 {
-                    //avbryt efter första raden om vi är på den sista kolumnen
-                    if (Convert.ToInt32(dc.ColumnName) == startingHour + hours - 1 && i > 0){
-                        break;
-                    }
-                    else
-                    {
-                        //int timeID = i + 1 + dt.Columns.IndexOf(dc) * 6;
-                        dr[dc.ColumnName] = ":" + i + "0";
-                        //+medlemmar inbokade                        
-                    }
+                    dt.Columns.Add((startingHour + i).ToString().PadLeft(2, '0'));
                 }
-                dt.Rows.Add(dr);
-            }
 
-            grvBokning.DataSource = dt;
-            grvBokning.DataBind();
+                //lägg på rader och cellvärden
+                for (int i = 0; i < 6; i++)
+                {
+                    DataRow dr = dt.NewRow();
+                    foreach (DataColumn dc in dt.Columns)
+                    {
+                        //avbryt efter första raden om vi är på den sista kolumnen
+                        if (Convert.ToInt32(dc.ColumnName) == startingHour + hours - 1 && i > 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            //int timeID = i + 1 + dt.Columns.IndexOf(dc) * 6;
+                            dr[dc.ColumnName] = ":" + i + "0";
+                            //+medlemmar inbokade                        
+                        }
+                    }
+                    dt.Rows.Add(dr);
+                }
+
+                grvBokning.DataSource = dt;
+                grvBokning.DataBind();
+            }
+            catch (Exception ex)
+            {
+                //Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
         }
 
         protected void grvBokning_DataBound(object sender, EventArgs e)
         {
-            DateTime datum = new DateTime(2016, 3, 5);
-            List<games> gamesList = methods.getGamesByDate(datum);
-
             try
             {
+                //DateTime datum = new DateTime(2016, 3, 7);
+                DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+                List<games> gamesList = methods.getGamesByDate(datum);
+
                 GridView gridview = (GridView)sender;
 
                 int column = 0;
@@ -223,30 +181,60 @@ namespace DSU_g5
             }
             catch (Exception ex)
             {
-
+                
             }
         }
 
         private void lb_Click(object sender, EventArgs e)
         {
-            LinkButton lb = sender as LinkButton;
-            string msg = lb.CommandArgument;
+            try
+            {
+                LinkButton lb = sender as LinkButton;
+                string timeId = lb.CommandArgument;
+                DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+                hfTimeId.Value = timeId;
 
-            Response.Write("<script>alert('"+ msg +"')</script>");
+                //DateTime datum = new DateTime(2016, 3, 7);
+                List<games> gamesList = methods.getGamesByDate(datum);
+
+                int gameId = 0;
+                foreach (games g in gamesList)
+                {
+                    if (g.timeId.ToString() == timeId)
+                    {
+                        gameId = g.gameId;
+                    }
+                }
+
+                lbBookedMembers.DataValueField = "mID";
+                lbBookedMembers.DataTextField = "namn";
+                lbBookedMembers.DataSource = methods.showAllMembersForBookingByGameId(gameId);
+                lbBookedMembers.DataBind();
+
+                //info till <p>
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
         }
+
 
         protected void BtnBookAll_Click(object sender, EventArgs e)
         {
-            string placeholderMid = lblPlaceholderMemberId.Text;
+            string placeholderMid = hfPlaceholderMemberId.Value;
             int memberID = Convert.ToInt32(placeholderMid);
-
-
-            string chosenDate = tbDates.Text;
+            
+            string chosenDate = hfChosenDate.Value;
             trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate);
+            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+            
+            string placeholderTid = hfTimeId.Value;
+            int timeID = Convert.ToInt32(placeholderTid);
 
-
-            methods.bookMember(trimDateTime, 11, memberID);
+            
+            //11 är nu hårdkodat och är TimeID. Detta ska bytas ut mot det man väljer i datagriden.
+            methods.bookMember(trimDateTime, timeID, memberID);
         }
 
 
@@ -257,27 +245,39 @@ namespace DSU_g5
             ListItem li = lb.SelectedItem;
             
 
+            mid = li.Value; //memberID
+            hfPlaceholderMemberId.Value = mid;
 
-
-            //string mid = this.lbAllMembers.SelectedItem.Text.ToString();
-            mid = li.Value;
-            lblPlaceholderMemberId.Text = mid;
             Debug.WriteLine(mid);
 
+        }
+
+        protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
+        {
+            //SKAPA EN VOIDMETOD();
+            string placeholderMid = hfPlaceholderMemberId.Value;
+            int memberID = Convert.ToInt32(placeholderMid);
             
+            string chosenDate = hfChosenDate.Value;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+            
+            string placeholderTid = hfTimeId.Value;
+            int timeID = Convert.ToInt32(placeholderTid);
 
+            methods.unBookMember(trimDateTime, timeID, memberID);
+        }
 
+        protected void btnAddSeason_Click(object sender, EventArgs e)
+        {
+            DateTime startDate = startCalendar.SelectedDate;
+            DateTime endDate = endCalendar.SelectedDate;
 
-            //member m = new member();
-            //m.firstName = li.Text.Split(' ')[0];
-
-            //selectedMember = (member)lb.Items[li.Selected].Attributes.;
-
-            //selectedMember = member.Parse(li);
-
-           // selectedMember = (member)lbAllMembers.SelectedItem;
-
-
+            while (startDate <= endDate)
+            {
+                methods.addSeason(startDate);
+                startDate = startDate.AddDays(1);
+            }
         }
     }
 }
