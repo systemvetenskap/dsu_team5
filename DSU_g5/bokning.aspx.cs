@@ -102,7 +102,7 @@ namespace DSU_g5
 
         protected void grvBokning_DataBound(object sender, EventArgs e)
         {
-            DateTime datum = new DateTime(2016, 3, 5);
+            DateTime datum = new DateTime(2016, 3, 7);
             List<games> gamesList = methods.getGamesByDate(datum);
 
             try
@@ -167,8 +167,10 @@ namespace DSU_g5
             }
             catch (Exception ex)
             {
-
+                
             }
+
+
         }
 
 
@@ -178,7 +180,7 @@ namespace DSU_g5
             LinkButton lb = sender as LinkButton;
             string msg = lb.CommandArgument;
 
-            hfPlaceholderMemberId.Value = lb.CommandArgument;
+            hfTimeId.Value = lb.CommandArgument;
 
             Response.Write("<script>alert('"+ msg +"')</script>");
         }
@@ -211,7 +213,7 @@ namespace DSU_g5
             ListItem li = lb.SelectedItem;
             
 
-            mid = li.Value;
+            mid = li.Value; //memberID
             hfPlaceholderMemberId.Value = mid;
 
             Debug.WriteLine(mid);

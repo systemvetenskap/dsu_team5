@@ -446,6 +446,11 @@ namespace DSU_g5
                 Debug.WriteLine(ex.Message);
             }
 
+            finally
+            {
+                conn.Close();
+            }
+
             return memberList;
         }
 
