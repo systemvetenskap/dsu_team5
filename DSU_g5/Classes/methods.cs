@@ -121,12 +121,19 @@ namespace DSU_g5
                 dRead.Close();
 
 
+                //Tar bort rad från game_member.
                 string sqlDelFromGM = "DELETE FROM game_member WHERE game_id = '" + gameId + "' AND member_id = '" + chosenMemberId + "'";
                 NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
                 cmdDelGM.ExecuteNonQuery();
+
+
+
+                //Tar bort om det finns ett game_id UTAN en spelare.
+                string sqlDelNonUsedGameID = "DELETE FROM game g WHERE g.game_id NOT IN (SELECT gm.game_id FROM game_member gm)";
+                NpgsqlCommand cmdDelGameID = new NpgsqlCommand(sqlDelNonUsedGameID, conn);
+                cmdDelGameID.ExecuteNonQuery();
+
                 conn.Close();
-
-
 
             }
 
