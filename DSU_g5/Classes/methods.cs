@@ -30,7 +30,7 @@ namespace DSU_g5
                 NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
 
-                if(dr.Read())
+                if (dr.Read())
                 {
                     dateID = int.Parse(dr["dates_id"].ToString());
                 }
@@ -168,14 +168,14 @@ namespace DSU_g5
                         "INNER JOIN game g ON g.game_id = gm.game_id " +
                         "INNER JOIN game_dates gd ON gd.dates_id = g.date_id " +
                         "INNER JOIN game_starts gs ON gs.time_id = g.time_id " +
-                        "WHERE gd.dates = '"+selectedDate+"' " +
+                        "WHERE gd.dates = '" + selectedDate + "' " +
                         "GROUP BY m.first_name, m.last_name, m.gender, gm.member_id, m.hcp, gs.times, dates";
                 conn.Open();
 
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
 
-                while(dr.Read())
+                while (dr.Read())
                 {
                     m = new member();
                     m.memberId = int.Parse(dr["member_id"].ToString());
@@ -456,10 +456,10 @@ namespace DSU_g5
             string sql = "";
             try
             {
-                sql = "SELECT game_id, dates, times, game_starts.time_id "+
-                      "FROM game, game_dates, game_starts "+
-                      "WHERE game.date_id = game_dates.dates_id "+
-                      "AND game.time_id = game_starts.time_id "+
+                sql = "SELECT game_id, dates, times, game_starts.time_id " +
+                      "FROM game, game_dates, game_starts " +
+                      "WHERE game.date_id = game_dates.dates_id " +
+                      "AND game.time_id = game_starts.time_id " +
                       "AND dates = '" + date + "';";
 
                 conn.Open();
@@ -495,11 +495,11 @@ namespace DSU_g5
             string sql = "";
             try
             {
-                sql = "SELECT id_member, first_name, last_name, address, postal_code, city, mail, gender, hcp, golf_id, member_category "+
-                      "FROM game, game_member, member_new "+
-                      "WHERE game.game_id = game_member.game_id "+
-                      "AND game_member.member_id = member_new.id_member "+
-                      "AND game.game_id = "+ gameId +";";
+                sql = "SELECT id_member, first_name, last_name, address, postal_code, city, mail, gender, hcp, golf_id, member_category " +
+                      "FROM game, game_member, member_new " +
+                      "WHERE game.game_id = game_member.game_id " +
+                      "AND game_member.member_id = member_new.id_member " +
+                      "AND game.game_id = " + gameId + ";";
 
                 conn.Open();
 
@@ -604,7 +604,26 @@ namespace DSU_g5
             }
         }
 
+        public static void addSeason(DateTime startDate)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql;
+            conn.Open();
+            try
+            {
+                sql = "insert into game_dates_test(dates) VALUES ('" + startDate + "')";                
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
 
+    }
+            finally
+            {
+                conn.Close();
+            }
+        }
     }
 }
     

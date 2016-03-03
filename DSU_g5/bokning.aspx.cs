@@ -233,5 +233,17 @@ namespace DSU_g5
 
             methods.unBookMember(trimDateTime, timeID, memberID);
         }
+
+        protected void btnAddSeason_Click(object sender, EventArgs e)
+        {
+            DateTime startDate = startCalendar.SelectedDate;
+            DateTime endDate = endCalendar.SelectedDate;
+
+            while (startDate <= endDate)
+            {
+                methods.addSeason(startDate);
+                startDate = startDate.AddDays(1);
+            }
+        }
     }
 }
