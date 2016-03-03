@@ -18,7 +18,7 @@ namespace DSU_g5
         string trimDate;
         DateTime trimDateTime;
         string mid;
-
+        string msg;
         member selectedMember;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -231,6 +231,8 @@ namespace DSU_g5
         {
             LinkButton lb = sender as LinkButton;
             string msg = lb.CommandArgument;
+            int tid = int.Parse(msg);
+            
 
             Response.Write("<script>alert('"+ msg +"')</script>");
         }
@@ -239,14 +241,14 @@ namespace DSU_g5
         {
             string placeholderMid = lblPlaceholderMemberId.Text;
             int memberID = Convert.ToInt32(placeholderMid);
-
+            int tid = int.Parse(msg);
 
             string chosenDate = tbDates.Text;
             trimDate = chosenDate.Substring(0, 10);
             trimDateTime = Convert.ToDateTime(trimDate);
 
 
-            methods.bookMember(trimDateTime, 11, memberID);
+            methods.bookMember(trimDateTime, tid, memberID);
         }
 
 

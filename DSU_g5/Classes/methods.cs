@@ -446,6 +446,7 @@ namespace DSU_g5
             }
 
             return gameList;
+            conn.Close();
         }
 
         public static List<member> getBookedMembersByGameId(int gameId)
@@ -478,13 +479,17 @@ namespace DSU_g5
 
                     memberList.Add(m);
                 }
+                
             }
             catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
             }
-
-            return memberList;
+            finally
+            {            
+                conn.Close();  
+            }
+                return memberList;
         }
     }
 }
