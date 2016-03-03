@@ -22,15 +22,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Calendar calBokning;
         
         /// <summary>
-        /// tbDates control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDates;
-        
-        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -38,24 +29,6 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
-        
-        /// <summary>
-        /// TestTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table TestTable;
-        
-        /// <summary>
-        /// BtnShowTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnShowTable;
         
         /// <summary>
         /// lbtnTest0800 control.
@@ -121,15 +94,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Button BtnBookAll;
         
         /// <summary>
-        /// lblPlaceholderMemberId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlaceholderMemberId;
-        
-        /// <summary>
         /// hfPlaceholderMemberId control.
         /// </summary>
         /// <remarks>
@@ -137,5 +101,14 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfPlaceholderMemberId;
+        
+        /// <summary>
+        /// hfChosenDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfChosenDate;
     }
 }
