@@ -25,7 +25,13 @@
 
     <br />
     <br />
-    <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
+    <div id="bokningar">
+        <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
+        <div id="bokningarInfo">
+            <asp:ListBox ID="lbBookedMembers" runat="server"></asp:ListBox>
+            <p id="pBokningarInfo"></p>
+        </div>
+    </div>
     <br />
     <br />
 

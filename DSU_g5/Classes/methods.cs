@@ -223,15 +223,48 @@ namespace DSU_g5
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
                 da.Fill(dt); //Fyller dataAdatpter med dataTable.
             }
-
             catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
             }
+            finally
+            {
+                conn.Close();
+            }
             
-            return dt;
+            return dt;           
+        }
 
-           
+        //Returnerar en datatable med medlemmar inbokade på en viss tid
+        public static DataTable showAllMembersForBookingByGameId(int gameId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            string sql;
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID, game_id FROM member_new, game_member "+
+                      "WHERE member_id = id_member "+
+                      "AND game_id = "+ gameId +";";
+
+                conn.Open();
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt); //Fyller dataAdatpter med dataTable.
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return dt;
         }
 
         public static void addMember(member newMember, users newUser)
@@ -473,8 +506,8 @@ namespace DSU_g5
                     g.date = DateTime.Parse(dr["dates"].ToString());
                     g.time = Convert.ToDateTime(dr["times"].ToString());
                     g.timeId = int.Parse(dr["time_id"].ToString());
-                    int gameId = int.Parse(dr["game_id"].ToString());
-                    g.memberInGameList = getBookedMembersByGameId(gameId);
+                    g.gameId = int.Parse(dr["game_id"].ToString());
+                    g.memberInGameList = getBookedMembersByGameId(g.gameId);
 
                     gameList.Add(g);
                 }
