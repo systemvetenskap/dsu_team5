@@ -13,13 +13,22 @@ namespace DSU_g5 {
     public partial class admin {
         
         /// <summary>
-        /// lblNewsName control.
+        /// lblNewNews control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewsName;
+        protected global::System.Web.UI.WebControls.Label lblNewNews;
+        
+        /// <summary>
+        /// txtNewNews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNewNews;
         
         /// <summary>
         /// ddlNewsName control.
@@ -29,6 +38,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlNewsName;
+        
+        /// <summary>
+        /// lsbOldNews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lsbOldNews;
         
         /// <summary>
         /// lblNews control.

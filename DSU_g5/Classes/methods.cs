@@ -437,6 +437,34 @@ namespace DSU_g5
             }
         }
 
+        //public static void removeNews(int news_id)
+        //{
+        //    NpgsqlConnection conn1 = new NpgsqlConnection("Server=webblabb.miun.se;Port=5432;Database=pgmvaru_g4;User Id=pgmvaru_g4;Password=trapets;ssl=true");
+
+        //    try
+        //    {
+        //        news fs = new news();
+        //        conn1.Open();
+        //        string sql = "DELETE * FROM akt WHERE id = :valdaktid";
+        //        NpgsqlCommand command1 = new NpgsqlCommand(sql);
+
+        //        command1.Parameters.Add(new NpgsqlParameter("id", DbType.String));
+        //        command1.Parameters[0].Value = news_id;
+
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //    finally
+        //    {
+
+        //        conn1.Close();
+        //    }
+
+        //}
+
+
     }
 
 }

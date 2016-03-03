@@ -4,8 +4,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <section id="adminsida">
         
-        <asp:Label ID="lblNewsName" runat="server" Text="Uppdatera/ta bort nyhet" ></asp:Label>
+        <asp:Label ID="lblNewNews" runat="server" Text="Uppdatera/ta bort nyhet" ></asp:Label>
+        <asp:TextBox ID="txtNewNews" runat="server"></asp:TextBox>
         <asp:DropDownList ID="ddlNewsName" runat="server"></asp:DropDownList>
+        <asp:ListBox ID="lsbOldNews" runat="server"></asp:ListBox>
         <br />
          
         <asp:Label ID="lblNews" runat="server" Text="Nyheter"></asp:Label>
