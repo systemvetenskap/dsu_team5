@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="medlemssida.aspx.cs" Inherits="DSU_g5.medlemssida" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/CSS_medlemssida.css" rel="stylesheet" />
+    <style type="text/css">
+        #Select1 {
+            width: 177px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
@@ -35,11 +40,11 @@
         <br />
 
         <asp:Label ID="lbGender" CssClass="memberlabel" runat="server" Text="Kön"></asp:Label>
-        <asp:DropDownList ID="ddlGender" CssClass="membertextbox" runat="server"></asp:DropDownList>
+        <asp:DropDownList ID="ddlGender" CssClass="membertextbox" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlGender_SelectedIndexChanged"></asp:DropDownList>
         <br />
 
         <asp:Label ID="lbHcp" CssClass="memberlabel" runat="server" Text="HCP"></asp:Label>
-        <asp:TextBox ID="tbHcp" CssClass="membertextbox" runat="server"></asp:TextBox>
+        <asp:TextBox ID="tbHcp" CssClass="membertextbox" runat="server" ></asp:TextBox>
         <br />
 
         <asp:Label ID="lbGolfId" CssClass="memberlabel" runat="server" Text="Golf Id"></asp:Label>
@@ -47,8 +52,7 @@
         <br />
 
         <asp:Label ID="lbCategory" CssClass="memberlabel" runat="server" Text="Medlems kategori" ></asp:Label>
-        <asp:DropDownList ID="ddlCategory" CssClass="membertextbox" runat="server"></asp:DropDownList>
-        <br />
+        <asp:DropDownList ID="ddlCategory" CssClass="membertextbox" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged"></asp:DropDownList>     
         <br />
 
         <asp:Label ID="lbIdUser" CssClass="memberlabel" runat="server" Text="AnvändarId"></asp:Label>
