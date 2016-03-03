@@ -16,11 +16,10 @@ namespace DSU_g5
 
         public static void bookMember(DateTime date, int timeId, int chosenMid)
         {
-            string sqlInsToGame;
-            string sqlInsToGM;
+            string sqlInsToGame; //SQLsträng för att skapa rad i game-tabellen.
+            string sqlInsToGM;  //SQLsträng för att skapa rad i game_member-tabellen.
 
-
-            int dateID = 0;
+            int dateID = 0; //DateID som får värde efter att datumet kollats mot tabellen.
 
             try
             {
@@ -44,18 +43,17 @@ namespace DSU_g5
                 dr.Close();
 
 
-                //int dID = dateID;
-
                 //Går att byta ut date nedan. Då bör en date-klass skapas som får det värdet istället.
                 sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
 
                 sqlInsToGM = "INSERT INTO game_member (game_id, member_id) VALUES (@gId, @mId)";
 
+
                 NpgsqlCommand cmdInsToGame = new NpgsqlCommand(sqlInsToGame, conn);
                 cmdInsToGame.Parameters.AddWithValue("da", dateID);
                 cmdInsToGame.Parameters.AddWithValue("t", timeId);
 
-                int gameID = Convert.ToInt32(cmdInsToGame.ExecuteScalar());
+                int gameID = Convert.ToInt32(cmdInsToGame.ExecuteScalar()); // Returnerar game_id som används i nästa query.
                 conn.Close(); //kanske stäng
 
 
@@ -133,10 +131,6 @@ namespace DSU_g5
         //Admin får se alla medlemmar i en lista. Möjliggör för att lägga in personer på bokning.
         public static DataTable showAllMembersForBooking()
         {
-            //GÖR DT i metoden.
-            //NpgsqlDataAdapter istället för Command
-            //använda value
-
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
             string sql;
@@ -145,12 +139,12 @@ namespace DSU_g5
            
             try
             {
-                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID FROM member_new";
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID FROM member_new"; //first_name och last_name blir en egen kolumn som heter 'name'.
 
                 conn.Open();
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
-                da.Fill(dt);
+                da.Fill(dt); //Fyller dataAdatpter med dataTable.
             }
 
             catch (NpgsqlException ex)
@@ -160,39 +154,7 @@ namespace DSU_g5
             
             return dt;
 
-            //List<member> membersForBookingList = new List<member>();
-            //member m;
-            //string sql;
-
-            //try
-            //{
-            //    sql = "SELECT * FROM member_new ORDER BY id_member ASC";
-
-            //    conn.Open();
-
-            //    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            //    NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            //    while(dr.Read())
-            //    {
-            //        m = new member();
-            //        m.memberId = int.Parse(dr["id_member"].ToString());
-            //        m.firstName = dr["first_name"].ToString();
-            //        m.lastName = dr["last_name"].ToString();
-            //        m.hcp = double.Parse(dr["hcp"].ToString());
-            //        m.gender = dr["gender"].ToString();
-
-            //        membersForBookingList.Add(m);
-            //    }
-
-            //}
-
-            //catch (NpgsqlException ex)
-            //{
-            //    Debug.WriteLine(ex.Message);
-            //}
-
-            //return membersForBookingList;
+           
         }
 
         public static void addMember(member newMember, users newUser)
