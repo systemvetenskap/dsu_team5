@@ -109,49 +109,49 @@
             <td>20</td>
             <td>20</td>
             <td>20</td>
+            <%--<asp:TableHeaderRow>08</asp:TableHeaderRow>--%>
+        </tr>
+
+        <tr>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
+            <td>30</td>
             <%--<td>10</td>--%>
         </tr>
 
         <tr>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
-            <td>30</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
+            <td>40</td>
             <%--<td>20</td>--%>
         </tr>
 
         <tr>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
-            <td>40</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
+            <td>50</td>
             <%--<td>30</td>--%>
-        </tr>
-
-        <tr>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <td>50</td>
-            <%--<td>40</td>--%>
         </tr>
     
 
@@ -172,6 +172,9 @@
 
 
     <asp:Label ID="lblPlaceholderMemberId" runat="server" Text="Label"></asp:Label>
+
+
+    <asp:HiddenField ID="hfPlaceholderMemberId" runat="server" />
 
 
 </asp:Content>

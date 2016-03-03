@@ -228,7 +228,8 @@ namespace DSU_g5
 
         protected void BtnBookAll_Click(object sender, EventArgs e)
         {
-            string placeholderMid = lblPlaceholderMemberId.Text;
+            //string placeholderMid = lblPlaceholderMemberId.Text;
+            string placeholderMid = hfPlaceholderMemberId.Value;
             int memberID = Convert.ToInt32(placeholderMid);
 
 
@@ -252,7 +253,9 @@ namespace DSU_g5
 
             //string mid = this.lbAllMembers.SelectedItem.Text.ToString();
             mid = li.Value;
-            lblPlaceholderMemberId.Text = mid;
+            //lblPlaceholderMemberId.Text = mid;
+            hfPlaceholderMemberId.Value = mid;
+
             Debug.WriteLine(mid);
 
         }
