@@ -21,12 +21,13 @@ namespace DSU_g5
             string sqlInsToGM;  //SQLsträng för att skapa rad i game_member-tabellen.
 
             int dateID = 0; //DateID som får värde efter att datumet kollats mot tabellen.
+            
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
             try
             {
                 string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
                 
-                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -73,6 +74,11 @@ namespace DSU_g5
             {
                 Debug.WriteLine(ex.Message);
             }
+
+            finally
+            {
+                conn.Close();
+            }
         }
 
         public static void unBookMember(DateTime date, int timeId, int chosenMemberId)
@@ -95,7 +101,7 @@ namespace DSU_g5
                 if(dr.Read())
                 {
                     dateId = int.Parse(dr["dates_id"].ToString());
-            }
+                }
                 else
                 {
                     Debug.WriteLine("Finns ej detta datum_id i databasen");
@@ -111,7 +117,7 @@ namespace DSU_g5
                 NpgsqlDataReader dRead = cmdGetGameId.ExecuteReader();
                 
                 if(dRead.Read())
-            {
+                {
                     gameId = int.Parse(dRead["game_id"].ToString());
                 }
                 else
@@ -135,14 +141,13 @@ namespace DSU_g5
                 cmdDelGameID.ExecuteNonQuery();
 
                 conn.Close();
-
             }
 
             catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
                 conn.Close();
-        }
+            }
 
             finally
             {

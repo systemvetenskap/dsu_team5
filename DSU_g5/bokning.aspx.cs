@@ -21,6 +21,7 @@ namespace DSU_g5
         DateTime trimDateTime;
         string mid;
         member selectedMember;
+        string bookedMid;
 
         #endregion
 
@@ -57,7 +58,7 @@ namespace DSU_g5
             //    Response.Write("<script>alert('" + "Välj ett datum" + "')</script>");
             //}
         }
-        protected void BtnBookAll_Click(object sender, EventArgs e)
+        protected void BtnBookMember_Click(object sender, EventArgs e)
         {
             string placeholderMid = hfPlaceholderMemberId.Value;
             int memberID = Convert.ToInt32(placeholderMid);
@@ -75,10 +76,13 @@ namespace DSU_g5
         }
         protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
         {
-            //SKAPA EN VOIDMETOD();
-            string placeholderMid = hfPlaceholderMemberId.Value;
-            int memberID = Convert.ToInt32(placeholderMid);
-            
+
+            //string placeholderMid = hfPlaceholderMemberId.Value;
+            //int memberID = Convert.ToInt32(placeholderMid);
+
+            string placeholderMid = hfBookedMembersFromList.Value;
+            int bookedMember = Convert.ToInt32(placeholderMid);
+
             string chosenDate = hfChosenDate.Value;
             trimDate = chosenDate.Substring(0, 10);
             trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
@@ -86,7 +90,7 @@ namespace DSU_g5
             string placeholderTid = hfTimeId.Value;
             int timeID = Convert.ToInt32(placeholderTid);
 
-            methods.unBookMember(trimDateTime, timeID, memberID);
+            methods.unBookMember(trimDateTime, timeID, bookedMember);
         }
 
         protected void btnAddSeason_Click(object sender, EventArgs e)
@@ -251,7 +255,11 @@ namespace DSU_g5
                 lbBookedMembers.DataSource = methods.showAllMembersForBookingByGameId(gameId);
                 lbBookedMembers.DataBind();
 
+
                 //info till <p>
+
+
+
             }
             catch (Exception ex)
             {
@@ -284,8 +292,17 @@ namespace DSU_g5
             Debug.WriteLine(mid);
 
         }
+        protected void lbBookedMembers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox lb = (ListBox)sender;
+            ListItem li = lb.SelectedItem;
+
+            bookedMid = li.Value;
+            hfBookedMembersFromList.Value = bookedMid;
+        }
 
         #endregion
+
 
 
 

@@ -31,6 +31,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.GridView grvBokning;
         
         /// <summary>
+        /// lbBookedMembers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lbBookedMembers;
+        
+        /// <summary>
         /// lbAllMembers control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.ListBox lbAllMembers;
         
         /// <summary>
-        /// BtnBookAll control.
+        /// BtnBookMember control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnBookAll;
+        protected global::System.Web.UI.WebControls.Button BtnBookMember;
         
         /// <summary>
         /// BtnDelMemberFromGame control.
@@ -67,16 +76,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Calendar startCalendar;
         
         /// <summary>
-        /// lbBookedMembers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbBookedMembers;
-        
-        /// <summary>
-        /// lbAllMembers control.
         /// endCalendar control.
         /// </summary>
         /// <remarks>
@@ -120,5 +119,14 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfTimeId;
+        
+        /// <summary>
+        /// hfBookedMembersFromList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfBookedMembersFromList;
     }
 }
