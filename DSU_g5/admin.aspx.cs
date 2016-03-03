@@ -50,8 +50,6 @@ namespace DSU_g5
             int id = Convert.ToInt32(li.Value);
             string value = li.Text;
 
-
-
         }
 
     }

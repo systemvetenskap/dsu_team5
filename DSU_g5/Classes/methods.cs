@@ -608,7 +608,7 @@ namespace DSU_g5
                 command.Parameters["newNewsId"].Value = newNews.newsId;
                 command.CommandText = sql;
                 int news_id = Convert.ToInt32(command.ExecuteScalar());
-        tran.Commit();
+                tran.Commit();
             }
             catch (Exception ex)
             {
