@@ -220,6 +220,10 @@ namespace DSU_g5
             {
                 Debug.WriteLine(ex.Message);
             }
+            finally
+            {
+                conn.Close();
+            }
 
             return bookingmembers;
         }
@@ -627,6 +631,10 @@ namespace DSU_g5
             catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
             }
 
             return gameList;

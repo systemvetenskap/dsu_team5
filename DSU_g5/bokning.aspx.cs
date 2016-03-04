@@ -28,19 +28,26 @@ namespace DSU_g5
         protected void Page_Load(object sender, EventArgs e)
         {
             List<DateTime> tider = new List<DateTime>();
-            
-            populateGrvBokning();
 
             if(!IsPostBack)
-            {
-                lbBookedMembers.Items.Clear();
+            {                
                 lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
                 lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
                 lbAllMembers.DataSource = methods.showAllMembersForBooking();
                 lbAllMembers.DataBind();
             }
+            else
+            {
+                try
+                {
+                    populateGrvBokning();
+                    updateBookingInfo();
+                }
+                catch (Exception)
+                {
 
-
+                }
+            }
         }
 
  
@@ -69,9 +76,18 @@ namespace DSU_g5
             
             string placeholderTid = hfTimeId.Value;
             int timeID = Convert.ToInt32(placeholderTid);
-
+            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
             
             methods.bookMember(trimDateTime, timeID, memberID);
+
+            lbBookedMembers.Items.Clear();
+            //lbBookedMembers.DataSource = null;
+            //lbBookedMembers.DataBind();
+            lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeID));
+            lbBookedMembers.DataBind();
+
+            populateGrvBokning();
+            updateBookingInfo();
         }
         protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
         {
@@ -97,8 +113,8 @@ namespace DSU_g5
             methods.unBookMember(trimDateTime, timeID, bookedMember);
 
 
-            grvBokning.DataSource = null;
-            grvBokning.DataBind();
+            //grvBokning.DataSource = null;
+            //grvBokning.DataBind();
 
             
             
@@ -110,7 +126,7 @@ namespace DSU_g5
 
 
             populateGrvBokning();
-
+            updateBookingInfo();
 
         }
 
@@ -280,7 +296,23 @@ namespace DSU_g5
                 lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
                 lbBookedMembers.DataBind();
 
-                //presentera om golfrunda och deltagare: datum, tid, deltagare, handicap, golf-ID, totalt handicap
+                //presentera info om golfrunda och deltagare: datum, tid, deltagare, handicap, golf-ID, totalt handicap
+                updateBookingInfo();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('" + ex.Message + "')</script>");
+            }
+        }
+
+        protected void updateBookingInfo()
+        {
+            try
+            {
+                DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+                List<games> gamesList = methods.getGamesByDate(datum);
+                string timeId = hfTimeId.Value;
+
                 string info = datum.ToShortDateString();
                 double totalHcp = 0;
                 int iteration = 0;
@@ -293,7 +325,7 @@ namespace DSU_g5
                         {
                             info += "<br/>" + g.time.ToShortTimeString();
                         }
-                        
+
                         foreach (member m in g.memberInGameList)
                         {
                             info += "<br/><br/>" + m.firstName + " " + m.lastName + "<br/>Handicap: " + m.hcp + "<br/>Golf-ID: " + m.golfId;
@@ -340,11 +372,19 @@ namespace DSU_g5
         }
         protected void lbBookedMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListBox lb = (ListBox)sender;
-            ListItem li = lb.SelectedItem;
+            try
+            {
+                ListBox lb = (ListBox)sender;
+                ListItem li = lb.SelectedItem;
 
-            bookedMid = li.Value;
-            hfBookedMembersFromList.Value = bookedMid;
+                bookedMid = li.Value;
+                hfBookedMembersFromList.Value = bookedMid;
+            }
+            catch
+            {
+
+            }
+            
         }
 
         #endregion
