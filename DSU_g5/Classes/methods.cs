@@ -788,16 +788,7 @@ namespace DSU_g5
 
             return memberList;
         }
-
-
-
-        #endregion medlemssida
        
-        #region loggin
-        #endregion loggin
-
-
-
         #region news
         public static List<news> getNewsList()
         {
