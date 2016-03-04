@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <section id="adminsida">
         
-         
+     
         <asp:Label ID="lblNewNews" CSSclass="newslabel" runat="server" Text="Lägg till nyhet"></asp:Label>
         <br />
         <asp:TextBox ID="txtNewNews" CSSclass="newstextbox" runat="server">Nyhetsnamn</asp:TextBox>
