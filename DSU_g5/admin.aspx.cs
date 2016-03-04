@@ -11,7 +11,6 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             List<news> newsList = new List<news>();
             newsList = methods.getNewsList();
             ddlNewsName.DataSource = newsList;
@@ -21,7 +20,9 @@ namespace DSU_g5
         protected void btnPublish_Click(object sender, EventArgs e)
         {
             news newNews = new news();
+            newNews.newsName = txtNewNews.Text;
             newNews.newsInfo = textNews.InnerText;
+            //datetime.now??? hur kan jag lägga till så att dagens datum kommer in i databas
 
             methods.addNews(newNews);
         }
@@ -31,6 +32,7 @@ namespace DSU_g5
             news newNews = new news();
             newNews.newsInfo = textNews.InnerText;
             newNews.newsId = 1;
+            //ska dem även kunna uppdatera namn?
 
             methods.updateNews(newNews);
         }

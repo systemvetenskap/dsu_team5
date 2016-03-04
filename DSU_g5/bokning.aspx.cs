@@ -118,11 +118,17 @@ namespace DSU_g5
         {
             DateTime startDate = startCalendar.SelectedDate;
             DateTime endDate = endCalendar.SelectedDate;
-
-            while (startDate <= endDate)
+            if (startCalendar.SelectedDate == DateTime.MinValue || endCalendar.SelectedDate == DateTime.MinValue)
             {
-                methods.addSeason(startDate);
-                startDate = startDate.AddDays(1);
+                Response.Write("<script>alert(välj till och från datum)</script>");
+            }
+            else
+            {
+                while (startDate <= endDate)
+                {
+                    methods.addSeason(startDate);
+                    startDate = startDate.AddDays(1);
+                }
             }
         }
 

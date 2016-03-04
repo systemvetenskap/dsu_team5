@@ -13,7 +13,6 @@ namespace DSU_g5
 
     public static class methods
     {
-        #region BOKNING OCH AVBOKNING AV MEDLEMMAR - ADMIN
 
         public static void bookMember(DateTime date, int timeId, int chosenMid)
         {
@@ -22,12 +21,11 @@ namespace DSU_g5
 
             int dateID = 0; //DateID som får värde efter att datumet kollats mot tabellen.
 
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-
             try
             {
                 string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
                 
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -74,12 +72,7 @@ namespace DSU_g5
             {
                 Debug.WriteLine(ex.Message);
             }
-
-            finally
-            {
-                conn.Close();
             }
-        }
 
         public static void unBookMember(DateTime date, int timeId, int chosenMemberId)
         {
@@ -88,7 +81,7 @@ namespace DSU_g5
             int dateId = 0;
             int gameId = 0;
             List<game> gameList = new List<game>();
-            
+
 
             string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
 
@@ -141,8 +134,8 @@ namespace DSU_g5
                 foreach (game game in gameList)
                 {
                     string sqlDelFromGM = "DELETE FROM game_member WHERE game_id = '" + game.game_id + "' AND member_id = '" + chosenMemberId + "'";
-                    NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
-                    cmdDelGM.ExecuteNonQuery();
+                NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
+                cmdDelGM.ExecuteNonQuery();
                 }
 
 
@@ -153,6 +146,7 @@ namespace DSU_g5
                 cmdDelGameID.ExecuteNonQuery();
 
                 conn.Close();
+
             }
 
             catch (NpgsqlException ex)
@@ -167,8 +161,6 @@ namespace DSU_g5
             }
 
         }
-
-        #endregion
 
 
         public static List<member> getBookedMember(DateTime selectedDate)
@@ -223,7 +215,6 @@ namespace DSU_g5
             return bookingmembers;
         }
                 
-        
         //Admin får se alla medlemmar i en lista. Möjliggör för att lägga in personer på bokning.
         public static DataTable showAllMembersForBooking()
         {
@@ -254,25 +245,20 @@ namespace DSU_g5
             return dt;           
         }
 
-        //Returnerar en datatable med medlemmar inbokade på en viss tid på ett visst datum
-        public static DataTable showAllMembersForBookingByDateAndTime(DateTime datum, int timeID)
+        //Returnerar en datatable med medlemmar inbokade på en viss tid
+        public static DataTable showAllMembersForBookingByGameId(int gameId)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
             string sql;
-            string date = datum.ToShortDateString();
+
             DataTable dt = new DataTable();
 
             try
             {
-                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID "+
-                      "FROM member_new, game_member, game, game_dates, game_starts "+
-                      "WHERE member_new.id_member = game_member.member_id "+
-                      "AND game_member.game_id = game.game_id "+
-                      "AND game.time_id = game_starts.time_id "+
-                      "AND game.date_id = game_dates.dates_id "+
-                      "AND game_starts.time_id = "+ timeID +" "+
-                      "AND game_dates.dates = '"+ date +"';";
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID, game_id FROM member_new, game_member "+
+                      "WHERE member_id = id_member "+
+                      "AND game_id = "+ gameId +";";
 
                 conn.Open();
 
@@ -290,9 +276,6 @@ namespace DSU_g5
 
             return dt;
         }
-
-
-
 
         #region medlemssida
         public static void addMember(member newMember, users newUser)
@@ -695,10 +678,15 @@ namespace DSU_g5
                 trans = conn.BeginTransaction();
                 command.Connection = conn;
                 command.Transaction = trans;
-                sql = "INSERT INTO news (news_info) VALUES(:newNewsInfo) RETURNING news_id";
+                sql = "INSERT INTO news (news_info, news_name, news_date) VALUES(:newNewsInfo, :newNewsName, :newNewsDate) RETURNING news_id";
 
                 command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
                 command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
+                command.Parameters.Add(new NpgsqlParameter("newNewsName", NpgsqlDbType.Varchar));
+                command.Parameters["newNewsName"].Value = newNews.newsName;
+                command.Parameters.Add(new NpgsqlParameter("newNewsDate", NpgsqlDbType.Date));
+                command.Parameters["newNewsDate"].Value = newNews.newsDate;
+
 
                 command.CommandText = sql;
                 int newsID = Convert.ToInt32(command.ExecuteScalar());
@@ -759,7 +747,7 @@ namespace DSU_g5
             conn.Open();
             try
             {
-                sql = "insert into game_dates_test(dates) VALUES ('" + startDate + "')";                
+                sql = "insert into game_dates(dates) VALUES ('" + startDate + "')";                
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
@@ -777,6 +765,8 @@ namespace DSU_g5
         #endregion loggin
 
 
+
+#region news
 public static List<news> getNewsList()
 {
     List<news> newsList = new List<news>();
@@ -805,44 +795,7 @@ public static List<news> getNewsList()
     return newsList;
 }
 
-
-
-
-public static void removeNews(news newNews)
-{
-    NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-    NpgsqlTransaction tran = null;
-
-    NpgsqlCommand command = new NpgsqlCommand();
-    command.Connection = conn;
-    try
-    {
-        conn.Open();
-        tran = conn.BeginTransaction();
-        command.Connection = conn;
-        command.Transaction = tran;
-
-        string sql = string.Empty;
-        sql = "DELETE FROM news WHERE news_id = :newNewsId";
-        command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
-        command.Parameters["newNewsId"].Value = newNews.newsId;
-        command.CommandText = sql;
-        int news_id = Convert.ToInt32(command.ExecuteScalar());
-        tran.Commit();
-    }
-    catch (Exception ex)
-    {
-        Debug.WriteLine(ex.Message);
-        tran.Rollback();
-        }
-    finally
-    {
-        conn.Close();
-    }
-}
     
+        #endregion news
     }
 }
-
-
-
