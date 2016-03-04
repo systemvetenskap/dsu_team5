@@ -13,6 +13,7 @@ namespace DSU_g5
 
     public static class methods
     {
+       
         #region BOKNING OCH AVBOKNING AV MEDLEMMAR - ADMIN
 
         public static void bookMember(DateTime date, int timeId, int chosenMid)
@@ -755,16 +756,17 @@ namespace DSU_g5
             }
         }
 
-        public static void updateNews(int news_id) //newNews
+        public static void updateNews(news newNews)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction trans = null;
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = conn;
-            news newNews = new news();
+          
             try
             {
+                //news newNews = new news();
                 string sql = string.Empty;
                 conn.Open();
                 trans = conn.BeginTransaction();
@@ -780,8 +782,8 @@ namespace DSU_g5
                 command.Parameters["newNewsId"].Value = newNews.newsId;
 
                 command.CommandText = sql;
-                news_id = Convert.ToInt32(command.ExecuteScalar());
-                //int news_id = Convert.ToInt32(command.ExecuteScalar());
+                int news_id = Convert.ToInt32(command.ExecuteScalar());
+               
                 trans.Commit();
                
             }

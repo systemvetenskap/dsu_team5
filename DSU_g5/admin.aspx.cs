@@ -52,7 +52,7 @@ namespace DSU_g5
             newNews.newsInfo = textNews.InnerText;
             //ska dem även kunna uppdatera namn?
 
-            methods.updateNews(news_id); //newNews
+            methods.updateNews(newNews); 
         }
 
         protected void btnRemoveNews_Click(object sender, EventArgs e)
