@@ -28,14 +28,15 @@
     <div id="bokningar">
         <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
         <div id="bokningarInfo">
-            <asp:ListBox ID="lbBookedMembers" runat="server"></asp:ListBox>
-            <p id="pBokningarInfo"></p>
+            <asp:ListBox ID="lbBookedMembers" runat="server" OnSelectedIndexChanged="lbBookedMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+            <p id="pBokningarInfo" runat="server"></p>
         </div>
     </div>
     <br />
     <br />
 
-    <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox><asp:Button ID="BtnBookAll" runat="server" Text="Button" OnClick="BtnBookAll_Click" />
+    <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" SelectionMode="Multiple" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+    <asp:Button ID="BtnBookMember" runat="server" Text="Boka medlem" OnClick="BtnBookMember_Click" />
 
     <asp:Button ID="BtnDelMemberFromGame" runat="server" Text="Ta bort" OnClick="BtnDelMemberFromGame_Click" />
 
@@ -48,6 +49,6 @@
     <asp:HiddenField ID="hfPlaceholderMemberId" runat="server" />
     <asp:HiddenField ID="hfChosenDate" runat="server" />
     <asp:HiddenField ID="hfTimeId" runat="server" />
-
+    <asp:HiddenField ID="hfBookedMembersFromList" runat="server" />
 
 </asp:Content>

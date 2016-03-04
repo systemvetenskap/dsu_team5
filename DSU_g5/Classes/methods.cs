@@ -752,71 +752,7 @@ namespace DSU_g5
         #region loggin
         #endregion loggin
 
-        #region news
-        public static List<news> getNewsList()
-    {
-    List<news> newsList = new List<news>();
-    NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
-    try
-    {
-        conn.Open();
-        string sql = string.Empty;
-        sql = "SELECT news_id,news_info,news_name FROM news;";
-        NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
-        NpgsqlDataReader dr = command.ExecuteReader();
-        while (dr.Read())
-        {
-            news newNews = new news();
-            newNews.newsId = (int)(dr["news_id"]);
-            newNews.newsInfo = (string)(dr["news_info"]);
-            newNews.newsName = (string)(dr["news_name"]);
-            newsList.Add(newNews);
-        }
-    }
-    finally
-    {
-        conn.Close();
-    }
-    return newsList;
-}
-
-
-
-
-public static void removeNews(news newNews)
-{
-    NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-    NpgsqlTransaction tran = null;
-
-    NpgsqlCommand command = new NpgsqlCommand();
-    command.Connection = conn;
-    try
-    {
-        conn.Open();
-        tran = conn.BeginTransaction();
-        command.Connection = conn;
-        command.Transaction = tran;
-
-        string sql = string.Empty;
-        sql = "DELETE FROM news WHERE news_id = :newNewsId";
-        command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
-        command.Parameters["newNewsId"].Value = newNews.newsId;
-        command.CommandText = sql;
-        int news_id = Convert.ToInt32(command.ExecuteScalar());
-        tran.Commit();
-    }
-    catch (Exception ex)
-    {
-        Debug.WriteLine(ex.Message);
-        tran.Rollback();
-    }
-    finally
-    {
-        conn.Close();
-    }
-}
-        #endregion news
     }
 }
 
