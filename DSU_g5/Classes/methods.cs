@@ -735,7 +735,7 @@ namespace DSU_g5
             conn.Open();
             try
             {
-                sql = "insert into game_dates_test(dates) VALUES ('" + startDate + "')";                
+                sql = "insert into game_dates(dates) VALUES ('" + startDate + "')";                
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
