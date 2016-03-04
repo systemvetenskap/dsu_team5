@@ -339,7 +339,7 @@ namespace DSU_g5
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('" + ex.Message + "')</script>");
+                //Response.Write("<script>alert('" + ex.Message + "')</script>");
             }
         }
 
