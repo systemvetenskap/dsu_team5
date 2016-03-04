@@ -742,7 +742,7 @@ namespace DSU_g5
                 command.CommandText = sql;
                 int newsID = Convert.ToInt32(command.ExecuteScalar());
                 trans.Commit();
-                int numberOfAffectedRows = command.ExecuteNonQuery();
+              
             }
             catch (Exception ex)
             {
@@ -769,17 +769,19 @@ namespace DSU_g5
                 trans = conn.BeginTransaction();
                 command.Connection = conn;
                 command.Transaction = trans;
-                sql = "UPDATE news SET news_info = :newNewsInfo WHERE news_name = :newNewsName RETURNING news_id";
+                sql = "UPDATE news SET news_info = :newNewsInfo, news_name = :newNewsName WHERE  news_id =: newNewsId RETURNING news_id";
 
                 command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
                 command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
                 command.Parameters.Add(new NpgsqlParameter("newNewsName", NpgsqlDbType.Varchar));
                 command.Parameters["newNewsName"].Value = newNews.newsName;
+                command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
+                command.Parameters["newNewsId"].Value = newNews.newsId;
 
                 command.CommandText = sql;
                 int news_id = Convert.ToInt32(command.ExecuteScalar());
                 trans.Commit();
-                int numberOfAffectedRows = command.ExecuteNonQuery();
+               
             }
             catch (Exception ex)
             {
@@ -825,8 +827,33 @@ namespace DSU_g5
             }
         }
 
+        public static news getNews(int news_id)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            news newNews = new news();
+            try
+            {
+                conn.Open();
+                string sql = string.Empty;
+                sql = "SELECT news_id, news_info FROM news WHERE news_id = :newNewsId;";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
+                command.Parameters["newNewsId"].Value = news_id;
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    newNews.newsId = (int)(dr["news_id"]);
+                    newNews.newsInfo = (string)(dr["news_info"]);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newNews;
+        }
 
-
+       
 
         #endregion news
 
