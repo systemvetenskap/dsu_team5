@@ -30,10 +30,10 @@ namespace DSU_g5
             List<DateTime> tider = new List<DateTime>();
             
             populateGrvBokning();
-            lbBookedMembers.Items.Clear();
 
             if(!IsPostBack)
             {
+                lbBookedMembers.Items.Clear();
                 lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
                 lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
                 lbAllMembers.DataSource = methods.showAllMembersForBooking();
@@ -71,11 +71,15 @@ namespace DSU_g5
             int timeID = Convert.ToInt32(placeholderTid);
 
             
-            //11 är nu hårdkodat och är TimeID. Detta ska bytas ut mot det man väljer i datagriden.
             methods.bookMember(trimDateTime, timeID, memberID);
         }
         protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
         {
+            //lbBookedMembers.DataSource = null;
+
+
+            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+            int timeId = Convert.ToInt32(hfTimeId.Value);
 
             //string placeholderMid = hfPlaceholderMemberId.Value;
             //int memberID = Convert.ToInt32(placeholderMid);
@@ -91,6 +95,23 @@ namespace DSU_g5
             int timeID = Convert.ToInt32(placeholderTid);
 
             methods.unBookMember(trimDateTime, timeID, bookedMember);
+
+
+            grvBokning.DataSource = null;
+            grvBokning.DataBind();
+
+            
+            
+            lbBookedMembers.Items.Clear();
+            //lbBookedMembers.DataSource = null;
+            //lbBookedMembers.DataBind();
+            lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
+            lbBookedMembers.DataBind();
+
+
+            populateGrvBokning();
+
+
         }
 
         protected void btnAddSeason_Click(object sender, EventArgs e)
@@ -237,6 +258,7 @@ namespace DSU_g5
                 DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
                 hfTimeId.Value = timeId;
                 List<games> gamesList = methods.getGamesByDate(datum);
+
 
                 int gameId = 0;
                 foreach (games g in gamesList)

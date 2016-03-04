@@ -87,6 +87,8 @@ namespace DSU_g5
             
             int dateId = 0;
             int gameId = 0;
+            List<game> gameList = new List<game>();
+            
 
             string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
 
@@ -116,9 +118,16 @@ namespace DSU_g5
                 NpgsqlCommand cmdGetGameId = new NpgsqlCommand(sqlGetGameId, conn);
                 NpgsqlDataReader dRead = cmdGetGameId.ExecuteReader();
                 
-                if(dRead.Read())
+                if(dRead.HasRows)
                 {
-                    gameId = int.Parse(dRead["game_id"].ToString());
+                    while (dRead.Read())
+                    {
+                        game g = new game();
+                        g.game_id = int.Parse(dRead["game_id"].ToString());
+                        gameList.Add(g);
+
+                        //gameId = int.Parse(dRead["game_id"].ToString()); - FUNKAR OM DET ÄR 1 SPELARE PÅ EN BOKNING.
+                    }
                 }
                 else
                 {
@@ -129,9 +138,12 @@ namespace DSU_g5
 
 
                 //Tar bort rad från game_member.
-                string sqlDelFromGM = "DELETE FROM game_member WHERE game_id = '" + gameId + "' AND member_id = '" + chosenMemberId + "'";
-                NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
-                cmdDelGM.ExecuteNonQuery();
+                foreach (game game in gameList)
+                {
+                    string sqlDelFromGM = "DELETE FROM game_member WHERE game_id = '" + game.game_id + "' AND member_id = '" + chosenMemberId + "'";
+                    NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
+                    cmdDelGM.ExecuteNonQuery();
+                }
 
 
 
