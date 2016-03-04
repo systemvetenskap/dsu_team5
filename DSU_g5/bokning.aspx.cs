@@ -135,7 +135,6 @@ namespace DSU_g5
         #endregion
 
 
-
         #region BOKNINGSSCHEMA (GRIDVIEW MED LINKBUTTON)
         protected void populateGrvBokning()
         {
