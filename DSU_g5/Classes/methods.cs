@@ -13,7 +13,6 @@ namespace DSU_g5
 
     public static class methods
     {
-
         public static void bookMember(DateTime date, int timeId, int chosenMid)
         {
             string sqlInsToGame; //SQLsträng för att skapa rad i game-tabellen.
@@ -150,7 +149,6 @@ namespace DSU_g5
 
         }
 
-
         public static List<member> getBookedMember(DateTime selectedDate)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -281,8 +279,10 @@ namespace DSU_g5
                 command.Transaction = tran;
                 string plsql = string.Empty;
 
-                plsql = plsql + "INSERT INTO member_new (first_name, last_name, address, postal_code,  city, mail, gender, hcp, golf_id, member_category)";
-                plsql = plsql + " VALUES (:newFirstName, :newLastName, :newAddress, :newPostalCode, :newCity, :newMail, :newGender, :newHcp, :newGolfId, :newMemberCategori)";
+                plsql = plsql + "INSERT INTO member_new (first_name, last_name, address, postal_code, ";
+                plsql = plsql +    " city, mail, gender, hcp, golf_id, member_category)";
+                plsql = plsql + " VALUES (:newFirstName, :newLastName, :newAddress, :newPostalCode, ";
+                plsql = plsql +    " :newCity, :newMail, :newGender, :newHcp, :newGolfId, :newMemberCategori)";
                 plsql = plsql + " RETURNING id_member";
 
                 command.Parameters.Add(new NpgsqlParameter("newFirstName", NpgsqlDbType.Varchar));
@@ -360,7 +360,7 @@ namespace DSU_g5
                 plsql = plsql + " SET first_name = :newFirstName,"; 
                 plsql = plsql + "  last_name = :newLastName,"; 
                 plsql = plsql + "  address = :newAddress,";
-                plsql = plsql + "  postal_code = :newAddress,";
+                plsql = plsql + "  postal_code = :newPostalCode,";
                 plsql = plsql + "  city = :newCity,";
                 plsql = plsql + "  mail = :newMail,";
                 plsql = plsql + "  gender = :newGender,";
@@ -482,7 +482,12 @@ namespace DSU_g5
             {
                 conn.Open();
                 string plsql = string.Empty;
-                plsql = "SELECT id_member, first_name, last_name, address, postal_code, city, mail, gender, hcp, golf_id, fk_category_id, member_category FROM member_new WHERE id_member = :newIdMember;";
+                
+                plsql = plsql + "SELECT id_member, first_name, last_name, address, postal_code, ";
+                plsql = plsql + " city, mail, gender, hcp, golf_id, fk_category_id, member_category ";
+                plsql = plsql + " FROM member_new ";
+                plsql = plsql + " WHERE id_member = :newIdMember;";
+
                 NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newIdMember", NpgsqlDbType.Integer));
                 command.Parameters["newIdMember"].Value = id_member;
@@ -497,7 +502,7 @@ namespace DSU_g5
                     newMember.city = (string)(dr["city"]);
                     newMember.mail = (string)(dr["mail"]);
                     newMember.gender = (string)(dr["gender"]);
-                    newMember.hcp = (double)(dr["hcp"]);
+                    newMember.hcp = Convert.ToDouble((dr["hcp"]));
                     newMember.golfId = (string)(dr["golf_id"]);
                     newMember.category = (string)(dr["member_category"]);
                 }
@@ -565,6 +570,35 @@ namespace DSU_g5
             }
             return memberCategoryList;
         }
+
+        public static int getMemberAccesId(int IdMember)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            int accesId = 0;
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = "SELECT acces_id FROM member_new WHERE id_member = :newIdMember;";
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newIdMember", NpgsqlDbType.Integer));
+                command.Parameters["newIdMember"].Value = IdMember;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    accesId = (int)(dr["acces_id"]);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return accesId;
+        }
+        #endregion medlemssida
 
         public static List<games> getGamesByDate(DateTime selectedDate)
         {
@@ -649,7 +683,6 @@ namespace DSU_g5
 
             return memberList;
         }
-
 
         public static void addNews(news newNews)
         {
@@ -743,8 +776,78 @@ namespace DSU_g5
                 conn.Close();
             }
         }
-        #endregion medlemssida
+        
         #region loggin
+
+        public static bool checkUserExist(string userName, string userPassword)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            bool exists = false;
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT count(*) AS amount "; 
+                plsql = plsql + " FROM users ";
+                plsql = plsql + " WHERE user_name = :newUserName ";
+                plsql = plsql + " AND user_password = :newUserpassword;";
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newUserName", NpgsqlDbType.Varchar));
+                command.Parameters["newUserName"].Value = userName;
+                command.Parameters.Add(new NpgsqlParameter("newUserpassword", NpgsqlDbType.Varchar));
+                command.Parameters["newUserpassword"].Value = userPassword;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    exists = true;
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return exists;
+        }
+        
+        public static users getUserByName(string userName, string userPassword) 
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            users newUser = new users();
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT id_user, user_name, user_password, fk_id_member ";
+                plsql = plsql + " FROM users ";
+                plsql = plsql + " WHERE user_name = :newUserName ";
+                plsql = plsql + " AND user_password = :newUserpassword;";
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newUserName", NpgsqlDbType.Varchar));
+                command.Parameters["newUserName"].Value = userName;
+                command.Parameters.Add(new NpgsqlParameter("newUserpassword", NpgsqlDbType.Varchar));
+                command.Parameters["newUserpassword"].Value = userPassword;
+                
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    newUser.idUser = (int)(dr["id_user"]);
+                    newUser.userName = (string)(dr["user_name"]);
+                    newUser.userPassword = (string)(dr["user_password"]);
+                    newUser.fkIdMember = (int)(dr["fk_id_member"]);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newUser;
+        }                
+        
         #endregion loggin
     }
 }
