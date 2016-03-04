@@ -11,26 +11,30 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            users g_newUser = new users();
+            g_newUser.idUser = Convert.ToInt32(Session["idUser"]);
+            g_newUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
+
             if (!Page.IsPostBack)
             {
-            ddlGender.Items.Add("Male");
-            ddlGender.Items.Add("Female");
+                ddlGender.Items.Add("Male");
+                ddlGender.Items.Add("Female");
 
-            // Under utveckling
-            // populate(1021);
-            List<member_category> memberCategoryList = new List<member_category>();
-            memberCategoryList = methods.getMemberCategoryList();
+                List<member_category> memberCategoryList = new List<member_category>();
+                memberCategoryList = methods.getMemberCategoryList();
                 List<ListItem> nyLista = new List<ListItem>();
 
                 foreach (member_category me in memberCategoryList)
                 {
                     nyLista.Add(new ListItem(me.category, me.categoryId.ToString()));
-        }
+                }
 
                 ddlCategory.DataTextField = "Text";
                 ddlCategory.DataValueField = "Value";
                 ddlCategory.DataSource = nyLista;
                 ddlCategory.DataBind();
+
+                populateMember(g_newUser.fkIdMember);
             }
         }
 
@@ -74,7 +78,7 @@ namespace DSU_g5
             methods.removeMember(newMember, newUser);
         }
 
-        public void populate(int id_member)
+        public void populateMember(int id_member)
         {
             member newMember = new member();
             newMember = methods.getMember(id_member);

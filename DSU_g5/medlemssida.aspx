@@ -73,7 +73,7 @@
         <br />
 
         <asp:Button ID="btAdd" CssClass="memberbutton" runat="server" Text="Lägg till" OnClick="btAdd_Click" />
-        <asp:Button ID="btUpdate" CssClass="memberbutton" runat="server" Text="Uppdatera" />
+        <asp:Button ID="btUpdate" CssClass="memberbutton" runat="server" Text="Uppdatera" OnClick="btUpdate_Click" />
         <asp:Button ID="btRemove" CssClass="memberbutton" runat="server" Text="Ta bort" OnClick="btRemove_Click" />
 
      </section>
