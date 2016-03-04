@@ -755,13 +755,14 @@ namespace DSU_g5
             }
         }
 
-        public static void updateNews(news newNews)
+        public static void updateNews(int news_id) //newNews
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction trans = null;
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = conn;
+            news newNews = new news();
             try
             {
                 string sql = string.Empty;
@@ -779,7 +780,8 @@ namespace DSU_g5
                 command.Parameters["newNewsId"].Value = newNews.newsId;
 
                 command.CommandText = sql;
-                int news_id = Convert.ToInt32(command.ExecuteScalar());
+                news_id = Convert.ToInt32(command.ExecuteScalar());
+                //int news_id = Convert.ToInt32(command.ExecuteScalar());
                 trans.Commit();
                
             }
@@ -835,7 +837,7 @@ namespace DSU_g5
             {
                 conn.Open();
                 string sql = string.Empty;
-                sql = "SELECT news_id, news_info FROM news WHERE news_id = :newNewsId;";
+                sql = "SELECT news_id, news_name, news_info FROM news WHERE news_id = :newNewsId;";
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
                 command.Parameters["newNewsId"].Value = news_id;
@@ -843,6 +845,7 @@ namespace DSU_g5
                 while (dr.Read())
                 {
                     newNews.newsId = (int)(dr["news_id"]);
+                    newNews.newsInfo = (string)(dr["news_name"]);
                     newNews.newsInfo = (string)(dr["news_info"]);
                 }
             }

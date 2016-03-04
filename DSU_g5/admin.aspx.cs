@@ -48,10 +48,11 @@ namespace DSU_g5
         {
             news newNews = new news();
             newNews.newsId = news_id;
+            newNews.newsName = txtNewNews.Text;
             newNews.newsInfo = textNews.InnerText;
             //ska dem även kunna uppdatera namn?
 
-            methods.updateNews(newNews);
+            methods.updateNews(news_id); //newNews
         }
 
         protected void btnRemoveNews_Click(object sender, EventArgs e)
@@ -69,8 +70,12 @@ namespace DSU_g5
             //string value = li.Text;
             news_id = Convert.ToInt32(li.Value);
             news newNews = new news();
-            newNews = methods.getNews(news_id);
+            newNews = methods.getNews(news_id); 
             textNews.InnerText = newNews.newsInfo;
+
+          //newNews = methods.updateNews(news_id);
+            ////newNews = methods.getNews(news_id); 
+
         
              
 
