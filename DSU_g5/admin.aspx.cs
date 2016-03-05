@@ -44,18 +44,18 @@ namespace DSU_g5
             //datetime.now??? hur kan jag lägga till så att dagens datum kommer in i databas
 
             methods.addNews(newNews);
-        }
+         }
 
         protected void btnUpdateNews_Click(object sender, EventArgs e)
         {
             news newNews = new news();
-            //newNews.newsId = Convert.ToInt32(news_id);
+            newNews.newsId = Convert.ToInt32(news_id);
             
          
-            newNews.newsId = news_id;
+            //newNews.newsId = news_id;
             newNews.newsName = txtNewNews.Text;
             newNews.newsInfo = textNews.InnerText;
-            //ska dem även kunna uppdatera namn?
+          
 
             methods.updateNews(newNews);
             methods.getNewsList();
