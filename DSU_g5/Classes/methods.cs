@@ -239,8 +239,6 @@ namespace DSU_g5
 
         }
 
-        #endregion
-
         public static List<member> getBookedMember(DateTime selectedDate)
         {
             
@@ -365,7 +363,10 @@ namespace DSU_g5
             return dt;
         }
 
-        #region medlemssida
+        #endregion
+
+        #region MEDLEMSSIDA
+
         public static void addMember(member newMember, users newUser)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -700,7 +701,10 @@ namespace DSU_g5
             }
             return accesId;
         }
-        #endregion medlemssida
+
+        #endregion MEDLEMSSIDA
+
+        #region GAMES
 
         public static List<games> getGamesByDate(DateTime selectedDate)
         {
@@ -789,8 +793,32 @@ namespace DSU_g5
 
             return memberList;
         }
-       
-        #region news
+        
+        public static void addSeason(DateTime startDate)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql;
+            conn.Open();
+            try
+            {
+                sql = "insert into game_dates(dates) VALUES ('" + startDate + "')";
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        #endregion GAMES
+
+        #region NEWS
+
         public static List<news> getNewsList()
         {
             List<news> newsList = new List<news>();
@@ -965,34 +993,9 @@ namespace DSU_g5
             return newNews;
         }
 
-       
+        #endregion NEWS
 
-        #endregion news
-
-
-
-        public static void addSeason(DateTime startDate)
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            string sql;
-            conn.Open();
-            try
-            {
-                sql = "insert into game_dates(dates) VALUES ('" + startDate + "')";
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                cmd.ExecuteNonQuery();
-            }
-            catch
-            {
-
-    }
-            finally
-            {
-                conn.Close();
-            }
-        }
-        
-        #region loggin
+        #region LOGGIN
 
         public static bool checkUserExist(string userName, string userPassword)
         {
@@ -1061,8 +1064,8 @@ namespace DSU_g5
                 conn.Close();
             }
             return newUser;
-        }                
-        
-        #endregion loggin
+        }
+
+        #endregion LOGGIN
     }
 }
