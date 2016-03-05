@@ -9,6 +9,7 @@ namespace DSU_g5
 {
     public partial class admin : System.Web.UI.Page
     {
+        public news chosenNews;
         public int news_id;
       
 
@@ -19,7 +20,6 @@ namespace DSU_g5
                 List<news> newsList = new List<news>();
                 newsList = methods.getNewsList();
                 List<ListItem> nyListaNews = new List<ListItem>();
-
 
                 foreach (news ne in newsList)
                 {
@@ -39,6 +39,8 @@ namespace DSU_g5
             news newNews = new news();
             newNews.newsName = txtNewNews.Text;
             newNews.newsInfo = textNews.InnerText;
+            newNews.newsDate = DateTime.Now;
+           
             //datetime.now??? hur kan jag lägga till så att dagens datum kommer in i databas
 
             methods.addNews(newNews);
@@ -47,12 +49,16 @@ namespace DSU_g5
         protected void btnUpdateNews_Click(object sender, EventArgs e)
         {
             news newNews = new news();
+            //newNews.newsId = Convert.ToInt32(news_id);
+            
+         
             newNews.newsId = news_id;
             newNews.newsName = txtNewNews.Text;
             newNews.newsInfo = textNews.InnerText;
             //ska dem även kunna uppdatera namn?
 
-            methods.updateNews(newNews); 
+            methods.updateNews(newNews);
+            methods.getNewsList();
         }
 
         protected void btnRemoveNews_Click(object sender, EventArgs e)
@@ -66,15 +72,18 @@ namespace DSU_g5
         protected void ddlNewsName_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList newsName = (DropDownList)sender;
+           
             ListItem li = newsName.SelectedItem;
             //string value = li.Text;
-            news_id = Convert.ToInt32(li.Value);
             news newNews = new news();
+            news_id = Convert.ToInt32(li.Value);
+           
             newNews = methods.getNews(news_id); 
             textNews.InnerText = newNews.newsInfo;
 
-          //newNews = methods.updateNews(news_id);
-            ////newNews = methods.getNews(news_id); 
+          //måste gå in in metoden annars hoppar den bara ur
+            //newNews = methods.updateNews();
+          //newNews = methods.getNews(news_id); 
 
         
              
@@ -87,7 +96,7 @@ namespace DSU_g5
         //    if (newNews.news_id > 0)
         //    {
         //        textNews.InnerText = newNews.newsInfo;
-        //    }
+        //   }
         //}
        
     }

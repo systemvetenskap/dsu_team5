@@ -738,6 +738,7 @@ namespace DSU_g5
                 command.Parameters["newNewsName"].Value = newNews.newsName;
                 command.Parameters.Add(new NpgsqlParameter("newNewsDate", NpgsqlDbType.Date));
                 command.Parameters["newNewsDate"].Value = newNews.newsDate;
+              
 
 
                 command.CommandText = sql;
@@ -785,6 +786,8 @@ namespace DSU_g5
                 int news_id = Convert.ToInt32(command.ExecuteScalar());
                
                 trans.Commit();
+                
+               
                
             }
             catch (Exception ex)
@@ -847,7 +850,7 @@ namespace DSU_g5
                 while (dr.Read())
                 {
                     newNews.newsId = (int)(dr["news_id"]);
-                    newNews.newsInfo = (string)(dr["news_name"]);
+                    newNews.newsName = (string)(dr["news_name"]);
                     newNews.newsInfo = (string)(dr["news_info"]);
                 }
             }
