@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Data;
 
+
 namespace DSU_g5
 {
 
@@ -18,17 +19,67 @@ namespace DSU_g5
 
         public static void bookMember(DateTime date, int timeId, int chosenMid)
         {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            double hcp = 0;
+            double hcpNew = 0;
+            int antal = 0;
+            int dateId = 0;
+
+            string sqlfirst;
+            string sqlmembercount;
+            string sqlHcpCount;
+            string sqlHcpCountNew;
+            
+            try
+            {
+                sqlfirst = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
+                conn.Open();
+                NpgsqlCommand cmdfirst = new NpgsqlCommand(sqlfirst, conn);
+                NpgsqlDataReader drfirst = cmdfirst.ExecuteReader();
+                while (drfirst.Read())
+                {
+                    dateId = int.Parse(drfirst["dates_id"].ToString());
+                }
+                conn.Close();
+                sqlmembercount = "SELECT COUNT (member_id) as antal FROM game_member gm INNER JOIN game g ON g.game_id = gm.game_id WHERE g.date_id = '" + dateId + "' AND time_id = '" + timeId + "'";
+                conn.Open();
+                NpgsqlCommand cmdsecond = new NpgsqlCommand(sqlmembercount, conn);
+                NpgsqlDataReader drsecond = cmdsecond.ExecuteReader();
+                while (drsecond.Read())
+                {
+                    antal = int.Parse(drsecond["antal"].ToString());
+                }
+                conn.Close();
+                sqlHcpCount = "SELECT SUM (hcp) as hcp FROM member_new m INNER JOIN game_member gm ON m.id_member = gm.member_id INNER JOIN game g ON g.game_id = gm.game_id WHERE g.date_id = '" + dateId + "' AND g.time_id = '" + timeId + "'";
+                conn.Open();
+                NpgsqlCommand cmdthird = new NpgsqlCommand(sqlHcpCount, conn);
+                NpgsqlDataReader drthird = cmdthird.ExecuteReader();
+                while (drthird.Read())
+                {
+                    hcp = double.Parse(drthird["hcp"].ToString());
+                }
+                conn.Close();
+                sqlHcpCountNew = "SELECT hcp as handicap FROM member_new WHERE id_member = '" + chosenMid + "';";
+                conn.Open();
+                NpgsqlCommand cmdforth = new NpgsqlCommand(sqlHcpCountNew, conn);
+                NpgsqlDataReader drforth = cmdforth.ExecuteReader();
+                while (drforth.Read())
+                {
+                    hcpNew = double.Parse(drforth["handicap"].ToString());
+                }
+                conn.Close();
+
+                if (hcp + hcpNew <= 100 && antal < 4)
+                {
             string sqlInsToGame; //SQLsträng för att skapa rad i game-tabellen.
             string sqlInsToGM;  //SQLsträng för att skapa rad i game_member-tabellen.
-
             int dateID = 0; //DateID som får värde efter att datumet kollats mot tabellen.
 
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
             try
             {
                 string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
-
+                
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -76,16 +127,33 @@ namespace DSU_g5
                 Debug.WriteLine(ex.Message);
             }
 
+                    finally
+                    {
+                        conn.Close();
+        }
+                }
+
+                else
+                {
+                    HttpContext.Current.Response.Write("Antal deltagare eller för högt handicap");
+                    
+                }
+
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
             finally
             {
-                conn.Close();
+
             }
         }
 
         public static void unBookMember(DateTime date, int timeId, int chosenMemberId)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-
+            
             int dateId = 0;
             int gameId = 0;
 
@@ -105,7 +173,7 @@ namespace DSU_g5
                 if (dr.Read())
                 {
                     dateId = int.Parse(dr["dates_id"].ToString());
-                }
+            }
                 else
                 {
                     Debug.WriteLine("Finns ej detta datum_id i databasen");
@@ -119,9 +187,9 @@ namespace DSU_g5
                 string sqlGetGameId = "SELECT game_id FROM game WHERE date_id = '" + dateId + "' AND time_id = '" + timeId + "'";
                 NpgsqlCommand cmdGetGameId = new NpgsqlCommand(sqlGetGameId, conn);
                 NpgsqlDataReader dRead = cmdGetGameId.ExecuteReader();
-
+                
                 if (dRead.HasRows)
-                {
+            {
                     while (dRead.Read())
                     {
                         game g = new game();
@@ -129,7 +197,7 @@ namespace DSU_g5
                         gameList.Add(g);
 
                         //gameId = int.Parse(dRead["game_id"].ToString()); - FUNKAR OM DET ÄR 1 SPELARE PÅ EN BOKNING.
-                    }
+                }
                 }
                 else
                 {
@@ -143,8 +211,8 @@ namespace DSU_g5
                 foreach (game game in gameList)
                 {
                     string sqlDelFromGM = "DELETE FROM game_member WHERE game_id = '" + game.game_id + "' AND member_id = '" + chosenMemberId + "'";
-                    NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
-                    cmdDelGM.ExecuteNonQuery();
+                NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
+                cmdDelGM.ExecuteNonQuery();
                 }
 
 
@@ -162,7 +230,7 @@ namespace DSU_g5
             {
                 Debug.WriteLine(ex.Message);
                 conn.Close();
-            }
+        }
 
             finally
             {
@@ -175,6 +243,7 @@ namespace DSU_g5
 
         public static List<member> getBookedMember(DateTime selectedDate)
         {
+            
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             List<member> bookingmembers = new List<member>();
             member m;
@@ -215,16 +284,20 @@ namespace DSU_g5
 
                     bookingmembers.Add(m);
                 }
-
+                
             }
             catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
             }
+            finally
+            {
+                conn.Close();
+            }
 
             return bookingmembers;
-        }
-
+                }
+                
         //Admin får se alla medlemmar i en lista. Möjliggör för att lägga in personer på bokning.
         public static DataTable showAllMembersForBooking()
         {
@@ -233,7 +306,7 @@ namespace DSU_g5
             string sql;
 
             DataTable dt = new DataTable();
-
+           
             try
             {
                 sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID FROM member_new"; //first_name och last_name blir en egen kolumn som heter 'name'.
@@ -251,7 +324,7 @@ namespace DSU_g5
             {
                 conn.Close();
             }
-
+            
             return dt;
         }
 
@@ -308,8 +381,10 @@ namespace DSU_g5
                 command.Transaction = tran;
                 string plsql = string.Empty;
 
-                plsql = plsql + "INSERT INTO member_new (first_name, last_name, address, postal_code,  city, mail, gender, hcp, golf_id, member_category)";
-                plsql = plsql + " VALUES (:newFirstName, :newLastName, :newAddress, :newPostalCode, :newCity, :newMail, :newGender, :newHcp, :newGolfId, :newMemberCategori)";
+                plsql = plsql + "INSERT INTO member_new (first_name, last_name, address, postal_code, ";
+                plsql = plsql +    " city, mail, gender, hcp, golf_id, member_category)";
+                plsql = plsql + " VALUES (:newFirstName, :newLastName, :newAddress, :newPostalCode, ";
+                plsql = plsql +    " :newCity, :newMail, :newGender, :newHcp, :newGolfId, :newMemberCategori)";
                 plsql = plsql + " RETURNING id_member";
 
                 command.Parameters.Add(new NpgsqlParameter("newFirstName", NpgsqlDbType.Varchar));
@@ -330,7 +405,7 @@ namespace DSU_g5
                 command.Parameters["newHcp"].Value = newMember.hcp;
                 command.Parameters.Add(new NpgsqlParameter("newGolfId", NpgsqlDbType.Varchar));
                 command.Parameters["newGolfId"].Value = newMember.golfId;
-
+                
                 command.Parameters.Add(new NpgsqlParameter("newMemberCategori", NpgsqlDbType.Varchar));
                 command.Parameters["newMemberCategori"].Value = newMember.category;
 
@@ -384,10 +459,10 @@ namespace DSU_g5
                 string plsql = string.Empty;
 
                 plsql = plsql + "UPDATE member_new ";
-                plsql = plsql + " SET first_name = :newFirstName,";
-                plsql = plsql + "  last_name = :newLastName,";
+                plsql = plsql + " SET first_name = :newFirstName,"; 
+                plsql = plsql + "  last_name = :newLastName,"; 
                 plsql = plsql + "  address = :newAddress,";
-                plsql = plsql + "  postal_code = :newAddress,";
+                plsql = plsql + "  postal_code = :newPostalCode,";
                 plsql = plsql + "  city = :newCity,";
                 plsql = plsql + "  mail = :newMail,";
                 plsql = plsql + "  gender = :newGender,";
@@ -395,7 +470,7 @@ namespace DSU_g5
                 plsql = plsql + "  golf_id = :newGolfId,";
                 plsql = plsql + "  member_category = :newMemberCategori";
                 plsql = plsql + " WHERE id_member = :newIdMember";
-
+                
                 command.Parameters.Add(new NpgsqlParameter("newFirstName", NpgsqlDbType.Varchar));
                 command.Parameters["newFirstName"].Value = newMember.firstName;
                 command.Parameters.Add(new NpgsqlParameter("newLastName", NpgsqlDbType.Varchar));
@@ -420,7 +495,7 @@ namespace DSU_g5
                 // key
                 command.Parameters.Add(new NpgsqlParameter("newIdMember", NpgsqlDbType.Integer));
                 command.Parameters["newIdMember"].Value = newMember.memberId;
-
+                
                 command.CommandText = plsql;
                 int id_member = Convert.ToInt32(command.ExecuteScalar());
 
@@ -457,9 +532,9 @@ namespace DSU_g5
             finally
             {
                 conn.Close();
-            }
+            }        
         }
-
+        
         public static void removeMember(member newMember, users newUser)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -500,7 +575,7 @@ namespace DSU_g5
                 conn.Close();
             }
         }
-
+        
         public static member getMember(int id_member)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -509,7 +584,12 @@ namespace DSU_g5
             {
                 conn.Open();
                 string plsql = string.Empty;
-                plsql = "SELECT id_member, first_name, last_name, address, postal_code, city, mail, gender, hcp, golf_id, fk_category_id, member_category FROM member_new WHERE id_member = :newIdMember;";
+                
+                plsql = plsql + "SELECT id_member, first_name, last_name, address, postal_code, ";
+                plsql = plsql + " city, mail, gender, hcp, golf_id, fk_category_id, member_category ";
+                plsql = plsql + " FROM member_new ";
+                plsql = plsql + " WHERE id_member = :newIdMember;";
+
                 NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newIdMember", NpgsqlDbType.Integer));
                 command.Parameters["newIdMember"].Value = id_member;
@@ -524,7 +604,7 @@ namespace DSU_g5
                     newMember.city = (string)(dr["city"]);
                     newMember.mail = (string)(dr["mail"]);
                     newMember.gender = (string)(dr["gender"]);
-                    newMember.hcp = (double)(dr["hcp"]);
+                    newMember.hcp = Convert.ToDouble((dr["hcp"]));
                     newMember.golfId = (string)(dr["golf_id"]);
                     newMember.category = (string)(dr["member_category"]);
                 }
@@ -593,6 +673,35 @@ namespace DSU_g5
             return memberCategoryList;
         }
 
+        public static int getMemberAccesId(int IdMember)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            int accesId = 0;
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = "SELECT acces_id FROM member_new WHERE id_member = :newIdMember;";
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newIdMember", NpgsqlDbType.Integer));
+                command.Parameters["newIdMember"].Value = IdMember;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    accesId = (int)(dr["acces_id"]);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return accesId;
+        }
+        #endregion medlemssida
+
         public static List<games> getGamesByDate(DateTime selectedDate)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -612,7 +721,7 @@ namespace DSU_g5
 
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
-
+               
                 while (dr.Read())
                 {
                     games g = new games();
@@ -628,6 +737,10 @@ namespace DSU_g5
             catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
             }
 
             return gameList;
@@ -651,7 +764,7 @@ namespace DSU_g5
 
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
-
+                
                 while (dr.Read())
                 {
                     member m = new member();
@@ -676,16 +789,7 @@ namespace DSU_g5
 
             return memberList;
         }
-
-
-
-        #endregion medlemssida
        
-        #region loggin
-        #endregion loggin
-
-
-
         #region news
         public static List<news> getNewsList()
         {
@@ -881,12 +985,84 @@ namespace DSU_g5
             catch
             {
 
-            }
+    }
             finally
             {
                 conn.Close();
             }
         }
+        
+        #region loggin
 
+        public static bool checkUserExist(string userName, string userPassword)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            bool exists = false;
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT count(*) AS amount "; 
+                plsql = plsql + " FROM users ";
+                plsql = plsql + " WHERE user_name = :newUserName ";
+                plsql = plsql + " AND user_password = :newUserpassword;";
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newUserName", NpgsqlDbType.Varchar));
+                command.Parameters["newUserName"].Value = userName;
+                command.Parameters.Add(new NpgsqlParameter("newUserpassword", NpgsqlDbType.Varchar));
+                command.Parameters["newUserpassword"].Value = userPassword;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    exists = true;
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return exists;
+        }
+        
+        public static users getUserByName(string userName, string userPassword) 
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            users newUser = new users();
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT id_user, user_name, user_password, fk_id_member ";
+                plsql = plsql + " FROM users ";
+                plsql = plsql + " WHERE user_name = :newUserName ";
+                plsql = plsql + " AND user_password = :newUserpassword;";
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newUserName", NpgsqlDbType.Varchar));
+                command.Parameters["newUserName"].Value = userName;
+                command.Parameters.Add(new NpgsqlParameter("newUserpassword", NpgsqlDbType.Varchar));
+                command.Parameters["newUserpassword"].Value = userPassword;
+                
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    newUser.idUser = (int)(dr["id_user"]);
+                    newUser.userName = (string)(dr["user_name"]);
+                    newUser.userPassword = (string)(dr["user_password"]);
+                    newUser.fkIdMember = (int)(dr["fk_id_member"]);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newUser;
+        }                
+        
+        #endregion loggin
     }
 }

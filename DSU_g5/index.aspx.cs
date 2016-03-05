@@ -22,7 +22,7 @@ namespace DSU_g5
             DropDownList newsName = (DropDownList)sender;
             ListItem li = newsName.SelectedItem;
             string value = li.Text;
-            //int id = Convert.ToInt32(li.Value);
+            int id = Convert.ToInt32(li.Value);
 
         }
     }
