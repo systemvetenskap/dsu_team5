@@ -19,32 +19,35 @@ namespace DSU_g5
             g_newUser.idUser = Convert.ToInt32(Session["idUser"]);
             g_newUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
             g_idAccess = Convert.ToInt32(Session["IdAccess"]);
-            if (g_idAccess == 1 || g_idAccess == 2 || g_idAccess == 3)
+
+            if (g_idAccess > 0)
             {
-                Loggin.Text = "Logga ut";
+                Loggin.Visible = false;
+                Loggout.Visible = true;
             }
             else
             {
-                Loggin.Text = "Logga in";
-                FormsAuthentication.SignOut();
-                Session.Abandon();                
-                // FormsAuthentication.RedirectFromLoginPage(g_idAccess.ToString(), false);
-                // Response.Redirect("login.aspx");
+                Loggin.Visible = true;
+                Loggout.Visible = false;
             }
         }
 
         protected void Loggin_Click(object sender, EventArgs e)
         {
-            if (Loggin.Text == "Logga ut")
-            {
-                Loggin.Text = "Logga in";
-                FormsAuthentication.SignOut();
-                Session.Abandon();
-            }
-            else
-            {
-                Loggin.Text = "Logga ut";
-            }
+            Loggin.Visible = false;
+            Loggout.Visible = true;
+            FormsAuthentication.RedirectFromLoginPage(g_idAccess.ToString(), false);
+            Response.Redirect("login.aspx");
+        }
+
+        protected void Loggout_Click(object sender, EventArgs e)
+        {
+            Loggin.Visible = true;
+            Loggout.Visible = false;
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            FormsAuthentication.RedirectFromLoginPage(g_idAccess.ToString(), false);
+            Response.Redirect("index.aspx");
         }
     }
 }

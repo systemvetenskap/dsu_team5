@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="medlemsregistrering.aspx.cs" Inherits="DSU_g5.medlemsregistrering" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <link href="CSS/CSS_medlemsregistrering.css" rel="stylesheet" />
+    <link href="CSS/CSS_medlemsregistrering.css" rel="stylesheet" />
     <style type="text/css">
         #Select1 {
             width: 177px;

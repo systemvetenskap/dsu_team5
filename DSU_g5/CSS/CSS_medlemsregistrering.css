@@ -1,21 +1,44 @@
-﻿
+﻿#medlemsregistrering
+{
+    width: 100%;
+}
+
+.memberlabel {
+    width: 150px;
+    float: left;
+}
+
+.membertextbox {
+    width: 200px;
+}
+
+.memberbutton {
+    width: 200px;
+}
+
+.memberddl {
+    width: 200px;
+    margin-bottom: 0px;
+}
+
+/*
 #medlemsregistrering
 {
     width: 100%;
-    border: groove;
+    border: solid;
 }
 
 #medlemsuppgifter {
     width: 30%;
     float: left;
-    border: groove;
+    border: solid;
     padding: 1% 1% 1% 1%;
 }
 
 #medlemslista {
     width: 30%;
     float: left;
-    border: groove;
+    border: solid;
     padding: 1% 1% 1% 1%;
 }
 
@@ -25,3 +48,4 @@
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
+*/
