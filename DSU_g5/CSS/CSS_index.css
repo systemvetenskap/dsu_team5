@@ -1,2 +1,24 @@
-﻿body {
+﻿#news {
+  padding: 0 15%;
 }
+
+#newsSort {
+  text-align: right;
+}
+
+#newsSort div {
+  padding: 0.7% 0;
+}
+
+.newsItem {
+  margin-bottom: 40px;
+}
+
+/*.newsItem:hover {
+  cursor: pointer;
+}*/
+
+.newsItem:hover h2 {
+  color: red;
+}
+

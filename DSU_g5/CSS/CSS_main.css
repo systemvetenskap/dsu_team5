@@ -50,7 +50,8 @@
 
 #masterNavBottom ul li a {
   display: block;
-  width: 100px;
+  width: 150px;
+  height: 6px;
   background-color: #0a0;
   padding: 15% 0%;
   text-decoration: none;
