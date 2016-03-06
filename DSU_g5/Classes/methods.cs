@@ -20,10 +20,17 @@ namespace DSU_g5
         public static void bookMember(DateTime date, int timeId, int chosenMid)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            
+            
+            string sqlMemberAlreadyBooked;
+
+            
+            
             double hcp = 0;
             double hcpNew = 0;
             int antal = 0;
             int dateId = 0;
+            int userCount = 0;
 
             string sqlfirst;
             string sqlmembercount;
@@ -41,114 +48,166 @@ namespace DSU_g5
                     dateId = int.Parse(drfirst["dates_id"].ToString());
                 }
                 conn.Close();
-                sqlmembercount = "SELECT COUNT (member_id) as antal FROM game_member gm INNER JOIN game g ON g.game_id = gm.game_id WHERE g.date_id = '" + dateId + "' AND time_id = '" + timeId + "'";
-                conn.Open();
-                NpgsqlCommand cmdsecond = new NpgsqlCommand(sqlmembercount, conn);
-                NpgsqlDataReader drsecond = cmdsecond.ExecuteReader();
-                while (drsecond.Read())
-                {
-                    antal = int.Parse(drsecond["antal"].ToString());
-                }
-                conn.Close();
-                sqlHcpCount = "SELECT SUM (hcp) as hcp FROM member_new m INNER JOIN game_member gm ON m.id_member = gm.member_id INNER JOIN game g ON g.game_id = gm.game_id WHERE g.date_id = '" + dateId + "' AND g.time_id = '" + timeId + "'";
-                conn.Open();
-                NpgsqlCommand cmdthird = new NpgsqlCommand(sqlHcpCount, conn);
-                NpgsqlDataReader drthird = cmdthird.ExecuteReader();
-                while (drthird.Read())
-                {
-                    hcp = double.Parse(drthird["hcp"].ToString());
-                }
-                conn.Close();
-                sqlHcpCountNew = "SELECT hcp as handicap FROM member_new WHERE id_member = '" + chosenMid + "';";
-                conn.Open();
-                NpgsqlCommand cmdforth = new NpgsqlCommand(sqlHcpCountNew, conn);
-                NpgsqlDataReader drforth = cmdforth.ExecuteReader();
-                while (drforth.Read())
-                {
-                    hcpNew = double.Parse(drforth["handicap"].ToString());
-                }
-                conn.Close();
-
-                if (hcp + hcpNew <= 100 && antal < 4)
-                {
-                    string sqlInsToGame; //SQLsträng för att skapa rad i game-tabellen.
-                    string sqlInsToGM;  //SQLsträng för att skapa rad i game_member-tabellen.
-                    int dateID = 0; //DateID som får värde efter att datumet kollats mot tabellen.
 
 
-                    try
+
+                try
+                {
+                    sqlMemberAlreadyBooked = "SELECT * FROM game_member gm " +
+                                             "INNER JOIN game g " +
+                                             "ON gm.game_id = g.game_id " +
+                                             "WHERE date_id = '" + dateId + "' AND time_id = '"+ timeId +"' AND member_id = '" + chosenMid + "'";
+                    conn.Open();
+                    NpgsqlCommand cmdAlreadyBooked = new NpgsqlCommand(sqlMemberAlreadyBooked, conn);
+                    NpgsqlDataReader drAlreadyBooked = cmdAlreadyBooked.ExecuteReader();
+
+                    
+                    //userCount = Convert.ToInt32(cmdAlreadyBooked.ExecuteScalar());
+
+                    if(drAlreadyBooked.HasRows)
                     {
-                        string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
+                        //Medlem finns redan.
+                        HttpContext.Current.Response.Write("Medlem finns redan inbokad på detta datum och tid.");
+                    }
 
-                        conn.Open();
-                        NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
-                        NpgsqlDataReader dr = cmd.ExecuteReader();
+                    else
+                    {
+                        //Medlem finns inte. Kör på!
 
-                        if (dr.Read())
+                        sqlmembercount = "SELECT COUNT (member_id) as antal FROM game_member gm INNER JOIN game g ON g.game_id = gm.game_id WHERE g.date_id = '" + dateId + "' AND time_id = '" + timeId + "'";
+                        //conn.Open();
+                        NpgsqlCommand cmdsecond = new NpgsqlCommand(sqlmembercount, conn);
+                        NpgsqlDataReader drsecond = cmdsecond.ExecuteReader();
+                        while (drsecond.Read())
                         {
-                            dateID = int.Parse(dr["dates_id"].ToString());
+                            antal = int.Parse(drsecond["antal"].ToString());
+                        }
+                        conn.Close();
+
+
+                        sqlHcpCount = "SELECT SUM (hcp) as hcp FROM member_new m INNER JOIN game_member gm ON m.id_member = gm.member_id INNER JOIN game g ON g.game_id = gm.game_id WHERE g.date_id = '" + dateId + "' AND g.time_id = '" + timeId + "'";
+                        conn.Open();
+                        NpgsqlCommand cmdthird = new NpgsqlCommand(sqlHcpCount, conn);
+                        NpgsqlDataReader drthird = cmdthird.ExecuteReader();
+                        while (drthird.Read())
+                        {
+                            hcp = double.Parse(drthird["hcp"].ToString());
+                        }
+                        conn.Close();
+
+
+                        sqlHcpCountNew = "SELECT hcp as handicap FROM member_new WHERE id_member = '" + chosenMid + "';";
+                        conn.Open();
+                        NpgsqlCommand cmdforth = new NpgsqlCommand(sqlHcpCountNew, conn);
+                        NpgsqlDataReader drforth = cmdforth.ExecuteReader();
+                        while (drforth.Read())
+                        {
+                            hcpNew = double.Parse(drforth["handicap"].ToString());
+                        }
+                        conn.Close();
+
+
+
+                        if (hcp + hcpNew <= 100 && antal < 4)
+                        {
+                            string sqlInsToGame; //SQLsträng för att skapa rad i game-tabellen.
+                            string sqlInsToGM;  //SQLsträng för att skapa rad i game_member-tabellen.
+                            int dateID = 0; //DateID som får värde efter att datumet kollats mot tabellen.
+
+
+                            try
+                            {
+                                string sqlGetDateId = "SELECT dates_id FROM game_dates WHERE dates = '" + date + "'";
+
+                                conn.Open();
+                                NpgsqlCommand cmd = new NpgsqlCommand(sqlGetDateId, conn);
+                                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                                if (dr.Read())
+                                {
+                                    dateID = int.Parse(dr["dates_id"].ToString());
+                                }
+
+                                else
+                                {
+                                    Debug.WriteLine("Finns ej detta datum i databasen");
+                                    return;
+                                }
+                                dr.Close();
+
+
+                                //Går att byta ut date nedan. Då bör en date-klass skapas som får det värdet istället.
+                                sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
+
+                                sqlInsToGM = "INSERT INTO game_member (game_id, member_id) VALUES (@gId, @mId)";
+
+
+                                NpgsqlCommand cmdInsToGame = new NpgsqlCommand(sqlInsToGame, conn);
+                                cmdInsToGame.Parameters.AddWithValue("da", dateID);
+                                cmdInsToGame.Parameters.AddWithValue("t", timeId);
+
+                                int gameID = Convert.ToInt32(cmdInsToGame.ExecuteScalar()); // Returnerar game_id som används i nästa query.
+                                conn.Close(); //kanske stäng
+
+
+
+                                NpgsqlCommand cmdInsToGameMem = new NpgsqlCommand(sqlInsToGM, conn);
+                                cmdInsToGameMem.Parameters.AddWithValue("gId", gameID);
+                                cmdInsToGameMem.Parameters.AddWithValue("mId", chosenMid);
+
+                                conn.Open();
+                                cmdInsToGameMem.ExecuteNonQuery();
+                                conn.Close();
+
+                            }
+
+                            catch (NpgsqlException ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                                conn.Close();
+                            }
+
+                            finally
+                            {
+                                conn.Close();
+                            }
                         }
 
                         else
                         {
-                            Debug.WriteLine("Finns ej detta datum i databasen");
-                            return;
+                            HttpContext.Current.Response.Write("Antal deltagare eller för högt handicap");
+
                         }
-                        dr.Close();
 
-
-                        //Går att byta ut date nedan. Då bör en date-klass skapas som får det värdet istället.
-                        sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
-
-                        sqlInsToGM = "INSERT INTO game_member (game_id, member_id) VALUES (@gId, @mId)";
-
-
-                        NpgsqlCommand cmdInsToGame = new NpgsqlCommand(sqlInsToGame, conn);
-                        cmdInsToGame.Parameters.AddWithValue("da", dateID);
-                        cmdInsToGame.Parameters.AddWithValue("t", timeId);
-
-                        int gameID = Convert.ToInt32(cmdInsToGame.ExecuteScalar()); // Returnerar game_id som används i nästa query.
-                        conn.Close(); //kanske stäng
-
-
-
-                        NpgsqlCommand cmdInsToGameMem = new NpgsqlCommand(sqlInsToGM, conn);
-                        cmdInsToGameMem.Parameters.AddWithValue("gId", gameID);
-                        cmdInsToGameMem.Parameters.AddWithValue("mId", chosenMid);
-
-                        conn.Open();
-                        cmdInsToGameMem.ExecuteNonQuery();
-                        conn.Close();
-
-                    }
-
-                    catch (NpgsqlException ex)
-                    {
-                        Debug.WriteLine(ex.Message);
-                    }
-
-                    finally
-                    {
-                        conn.Close();
                     }
                 }
 
-                else
+                catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write("Antal deltagare eller för högt handicap");
-
+                    Debug.WriteLine(ex.Message);
+                    conn.Close();
                 }
 
+                finally
+                {
+                    conn.Close();
+                }
             }
-            catch (Exception ex)
+
+
+            catch (NpgsqlException ex)
             {
                 Debug.WriteLine(ex.Message);
+                conn.Close();
             }
+
             finally
             {
-
+                conn.Close();
             }
+
         }
+
 
         public static void unBookMember(DateTime date, int timeId, int chosenMemberId)
         {
