@@ -789,6 +789,38 @@ namespace DSU_g5
 
             return memberList;
         }
+
+        //Hämtar tiden tillhörande ett timeId
+        public static DateTime getTimeByTimeId(int timeId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            DateTime time = new DateTime();
+
+            string sql = "";
+            try
+            {
+                sql = "SELECT times from game_starts WHERE time_id = "+ timeId +";";
+
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    time = DateTime.Parse(dr["times"].ToString());
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return time;
+        }
        
         #region news
         public static List<news> getNewsList()
@@ -965,7 +997,63 @@ namespace DSU_g5
             return newNews;
         }
 
-       
+        //Hämtar de 5 senaste nyheterna till en DataTable
+        public static DataTable getLatestNews()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            DataTable dt = new DataTable();
+            string sql;
+
+            try
+            {
+                sql = "SELECT news_info, news_name, news_date FROM news "+
+                      "ORDER BY news_date DESC, news_id DESC "+
+                      "LIMIT 10;";
+                conn.Open();
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return dt;
+        }
+
+        //Hämtar nyheter från en angiven månad till en DataTable
+        public static DataTable getNewsByDates(string startDate, string endDate)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            DataTable dt = new DataTable();
+            string sql;
+
+            try
+            {
+                sql = "SELECT news_info, news_name, news_date FROM news "+
+                      "WHERE news_date BETWEEN '" + startDate +"' AND '" + endDate +"' " +
+                      "ORDER BY news_date DESC, news_id DESC;";
+                conn.Open();
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return dt;
+        }
 
         #endregion news
 

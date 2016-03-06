@@ -311,26 +311,20 @@ namespace DSU_g5
                 DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
                 List<games> gamesList = methods.getGamesByDate(datum);
                 string timeId = hfTimeId.Value;
+                string time = methods.getTimeByTimeId(Convert.ToInt32(timeId)).TimeOfDay.ToString();
 
-                string info = datum.ToShortDateString();
+                string info = "<strong>" + datum.ToShortDateString() + "<br/>" + time + "</strong>";
                 double totalHcp = 0;
-                int iteration = 0;
 
                 foreach (games g in gamesList)
                 {
                     if (g.timeId.ToString() == timeId)
                     {
-                        if (iteration < 1)
-                        {
-                            info += "<br/>" + g.time.ToShortTimeString();
-                        }
-
                         foreach (member m in g.memberInGameList)
                         {
-                            info += "<br/><br/>" + m.firstName + " " + m.lastName + "<br/>Handicap: " + m.hcp + "<br/>Golf-ID: " + m.golfId;
+                            info += "<br/><br/>" + m.firstName + " " + m.lastName + "<br/>Handicap: " + m.hcp;
                             totalHcp += m.hcp;
                         }
-                        iteration++;
                     }
                 }
 

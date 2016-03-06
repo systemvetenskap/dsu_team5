@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,6 +16,17 @@ namespace DSU_g5
             newsList = methods.getNewsList();
             ddlNewsName.DataSource = newsList;
             ddlNewsName.DataBind();
+
+            if (!IsPostBack)
+            {
+                //Hämta de senaste nyheterna
+                DataTable dt = new DataTable();
+                dt = methods.getLatestNews();
+                RepeaterNews.DataSource = dt;
+                RepeaterNews.DataBind();
+
+                populateNewsSortDropdowns();
+            }
         }
 
         protected void ddlNewsName_SelectedIndexChanged(object sender, EventArgs e)
@@ -22,8 +34,77 @@ namespace DSU_g5
             DropDownList newsName = (DropDownList)sender;
             ListItem li = newsName.SelectedItem;
             string value = li.Text;
-            int id = Convert.ToInt32(li.Value);
+            //int id = Convert.ToInt32(li.Value);
+        }
 
+        //Lägger värden i dropdown-menyer för val av år och månad
+        protected void populateNewsSortDropdowns()
+        {
+            //år
+            int thisYear = Convert.ToInt32(DateTime.Now.Year);
+            int firstYear = 2010;
+            List<int> years = new List<int>();
+
+            for (int i = firstYear; i <= thisYear; i++)
+            {
+                years.Add(i);
+            }
+
+            years.Sort((y, x) => x.CompareTo(y));
+            ddlStartYear.DataSource = years;
+            ddlStartYear.DataBind();
+            ddlEndYear.DataSource = years;
+            ddlEndYear.DataBind();
+
+            //månader
+            List<string> months = new List<string> 
+            {
+                "Januari",
+                "Februari",
+                "Mars",
+                "April",
+                "Maj",
+                "Juni",
+                "Juli",
+                "Augusti",
+                "September",
+                "Oktober",
+                "November",
+                "December"
+            };
+
+            ddlStartMonth.DataSource = months;
+            ddlStartMonth.DataBind();
+            ddlEndMonth.DataSource = months;
+            ddlEndMonth.DataBind();
+        }
+
+        //Hämtar nyheter baserat på val av år och månad
+        protected void btnNewsSort_Click(object sender, EventArgs e)
+        {
+            string startYear = ddlStartYear.Text;
+            string endYear = ddlEndYear.Text;
+            string em = ddlEndMonth.Text;
+
+            string startDate = startYear + "-" + (ddlStartMonth.SelectedIndex + 1).ToString().PadLeft(2, '0') + "-01";
+            string endDate = endYear + "-" + (ddlEndMonth.SelectedIndex + 1).ToString().PadLeft(2, '0');
+
+            if (em == "Februari")
+            {
+                endDate += "-28";
+            }
+            else if (em == "April" || em == "Juni" || em == "September" || em == "November")
+            {
+                endDate += "-31";
+            }
+            else
+            {
+                endDate += "-30";
+            }
+
+            DataTable dt = methods.getNewsByDates(startDate, endDate);
+            RepeaterNews.DataSource = dt;
+            RepeaterNews.DataBind();
         }
     }
 }

@@ -17,12 +17,12 @@
         </header>
         <nav id="masterNav">
             <div id="masterNavTop">
-                <a href="#">Logga in</a>
+                <a href="/login.aspx">Logga in</a>
             </div>
             <div id="masterNavBottom">     
                 <ul id="masterNavMenu">
                     <li>
-                        <a href="#">menyval 1</a>
+                        <a href="/index.aspx">Hem</a>
                         <ul class="subMenu">
                             <li><a href="#">alternativ 1</a></li>
                             <li><a href="#">alternativ 2</a></li>
@@ -30,7 +30,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">menyval 2</a>
+                        <a href="/bokning.aspx">Boka tid</a>
                         <ul class="subMenu">
                             <li><a href="#">alternativ 1</a></li>
                             <li><a href="#">alternativ 2</a></li>
@@ -38,7 +38,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">menyval 3</a>
+                        <a href="/medlemssida.aspx">Hantera medlem</a>
                         <ul class="subMenu">
                             <li><a href="#">alternativ 1</a></li>
                             <li><a href="#">alternativ 2</a></li>
@@ -46,14 +46,14 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">menyval 4</a>
+                        <a href="/admin.aspx">Administration</a>
                         <ul class="subMenu">
                             <li><a href="#">alternativ 1</a></li>
                             <li><a href="#">alternativ 2</a></li>
                             <li><a href="#">alternativ 3</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#">menyval 5</a>
                         <ul class="subMenu">
                             <li><a href="#">alternativ 1</a></li>
@@ -68,7 +68,7 @@
                             <li><a href="#">alternativ 2</a></li>
                             <li><a href="#">alternativ 3</a></li>
                         </ul>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </nav>
