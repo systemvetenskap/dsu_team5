@@ -9,5 +9,10 @@ namespace DSU_g5
     {
         public int accessId { get; set; }
         public string accessCategory { get; set; }
+
+        public override string ToString()
+        {
+            return accessId + " " + accessCategory;
+        }
     }
 }

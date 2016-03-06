@@ -22,17 +22,31 @@ namespace DSU_g5
 
                 List<member_category> memberCategoryList = new List<member_category>();
                 memberCategoryList = methods.getMemberCategoryList();
-                List<ListItem> nyLista = new List<ListItem>();
+                List<ListItem> nyCategoryLista = new List<ListItem>();
 
                 foreach (member_category me in memberCategoryList)
                 {
-                    nyLista.Add(new ListItem(me.category, me.categoryId.ToString()));
+                    nyCategoryLista.Add(new ListItem(me.category, me.categoryId.ToString()));
                 }
 
                 ddlCategory.DataTextField = "Text";
                 ddlCategory.DataValueField = "Value";
-                ddlCategory.DataSource = nyLista;
+                ddlCategory.DataSource = nyCategoryLista;
                 ddlCategory.DataBind();
+                
+                List<access> accesCategoryList = new List<access>();
+                accesCategoryList = methods.getAccesCategoryList();
+                List<ListItem> nyAccesLista = new List<ListItem>();
+
+                foreach (access ac in accesCategoryList)
+                {
+                    nyAccesLista.Add(new ListItem(ac.accessCategory, ac.accessId.ToString()));
+                }
+
+                ddlAccessCategory.DataTextField = "Text";
+                ddlAccessCategory.DataValueField = "Value";
+                ddlAccessCategory.DataSource = nyAccesLista;
+                ddlAccessCategory.DataBind();
 
                 populateMember(g_newUser.fkIdMember);
             }
@@ -54,7 +68,22 @@ namespace DSU_g5
             newMember.gender = ddlGender.Text;
             newMember.hcp = Convert.ToDouble(tbHcp.Text);
             newMember.golfId = tbGolfId.Text;
-            newMember.category = ddlCategory.Text;
+
+            DropDownList lbCategory = (DropDownList)ddlCategory;
+            ListItem liCategory = lbCategory.SelectedItem;
+            int categoryId = Convert.ToInt32(liCategory.Value);
+            string category = liCategory.Text;
+            newMember.categoryId = categoryId;
+            newMember.category = category;
+
+            DropDownList lbAcces = (DropDownList)ddlAccessCategory;
+            ListItem liAcces = lbAcces.SelectedItem;
+            int accessId = Convert.ToInt32(liAcces.Value);
+            string accessCategory = liAcces.Text;            
+            newMember.accessId = accessId;
+            newMember.accessCategory = accessCategory;
+
+            newMember.payment = cbPayment.Checked;
 
             users newUser = new users();
             if (tbIdUser.Text != string.Empty)
@@ -63,48 +92,9 @@ namespace DSU_g5
             }
             newUser.userName = tbUserName.Text;
             newUser.userPassword = tbUserPassword.Text;
-
-            methods.addMember(newMember, newUser);
-        }
-
-        protected void btRemove_Click(object sender, EventArgs e)
-        {
-            member newMember = new member();
-            newMember.memberId = Convert.ToInt32(tbIdMember.Text);
-
-            users newUser = new users();
-            newUser.idUser = Convert.ToInt32(tbIdUser.Text);
-
-            methods.removeMember(newMember, newUser);
-        }
-
-        public void populateMember(int id_member)
-        {
-            member newMember = new member();
-            newMember = methods.getMember(id_member);
-            if (newMember.memberId > 0)
+            if (methods.addMember(newMember, newUser) == true)
             {
-                tbIdMember.Text = newMember.memberId.ToString();
-                tbFirstName.Text = newMember.firstName;
-                tbLastName.Text = newMember.lastName;
-                tbAddress.Text = newMember.address;
-                tbPostalCode.Text = newMember.postalCode;
-                tbCity.Text = newMember.city;
-                tbMail.Text = newMember.mail;
-                ddlGender.Text = newMember.gender.ToString();
-                tbHcp.Text = newMember.hcp.ToString();
-                tbMail.Text = newMember.mail;
-                tbGolfId.Text = newMember.golfId;
-                ddlCategory.Text = newMember.category;
-            }
-            users newUser = new users();
-            newUser = methods.getUser(newMember.memberId);
-            if (newUser.idUser > 0)
-            {
-                tbIdUser.Text = newUser.idUser.ToString();
-                tbUserName.Text = newUser.userName;
-                tbUserPassword.Text = newUser.userPassword;
-                tbFkIdMember.Text = newUser.fkIdMember.ToString();
+                lbUserMessage.Text = "Användare registrerad";
             }
         }
 
@@ -124,7 +114,22 @@ namespace DSU_g5
             newMember.gender = ddlGender.Text;
             newMember.hcp = Convert.ToDouble(tbHcp.Text);
             newMember.golfId = tbGolfId.Text;
-            newMember.category = ddlCategory.Text;
+
+            DropDownList lbCategory = (DropDownList)ddlCategory;
+            ListItem liCategory = lbCategory.SelectedItem;
+            int categoryId = Convert.ToInt32(liCategory.Value);
+            string category = liCategory.Text;
+            newMember.categoryId = categoryId;
+            newMember.category = category;
+            
+            DropDownList lbAcces = (DropDownList)ddlAccessCategory;
+            ListItem liAcces = lbAcces.SelectedItem;
+            int accessId = Convert.ToInt32(liAcces.Value);
+            string accessCategory = liAcces.Text;
+            newMember.accessId = accessId;
+            newMember.accessCategory = accessCategory;
+
+            newMember.payment = cbPayment.Checked;
 
             users newUser = new users();
             if (tbIdUser.Text != string.Empty)
@@ -134,7 +139,60 @@ namespace DSU_g5
             newUser.userName = tbUserName.Text;
             newUser.userPassword = tbUserPassword.Text;
 
-            methods.modifyMember(newMember, newUser);
+            if (methods.modifyMember(newMember, newUser) == true)
+            {
+                lbUserMessage.Text = "Uppdatering klar";
+            }
+        }
+
+        protected void btRemove_Click(object sender, EventArgs e)
+        {
+            member newMember = new member();
+            newMember.memberId = Convert.ToInt32(tbIdMember.Text);
+
+            users newUser = new users();
+            newUser.idUser = Convert.ToInt32(tbIdUser.Text);
+            if (methods.removeMember(newMember, newUser) == true)
+            {
+                lbUserMessage.Text = "Användare borttagen";
+            }
+        }
+
+        public void populateMember(int id_member)
+        {
+            member newMember = new member();
+            newMember = methods.getMember(id_member);
+            if (newMember.memberId > 0)
+            {
+                tbIdMember.Text = newMember.memberId.ToString();
+                tbFirstName.Text = newMember.firstName;
+                tbLastName.Text = newMember.lastName;
+                tbAddress.Text = newMember.address;
+                tbPostalCode.Text = newMember.postalCode;
+                tbCity.Text = newMember.city;
+                tbMail.Text = newMember.mail;
+                ddlGender.Text = newMember.gender.ToString();
+                tbHcp.Text = newMember.hcp.ToString();
+                tbMail.Text = newMember.mail;
+                tbGolfId.Text = newMember.golfId;
+
+                ddlCategory.SelectedItem.Value = newMember.categoryId.ToString();
+                ddlCategory.SelectedItem.Text = newMember.category;
+
+                ddlAccessCategory.SelectedItem.Value = newMember.accessId.ToString();
+                ddlAccessCategory.SelectedItem.Text = newMember.accessCategory;
+
+                cbPayment.Checked = newMember.payment;
+            }
+            users newUser = new users();
+            newUser = methods.getUser(newMember.memberId);
+            if (newUser.idUser > 0)
+            {
+                tbIdUser.Text = newUser.idUser.ToString();
+                tbUserName.Text = newUser.userName;
+                tbUserPassword.Text = newUser.userPassword;
+                tbFkIdMember.Text = newUser.fkIdMember.ToString();
+            }
         }
 
         protected void ddlGender_SelectedIndexChanged(object sender, EventArgs e)

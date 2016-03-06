@@ -19,6 +19,9 @@ namespace DSU_g5
         public string golfId { get; set; }
         public int categoryId { get; set; }
         public string category { get; set; }
+        public int accessId { get; set; }
+        public string accessCategory { get; set; }
+        public Boolean payment { get; set; }
 
         public override string ToString()
         {
