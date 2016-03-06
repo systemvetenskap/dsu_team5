@@ -13,7 +13,7 @@
 <body>
     <form id="form1" runat="server">
         <header>
-
+            <asp:Image ID="logo" ImageUrl="/Images/halslaget_v01.png" runat="server" />
         </header>
         <nav id="masterNav">
             <div id="masterNavTop">

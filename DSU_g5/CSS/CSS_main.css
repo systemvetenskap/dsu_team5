@@ -5,6 +5,14 @@
   color: black;
 }
 
+#logo {
+  margin-left: 27%;
+  margin-bottom: -10%;
+  width: 45%;
+  height: auto;
+  position: relative;
+}
+
 #masterNav {
   overflow: auto;
   width: 70%;
