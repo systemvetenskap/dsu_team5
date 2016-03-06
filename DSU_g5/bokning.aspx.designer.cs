@@ -103,33 +103,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Button BtnBookMember;
         
         /// <summary>
-        /// startCalendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar startCalendar;
-        
-        /// <summary>
-        /// endCalendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar endCalendar;
-        
-        /// <summary>
-        /// btnAddSeason control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddSeason;
-        
-        /// <summary>
         /// hfPlaceholderMemberId control.
         /// </summary>
         /// <remarks>

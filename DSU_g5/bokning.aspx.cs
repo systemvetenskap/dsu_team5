@@ -147,24 +147,6 @@ namespace DSU_g5
 
         }
 
-        protected void btnAddSeason_Click(object sender, EventArgs e)
-        {
-            DateTime startDate = startCalendar.SelectedDate;
-            DateTime endDate = endCalendar.SelectedDate;
-            if (startCalendar.SelectedDate == DateTime.MinValue || endCalendar.SelectedDate == DateTime.MinValue)
-            {
-                Response.Write("<script>alert(välj till och från datum)</script>");
-            }
-            else
-            {
-                while (startDate <= endDate)
-                {
-                    methods.addSeason(startDate);
-                    startDate = startDate.AddDays(1);
-                }
-            }
-        }
-
         #endregion
 
 

@@ -47,7 +47,7 @@
             <asp:DropDownList ID="ddlAccessCategory" CssClass="membertextbox" runat="server" AutoPostBack="true"></asp:DropDownList>     
             <br />        
             <asp:Label ID="lbPayment" CssClass="memberlabel" runat="server" Text="Betalning" ></asp:Label>
-            <asp:CheckBox ID="cbPayment" CssClass="membercheckbox" Text="Betalning" runat="server" AutoPostBack="true"/>
+            <asp:CheckBox ID="cbPayment" CssClass="membercheckbox" runat="server" AutoPostBack="true"/>
             <br />
             <br />
             <asp:Label ID="lbIdUser" CssClass="memberlabel" runat="server" Text="AnvändarId"></asp:Label>
