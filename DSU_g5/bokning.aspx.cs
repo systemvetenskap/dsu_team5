@@ -25,8 +25,25 @@ namespace DSU_g5
 
         #endregion
 
+        public users inloggadUser = new users();
+        public int accessId;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            // NYTT SESSION-OBJEKT SOM FÅR VÄRDET AV DEN SOM ÄR INLOGGAD.
+            // ANNARS ÄR DET MEDLEMSIDT SOM ANVÄNDS.
+            // INLOGGADE MEDLEMSIDT LAGRAS I EN NY HIDDENFIELD.
+            // DET VALDA MEDLEMSIDT LAGRAS REDAN I EN HF.
+            // SKICKAR MED 4 PARAMETRAR (DATUM, TIDID, VEM SOM SKA SPELA-ID, BOOKEDBYID(INLOGGAD)). ETT ANNAT MEDLEMSID FYLLS I EN TEXTBOX.
+
+            inloggadUser.idUser = Convert.ToInt32(Session["idUser"]);
+            inloggadUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
+            accessId = Convert.ToInt32(Session["IdAccess"]);
+
+            lblLoggedInUserId.Text = inloggadUser.fkIdMember.ToString();
+
+
             List<DateTime> tider = new List<DateTime>();
 
             if(!IsPostBack)
@@ -381,8 +398,35 @@ namespace DSU_g5
         }
 
         #endregion
+
+
+
+        #region BOKNING AV MEDLEM
+        protected void BookedByMember_Click(object sender, EventArgs e)
+        {
+            //string placeholderMid = hfPlaceholderMemberId.Value;
+            //int playerID = Convert.ToInt32(placeholderMid);
             
-            
+            int loggedInMember = inloggadUser.fkIdMember;
+
+            string anotherMember = tbBookAnotherMember.Text;
+            int playerID = Convert.ToInt32(anotherMember);
+
+            string chosenDate = hfChosenDate.Value;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+
+            string placeholderTid = hfTimeId.Value;
+            int timeID = Convert.ToInt32(placeholderTid);
+            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+
+            methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember);
+
+            populateGrvBokning();
+            updateBookingInfo();
+        }
+
+        #endregion
 
 
 

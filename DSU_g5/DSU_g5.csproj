@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="Classes\access.cs" />
     <Compile Include="Classes\game.cs" />
+    <Compile Include="Classes\game_member.cs" />
     <Compile Include="Classes\old_games.cs" />
     <Compile Include="Classes\game_dates.cs" />
     <Compile Include="Classes\game_starts.cs" />

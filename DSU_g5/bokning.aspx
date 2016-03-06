@@ -23,6 +23,15 @@
 <%--    <asp:Label ID="lblTest" runat="server" Text="Label"></asp:Label>
     <asp:ListBox ID="ListBox1" runat="server"></asp:ListBox>--%>
 
+    <asp:Button ID="BookedByMember" runat="server" Text="Boka tid" OnClick="BookedByMember_Click" />
+
+    <br />
+    <asp:TextBox ID="tbBookAnotherMember" runat="server"></asp:TextBox>
+
+    <br />
+    <asp:Label ID="lblLoggedInUserId" runat="server" Text="Inloggad ID"></asp:Label>
+    <br />
+
     <br />
     <br />
     <div id="bokningar">

@@ -55,6 +55,7 @@ namespace DSU_g5
                 // check access1 - alt 1 - blir medlemssida, alt 2 - blir personal, alt 3 - admin
                 int accessId = 0;
                 accessId = methods.getMemberAccesId(newUser.fkIdMember);
+                Session["IdAccess"] = accessId;
 
                 if (accessId == 1)
                 {
@@ -65,6 +66,7 @@ namespace DSU_g5
                 {
                     FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);
                     Response.Redirect("admin.aspx");
+
                 }
                 else
                 {

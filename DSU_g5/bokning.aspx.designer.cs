@@ -22,6 +22,33 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Calendar calBokning;
         
         /// <summary>
+        /// BookedByMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BookedByMember;
+        
+        /// <summary>
+        /// tbBookAnotherMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbBookAnotherMember;
+        
+        /// <summary>
+        /// lblLoggedInUserId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLoggedInUserId;
+        
+        /// <summary>
         /// grvBokning control.
         /// </summary>
         /// <remarks>
