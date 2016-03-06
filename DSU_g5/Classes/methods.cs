@@ -7,6 +7,7 @@ using NpgsqlTypes;
 using System.Configuration;
 using System.Diagnostics;
 using System.Data;
+using System.Net.Mail;
 
 
 namespace DSU_g5
@@ -1140,6 +1141,77 @@ namespace DSU_g5
             }
             return dt;
         }
+
+        public static void SkickaMail(string nyhetsbrev, string rubrik)
+        {
+            #region skicka mail till alla
+            //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            //string firstname;
+            //string lastname;
+            //string mail2;
+            //string sql = "";
+            //try
+            //{
+            //    sql = "select first_name, last_name, mail from member_new";
+            //    conn.Open();
+
+            //    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            //    NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            //    while (dr.Read())
+            //    {                   
+            //        firstname = dr["first_name"].ToString();
+            //        lastname = dr["last_name"].ToString();
+            //        mail2 = dr["mail"].ToString();
+
+            //        System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+            //        mail.To.Add(mail2);
+            //        mail.From = new MailAddress("halslaget@gmail.com", rubrik, System.Text.Encoding.UTF8);
+            //        mail.Subject = "Nyhetsbrev Hålslaget";
+            //        mail.SubjectEncoding = System.Text.Encoding.UTF8;
+            //        mail.Body = nyhetsbrev;
+            //        mail.BodyEncoding = System.Text.Encoding.UTF8;
+            //        mail.IsBodyHtml = true;
+            //        mail.Priority = MailPriority.High;
+            //        SmtpClient client = new SmtpClient();
+            //        client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
+            //        client.Port = 587;
+            //        client.Host = "smtp.gmail.com";
+            //        client.EnableSsl = true;
+            //        client.Send(mail);
+            //    }
+            //}
+
+            //catch
+            //{
+
+            //}
+            #endregion skicka mail till alla
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+            mail.To.Add("halslaget@gmail.com");
+            mail.From = new MailAddress("halslaget@gmail.com", rubrik, System.Text.Encoding.UTF8);
+            mail.Subject = "Nyhetsbrev Hålslaget";
+            mail.SubjectEncoding = System.Text.Encoding.UTF8;
+            mail.Body = nyhetsbrev;
+            mail.BodyEncoding = System.Text.Encoding.UTF8;
+            mail.IsBodyHtml = true;
+            mail.Priority = MailPriority.High;
+            SmtpClient client = new SmtpClient();
+            client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+
+            try
+            {
+                client.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+           
 
         #endregion NEWS
         #region LOGGIN

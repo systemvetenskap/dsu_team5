@@ -18,11 +18,12 @@
         <textarea id="textNews" runat="server" cols="36" rows="16"></textarea>
         <br />
         <asp:Button ID="publishNews" CSSclass="newsbutton" runat="server" Text="Publicera nyheter" OnClick="btnPublish_Click" />
+         
         <br />
         <asp:Button ID="updateNews" CSSclass="newsbutton" runat="server" Text="Uppdatera nyhet" OnClick="btnUpdateNews_Click" />
         <br />
         <asp:Button ID="removeNews" CSSclass="newsbutton" runat="server" Text="Ta bort nyhet" OnClick="btnRemoveNews_Click" />
         <br />
-
+         <asp:Button ID="btnMailNews" runat="server" Text="Maila nyhetsbrev" Width="199px" />
      </section>
 </asp:Content>

@@ -89,6 +89,13 @@ namespace DSU_g5
              
 
         }
+
+        protected void btnMailNews_Click(object sender, EventArgs e)
+        {
+            string nyhetsbrev = textNews.InnerText;
+            string rubrik = ddlNewsName.SelectedItem.ToString();
+            methods.SkickaMail(nyhetsbrev, rubrik);
+        }
         //public void fillNews(int news_id)
         //{
         //    news newNews = new news();
