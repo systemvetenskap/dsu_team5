@@ -1,0 +1,27 @@
+﻿
+#medlemsregistrering
+{
+    width: 100%;
+    border: groove;
+}
+
+#medlemsuppgifter {
+    width: 30%;
+    float: left;
+    border: groove;
+    padding: 1% 1% 1% 1%;
+}
+
+#medlemslista {
+    width: 30%;
+    float: left;
+    border: groove;
+    padding: 1% 1% 1% 1%;
+}
+
+#knappar {
+    clear: both;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}

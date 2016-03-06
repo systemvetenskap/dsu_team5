@@ -55,6 +55,15 @@
         <asp:DropDownList ID="ddlCategory" CssClass="membertextbox" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged"></asp:DropDownList>     
         <br />
 
+        <asp:Label ID="lbAccessCategory" CssClass="memberlabel" runat="server" Text="Access Kategori" ></asp:Label>
+        <asp:DropDownList ID="ddlAccessCategory" CssClass="membertextbox" runat="server" AutoPostBack="true"></asp:DropDownList>     
+        <br />
+        
+        <asp:Label ID="lbPayment" CssClass="memberlabel" runat="server" Text="Betalning" ></asp:Label>
+        <asp:CheckBox ID="cbPayment" CssClass="membercheckbox" Text="Betalning" runat="server" AutoPostBack="true"/>
+        <br />
+        <br />
+
         <asp:Label ID="lbIdUser" CssClass="memberlabel" runat="server" Text="AnvändarId"></asp:Label>
         <asp:TextBox ID="tbIdUser" CssClass="membertextbox" runat="server"></asp:TextBox>
         <br />
@@ -75,7 +84,10 @@
         <asp:Button ID="btAdd" CssClass="memberbutton" runat="server" Text="Lägg till" OnClick="btAdd_Click" />
         <asp:Button ID="btUpdate" CssClass="memberbutton" runat="server" Text="Uppdatera" OnClick="btUpdate_Click" />
         <asp:Button ID="btRemove" CssClass="memberbutton" runat="server" Text="Ta bort" OnClick="btRemove_Click" />
-
-     </section>
+        <br />
+        <asp:Label ID="lbUserMessage" runat="server" CssClass="UserMessage"></asp:Label>
+        <br />
+     
+    </section>
 
 </asp:Content>
