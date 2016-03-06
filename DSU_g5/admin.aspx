@@ -4,8 +4,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <section id="adminsida">
-        
-     
         <asp:Label ID="lblNewNews" CSSclass="newslabel" runat="server" Text="Lägg till nyhet"></asp:Label>
         <br />
         <asp:TextBox ID="txtNewNews" CSSclass="newstextbox" runat="server">Nyhetsnamn</asp:TextBox>
@@ -13,8 +11,7 @@
         <asp:Label ID="lblUpdateNews" CSSclass="newslabel" runat="server" Text="Uppdatera nyhet"></asp:Label>
         <br />
         <asp:DropDownList ID="ddlNewsName" CSSclass="newsddl" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlNewsName_SelectedIndexChanged"></asp:DropDownList>
-        <br />
-  
+        <br />  
         <textarea id="textNews" runat="server" cols="36" rows="16"></textarea>
         <br />
         <asp:Button ID="publishNews" CSSclass="newsbutton" runat="server" Text="Publicera nyheter" OnClick="btnPublish_Click" />
@@ -23,6 +20,5 @@
         <br />
         <asp:Button ID="removeNews" CSSclass="newsbutton" runat="server" Text="Ta bort nyhet" OnClick="btnRemoveNews_Click" />
         <br />
-
      </section>
 </asp:Content>

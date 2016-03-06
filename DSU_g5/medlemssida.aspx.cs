@@ -9,9 +9,10 @@ namespace DSU_g5
 {
     public partial class medlemssida : System.Web.UI.Page
     {
+        public users g_newUser = new users();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            users g_newUser = new users();
             g_newUser.idUser = Convert.ToInt32(Session["idUser"]);
             g_newUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
 
