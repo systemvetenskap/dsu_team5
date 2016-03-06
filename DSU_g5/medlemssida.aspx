@@ -10,7 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <section id="medlemssida">
-
+        <div id="medlemsuppgifter">
         <asp:Label ID="lbIdMember" CssClass="memberlabel" runat="server" Text="Medlems ID"></asp:Label>
         <asp:TextBox ID="tbIdMember" CssClass="membertextbox" runat="server"></asp:TextBox>
         <br />
@@ -60,7 +60,7 @@
         <br />
         
         <asp:Label ID="lbPayment" CssClass="memberlabel" runat="server" Text="Betalning" ></asp:Label>
-        <asp:CheckBox ID="cbPayment" CssClass="membercheckbox" Text="Betalning" runat="server" AutoPostBack="true"/>
+        <asp:CheckBox ID="cbPayment" CssClass="membercheckbox" runat="server" AutoPostBack="true"/>
         <br />
         <br />
 
@@ -79,14 +79,15 @@
         <asp:Label ID="lbFkIdMember" CssClass="memberlabel" runat="server" Text="MedlemsId"></asp:Label>
         <asp:TextBox ID="tbFkIdMember" CssClass="membertextbox" runat="server"></asp:TextBox>
         <br />
-        <br />
-
-        <asp:Button ID="btAdd" CssClass="memberbutton" runat="server" Text="Lägg till" OnClick="btAdd_Click" />
-        <asp:Button ID="btUpdate" CssClass="memberbutton" runat="server" Text="Uppdatera" OnClick="btUpdate_Click" />
-        <asp:Button ID="btRemove" CssClass="memberbutton" runat="server" Text="Ta bort" OnClick="btRemove_Click" />
-        <br />
-        <asp:Label ID="lbUserMessage" runat="server" CssClass="UserMessage"></asp:Label>
-        <br />
+        </div>
+        <div id="knappar">
+            <asp:Button ID="btAdd" CssClass="memberbutton" runat="server" Text="Lägg till" OnClick="btAdd_Click" />
+            <asp:Button ID="btUpdate" CssClass="memberbutton" runat="server" Text="Uppdatera" OnClick="btUpdate_Click" />
+            <asp:Button ID="btRemove" CssClass="memberbutton" runat="server" Text="Ta bort" OnClick="btRemove_Click" />
+            <br />
+            <asp:Label ID="lbUserMessage" runat="server" CssClass="UserMessage"></asp:Label>
+            <br />
+        </div>
      
     </section>
 

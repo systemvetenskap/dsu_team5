@@ -1,6 +1,11 @@
 ﻿#adminsida {
     width: 100%;
-    height: auto;
+    overflow: auto;
+}
+
+#news {
+    float: left;
+    margin-right: 5%;
 }
 
 .newslabel {
@@ -26,4 +31,28 @@
 
 #ContentPlaceHolder1_textNews {
     margin-bottom: 1%;
+}
+
+#seasons {
+    width: 36%;
+    margin-top: 0.5%;
+    float: right;
+}
+
+#ContentPlaceHolder1_startCalendar {
+    float: left;
+    margin: 0 4% 0 0;
+}
+
+#seasonStart {
+    margin-top: 2%;
+}
+
+#seasonEnd {
+    margin: -5.2% 0% 0% 0%;
+}
+
+#ContentPlaceHolder1_btnAddSeason {
+    margin-top: 1%;
+    margin-right: 40%
 }

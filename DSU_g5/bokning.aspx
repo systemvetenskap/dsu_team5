@@ -33,13 +33,6 @@
     </div>
     <br />
 
-
-
-        <asp:Calendar ID="startCalendar" runat="server">
-    </asp:Calendar>
-        <asp:Calendar ID="endCalendar" runat="server">
-    </asp:Calendar>
-    <asp:Button ID="btnAddSeason" runat="server" Text="Sesong" OnClick="btnAddSeason_Click"/>
     <asp:HiddenField ID="hfPlaceholderMemberId" runat="server" />
     <asp:HiddenField ID="hfChosenDate" runat="server" />
     <asp:HiddenField ID="hfTimeId" runat="server" />
