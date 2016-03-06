@@ -31,6 +31,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.GridView grvBokning;
         
         /// <summary>
+        /// pBokningarInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pBokningarInfo;
+        
+        /// <summary>
         /// lbBookedMembers control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.ListBox lbBookedMembers;
         
         /// <summary>
-        /// pBokningarInfo control.
+        /// BtnDelMemberFromGame control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pBokningarInfo;
+        protected global::System.Web.UI.WebControls.Button BtnDelMemberFromGame;
         
         /// <summary>
         /// lbAllMembers control.
@@ -65,15 +74,6 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnBookMember;
-        
-        /// <summary>
-        /// BtnDelMemberFromGame control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnDelMemberFromGame;
         
         /// <summary>
         /// startCalendar control.
