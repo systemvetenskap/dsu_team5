@@ -79,6 +79,7 @@
     <Content Include="CSS\CSS_medlemsregistrering.css" />
     <Content Include="CSS\CSS_medlemssida.css" />
     <Content Include="CSS\CSS_index.css" />
+    <Content Include="Images\halslaget_v01.png" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
     <Content Include="medlemsregistrering.aspx" />
