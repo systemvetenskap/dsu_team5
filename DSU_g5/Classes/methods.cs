@@ -670,7 +670,7 @@ namespace DSU_g5
         #endregion
 
         #region MEDLEMSSIDA
-
+        
         public static bool addMember(member newMember, users newUser)
         {
             bool succesfull = false;
@@ -1272,8 +1272,6 @@ namespace DSU_g5
                 command.Parameters["newNewsName"].Value = newNews.newsName;
                 command.Parameters.Add(new NpgsqlParameter("newNewsDate", NpgsqlDbType.Date));
                 command.Parameters["newNewsDate"].Value = newNews.newsDate;
-              
-
 
                 command.CommandText = sql;
                 int newsID = Convert.ToInt32(command.ExecuteScalar());
@@ -1301,18 +1299,20 @@ namespace DSU_g5
           
             try
             {
-                //news newNews = new news();
                 string sql = string.Empty;
                 conn.Open();
                 trans = conn.BeginTransaction();
                 command.Connection = conn;
                 command.Transaction = trans;
-                sql = "UPDATE news SET news_info = :newNewsInfo, news_name = :newNewsName WHERE  news_id =: newNewsId RETURNING news_id";
+                sql = "UPDATE news SET news_info = :newNewsInfo, news_name = :newNewsName, news_date = :newNewsDate WHERE news_id = :newNewsId RETURNING news_id";
 
                 command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
                 command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
                 command.Parameters.Add(new NpgsqlParameter("newNewsName", NpgsqlDbType.Varchar));
-                command.Parameters["newNewsName"].Value = newNews.newsName;
+                command.Parameters["newNewsName"].Value = newNews.newsName;                
+                command.Parameters.Add(new NpgsqlParameter("newNewsDate", NpgsqlDbType.Date));
+                command.Parameters["newNewsDate"].Value = newNews.newsDate;                
+                
                 command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
                 command.Parameters["newNewsId"].Value = newNews.newsId;
 
@@ -1320,8 +1320,6 @@ namespace DSU_g5
                 int news_id = Convert.ToInt32(command.ExecuteScalar());
                
                 trans.Commit();
-                
-               
                
             }
             catch (Exception ex)

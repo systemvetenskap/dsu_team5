@@ -17,7 +17,7 @@
         </header>
         <nav id="masterNav">
             <div id="masterNavTop">
-                <a href="/login.aspx">Logga in</a>
+                <asp:LinkButton ID="Loggin" runat="server" href="/login.aspx" OnClick="Loggin_Click">Logga in</asp:LinkButton>
             </div>
             <div id="masterNavBottom">     
                 <ul id="masterNavMenu">

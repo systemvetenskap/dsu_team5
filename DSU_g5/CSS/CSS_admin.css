@@ -1,9 +1,6 @@
-﻿body {
-}
-#adminsida
-{
+﻿#adminsida {
     width: 100%;
-    height: 400px;
+    height: auto;
 }
 
 .newslabel {
@@ -12,22 +9,21 @@
 }
 
 .newstextbox {
-    width: 200px;
+    width: 193px;
+    margin: 0.2% 0 1% 0;
 }
 
 .newsbutton {
-    width: 200px;
+    width: 150px;
+    margin: 0.3% 0;
 }
 
 .newsddl {
     width: 200px;
     margin-bottom: 0px;
+    margin: 0.2% 0 1% 0;
 }
 
-
-
-    
-
+#ContentPlaceHolder1_textNews {
+    margin-bottom: 1%;
 }
-
-
