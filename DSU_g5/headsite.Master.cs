@@ -16,35 +16,38 @@ namespace DSU_g5
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //g_newUser.idUser = Convert.ToInt32(Session["idUser"]);
-            //g_newUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
-            //g_idAccess = Convert.ToInt32(Session["IdAccess"]);
-            //if (g_idAccess == 1 || g_idAccess == 2 || g_idAccess == 3)
-            //{
-            //    Loggin.Text = "Logga ut";
-            //}
-            //else
-            //{
-            //    Loggin.Text = "Logga in";
-            //    FormsAuthentication.SignOut();
-            //    Session.Abandon();                
-            //    // FormsAuthentication.RedirectFromLoginPage(g_idAccess.ToString(), false);
-            //    // Response.Redirect("login.aspx");
-            //}
+            g_newUser.idUser = Convert.ToInt32(Session["idUser"]);
+            g_newUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
+            g_idAccess = Convert.ToInt32(Session["IdAccess"]);
+
+            if (g_idAccess > 0)
+            {
+                Loggin.Visible = false;
+                Loggout.Visible = true;
+            }
+            else
+            {
+                Loggin.Visible = true;
+                Loggout.Visible = false;
+            }
         }
 
         protected void Loggin_Click(object sender, EventArgs e)
         {
-            if (Loggin.Text == "Logga ut")
+            Loggin.Visible = false;
+            Loggout.Visible = true;
+            FormsAuthentication.RedirectFromLoginPage(g_idAccess.ToString(), false);
+            Response.Redirect("login.aspx");
+        }
+
+        protected void Loggout_Click(object sender, EventArgs e)
             {
-                Loggin.Text = "Logga in";
+            Loggin.Visible = true;
+            Loggout.Visible = false;
                 FormsAuthentication.SignOut();
                 Session.Abandon();
-            }
-            else
-            {
-                Loggin.Text = "Logga ut";
-            }
+            FormsAuthentication.RedirectFromLoginPage(g_idAccess.ToString(), false);
+            Response.Redirect("index.aspx");
         }
     }
 }

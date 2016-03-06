@@ -51,7 +51,7 @@ namespace DSU_g5
                 newUser = methods.getUserByName(userName, userPassword);
                 Session["IdUser"] = newUser.idUser;
                 Session["IdMember"] = newUser.fkIdMember;
-                
+
                 // check access1 - alt 1 - blir medlemssida, alt 2 - blir personal, alt 3 - admin
                 int accessId = 0;
                 accessId = methods.getMemberAccesId(newUser.fkIdMember);

@@ -1,10 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="DSU_g5.login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<link href="CSS/CSS_login.css" rel="stylesheet" />
+    <style type="text/css">
+        #Select1 {
+            width: 177px;
+        }
+    </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-    <section id="medlemssida">
-
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
+    <section id="loginsida">
         <br />
         <br />
         <asp:Label ID="lbUserName" runat="server" Text="Användarnamn"></asp:Label>
@@ -21,7 +25,5 @@
         <br />
         <asp:Label ID="lbUserMessage" runat="server" CssClass="UserMessage"></asp:Label>
         <br />
-
     </section>
-
 </asp:Content>
