@@ -5,16 +5,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged"></asp:Calendar>
-
+    <br />
     <asp:Button ID="BookedByMember" runat="server" Text="Boka tid" OnClick="BookedByMember_Click" />
-
+    <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka tid" OnClick="UnBookedByMember_Click" />
     <br />
     <asp:TextBox ID="tbBookAnotherMember" runat="server"></asp:TextBox>
 
     <br />
     <asp:Label ID="lblLoggedInUserId" runat="server" Text="Inloggad ID"></asp:Label>
     <br />
-
+    <asp:ListBox ID="lbGamesMemberIsBookedOn" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookedOn_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+    <asp:Label ID="lblInfoAboutGameId" runat="server" Text="Här visas information om den valda bokningen i listan ovan."></asp:Label>
     <br />
     <div id="bokningar">
         <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>

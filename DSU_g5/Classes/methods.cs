@@ -24,8 +24,6 @@ namespace DSU_g5
 
             string sqlMemberAlreadyBooked;
 
-
-
             double hcp = 0;
             double hcpNew = 0;
             int antal = 0;
@@ -246,16 +244,132 @@ namespace DSU_g5
         }
 
 
+        //En datatable som innehåller värdet av game_id. Datum och tid kan man sedan läsa ut från detta game_id från en SQL-fråga som sedan kan visas i olika labels tex.
+        // /Andreas
+
+        public static DataTable LoggedInMemberBookings(int memberId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            string sqlGetMembersBookings;
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                sqlGetMembersBookings = "SELECT game_id AS gID FROM game_member WHERE member_id = '" + memberId + "'";
+                
+                conn.Open();
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sqlGetMembersBookings, conn);
+                da.Fill(dt);
+
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            
+            return dt;
+        }
+
+
+        public static string GetInfoAboutGame(int gameId)
+        {
+            string infoAboutGame;
+            string sqlGetInfoAboutGame;
+            string sqlGetBookedBy;
+            string datum;
+            string tid;
+            string namn;
+            string bokningsansvarig = "";
+
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            
+            //Objekt
+            game_dates gd = new game_dates();
+            game_starts gs = new game_starts();
+            member m = new member();
+            member BB = new member();
+
+
+            try
+            {
+                sqlGetInfoAboutGame = "SELECT gd.dates AS dates, gs.times AS time, m.first_name, m.last_name " +
+                                    "FROM game_member gm " + 
+                                    "INNER JOIN game g ON g.game_id = gm.game_id " +
+                                    "INNER JOIN game_dates gd ON gd.dates_id = g.date_id " +
+                                    "INNER JOIN game_starts gs ON gs.time_id = g.time_id " +
+                                    "INNER JOIN member_new m ON m.id_member = gm.member_id " +
+                                    "WHERE gm.game_id = '" + gameId + "'";
+                conn.Open();
+                NpgsqlCommand cmdGetInfo = new NpgsqlCommand(sqlGetInfoAboutGame, conn);
+                NpgsqlDataReader dr = cmdGetInfo.ExecuteReader();
+
+                while(dr.Read())
+                {
+                    //gd = new game_dates();
+                    gd.dates = Convert.ToDateTime(dr["dates"].ToString());
+
+                    //gs = new game_starts();
+                    gs.times = Convert.ToDateTime(dr["time"].ToString());
+
+                    //m = new member();
+                    m.firstName = dr["first_name"].ToString();
+                    m.lastName = dr["last_name"].ToString();
+                }
+                conn.Close();
+
+
+                sqlGetBookedBy = "SELECT (first_name || '' || last_name) AS bokningsansvarig " +
+                                "FROM member_new " +
+                                "INNER JOIN game_member gm ON gm.booked_by = id_member " +
+                                "WHERE gm.game_id = '" + gameId + "'";
+
+                //sqlGetBookedBy = "SELECT first_name, last_name " +
+                //                 "FROM member_new " +
+                //                 "INNER JOIN game_member gm ON gm.booked_by = id_member " +
+                //                 "WHERE gm.game_id = '" + gameId + "'";
+
+                conn.Open();
+                NpgsqlCommand cmdGetBB = new NpgsqlCommand(sqlGetBookedBy, conn);
+                NpgsqlDataReader drBB = cmdGetBB.ExecuteReader();
+
+                while(drBB.Read())
+                {
+                    bokningsansvarig = drBB["bokningsansvarig"].ToString();
+                    //BB.firstName = drBB["first_name"].ToString();
+                    //BB.lastName = drBB["last_name"].ToString();
+                }
+                conn.Close();
+ 
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                conn.Close();
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            datum = gd.dates.ToShortDateString();
+            tid = gs.times.ToShortTimeString();
+            namn = m.firstName + " " + m.lastName;
+            //bokningsansvarig = BB.firstName + " " + BB.lastName;
+
+            infoAboutGame = datum + ", " + tid + ", " + namn + ". Bokningsansvarig: " + bokningsansvarig + ".";
+            //infoAboutGame = datum + ", " + tid + ", " + namn + ". Bokningsansvarig: " + bokningsansvarig + ".";
+
+            return infoAboutGame;
+        }
 
         #endregion
-
-
-
-
-
-
-
-
 
 
 
@@ -452,7 +566,6 @@ namespace DSU_g5
             }
 
         }
-
 
         public static void unBookMember(DateTime date, int timeId, int chosenMemberId)
         {

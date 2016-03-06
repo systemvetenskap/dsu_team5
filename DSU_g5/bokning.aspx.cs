@@ -41,8 +41,7 @@ namespace DSU_g5
             inloggadUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
             accessId = Convert.ToInt32(Session["IdAccess"]);
 
-            lblLoggedInUserId.Text = inloggadUser.fkIdMember.ToString();
-
+            lblLoggedInUserId.Text = "Inloggad medlemsID: " + inloggadUser.fkIdMember.ToString();
 
             List<DateTime> tider = new List<DateTime>();
 
@@ -52,6 +51,13 @@ namespace DSU_g5
                 lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
                 lbAllMembers.DataSource = methods.showAllMembersForBooking();
                 lbAllMembers.DataBind();
+
+
+                                //NYTT NEDAN!
+                lbGamesMemberIsBookedOn.DataValueField = "gID";
+                lbGamesMemberIsBookedOn.DataTextField = "gID";
+                lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
+                lbGamesMemberIsBookedOn.DataBind();
             }
             else
             {
@@ -163,6 +169,37 @@ namespace DSU_g5
                     startDate = startDate.AddDays(1);
                 }
             }
+        }
+
+
+        protected void BookedByMember_Click(object sender, EventArgs e)
+        {
+            //string placeholderMid = hfPlaceholderMemberId.Value;
+            //int playerID = Convert.ToInt32(placeholderMid);
+
+            int loggedInMember = inloggadUser.fkIdMember;
+
+            string anotherMember = tbBookAnotherMember.Text;
+            int playerID = Convert.ToInt32(anotherMember);
+
+            string chosenDate = hfChosenDate.Value;
+            trimDate = chosenDate.Substring(0, 10);
+            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+
+            string placeholderTid = hfTimeId.Value;
+            int timeID = Convert.ToInt32(placeholderTid);
+            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+
+            methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember);
+
+            populateGrvBokning();
+            updateBookingInfo();
+        }
+
+
+        protected void UnBookedByMember_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion
@@ -397,36 +434,29 @@ namespace DSU_g5
             
         }
 
-        #endregion
-
-
-
-        #region BOKNING AV MEDLEM
-        protected void BookedByMember_Click(object sender, EventArgs e)
+        protected void lbGamesMemberIsBookedOn_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //string placeholderMid = hfPlaceholderMemberId.Value;
-            //int playerID = Convert.ToInt32(placeholderMid);
-            
-            int loggedInMember = inloggadUser.fkIdMember;
+            try
+            {
+                ListBox lb = (ListBox)sender;
+                ListItem li = lb.SelectedItem;
 
-            string anotherMember = tbBookAnotherMember.Text;
-            int playerID = Convert.ToInt32(anotherMember);
+                Debug.WriteLine(li.Value);
+                int gameId = Convert.ToInt32(li.Value);
 
-            string chosenDate = hfChosenDate.Value;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+                lblInfoAboutGameId.Text = methods.GetInfoAboutGame(gameId);
+            }
 
-            string placeholderTid = hfTimeId.Value;
-            int timeID = Convert.ToInt32(placeholderTid);
-            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+            catch
+            {
 
-            methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember);
-
-            populateGrvBokning();
-            updateBookingInfo();
+            }
         }
 
         #endregion
+
+
+
 
 
 
