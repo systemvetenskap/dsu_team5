@@ -55,9 +55,14 @@ namespace DSU_g5
 
                                 //NYTT NEDAN!
                 lbGamesMemberIsBookedOn.DataValueField = "gID";
-                lbGamesMemberIsBookedOn.DataTextField = "gID";
+                lbGamesMemberIsBookedOn.DataTextField = "timeAndDate";
                 lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
                 lbGamesMemberIsBookedOn.DataBind();
+
+                if (accessId != 2 && accessId != 3)
+                {
+                    bokningarAdmin.Visible = false;
+                }
             }
             else
             {

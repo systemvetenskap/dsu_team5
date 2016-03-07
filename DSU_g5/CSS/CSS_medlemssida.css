@@ -1,4 +1,7 @@
-﻿
+﻿#navMedlemssida a {
+    background-color: #6c7 !important;
+}
+
 #medlemsregistrering
 {
     width: 100%;

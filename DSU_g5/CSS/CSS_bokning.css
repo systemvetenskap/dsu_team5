@@ -1,4 +1,8 @@
-﻿#bokningar {
+﻿#navBokning a {
+    background-color: #6c7 !important;
+}
+
+#bokningar {
   overflow: auto;
   padding: 1%;
 }

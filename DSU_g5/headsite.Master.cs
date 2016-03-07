@@ -31,6 +31,35 @@ namespace DSU_g5
             //    // FormsAuthentication.RedirectFromLoginPage(g_idAccess.ToString(), false);
             //    // Response.Redirect("login.aspx");
             //}
+
+            if (!IsPostBack)
+            {
+                g_newUser.idUser = Convert.ToInt32(Session["idUser"]);
+                g_newUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
+                g_idAccess = Convert.ToInt32(Session["IdAccess"]);
+                if (g_idAccess == 1)
+                {
+                    navAdmin.Visible = false;
+                    /*if (Page.ToString() == "ASP.medlemsregistrering_aspx" || Page.ToString() == "ASP.admin_aspx")
+                    {
+                        Response.Redirect("index.aspx");
+                    }*/
+                }
+                else if (g_idAccess == 2 || g_idAccess == 3)
+                {
+
+                }
+                else
+                {
+                    navBokning.Visible = false;
+                    navMedlemssida.Visible = false;
+                    navAdmin.Visible = false;
+                    /*if (Page.ToString() == "ASP.bokning_aspx" || Page.ToString() == "ASP.medlemssida_aspx" || Page.ToString() == "ASP.medlemsregistrering_aspx" || Page.ToString() == "ASP.admin_aspx")
+                    {
+                        Response.Redirect("login.aspx");
+                    }*/
+                }
+            }
         }
 
         protected void Loggin_Click(object sender, EventArgs e)

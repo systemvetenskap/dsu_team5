@@ -257,7 +257,12 @@ namespace DSU_g5
 
             try
             {
-                sqlGetMembersBookings = "SELECT game_id AS gID FROM game_member WHERE member_id = '" + memberId + "'";
+                sqlGetMembersBookings = "SELECT game.game_id AS gID, (dates || ' ' || times) AS timeAndDate "+
+                                        "FROM game_member, game, game_dates, game_starts "+
+                                        "WHERE game_member.game_id = game.game_id "+
+                                        "AND game.date_id = game_dates.dates_id "+
+                                        "AND game.time_id = game_starts.time_id "+
+                                        "AND member_id = '"+ memberId +"';";
                 
                 conn.Open();
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sqlGetMembersBookings, conn);
