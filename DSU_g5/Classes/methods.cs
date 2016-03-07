@@ -317,7 +317,7 @@ namespace DSU_g5
 
             try
             {
-                sqlGetMembersBookings = "SELECT game_id AS gID FROM game_member WHERE member_id = '" + memberId + "'";
+                sqlGetMembersBookings = "SELECT game_id AS gID FROM game_member WHERE member_id = '" + memberId + "' ORDER BY gID ASC";
                 
                 conn.Open();
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sqlGetMembersBookings, conn);
@@ -350,7 +350,8 @@ namespace DSU_g5
                 sqlGetBBByMemId = "SELECT gm.game_id AS gameId, (first_name ||  ' ' || last_name) AS namn " +
                                   "FROM game_member gm " +
                                   "INNER JOIN member_new m ON m.id_member = gm.member_id " +
-                                  "WHERE booked_by = '" + memberId + "'";
+                                  "WHERE booked_by = '" + memberId + "' " +
+                                  "ORDER BY gameId ASC";
                 conn.Open();
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sqlGetBBByMemId, conn);
                 da.Fill(dt);
