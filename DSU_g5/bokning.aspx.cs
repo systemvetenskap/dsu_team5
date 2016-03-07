@@ -52,12 +52,13 @@ namespace DSU_g5
                 lbAllMembers.DataSource = methods.showAllMembersForBooking();
                 lbAllMembers.DataBind();
 
-
                                 //NYTT NEDAN!
                 lbGamesMemberIsBookedOn.DataValueField = "gID";
                 lbGamesMemberIsBookedOn.DataTextField = "gID";
                 lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
                 lbGamesMemberIsBookedOn.DataBind();
+
+
             }
             else
             {
@@ -65,6 +66,8 @@ namespace DSU_g5
                 {
                     populateGrvBokning();
                     updateBookingInfo();
+                    //lbGamesMemberIsBookedOn.SelectedIndex = -1;
+                    //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
                 }
                 catch (Exception)
                 {
@@ -156,7 +159,7 @@ namespace DSU_g5
         
 
 
-        protected void BookedByMember_Click(object sender, EventArgs e)
+        protected void btnBookedByMember_Click(object sender, EventArgs e)
         {
             //string placeholderMid = hfPlaceholderMemberId.Value;
             //int playerID = Convert.ToInt32(placeholderMid);
@@ -178,13 +181,43 @@ namespace DSU_g5
 
             populateGrvBokning();
             updateBookingInfo();
+
+            lbGamesMemberIsBookedOn.Items.Clear();
+            lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
+            lbGamesMemberIsBookedOn.DataBind();
+            lbGamesMemberIsBookedOn.SelectedIndex = -1;
+            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
         }
 
 
-        protected void UnBookedByMember_Click(object sender, EventArgs e)
+        protected void btnUnBookedByMember_Click(object sender, EventArgs e)
         {
+            //Med objekt
+            game_member gm = new game_member();
+
+            gm.gameId = Convert.ToInt32(hfChosenGameByMem.Value);
+            gm.memberId = inloggadUser.fkIdMember;
+
+
+            //Med variabler
+            int loggedInMem = inloggadUser.fkIdMember;
+            int gameIdForMem = Convert.ToInt32(hfChosenGameByMem.Value);
+
+
+            methods.unBookingByMem(gm.gameId, gm.memberId);
+
+            populateGrvBokning();
+            updateBookingInfo();
+
+            lbGamesMemberIsBookedOn.Items.Clear();
+            lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
+            lbGamesMemberIsBookedOn.DataBind();
+            lbGamesMemberIsBookedOn.SelectedIndex = -1;
+            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
 
         }
+
+
 
         #endregion
 
@@ -427,12 +460,13 @@ namespace DSU_g5
 
                 Debug.WriteLine(li.Value);
                 int gameId = Convert.ToInt32(li.Value);
+                hfChosenGameByMem.Value = li.Value;
 
                 lblInfoAboutGameId.Text = methods.GetInfoAboutGame(gameId);
             }
 
             catch
-        {
+            {
             
             }
         }

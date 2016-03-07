@@ -6,8 +6,8 @@
     
     <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged"></asp:Calendar>
     <br />
-    <asp:Button ID="BookedByMember" runat="server" Text="Boka tid" OnClick="BookedByMember_Click" />
-    <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka tid" OnClick="UnBookedByMember_Click" />
+    <asp:Button ID="BookedByMember" runat="server" Text="Boka in medlem" OnClick="btnBookedByMember_Click" />
+    <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka tid för medlem" OnClick="btnUnBookedByMember_Click" />
     <br />
     <asp:TextBox ID="tbBookAnotherMember" runat="server"></asp:TextBox>
 
@@ -15,6 +15,8 @@
     <asp:Label ID="lblLoggedInUserId" runat="server" Text="Inloggad ID"></asp:Label>
     <br />
     <asp:ListBox ID="lbGamesMemberIsBookedOn" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookedOn_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+    <br />
+
     <asp:Label ID="lblInfoAboutGameId" runat="server" Text="Här visas information om den valda bokningen i listan ovan."></asp:Label>
     <br />
     <div id="bokningar">
@@ -37,5 +39,6 @@
     <asp:HiddenField ID="hfChosenDate" runat="server" />
     <asp:HiddenField ID="hfTimeId" runat="server" />
     <asp:HiddenField ID="hfBookedMembersFromList" runat="server" />
+    <asp:HiddenField ID="hfChosenGameByMem" runat="server" />
 
 </asp:Content>

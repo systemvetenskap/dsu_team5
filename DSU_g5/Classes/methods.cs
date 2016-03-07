@@ -244,6 +244,40 @@ namespace DSU_g5
         }
 
 
+
+
+        public static void unBookingByMem (int gameId, int memId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            string sqlDelGIdAndMId;
+
+            try
+            {
+                sqlDelGIdAndMId = "DELETE FROM game_member gm WHERE gm.game_id = '"+ gameId +"' AND gm.member_id = '" + memId + "'";
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlDelGIdAndMId, conn);
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                conn.Close();
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+
+
+
+
         //En datatable som innehåller värdet av game_id. Datum och tid kan man sedan läsa ut från detta game_id från en SQL-fråga som sedan kan visas i olika labels tex.
         // /Andreas
 
@@ -628,8 +662,8 @@ namespace DSU_g5
                 foreach (game game in gameList)
                 {
                     string sqlDelFromGM = "DELETE FROM game_member WHERE game_id = '" + game.game_id + "' AND member_id = '" + chosenMemberId + "'";
-                NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
-                cmdDelGM.ExecuteNonQuery();
+                    NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlDelFromGM, conn);
+                    cmdDelGM.ExecuteNonQuery();
                 }
 
 
