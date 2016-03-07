@@ -58,6 +58,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblLoggedInUserId;
         
         /// <summary>
+        /// lblGameIdInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGameIdInfo;
+        
+        /// <summary>
         /// lbGamesMemberIsBookedOn control.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,42 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInfoAboutGameId;
+        
+        /// <summary>
+        /// lblInfoBookedBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInfoBookedBy;
+        
+        /// <summary>
+        /// lbGamesMemberIsBookableBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lbGamesMemberIsBookableBy;
+        
+        /// <summary>
+        /// lblBookedByInfoGame control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBookedByInfoGame;
+        
+        /// <summary>
+        /// btnUnBookMemberByBookedBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUnBookMemberByBookedBy;
         
         /// <summary>
         /// grvBokning control.
@@ -173,5 +218,14 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfChosenGameByMem;
+        
+        /// <summary>
+        /// hfBookedByChosenGameId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfBookedByChosenGameId;
     }
 }

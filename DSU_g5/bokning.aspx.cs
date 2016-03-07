@@ -59,6 +59,11 @@ namespace DSU_g5
                 lbGamesMemberIsBookedOn.DataBind();
 
 
+                lbGamesMemberIsBookableBy.DataTextField = "gameID"; //Går att ta namn också. Kör gameID nu för att ha något unikt.
+                lbGamesMemberIsBookableBy.DataValueField = "gameId";
+                lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
+                lbGamesMemberIsBookableBy.DataBind();
+
             }
             else
             {
@@ -187,6 +192,7 @@ namespace DSU_g5
             lbGamesMemberIsBookedOn.DataBind();
             lbGamesMemberIsBookedOn.SelectedIndex = -1;
             lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
+            lbBookedMembers.Text = "Här visas information om det valda gameId:t ovan.";
         }
 
 
@@ -217,6 +223,23 @@ namespace DSU_g5
 
         }
 
+        protected void btnUnBookMemberByBookedBy_Click(object sender, EventArgs e)
+        {
+            game_member gm = new game_member();
+            gm.gameId = Convert.ToInt32(hfBookedByChosenGameId.Value);
+            gm.bookedBy = inloggadUser.fkIdMember;
+
+            methods.unBookMemWhithBookedByID(gm.gameId, gm.bookedBy);
+            
+            populateGrvBokning();
+            updateBookingInfo();
+
+            lbGamesMemberIsBookableBy.Items.Clear();
+            lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
+            lbGamesMemberIsBookableBy.DataBind();
+            lbGamesMemberIsBookableBy.SelectedIndex = -1;
+            lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+        }
 
 
         #endregion
@@ -470,8 +493,30 @@ namespace DSU_g5
             
             }
         }
+        protected void lbGamesMemberIsBookableBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ListBox lb = (ListBox)sender;
+                ListItem li = lb.SelectedItem;
+
+                Debug.WriteLine(li.Value);
+                int gameId = Convert.ToInt32(li.Value);
+                hfBookedByChosenGameId.Value = li.Value;
+
+                lblBookedByInfoGame.Text = methods.GetInfoAboutGame(gameId);
+            }
+
+            catch
+            {
+
+            }
+
+        }
 
         #endregion
+
+
 
 
 

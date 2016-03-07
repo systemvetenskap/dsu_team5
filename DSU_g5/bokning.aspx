@@ -7,17 +7,35 @@
     <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged"></asp:Calendar>
     <br />
     <asp:Button ID="BookedByMember" runat="server" Text="Boka in medlem" OnClick="btnBookedByMember_Click" />
-    <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka tid för medlem" OnClick="btnUnBookedByMember_Click" />
+    <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka min bokning" OnClick="btnUnBookedByMember_Click" />
     <br />
     <asp:TextBox ID="tbBookAnotherMember" runat="server"></asp:TextBox>
 
     <br />
     <asp:Label ID="lblLoggedInUserId" runat="server" Text="Inloggad ID"></asp:Label>
     <br />
+    <br />
+    <br />
+    <br />
+    <asp:Label ID="lblGameIdInfo" runat="server" Text="<u>Nedan visas alla dina bokningar</u>"></asp:Label>
+    <br />
+
     <asp:ListBox ID="lbGamesMemberIsBookedOn" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookedOn_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
     <br />
 
     <asp:Label ID="lblInfoAboutGameId" runat="server" Text="Här visas information om den valda bokningen i listan ovan."></asp:Label>
+    <br />
+    <br />
+    <br />
+    <br />
+    <asp:Label ID="lblInfoBookedBy" runat="server" Text="<u>Nedan visas alla bokningar som du är bokningsansvarig för</u>"></asp:Label>
+    <br />
+    <asp:ListBox ID="lbGamesMemberIsBookableBy" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookableBy_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+    <br />
+    <asp:Label ID="lblBookedByInfoGame" runat="server" Text="Här visas information om det valda gameId:t ovan."></asp:Label>
+    <br />
+    <br />
+    <asp:Button ID="btnUnBookMemberByBookedBy" runat="server" Text="Avboka tid som du är bokningsansvarig för" OnClick="btnUnBookMemberByBookedBy_Click" />
     <br />
     <div id="bokningar">
         <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
@@ -40,5 +58,6 @@
     <asp:HiddenField ID="hfTimeId" runat="server" />
     <asp:HiddenField ID="hfBookedMembersFromList" runat="server" />
     <asp:HiddenField ID="hfChosenGameByMem" runat="server" />
+    <asp:HiddenField ID="hfBookedByChosenGameId" runat="server" />
 
 </asp:Content>

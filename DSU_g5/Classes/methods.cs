@@ -17,6 +17,7 @@ namespace DSU_g5
     {
         #region BOKNING OCH AVBOKNING - MEDLEM
 
+
         public static void bookingByMember(DateTime date, int timeId, int playerId, int bookedById)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -245,7 +246,6 @@ namespace DSU_g5
 
 
 
-
         public static void unBookingByMem (int gameId, int memId)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -275,7 +275,33 @@ namespace DSU_g5
         }
 
 
+        public static void unBookMemWhithBookedByID (int gameId, int bookedBy)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
+            string sqlDelGIdAndMId;
+
+            try
+            {
+                sqlDelGIdAndMId = "DELETE FROM game_member gm WHERE gm.game_id = '" + gameId + "' AND gm.booked_by = '" + bookedBy + "'";
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlDelGIdAndMId, conn);
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                conn.Close();
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+        }
 
 
         //En datatable som innehåller värdet av game_id. Datum och tid kan man sedan läsa ut från detta game_id från en SQL-fråga som sedan kan visas i olika labels tex.
@@ -307,6 +333,37 @@ namespace DSU_g5
                 conn.Close();
             }
             
+            return dt;
+        }
+
+
+        public static DataTable BookedByLoggedInMemId(int memberId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            string sqlGetBBByMemId;
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                sqlGetBBByMemId = "SELECT gm.game_id AS gameId, (first_name ||  ' ' || last_name) AS namn " +
+                                  "FROM game_member gm " +
+                                  "INNER JOIN member_new m ON m.id_member = gm.member_id " +
+                                  "WHERE booked_by = '" + memberId + "'";
+                conn.Open();
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sqlGetBBByMemId, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
             return dt;
         }
 
@@ -407,7 +464,7 @@ namespace DSU_g5
 
 
 
-        #region BOKNING OCH AVBOKNING AV MEDLEMMAR - ADMIN
+        #region BOKNING OCH AVBOKNING - ADMIN
 
 
         public static void bookMember(DateTime date, int timeId, int chosenMid)
@@ -568,8 +625,7 @@ namespace DSU_g5
 
                         else
                         {
-                            HttpContext.Current.Response.Write("Antal deltagare eller för högt handicap");
-
+                            HttpContext.Current.Response.Write("Antal deltagare får max vara 4 och handicap får max vara 100");
                         }
 
                     }
