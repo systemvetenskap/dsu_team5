@@ -49,6 +49,42 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.LinkButton Loggin;
         
         /// <summary>
+        /// navIndex control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navIndex;
+        
+        /// <summary>
+        /// navBokning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navBokning;
+        
+        /// <summary>
+        /// navMedlemssida control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navMedlemssida;
+        
+        /// <summary>
+        /// navAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navAdmin;
+        
+        /// <summary>
         /// Loggout control.
         /// </summary>
         /// <remarks>

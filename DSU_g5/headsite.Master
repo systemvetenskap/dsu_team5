@@ -22,36 +22,34 @@
             </div>
             <div id="masterNavBottom">     
                 <ul id="masterNavMenu">
-                    <li>
+                    <li id="navIndex" runat="server">
                         <a href="/index.aspx">Hem</a>
-                        <ul class="subMenu">
+                        <!--<ul class="subMenu">
                             <li><a href="#">alternativ 1</a></li>
                             <li><a href="#">alternativ 2</a></li>
                             <li><a href="#">alternativ 3</a></li>
-                        </ul>
+                        </ul>-->
                     </li>
-                    <li>
-                        <a href="/bokning.aspx">Boka tid</a>
-                        <ul class="subMenu">
+                    <li id="navBokning" runat="server">
+                        <a href="/bokning.aspx">Boka golfrunda</a>
+                        <!--<ul class="subMenu">
                             <li><a href="#">alternativ 1</a></li>
                             <li><a href="#">alternativ 2</a></li>
                             <li><a href="#">alternativ 3</a></li>
-                        </ul>
+                        </ul>-->
                     </li>
-                    <li>
-                        <a href="/medlemssida.aspx">Hantera medlem</a>
-                        <ul class="subMenu">
+                    <li id="navMedlemssida" runat="server">
+                        <a href="/medlemssida.aspx">Mina uppgifter</a>
+                        <!--<ul class="subMenu">
                             <li><a href="#">alternativ 1</a></li>
                             <li><a href="#">alternativ 2</a></li>
                             <li><a href="#">alternativ 3</a></li>
-                        </ul>
+                        </ul>-->
                     </li>
-                    <li>
+                    <li id="navAdmin" runat="server">
                         <a href="/admin.aspx">Administration</a>
                         <ul class="subMenu">
-                            <li><a href="#">alternativ 1</a></li>
-                            <li><a href="#">alternativ 2</a></li>
-                            <li><a href="#">alternativ 3</a></li>
+                            <li><a href="/medlemsregistrering.aspx">Medlemsreg.</a></li>
                         </ul>
                     </li>
                     <!--<li>
@@ -79,7 +77,7 @@
             </asp:ContentPlaceHolder>
         </div>
         <footer>
-            <p>© 2016 Hålslaget GK | Lite info | Lite mer info | Kanske nån länk om vi har tur</p>
+            <p>© 2016 Hålslaget GK</p>
         </footer>
     </form>
 </body>

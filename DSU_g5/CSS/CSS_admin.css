@@ -1,4 +1,8 @@
-﻿#adminsida {
+﻿#navAdmin a:nth-last-child(2) {
+    background-color: #6c7 !important;
+}
+
+#adminsida {
     width: 100%;
     overflow: auto;
 }

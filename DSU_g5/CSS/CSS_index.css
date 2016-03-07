@@ -1,4 +1,8 @@
-﻿#news {
+﻿#navIndex a {
+    background-color: #6c7 !important;
+}
+
+#news {
   padding: 0 15%;
 }
 

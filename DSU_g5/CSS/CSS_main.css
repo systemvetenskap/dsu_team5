@@ -19,7 +19,7 @@
   margin: auto;
   margin-top: 7%;
   padding-bottom: 51px;
-  background-color: #0a0;
+  background-color: #394;
 }
 
 #masterNavTop {
@@ -60,19 +60,19 @@
   display: block;
   width: 150px;
   height: 6px;
-  background-color: #0a0;
+  background-color: #394;
   padding: 15% 0%;
   text-decoration: none;
   color: white;
 }
 
 #masterNavBottom ul li a:hover {
-  background-color: #0d0;
+  background-color: #6c7;
 }
 
-/*#masterNavBottom ul li:hover ul {
+#masterNavBottom ul li:hover ul {
   display: block;
-}*/ 
+}
 
 .subMenu {
   display: none;
