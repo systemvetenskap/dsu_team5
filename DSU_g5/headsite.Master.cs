@@ -71,10 +71,10 @@ namespace DSU_g5
                 if (g_idAccess == 1) //medlem
                 {
                     navAdmin.Visible = false;
-                    if (memberDenied.Contains(Page.ToString()))
+                    /*if (memberDenied.Contains(Page.ToString()))
                     {
                         Response.Redirect("index.aspx");
-                    }
+                    }*/
                 }
                 else if (g_idAccess == 2 || g_idAccess == 3) //admin
                 {
@@ -85,10 +85,10 @@ namespace DSU_g5
                     navBokning.Visible = false;
                     navMedlemssida.Visible = false;
                     navAdmin.Visible = false;
-                    if (!visitorAllowed.Contains(Page.ToString()))
+                    /*if (!visitorAllowed.Contains(Page.ToString()))
                     {
                         Response.Redirect("login.aspx");
-                    }
+                    }*/
                 }
             }
         }
