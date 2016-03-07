@@ -54,10 +54,10 @@ namespace DSU_g5
                 if (g_idAccess == 1)
                 {
                     navAdmin.Visible = false;
-                    /*if (Page.ToString() == "ASP.medlemsregistrering_aspx" || Page.ToString() == "ASP.admin_aspx")
+                    if (Page.ToString() == "ASP.medlemsregistrering_aspx" || Page.ToString() == "ASP.admin_aspx")
                     {
                         Response.Redirect("index.aspx");
-                    }*/
+                    }
                 }
                 else if (g_idAccess == 2 || g_idAccess == 3)
                 {
@@ -68,10 +68,10 @@ namespace DSU_g5
                     navBokning.Visible = false;
                     navMedlemssida.Visible = false;
                     navAdmin.Visible = false;
-                    /*if (Page.ToString() == "ASP.bokning_aspx" || Page.ToString() == "ASP.medlemssida_aspx" || Page.ToString() == "ASP.medlemsregistrering_aspx" || Page.ToString() == "ASP.admin_aspx")
+                    if (Page.ToString() == "ASP.bokning_aspx" || Page.ToString() == "ASP.medlemssida_aspx" || Page.ToString() == "ASP.medlemsregistrering_aspx" || Page.ToString() == "ASP.admin_aspx")
                     {
                         Response.Redirect("login.aspx");
-                    }*/
+                    }
                 }
             }
         }

@@ -68,6 +68,12 @@ namespace DSU_g5
                 if (accessId != 2 && accessId != 3)
                 {
                     bokningarAdmin.Visible = false;
+                    lbBookedMembers.Visible = false;
+                    BtnDelMemberFromGame.Visible = false;
+                }
+                else
+                {
+                    admin.Visible = false;
                 }
             }
             else

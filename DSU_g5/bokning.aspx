@@ -6,6 +6,7 @@
     
     <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged"></asp:Calendar>
     <br />
+    <div id="admin" runat="server">
     <asp:Button ID="BookedByMember" runat="server" Text="Boka in medlem" OnClick="btnBookedByMember_Click" />
     <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka min bokning" OnClick="btnUnBookedByMember_Click" />
     <br />
@@ -37,6 +38,7 @@
     <br />
     <asp:Button ID="btnUnBookMemberByBookedBy" runat="server" Text="Avboka tid som du är bokningsansvarig för" OnClick="btnUnBookMemberByBookedBy_Click" />
     <br />
+    </div>
     <div id="bokningar">
         <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
         <div id="bokningarInfo">

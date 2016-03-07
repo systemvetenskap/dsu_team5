@@ -22,7 +22,7 @@
              <br />
              <asp:Button ID="removeNews" CSSclass="newsbutton" runat="server" Text="Ta bort nyhet" OnClick="btnRemoveNews_Click" />
              <br />
-             <asp:Button ID="btnMailNews" runat="server" Text="Maila nyhetsbrev" Width="199px" />
+             <asp:Button ID="btnMailNews" runat="server" Text="Maila nyhetsbrev" Width="199px" OnClick="btnMailNews_Click" />
          </div>
          <div id="seasons">
              <asp:Label ID="lblSeason" runat="server" Text="Registrera säsong"></asp:Label>
