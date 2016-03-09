@@ -622,13 +622,29 @@ namespace DSU_g5
         
         #endregion
 
+        
+        #region VoidMetoder
         protected void calBokning_DayRender(object sender, DayRenderEventArgs e)
         {
-
             string maxDate = maxmin.endDate;
             string minDate = maxmin.startDate;
+            DateTime end = DateTime.Parse(maxDate);
+            DateTime start = DateTime.Parse(minDate);
+            end.ToShortDateString();
+            start.ToShortDateString();
 
-        #region VoidMetoder
+            if ((e.Day.Date < start) || (e.Day.Date > end))
+            {
+                e.Day.IsSelectable = false;
+                e.Cell.ForeColor = System.Drawing.Color.Black;
+                e.Cell.BackColor = System.Drawing.Color.Gray;
+                e.Cell.Style.Add("cursor", "not-allowed");
+                e.Cell.ToolTip = "Du kan inte boka dessa tider. Det är utan för golfsäsongen.";
+            }
+        }
+
+
+
         private void UpdateLBsAndLBLs()
         {
             populateGrvBokning();
@@ -650,18 +666,5 @@ namespace DSU_g5
         #endregion
 
 
-
-            end.ToShortDateString();
-            start.ToShortDateString();
-
-            if ((e.Day.Date < start) || (e.Day.Date > end))
-            {
-                e.Day.IsSelectable = false;
-                e.Cell.ForeColor = System.Drawing.Color.Black;
-                e.Cell.BackColor = System.Drawing.Color.Gray;
-                e.Cell.Style.Add("cursor", "not-allowed");
-                e.Cell.ToolTip = "Du kan inte boka dessa tider. Det är utan för golfsäsongen.";
-            }
-        }
     }
 }
