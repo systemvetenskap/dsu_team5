@@ -466,6 +466,46 @@ namespace DSU_g5
             return infoAboutGame;
         }
 
+
+        public static List<int> GetIDsFromMemberList()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            List<int> memberIdList = new List<int>();
+
+            string sqlMemberIDs;
+
+            try
+            {
+                sqlMemberIDs = "SELECT id_member FROM member_new ORDER BY id_member ASC";
+
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlMemberIDs, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while(dr.Read())
+                {
+                    for (int i = 0; i < dr.FieldCount; i++)
+                    {
+                        memberIdList.Add(i);
+                    }
+                }
+
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                conn.Close();
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return memberIdList;
+        }
+
         #endregion
 
 
@@ -821,7 +861,7 @@ namespace DSU_g5
             try
             {
                 sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID FROM member_new"; //first_name och last_name blir en egen kolumn som heter 'name'.
-
+                                                                                                        //Ska lägga till där betald == true också.
                 conn.Open();
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);

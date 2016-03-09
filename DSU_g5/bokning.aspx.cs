@@ -80,6 +80,7 @@ namespace DSU_g5
                     admin.Visible = false;
                 }
             }
+
             else
             {
                 try
@@ -113,192 +114,200 @@ namespace DSU_g5
         }
         protected void BtnBookMember_Click(object sender, EventArgs e)
         {
-            if(hfPlaceholderMemberId.Value != "")
+            if (hfPlaceholderMemberId.Value != "")
             {
-                if(hfChosenDate.Value != "")
+                if (hfChosenDate.Value != "")
                 {
-                    if(hfTimeId.Value != "")
+                    if (hfTimeId.Value != "")
                     {
-            string placeholderMid = hfPlaceholderMemberId.Value;
-            int memberID = Convert.ToInt32(placeholderMid);
-            
-            string chosenDate = hfChosenDate.Value;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
-            
-            string placeholderTid = hfTimeId.Value;
-            int timeID = Convert.ToInt32(placeholderTid);
-            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
-            
-            methods.bookMember(trimDateTime, timeID, memberID);
+                        string placeholderMid = hfPlaceholderMemberId.Value;
+                        int memberID = Convert.ToInt32(placeholderMid);
 
-            lbBookedMembers.Items.Clear();
-            //lbBookedMembers.DataSource = null;
-            //lbBookedMembers.DataBind();
-            lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeID));
-            lbBookedMembers.DataBind();
+                        string chosenDate = hfChosenDate.Value;
+                        trimDate = chosenDate.Substring(0, 10);
+                        trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
 
-            populateGrvBokning();
-            updateBookingInfo();
-        }
+                        string placeholderTid = hfTimeId.Value;
+                        int timeID = Convert.ToInt32(placeholderTid);
+                        DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+
+                        methods.bookMember(trimDateTime, timeID, memberID);
+
+                        lbBookedMembers.Items.Clear();
+                        //lbBookedMembers.DataSource = null;
+                        //lbBookedMembers.DataBind();
+                        lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeID));
+                        lbBookedMembers.DataBind();
+
+                        populateGrvBokning();
+                        updateBookingInfo();
+                    }
                     else
                     {
                         Response.Write("<script>alert('" + "Välj en tid i schemat." + "')</script>");
                     }
                 }
-
                 else
                 {
                     Response.Write("<script>alert('" + "Välj ett datum i kalenden ovan." + "')</script>");
                 }
-
             }
-
             else
             {
                 Response.Write("<script>alert('" + "Du måste välja medlem i listan." + "')</script>");
             }
-            
+
         }
         protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
         {
             //lbBookedMembers.DataSource = null;
+            if (hfBookedMembersFromList.Value != "")
+            {
+                if (hfChosenDate.Value != "")
+                {
+                    if (hfTimeId.Value != "")
+                    {
+                        string placeholderMid = hfBookedMembersFromList.Value;
+                        int bookedMember = Convert.ToInt32(placeholderMid);
 
+                        DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+                        int timeId = Convert.ToInt32(hfTimeId.Value);
 
-            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
-            int timeId = Convert.ToInt32(hfTimeId.Value);
+                        string chosenDate = hfChosenDate.Value;
+                        trimDate = chosenDate.Substring(0, 10);
+                        trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
 
-            //string placeholderMid = hfPlaceholderMemberId.Value;
-            //int memberID = Convert.ToInt32(placeholderMid);
+                        string placeholderTid = hfTimeId.Value;
+                        int timeID = Convert.ToInt32(placeholderTid);
 
-            string placeholderMid = hfBookedMembersFromList.Value;
-            int bookedMember = Convert.ToInt32(placeholderMid);
+                        methods.unBookMember(trimDateTime, timeID, bookedMember);
 
-            string chosenDate = hfChosenDate.Value;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
-            
-            string placeholderTid = hfTimeId.Value;
-            int timeID = Convert.ToInt32(placeholderTid);
+                        //grvBokning.DataSource = null;
+                        //grvBokning.DataBind();
 
-            methods.unBookMember(trimDateTime, timeID, bookedMember);
+                        lbBookedMembers.Items.Clear();
+                        //lbBookedMembers.DataSource = null;
+                        //lbBookedMembers.DataBind();
+                        lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
+                        lbBookedMembers.DataBind();
 
-
-            //grvBokning.DataSource = null;
-            //grvBokning.DataBind();
-
-            
-            
-            lbBookedMembers.Items.Clear();
-            //lbBookedMembers.DataSource = null;
-            //lbBookedMembers.DataBind();
-            lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
-            lbBookedMembers.DataBind();
-
-
-            populateGrvBokning();
-            updateBookingInfo();
-
+                        populateGrvBokning();
+                        updateBookingInfo();
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('" + "Välj en tid i schemat." + "')</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('" + "Välj ett datum i kalenden ovan." + "')</script>");
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('" + "Du måste välja medlem i listan." + "')</script>");
+            }
         }
-
         protected void btnBookedByMember_Click(object sender, EventArgs e)
         {
             //string placeholderMid = hfPlaceholderMemberId.Value;
             //int playerID = Convert.ToInt32(placeholderMid);
-
-            int loggedInMember = inloggadUser.fkIdMember;
-
+            
             string anotherMember = tbBookAnotherMember.Text;
-            int playerID = Convert.ToInt32(anotherMember);
+            List<int> memberIDList = methods.GetIDsFromMemberList();
 
-            string chosenDate = hfChosenDate.Value;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+            if (memberIDList.Contains(Convert.ToInt32(anotherMember)))
+            {
+                if (anotherMember != "") // LÄGG TILL OM INTE MEDLEMSIDt FINNS I DATABASEN
+                {
+                    if (hfChosenDate.Value != "")
+                    {
+                        if (hfTimeId.Value != "")
+                        {
+                            int loggedInMember = inloggadUser.fkIdMember;
 
-            string placeholderTid = hfTimeId.Value;
-            int timeID = Convert.ToInt32(placeholderTid);
-            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
 
-            methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember);
+                            int playerID = Convert.ToInt32(anotherMember);
 
-            UpdateLBsAndLBLs();
+                            string chosenDate = hfChosenDate.Value;
+                            trimDate = chosenDate.Substring(0, 10);
+                            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
 
-            //populateGrvBokning();
-            //updateBookingInfo();
+                            string placeholderTid = hfTimeId.Value;
+                            int timeID = Convert.ToInt32(placeholderTid);
+                            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
 
-            //lbGamesMemberIsBookedOn.Items.Clear();
-            //lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
-            //lbGamesMemberIsBookedOn.DataBind();
-            //lbGamesMemberIsBookedOn.SelectedIndex = -1;
+                            methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember);
 
-            //lbGamesMemberIsBookableBy.Items.Clear();
-            //lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
-            //lbGamesMemberIsBookableBy.DataBind();
-            //lbGamesMemberIsBookableBy.SelectedIndex = -1;
+                            UpdateLBsAndLBLs();
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('" + "Välj en tid i schemat." + "')</script>");
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('" + "Välj ett datum i kalenden ovan." + "')</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('" + "Du måste fylla i ett medlemsId i fältet." + "')</script>");
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('" + "Medlems-IDt finns inte i databasen.\\nVänligen fyll i ett nytt." + "')</script>");
+            }
 
-            //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
-            //lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
         }
 
         protected void btnUnBookedByMember_Click(object sender, EventArgs e)
         {
-            //Med objekt
-            game_member gm = new game_member();
+            if (hfChosenGameByMem.Value != "")
+            {
+                //Med objekt
+                game_member gm = new game_member();
 
-            gm.gameId = Convert.ToInt32(hfChosenGameByMem.Value);
-            gm.memberId = inloggadUser.fkIdMember;
-
-
-            //Med variabler
-            int loggedInMem = inloggadUser.fkIdMember;
-            int gameIdForMem = Convert.ToInt32(hfChosenGameByMem.Value);
+                gm.gameId = Convert.ToInt32(hfChosenGameByMem.Value);
+                gm.memberId = inloggadUser.fkIdMember;
 
 
-            methods.unBookingByMem(gm.gameId, gm.memberId);
+                //Med variabler
+                int loggedInMem = inloggadUser.fkIdMember;
+                int gameIdForMem = Convert.ToInt32(hfChosenGameByMem.Value);
 
-            UpdateLBsAndLBLs();
 
-            //populateGrvBokning();
-            //updateBookingInfo();
+                methods.unBookingByMem(gm.gameId, gm.memberId);
 
-            //lbGamesMemberIsBookedOn.Items.Clear();
-            //lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
-            //lbGamesMemberIsBookedOn.DataBind();
-            //lbGamesMemberIsBookedOn.SelectedIndex = -1;
+                UpdateLBsAndLBLs();
+            }
+            
 
-            //lbGamesMemberIsBookableBy.Items.Clear();
-            //lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
-            //lbGamesMemberIsBookableBy.DataBind();
-            //lbGamesMemberIsBookableBy.SelectedIndex = -1;
-
-            //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
-            //lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+            else
+            {
+                Response.Write("<script>alert('" + "Välj en bokning i listan att ta bort." + "')</script>");
+            }
         }
 
         protected void btnUnBookMemberByBookedBy_Click(object sender, EventArgs e)
         {
-            game_member gm = new game_member();
-            gm.gameId = Convert.ToInt32(hfBookedByChosenGameId.Value);
-            gm.bookedBy = inloggadUser.fkIdMember;
+            if (hfBookedByChosenGameId.Value != "")
+            {
+                game_member gm = new game_member();
+                gm.gameId = Convert.ToInt32(hfBookedByChosenGameId.Value);
+                gm.bookedBy = inloggadUser.fkIdMember;
 
-            methods.unBookMemWhithBookedByID(gm.gameId, gm.bookedBy);
+                methods.unBookMemWhithBookedByID(gm.gameId, gm.bookedBy);
 
-            UpdateLBsAndLBLs();
-
-            //populateGrvBokning();
-            //updateBookingInfo();
-
-            //lbGamesMemberIsBookedOn.Items.Clear();
-            //lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
-            //lbGamesMemberIsBookedOn.DataBind();
-            //lbGamesMemberIsBookedOn.SelectedIndex = -1;
-
-            //lbGamesMemberIsBookableBy.Items.Clear();
-            //lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
-            //lbGamesMemberIsBookableBy.DataBind();
-            //lbGamesMemberIsBookableBy.SelectedIndex = -1;
-            //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
-            //lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+                UpdateLBsAndLBLs();
+            }
+            else
+            {
+                Response.Write("<script>alert('" + "Välj en bokning i listan att ta bort." + "')</script>");
+            }
         }
 
 
