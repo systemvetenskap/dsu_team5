@@ -1960,5 +1960,37 @@ namespace DSU_g5
             return memberList;
         }
         #endregion 
+
+        public static game_dates maxmindates()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql = "";
+            game_dates maxmin = new game_dates();
+
+            DateTime year = DateTime.Now;
+            try
+            {
+                sql = "select max(dates), min(dates) from game_dates where dates >= '" +year+"'";
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    
+                    maxmin.endDate = dr["max"].ToString();
+                    maxmin.startDate = dr["min"].ToString();               
+                    conn.Close();
+                }
+            }
+            catch
+            {
+
+            }
+
+            return maxmin;
+        }
+
+
     }
 }
