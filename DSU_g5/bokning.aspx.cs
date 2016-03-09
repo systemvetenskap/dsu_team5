@@ -27,6 +27,8 @@ namespace DSU_g5
 
         public users inloggadUser = new users();
         public int accessId;
+        game_dates maxmin = new game_dates();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,15 +46,15 @@ namespace DSU_g5
             lblLoggedInUserId.Text = "Inloggad medlemsID: " + inloggadUser.fkIdMember.ToString();
 
             List<DateTime> tider = new List<DateTime>();
-
-            if(!IsPostBack)
-            {                
+            maxmin = methods.maxmindates();
+            if (!IsPostBack)
+            {
                 lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
                 lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
                 lbAllMembers.DataSource = methods.showAllMembersForBooking();
                 lbAllMembers.DataBind();
 
-                                //NYTT NEDAN!
+                //NYTT NEDAN!
                 lbGamesMemberIsBookedOn.DataValueField = "gID";
                 lbGamesMemberIsBookedOn.DataTextField = "timeAndDate";
                 lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
@@ -92,7 +94,7 @@ namespace DSU_g5
             }
         }
 
- 
+
         #region KNAPPAR
         protected void Button1_Click(object sender, EventArgs e)
         { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
@@ -111,15 +113,15 @@ namespace DSU_g5
         {
             string placeholderMid = hfPlaceholderMemberId.Value;
             int memberID = Convert.ToInt32(placeholderMid);
-            
+
             string chosenDate = hfChosenDate.Value;
             trimDate = chosenDate.Substring(0, 10);
             trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
-            
+
             string placeholderTid = hfTimeId.Value;
             int timeID = Convert.ToInt32(placeholderTid);
             DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
-            
+
             methods.bookMember(trimDateTime, timeID, memberID);
 
             lbBookedMembers.Items.Clear();
@@ -148,7 +150,7 @@ namespace DSU_g5
             string chosenDate = hfChosenDate.Value;
             trimDate = chosenDate.Substring(0, 10);
             trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
-            
+
             string placeholderTid = hfTimeId.Value;
             int timeID = Convert.ToInt32(placeholderTid);
 
@@ -158,8 +160,8 @@ namespace DSU_g5
             //grvBokning.DataSource = null;
             //grvBokning.DataBind();
 
-            
-            
+
+
             lbBookedMembers.Items.Clear();
             //lbBookedMembers.DataSource = null;
             //lbBookedMembers.DataBind();
@@ -172,7 +174,7 @@ namespace DSU_g5
 
         }
 
-        
+
 
 
         protected void btnBookedByMember_Click(object sender, EventArgs e)
@@ -357,7 +359,7 @@ namespace DSU_g5
                                         {
                                             deltagare += "M";
                                         }
-                                        else 
+                                        else
                                         {
                                             deltagare += "F";
                                         }
@@ -375,21 +377,21 @@ namespace DSU_g5
 
                             //lägg till linkbutton
                             LinkButton lb = new LinkButton();
-                            lb.Text = tc.Text + "<br/><br/>" + deltagare;                            
+                            lb.Text = tc.Text + "<br/><br/>" + deltagare;
                             lb.CssClass = klass;
                             lb.CommandArgument = timeID.ToString();
                             lb.Click += new EventHandler(lb_Click);
                             tc.Controls.Add(lb);
 
                             column++;
-                        }                        
+                        }
                     }
                     column = 0;
                 }
             }
             catch (Exception ex)
             {
-                
+
             }
         }
         private void lb_Click(object sender, EventArgs e)
@@ -462,8 +464,8 @@ namespace DSU_g5
 
         #endregion
 
-            
-            
+
+
         #region SELECTED INDEX CHANGED
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
@@ -478,7 +480,7 @@ namespace DSU_g5
         {
             ListBox lb = (ListBox)sender;
             ListItem li = lb.SelectedItem;
-            
+
 
             mid = li.Value; //memberID
             hfPlaceholderMemberId.Value = mid;
@@ -500,7 +502,7 @@ namespace DSU_g5
             {
 
             }
-            
+
         }
 
         protected void lbGamesMemberIsBookedOn_SelectedIndexChanged(object sender, EventArgs e)
@@ -518,8 +520,8 @@ namespace DSU_g5
             }
 
             catch
-        {
-            
+            {
+
             }
         }
         protected void lbGamesMemberIsBookableBy_SelectedIndexChanged(object sender, EventArgs e)
@@ -545,12 +547,26 @@ namespace DSU_g5
 
         #endregion
 
+        protected void calBokning_DayRender(object sender, DayRenderEventArgs e)
+        {
 
+            string maxDate = maxmin.endDate;
+            string minDate = maxmin.startDate;
 
+            DateTime end = DateTime.Parse(maxDate);
+            DateTime start = DateTime.Parse(minDate);
+            
+            end.ToShortDateString();
+            start.ToShortDateString();
 
-
-
-
-
+            if ((e.Day.Date < start) || (e.Day.Date > end))
+            {
+                e.Day.IsSelectable = false;
+                e.Cell.ForeColor = System.Drawing.Color.Black;
+                e.Cell.BackColor = System.Drawing.Color.Gray;
+                e.Cell.Style.Add("cursor", "not-allowed");
+                e.Cell.ToolTip = "Du kan inte boka dessa tider. Det är utan för golfsäsongen.";
+            }
+        }
     }
 }

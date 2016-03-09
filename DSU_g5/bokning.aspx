@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
-    <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged"></asp:Calendar>
+    <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged" OnDayRender="calBokning_DayRender"></asp:Calendar>
     <br />
     <div id="admin" runat="server">
     <asp:Button ID="BookedByMember" runat="server" Text="Boka in medlem" OnClick="btnBookedByMember_Click" />
