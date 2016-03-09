@@ -30,6 +30,14 @@
                             <li><a href="#">alternativ 3</a></li>
                         </ul>-->
                     </li>
+                    <li id="navTavlingar" runat="server">
+                        <a href="/tavlingar.aspx">Tävlingar</a>
+                        <!--<ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>-->
+                    </li>
                     <li id="navBokning" runat="server">
                         <a href="/bokning.aspx">Boka golfrunda</a>
                         <!--<ul class="subMenu">
@@ -49,6 +57,7 @@
                     <li id="navAdmin" runat="server">
                         <a href="/admin.aspx">Administration</a>
                         <ul class="subMenu">
+                            <li><a href="/skapatavling.aspx">Skapa tävling</a></li>
                             <li><a href="/medlemsregistrering.aspx">Medlemsreg.</a></li>
                         </ul>
                     </li>

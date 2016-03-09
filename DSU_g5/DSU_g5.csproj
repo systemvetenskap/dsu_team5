@@ -80,6 +80,8 @@
     <Content Include="CSS\CSS_login.css" />
     <Content Include="CSS\CSS_medlemssida.css" />
     <Content Include="CSS\CSS_index.css" />
+    <Content Include="CSS\CSS_skapatavling.css" />
+    <Content Include="CSS\CSS_tavlingar.css" />
     <Content Include="Images\halslaget_v01.png" />
     <Content Include="index.aspx" />
     <Content Include="login.aspx" />
@@ -101,6 +103,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="skapatavling.aspx" />
+    <Content Include="tavlingar.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +174,20 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="skapatavling.aspx.cs">
+      <DependentUpon>skapatavling.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="skapatavling.aspx.designer.cs">
+      <DependentUpon>skapatavling.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="tavlingar.aspx.cs">
+      <DependentUpon>tavlingar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="tavlingar.aspx.designer.cs">
+      <DependentUpon>tavlingar.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />

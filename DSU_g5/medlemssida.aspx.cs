@@ -15,7 +15,7 @@ namespace DSU_g5
         {
             g_newUser.idUser = Convert.ToInt32(Session["idUser"]);
             g_newUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
-
+            
             if (!Page.IsPostBack)
             {
                 ddlGender.Items.Add("Male");
@@ -51,52 +51,20 @@ namespace DSU_g5
 
                 populateMember(g_newUser.fkIdMember);
             }
-        }
-
-        protected void btAdd_Click(object sender, EventArgs e)
-        {
-            member newMember = new member();
-            if (tbIdMember.Text != string.Empty)
-            {
-                newMember.memberId = Convert.ToInt32(tbIdMember.Text);
-            }            
-            newMember.firstName = tbFirstName.Text;
-            newMember.lastName = tbLastName.Text;
-            newMember.address = tbAddress.Text;
-            newMember.postalCode = tbPostalCode.Text;
-            newMember.city = tbCity.Text;
-            newMember.mail = tbMail.Text;
-            newMember.gender = ddlGender.Text;
-            newMember.hcp = Convert.ToDouble(tbHcp.Text);
-            newMember.golfId = tbGolfId.Text;
-
-            DropDownList lbCategory = (DropDownList)ddlCategory;
-            ListItem liCategory = lbCategory.SelectedItem;
-            int categoryId = Convert.ToInt32(liCategory.Value);
-            string category = liCategory.Text;
-            newMember.categoryId = categoryId;
-            newMember.category = category;
-
-            DropDownList lbAcces = (DropDownList)ddlAccessCategory;
-            ListItem liAcces = lbAcces.SelectedItem;
-            int accessId = Convert.ToInt32(liAcces.Value);
-            string accessCategory = liAcces.Text;            
-            newMember.accessId = accessId;
-            newMember.accessCategory = accessCategory;
-
-            newMember.payment = cbPayment.Checked;
-
-            users newUser = new users();
-            if (tbIdUser.Text != string.Empty)
-            {
-                newUser.idUser = Convert.ToInt32(tbIdUser.Text);
-            }
-            newUser.userName = tbUserName.Text;
-            newUser.userPassword = tbUserPassword.Text;
-            if (methods.addMember(newMember, newUser) == true)
-            {
-                lbUserMessage.Text = "Användare registrerad";
-            }
+            // Eventuellt
+            lbHcp.Visible = false;
+            tbHcp.Visible = false;            
+            lbGolfId.Visible = false;
+            lbGolfId.Visible = false;
+            lbGolfId.Visible = false;
+            tbGolfId.Visible = false;
+            lbCategory.Visible = false;
+            ddlCategory.Visible = false;
+            lbAccessCategory.Visible = false;
+            ddlAccessCategory.Visible = false;
+            lbPayment.Visible = false;
+            cbPayment.Visible = false;
+            // Eventuellt alternativ
         }
 
         protected void btUpdate_Click(object sender, EventArgs e)
@@ -142,6 +110,7 @@ namespace DSU_g5
 
             if (methods.modifyMember(newMember, newUser) == true)
             {
+                populateMember(newMember.memberId);
                 lbUserMessage.Text = "Uppdatering klar";
             }
         }
@@ -149,12 +118,14 @@ namespace DSU_g5
         protected void btRemove_Click(object sender, EventArgs e)
         {
             member newMember = new member();
-            newMember.memberId = Convert.ToInt32(tbIdMember.Text);
-
             users newUser = new users();
-            newUser.idUser = Convert.ToInt32(tbIdUser.Text);
+
+            newMember.memberId = g_newUser.fkIdMember;
+            newUser.idUser = g_newUser.idUser;
+
             if (methods.removeMember(newMember, newUser) == true)
             {
+                clearMember();
                 lbUserMessage.Text = "Användare borttagen";
             }
         }
@@ -172,16 +143,17 @@ namespace DSU_g5
                 tbPostalCode.Text = newMember.postalCode;
                 tbCity.Text = newMember.city;
                 tbMail.Text = newMember.mail;
-                ddlGender.Text = newMember.gender.ToString();
+                ddlGender.Text = newMember.gender;
+                ddlGender.SelectedItem.Selected = true;
                 tbHcp.Text = newMember.hcp.ToString();
                 tbMail.Text = newMember.mail;
                 tbGolfId.Text = newMember.golfId;
 
-                ddlCategory.SelectedItem.Value = newMember.categoryId.ToString();
-                ddlCategory.SelectedItem.Text = newMember.category;
+                ddlCategory.SelectedIndex = newMember.categoryId - 1;
+                ddlCategory.SelectedItem.Selected = true;
 
-                ddlAccessCategory.SelectedItem.Value = newMember.accessId.ToString();
-                ddlAccessCategory.SelectedItem.Text = newMember.accessCategory;
+                ddlAccessCategory.SelectedIndex = newMember.accessId - 1;
+                ddlAccessCategory.SelectedItem.Selected = true;
 
                 cbPayment.Checked = newMember.payment;
             }
@@ -196,18 +168,19 @@ namespace DSU_g5
             }
         }
 
-        protected void ddlGender_SelectedIndexChanged(object sender, EventArgs e)
+        public void clearMember()
         {
-            //DropDownList lb = (DropDownList)sender;
-            //ListItem li = lb.SelectedItem;
-        }
-
-        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //DropDownList lb = (DropDownList)sender;
-            //ListItem li = lb.SelectedItem;
-            //int id = Convert.ToInt32(li.Value);
-            //string value = li.Text;
+            tbIdMember.Text = string.Empty;
+            tbFirstName.Text = string.Empty;
+            tbLastName.Text = string.Empty;
+            tbAddress.Text = string.Empty;
+            tbPostalCode.Text = string.Empty;
+            tbCity.Text = string.Empty;
+            tbMail.Text = string.Empty;
+            tbHcp.Text = string.Empty;
+            tbMail.Text = string.Empty;
+            tbGolfId.Text = string.Empty;
+            lbUserMessage.Text = string.Empty;
         }
     }
 }

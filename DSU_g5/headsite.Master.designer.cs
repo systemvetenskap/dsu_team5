@@ -49,6 +49,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.LinkButton Loggin;
         
         /// <summary>
+        /// Loggout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Loggout;
+        
+        /// <summary>
         /// navIndex control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl navIndex;
+        
+        /// <summary>
+        /// navTavlingar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navTavlingar;
         
         /// <summary>
         /// navBokning control.
@@ -83,15 +101,6 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl navAdmin;
-        
-        /// <summary>
-        /// Loggout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Loggout;
         
         /// <summary>
         /// ContentPlaceHolder1 control.
