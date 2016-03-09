@@ -43,134 +43,214 @@ namespace DSU_g5
                 {
                     nyAccesLista.Add(new ListItem(ac.accessCategory, ac.accessId.ToString()));
                 }
-
                 ddlAccessCategory.DataTextField = "Text";
                 ddlAccessCategory.DataValueField = "Value";
                 ddlAccessCategory.DataSource = nyAccesLista;
                 ddlAccessCategory.DataBind();
-
-                List<member> memberList = new List<member>();
-                memberList = methods.getMemberList();
-                List<ListItem> nyMemberList = new List<ListItem>();
-
-                foreach (member mb in memberList)
-                {
-                    nyMemberList.Add(new ListItem(mb.firstName + " " + mb.lastName, mb.memberId.ToString()));
-                }
-
-                lblMembers.DataTextField = "Text";
-                lblMembers.DataValueField = "Value";
-                lblMembers.DataSource = nyMemberList;
-                lblMembers.DataBind();
-
-            }
-
-        }
-
-        protected void btAdd_Click(object sender, EventArgs e)
-        {
-            member newMember = new member();
-            if (tbIdMember.Text != string.Empty)
-            {
-                newMember.memberId = Convert.ToInt32(tbIdMember.Text);
-            }
-            newMember.firstName = tbFirstName.Text;
-            newMember.lastName = tbLastName.Text;
-            newMember.address = tbAddress.Text;
-            newMember.postalCode = tbPostalCode.Text;
-            newMember.city = tbCity.Text;
-            newMember.mail = tbMail.Text;
-            newMember.gender = ddlGender.Text;
-            newMember.hcp = Convert.ToDouble(tbHcp.Text);
-            newMember.golfId = tbGolfId.Text;
-
-            DropDownList lbCategory = (DropDownList)ddlCategory;
-            ListItem liCategory = lbCategory.SelectedItem;
-            int categoryId = Convert.ToInt32(liCategory.Value);
-            string category = liCategory.Text;
-            newMember.categoryId = categoryId;
-            newMember.category = category;
-
-            DropDownList lbAcces = (DropDownList)ddlAccessCategory;
-            ListItem liAcces = lbAcces.SelectedItem;
-            int accessId = Convert.ToInt32(liAcces.Value);
-            string accessCategory = liAcces.Text;
-            newMember.accessId = accessId;
-            newMember.accessCategory = accessCategory;
-
-            newMember.payment = cbPayment.Checked;
-
-            users newUser = new users();
-            if (tbIdUser.Text != string.Empty)
-            {
-                newUser.idUser = Convert.ToInt32(tbIdUser.Text);
-            }
-            newUser.userName = tbUserName.Text;
-            newUser.userPassword = tbUserPassword.Text;
-            if (methods.addMember(newMember, newUser) == true)
-            {
-                lbUserMessage.Text = "Användare registrerad";
-            }
-        }
-
-        protected void btUpdate_Click(object sender, EventArgs e)
-        {
-            member newMember = new member();
-            if (tbIdMember.Text != string.Empty)
-            {
-                newMember.memberId = Convert.ToInt32(tbIdMember.Text);
-            }
-            newMember.firstName = tbFirstName.Text;
-            newMember.lastName = tbLastName.Text;
-            newMember.address = tbAddress.Text;
-            newMember.postalCode = tbPostalCode.Text;
-            newMember.city = tbCity.Text;
-            newMember.mail = tbMail.Text;
-            newMember.gender = ddlGender.Text;
-            newMember.hcp = Convert.ToDouble(tbHcp.Text);
-            newMember.golfId = tbGolfId.Text;
-
-            DropDownList lbCategory = (DropDownList)ddlCategory;
-            ListItem liCategory = lbCategory.SelectedItem;
-            int categoryId = Convert.ToInt32(liCategory.Value);
-            string category = liCategory.Text;
-            newMember.categoryId = categoryId;
-            newMember.category = category;
-
-            DropDownList lbAcces = (DropDownList)ddlAccessCategory;
-            ListItem liAcces = lbAcces.SelectedItem;
-            int accessId = Convert.ToInt32(liAcces.Value);
-            string accessCategory = liAcces.Text;
-            newMember.accessId = accessId;
-            newMember.accessCategory = accessCategory;
-
-            newMember.payment = cbPayment.Checked;
-
-            users newUser = new users();
-            if (tbIdUser.Text != string.Empty)
-            {
-                newUser.idUser = Convert.ToInt32(tbIdUser.Text);
-            }
-            newUser.userName = tbUserName.Text;
-            newUser.userPassword = tbUserPassword.Text;
-
-            if (methods.modifyMember(newMember, newUser) == true)
-            {
-                lbUserMessage.Text = "Uppdatering klar";
+                populateMemberList();
             }
         }
 
         protected void btRemove_Click(object sender, EventArgs e)
         {
-            member newMember = new member();
-            newMember.memberId = Convert.ToInt32(tbIdMember.Text);
-
-            users newUser = new users();
-            newUser.idUser = Convert.ToInt32(tbIdUser.Text);
-            if (methods.removeMember(newMember, newUser) == true)
+            lbUserMessage.Text = string.Empty;
+            if (tbIdMember.Text != string.Empty)
             {
-                lbUserMessage.Text = "Användare borttagen";
+                member newMember = new member();
+                newMember.memberId = Convert.ToInt32(tbIdMember.Text);
+                users newUser = new users();
+                newUser.idUser = Convert.ToInt32(tbIdUser.Text);
+                int currentMemberIndex = lblMembers.SelectedIndex;
+                if (methods.removeMember(newMember, newUser) == true)
+                {
+                    populateMemberList();
+                    clearMember();
+                    lblMembers.SelectedIndex = currentMemberIndex - 1;
+                    lblMembers.SelectedItem.Selected = true;
+                    lbUserMessage.Text = "Användare " + newMember.memberId.ToString() + " borttagen.";
+                }
             }
+            else
+            {
+                lbUserMessage.Text = "Ingen användare att ta bort.";
+            }
+        }
+
+        protected void lblMembers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idMember = Convert.ToInt32(lblMembers.SelectedItem.Value);
+            clearMember();
+            populateMember(idMember);
+        }
+
+        protected void btClear_Click(object sender, EventArgs e)
+        {
+            clearMember();
+            lblMembers.ClearSelection();
+        }
+
+        protected void btSave_Click(object sender, EventArgs e)
+        {
+            // update
+            if (lblMembers.SelectedIndex >= 0)
+            {
+                lbUserMessage.Text = string.Empty;
+                member newMember = new member();
+                if (tbIdMember.Text != string.Empty)
+                {
+                    newMember.memberId = Convert.ToInt32(tbIdMember.Text);
+                }
+                newMember.firstName = tbFirstName.Text;
+                newMember.lastName = tbLastName.Text;
+                newMember.address = tbAddress.Text;
+                newMember.postalCode = tbPostalCode.Text;
+                newMember.city = tbCity.Text;
+                newMember.mail = tbMail.Text;
+                newMember.gender = ddlGender.Text;
+                if (tbHcp.Text == string.Empty)
+                {
+                    newMember.hcp = 0.00; 
+                }
+                else
+                {
+                    newMember.hcp = Convert.ToDouble(tbHcp.Text);
+                }
+                newMember.golfId = tbGolfId.Text;
+
+                DropDownList lbCategory = (DropDownList)ddlCategory;
+                ListItem liCategory = lbCategory.SelectedItem;
+                int categoryId = Convert.ToInt32(liCategory.Value);
+                string category = liCategory.Text;
+                newMember.categoryId = categoryId;
+                newMember.category = category;
+
+                DropDownList lbAcces = (DropDownList)ddlAccessCategory;
+                ListItem liAcces = lbAcces.SelectedItem;
+                int accessId = Convert.ToInt32(liAcces.Value);
+                string accessCategory = liAcces.Text;
+                newMember.accessId = accessId;
+                newMember.accessCategory = accessCategory;
+                newMember.payment = cbPayment.Checked;
+
+                users newUser = new users();
+                if (tbIdUser.Text != string.Empty)
+                {
+                    newUser.idUser = Convert.ToInt32(tbIdUser.Text);
+                }
+                newUser.userName = tbUserName.Text;
+                newUser.userPassword = tbUserPassword.Text;
+                
+                if (tbIdMember.Text != string.Empty)
+                {
+                    newUser.fkIdMember = newMember.memberId;
+                }
+                
+                int currentMemberIndex = lblMembers.SelectedIndex;
+                
+                if (methods.modifyMember(newMember, newUser) == true)
+                {
+                    populateMemberList();
+                    lblMembers.SelectedIndex = currentMemberIndex;
+                    lblMembers.SelectedItem.Selected = true;
+                    tbIdMember.Text = newMember.memberId.ToString();
+                    tbIdUser.Text = newUser.idUser.ToString();
+                    tbFkIdMember.Text = newUser.fkIdMember.ToString();
+                    lbUserMessage.Text = "Användare " + tbIdMember.Text + " uppdaterad. ";
+                }
+            }
+            else
+            {
+                lbUserMessage.Text = string.Empty;
+                member newMember = new member();
+                if (tbIdMember.Text != string.Empty)
+                {
+                    newMember.memberId = Convert.ToInt32(tbIdMember.Text);
+                }
+                newMember.firstName = tbFirstName.Text;
+                newMember.lastName = tbLastName.Text;
+                newMember.address = tbAddress.Text;
+                newMember.postalCode = tbPostalCode.Text;
+                newMember.city = tbCity.Text;
+                newMember.mail = tbMail.Text;
+                newMember.gender = ddlGender.Text;
+                if (tbHcp.Text == string.Empty)
+                {
+                    newMember.hcp = 0.00;
+                }
+                else
+                {
+                    newMember.hcp = Convert.ToDouble(tbHcp.Text);
+                }
+
+                newMember.golfId = tbGolfId.Text;
+
+                DropDownList lbCategory = (DropDownList)ddlCategory;
+                ListItem liCategory = lbCategory.SelectedItem;
+                int categoryId = Convert.ToInt32(liCategory.Value);
+                string category = liCategory.Text;
+                newMember.categoryId = categoryId;
+                newMember.category = category;
+
+                DropDownList lbAcces = (DropDownList)ddlAccessCategory;
+                ListItem liAcces = lbAcces.SelectedItem;
+                int accessId = Convert.ToInt32(liAcces.Value);
+                string accessCategory = liAcces.Text;
+                newMember.accessId = accessId;
+                newMember.accessCategory = accessCategory;
+
+                newMember.payment = cbPayment.Checked;
+
+                users newUser = new users();
+                newUser.userName = tbUserName.Text;
+                newUser.userPassword = tbUserPassword.Text;
+
+                if (methods.addMember(newMember, newUser) == true)
+                {
+                    populateMemberList();
+                    tbIdMember.Text = newMember.memberId.ToString();
+                    tbIdUser.Text = newUser.idUser.ToString();
+                    tbFkIdMember.Text = newUser.fkIdMember.ToString();
+                    lbUserMessage.Text = "Användare " + tbIdMember.Text + " registrerad.";
+                }
+            }
+        }
+        
+        protected void populateMemberList()
+        {
+            List<member> memberList = new List<member>();
+            memberList = methods.getMemberList();
+            List<ListItem> nyMemberList = new List<ListItem>();
+
+            lblMembers.Items.Clear();
+
+            foreach (member mb in memberList)
+            {
+                nyMemberList.Add(new ListItem(mb.firstName + " " + mb.lastName, mb.memberId.ToString()));
+            }
+
+            lblMembers.DataTextField = "Text";
+            lblMembers.DataValueField = "Value";
+            lblMembers.DataSource = nyMemberList;
+            lblMembers.DataBind();
+        }
+
+        public void clearMember()
+        {
+            tbIdMember.Text = string.Empty;
+            tbFirstName.Text = string.Empty;
+            tbLastName.Text = string.Empty;
+            tbAddress.Text = string.Empty;
+            tbPostalCode.Text = string.Empty;
+            tbCity.Text = string.Empty;
+            tbMail.Text = string.Empty;
+            tbHcp.Text = string.Empty;
+            tbMail.Text = string.Empty;
+            tbGolfId.Text = string.Empty;
+            lbUserMessage.Text = string.Empty;
+            tbIdUser.Text = string.Empty;
+            tbUserName.Text = string.Empty;
+            tbUserPassword.Text = string.Empty;
+            tbFkIdMember.Text = string.Empty;
         }
 
         public void populateMember(int id_member)
@@ -186,17 +266,17 @@ namespace DSU_g5
                 tbPostalCode.Text = newMember.postalCode;
                 tbCity.Text = newMember.city;
                 tbMail.Text = newMember.mail;
-                // ddlCategory.SelectedItem.Value = newMember.gender.ToString();
-                ddlCategory.SelectedItem.Text = newMember.gender.ToString();
+                ddlGender.Text = newMember.gender;
+                ddlGender.SelectedItem.Selected = true;
                 tbHcp.Text = newMember.hcp.ToString();
                 tbMail.Text = newMember.mail;
                 tbGolfId.Text = newMember.golfId;
 
-                ddlCategory.SelectedItem.Value = newMember.categoryId.ToString();
-                ddlCategory.SelectedItem.Text = newMember.category;
+                ddlCategory.SelectedIndex = newMember.categoryId - 1;
+                ddlCategory.SelectedItem.Selected = true;
 
-                ddlAccessCategory.SelectedItem.Value = newMember.accessId.ToString();
-                ddlAccessCategory.SelectedItem.Text = newMember.accessCategory;
+                ddlAccessCategory.SelectedIndex = newMember.accessId - 1;
+                ddlAccessCategory.SelectedItem.Selected = true;
 
                 cbPayment.Checked = newMember.payment;
             }
@@ -209,35 +289,6 @@ namespace DSU_g5
                 tbUserPassword.Text = newUser.userPassword;
                 tbFkIdMember.Text = newUser.fkIdMember.ToString();
             }
-        }
-
-        protected void lblMembers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int idMember = Convert.ToInt32(lblMembers.SelectedItem.Value);
-            //clearMember();
-            tbIdMember.Text = string.Empty;
-            tbFirstName.Text = string.Empty;
-            tbLastName.Text = string.Empty;
-            tbAddress.Text = string.Empty;
-            tbPostalCode.Text = string.Empty;
-            tbCity.Text = string.Empty;
-            tbMail.Text = string.Empty;
-
-            ddlGender.SelectedItem.Value = string.Empty;
-            ddlGender.SelectedItem.Text = string.Empty;
-            
-            tbHcp.Text = string.Empty;
-            tbMail.Text = string.Empty;
-            tbGolfId.Text = string.Empty;
-
-            ddlCategory.SelectedItem.Value = string.Empty;
-            ddlCategory.SelectedItem.Text = string.Empty;
-
-            ddlAccessCategory.SelectedItem.Value = string.Empty;
-            ddlAccessCategory.SelectedItem.Text = string.Empty;
-            lbUserMessage.Text = string.Empty;
-
-            populateMember(idMember);
         }
     }
 }

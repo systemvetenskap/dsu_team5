@@ -879,7 +879,7 @@ namespace DSU_g5
         #endregion
 
         #region MEDLEMSSIDA
-        
+
         public static bool addMember(member newMember, users newUser)
         {
             bool succesfull = false;
@@ -933,12 +933,12 @@ namespace DSU_g5
                 command.Parameters["newAccessCategory"].Value = newMember.accessCategory;
                 command.Parameters.Add(new NpgsqlParameter("newPayment", NpgsqlDbType.Boolean));
                 command.Parameters["newPayment"].Value = newMember.payment;
-                
+
                 command.CommandText = plsql;
                 int id_member = Convert.ToInt32(command.ExecuteScalar());
 
-                // user
-                newUser.fkIdMember = id_member;
+                newMember.memberId = id_member;
+                newUser.fkIdMember = newMember.memberId;
 
                 plsql = string.Empty;
                 plsql = "INSERT INTO users (user_name, user_password, fk_id_member)";
@@ -954,6 +954,7 @@ namespace DSU_g5
 
                 command.CommandText = plsql;
                 int id_user = Convert.ToInt32(command.ExecuteScalar());
+                newUser.idUser = id_user;
 
                 tran.Commit();
                 succesfull = true;
@@ -1056,7 +1057,7 @@ namespace DSU_g5
                 command.Parameters.Add(new NpgsqlParameter("newUserPassword", NpgsqlDbType.Varchar));
                 command.Parameters["newUserPassword"].Value = newUser.userPassword;
                 command.Parameters.Add(new NpgsqlParameter("newFkIdMember", NpgsqlDbType.Integer));
-                command.Parameters["newFkIdMember"].Value = newUser.fkIdMember;
+                command.Parameters["newFkIdMember"].Value = newUser.fkIdMember; 
 
                 command.Parameters.Add(new NpgsqlParameter("newIdUser", NpgsqlDbType.Integer));
                 command.Parameters["newIdUser"].Value = newUser.idUser;
@@ -1153,13 +1154,24 @@ namespace DSU_g5
                     newMember.city = (string)(dr["city"]);
                     newMember.mail = (string)(dr["mail"]);
                     newMember.gender = (string)(dr["gender"]);
-                    newMember.hcp = Convert.ToDouble((dr["hcp"]));
+                    
+                    // newMember.hcp = Convert.ToDouble((dr["hcp"]));
+                    newMember.hcp = dr["hcp"] != DBNull.Value ? Convert.ToDouble((dr["hcp"])) : 0;
+                    
                     newMember.golfId = (string)(dr["golf_id"]);
-                    newMember.categoryId = (int)(dr["fk_category_id"]);
-                    newMember.category = (string)(dr["member_category"]);
-                    newMember.accessId = (int)(dr["access_id"]);
-                    newMember.accessCategory = (string)(dr["access_category"]);
-                    newMember.payment = (Boolean)(dr["payment"]);
+                    
+                    // newMember.categoryId = (int)(dr["fk_category_id"]);
+                    newMember.categoryId = dr["fk_category_id"] != DBNull.Value ? (int)(dr["fk_category_id"]) : 0;
+                    // newMember.category = (string)(dr["member_category"]);
+                    newMember.category = dr["member_category"] != DBNull.Value ? (string)(dr["member_category"]) : "";
+                    
+                    // newMember.accessId = (int)(dr["access_id"]);
+                    newMember.accessId = dr["access_id"] != DBNull.Value ? (int)(dr["access_id"]) : 0;
+                    // newMember.accessCategory = (string)(dr["access_category"]);
+                    newMember.category = dr["member_category"] != DBNull.Value ? (string)(dr["member_category"]) : "";
+
+                    // newMember.payment = (Boolean)(dr["payment"]);
+                    newMember.payment = dr["payment"] != DBNull.Value ? (Boolean)(dr["payment"]) : false;
                 }
             }
             finally
@@ -1899,7 +1911,8 @@ namespace DSU_g5
 
                 plsql = plsql + "SELECT id_member, first_name, last_name, address, postal_code,";
                 plsql = plsql + " city, mail, gender, hcp, golf_id, fk_category_id, member_category, access_id, access_category, payment ";
-                plsql = plsql + " FROM member_new"; 
+                plsql = plsql + " FROM member_new";
+                plsql = plsql + " ORDER BY first_name, last_name";
 
                 NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newIdMember", NpgsqlDbType.Integer));
@@ -1915,13 +1928,26 @@ namespace DSU_g5
                     newMember.city = (string)(dr["city"]);
                     newMember.mail = (string)(dr["mail"]);
                     newMember.gender = (string)(dr["gender"]);
-                    newMember.hcp = Convert.ToDouble((dr["hcp"]));
-                    newMember.golfId = (string)(dr["golf_id"]);
-                    newMember.categoryId = (int)(dr["fk_category_id"]);
-                    newMember.category = (string)(dr["member_category"]);
-                    newMember.accessId = (int)(dr["access_id"]);
-                    newMember.accessCategory = (string)(dr["access_category"]);
-                    newMember.payment = (Boolean)(dr["payment"]);
+                    
+                    // newMember.hcp = Convert.ToDouble((dr["hcp"]));
+                    newMember.hcp = dr["hcp"] != DBNull.Value ? Convert.ToDouble((dr["hcp"])) : 0;                    
+                    
+                    newMember.golfId = (string)(dr["golf_id"]);                    
+
+                    // newMember.categoryId = (int)(dr["fk_category_id"]);
+                    newMember.categoryId = dr["fk_category_id"] != DBNull.Value ? (int)(dr["fk_category_id"]) : 0;
+                    
+                    // newMember.category = (string)(dr["member_category"]);
+                    newMember.accessCategory = dr["member_category"] != DBNull.Value ? (string)(dr["member_category"]) : "";
+
+                    // newMember.accessId = (int)(dr["access_id"]);
+                    newMember.accessId = dr["access_id"] != DBNull.Value ? (int)(dr["access_id"]) : 0;                    
+                    
+                    // newMember.accessCategory = (string)(dr["access_category"]);
+                    newMember.accessCategory = dr["access_category"] != DBNull.Value ? (string)(dr["access_category"]) : "";
+                    
+                    // newMember.payment = (Boolean)(dr["payment"]);
+                    newMember.payment = dr["payment"] != DBNull.Value ? (Boolean)(dr["payment"]) : false;
                     memberList.Add(newMember);
                 }
             }
