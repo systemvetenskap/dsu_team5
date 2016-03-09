@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace DSU_g5
 {
     public partial class bokning : System.Web.UI.Page
     {
+        NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
         #region VARIABLER FÖR DETTA SCOPE
 
         DateTime selectedDate;
@@ -109,27 +111,52 @@ namespace DSU_g5
         }
         protected void BtnBookMember_Click(object sender, EventArgs e)
         {
-            string placeholderMid = hfPlaceholderMemberId.Value;
-            int memberID = Convert.ToInt32(placeholderMid);
+            if(hfPlaceholderMemberId.Value != "")
+            {
+                if(hfChosenDate.Value != "")
+                {
+                    if(hfTimeId.Value != "")
+                    {
+                        string placeholderMid = hfPlaceholderMemberId.Value;
+                        int memberID = Convert.ToInt32(placeholderMid);
             
-            string chosenDate = hfChosenDate.Value;
-            trimDate = chosenDate.Substring(0, 10);
-            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+                        string chosenDate = hfChosenDate.Value;
+                        trimDate = chosenDate.Substring(0, 10);
+                        trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
             
-            string placeholderTid = hfTimeId.Value;
-            int timeID = Convert.ToInt32(placeholderTid);
-            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+                        string placeholderTid = hfTimeId.Value;
+                        int timeID = Convert.ToInt32(placeholderTid);
+                        DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
             
-            methods.bookMember(trimDateTime, timeID, memberID);
+                        methods.bookMember(trimDateTime, timeID, memberID);
 
-            lbBookedMembers.Items.Clear();
-            //lbBookedMembers.DataSource = null;
-            //lbBookedMembers.DataBind();
-            lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeID));
-            lbBookedMembers.DataBind();
+                        lbBookedMembers.Items.Clear();
+                        //lbBookedMembers.DataSource = null;
+                        //lbBookedMembers.DataBind();
+                        lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeID));
+                        lbBookedMembers.DataBind();
 
-            populateGrvBokning();
-            updateBookingInfo();
+                        populateGrvBokning();
+                        updateBookingInfo();
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('" + "Välj en tid i schemat." + "')</script>");
+                    }
+                }
+
+                else
+                {
+                    Response.Write("<script>alert('" + "Välj ett datum i kalenden ovan." + "')</script>");
+                }
+
+            }
+
+            else
+            {
+                Response.Write("<script>alert('" + "Du måste välja medlem i listan." + "')</script>");
+            }
+            
         }
         protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
         {
@@ -172,9 +199,6 @@ namespace DSU_g5
 
         }
 
-        
-
-
         protected void btnBookedByMember_Click(object sender, EventArgs e)
         {
             //string placeholderMid = hfPlaceholderMemberId.Value;
@@ -195,23 +219,24 @@ namespace DSU_g5
 
             methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember);
 
-            populateGrvBokning();
-            updateBookingInfo();
+            UpdateLBsAndLBLs();
 
-            lbGamesMemberIsBookedOn.Items.Clear();
-            lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
-            lbGamesMemberIsBookedOn.DataBind();
-            lbGamesMemberIsBookedOn.SelectedIndex = -1;
+            //populateGrvBokning();
+            //updateBookingInfo();
 
-            lbGamesMemberIsBookableBy.Items.Clear();
-            lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
-            lbGamesMemberIsBookableBy.DataBind();
-            lbGamesMemberIsBookableBy.SelectedIndex = -1;
+            //lbGamesMemberIsBookedOn.Items.Clear();
+            //lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
+            //lbGamesMemberIsBookedOn.DataBind();
+            //lbGamesMemberIsBookedOn.SelectedIndex = -1;
 
-            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
-            lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+            //lbGamesMemberIsBookableBy.Items.Clear();
+            //lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
+            //lbGamesMemberIsBookableBy.DataBind();
+            //lbGamesMemberIsBookableBy.SelectedIndex = -1;
+
+            //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
+            //lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
         }
-
 
         protected void btnUnBookedByMember_Click(object sender, EventArgs e)
         {
@@ -229,21 +254,23 @@ namespace DSU_g5
 
             methods.unBookingByMem(gm.gameId, gm.memberId);
 
-            populateGrvBokning();
-            updateBookingInfo();
+            UpdateLBsAndLBLs();
 
-            lbGamesMemberIsBookedOn.Items.Clear();
-            lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
-            lbGamesMemberIsBookedOn.DataBind();
-            lbGamesMemberIsBookedOn.SelectedIndex = -1;
+            //populateGrvBokning();
+            //updateBookingInfo();
 
-            lbGamesMemberIsBookableBy.Items.Clear();
-            lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
-            lbGamesMemberIsBookableBy.DataBind();
-            lbGamesMemberIsBookableBy.SelectedIndex = -1;
+            //lbGamesMemberIsBookedOn.Items.Clear();
+            //lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
+            //lbGamesMemberIsBookedOn.DataBind();
+            //lbGamesMemberIsBookedOn.SelectedIndex = -1;
 
-            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
-            lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+            //lbGamesMemberIsBookableBy.Items.Clear();
+            //lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
+            //lbGamesMemberIsBookableBy.DataBind();
+            //lbGamesMemberIsBookableBy.SelectedIndex = -1;
+
+            //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
+            //lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
         }
 
         protected void btnUnBookMemberByBookedBy_Click(object sender, EventArgs e)
@@ -254,20 +281,22 @@ namespace DSU_g5
 
             methods.unBookMemWhithBookedByID(gm.gameId, gm.bookedBy);
 
-            populateGrvBokning();
-            updateBookingInfo();
+            UpdateLBsAndLBLs();
 
-            lbGamesMemberIsBookedOn.Items.Clear();
-            lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
-            lbGamesMemberIsBookedOn.DataBind();
-            lbGamesMemberIsBookedOn.SelectedIndex = -1;
+            //populateGrvBokning();
+            //updateBookingInfo();
 
-            lbGamesMemberIsBookableBy.Items.Clear();
-            lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
-            lbGamesMemberIsBookableBy.DataBind();
-            lbGamesMemberIsBookableBy.SelectedIndex = -1;
-            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
-            lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+            //lbGamesMemberIsBookedOn.Items.Clear();
+            //lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
+            //lbGamesMemberIsBookedOn.DataBind();
+            //lbGamesMemberIsBookedOn.SelectedIndex = -1;
+
+            //lbGamesMemberIsBookableBy.Items.Clear();
+            //lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
+            //lbGamesMemberIsBookableBy.DataBind();
+            //lbGamesMemberIsBookableBy.SelectedIndex = -1;
+            //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
+            //lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
         }
 
 
@@ -543,8 +572,76 @@ namespace DSU_g5
 
         }
 
+        //protected void tbSearchMember_TextChanged(object sender, EventArgs e)
+        //{
+        //    string memberSearch = tbSearchMember.Text.ToLower();
+        //    lbAllMembers.Items.Clear();
+        //    string sqlMemberSearch;
+            
+        //    DataTable dt = new DataTable();
+
+        //    try
+        //    {
+        //        sqlMemberSearch = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID " +
+        //                       "FROM member_new " +
+        //                       "WHERE lower(first_name) LIKE '" + memberSearch + '%' + "'" +
+        //                       "OR lower(last_name) LIKE '" + memberSearch + '%' + "'";
+        //        conn.Open();
+
+        //        //NpgsqlCommand cmd = new NpgsqlCommand(memberSearch, conn);
+        //        //NpgsqlDataReader dr = cmd.ExecuteReader();
+
+        //        //while (dr.Read())
+        //        //{
+        //            //member m = new member();
+        //            //m.memberId = int.Parse(dr["id_member"].ToString());
+        //            //m.firstName = dr["first_name"].ToString();
+        //            //m.lastName = dr["last_name"].ToString();
+
+        //            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sqlMemberSearch, conn);
+        //            da.Fill(dt);
+
+        //            lbAllMembers.DataValueField = "mID";
+        //            lbAllMembers.DataTextField = "namn";
+        //            lbAllMembers.DataSource = dt;
+        //            lbAllMembers.DataBind();
+        //        //}
+        //    }
+
+        //    catch (NpgsqlException ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        conn.Close();
+        //    }
+        //}
+        
         #endregion
 
+
+
+        #region VoidMetoder
+        private void UpdateLBsAndLBLs()
+        {
+            populateGrvBokning();
+            updateBookingInfo();
+
+            lbGamesMemberIsBookedOn.Items.Clear();
+            lbGamesMemberIsBookedOn.DataSource = methods.LoggedInMemberBookings(inloggadUser.fkIdMember);
+            lbGamesMemberIsBookedOn.DataBind();
+            lbGamesMemberIsBookedOn.SelectedIndex = -1;
+
+            lbGamesMemberIsBookableBy.Items.Clear();
+            lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
+            lbGamesMemberIsBookableBy.DataBind();
+            lbGamesMemberIsBookableBy.SelectedIndex = -1;
+
+            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
+            lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+        }
+        #endregion
 
 
 
