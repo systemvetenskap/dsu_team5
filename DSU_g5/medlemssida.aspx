@@ -65,7 +65,7 @@
             <br />
         </div>
         <div id="knappar">
-            <asp:Button ID="btUpdate" CssClass="memberbutton" runat="server" Text="Uppdatera" OnClick="btUpdate_Click" />
+            <asp:Button ID="btSave" CssClass="memberbutton" runat="server" Text="Uppdatera" OnClick="btSave_Click" />
             <asp:Button ID="btRemove" CssClass="memberbutton" runat="server" Text="Ta bort" OnClick="btRemove_Click" />
             <br />
             <asp:Label ID="lbUserMessage" runat="server" CssClass="UserMessage"></asp:Label>

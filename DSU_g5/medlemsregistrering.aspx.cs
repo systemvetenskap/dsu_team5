@@ -18,6 +18,10 @@ namespace DSU_g5
 
             if (!Page.IsPostBack)
             {
+                btSave.Text = "Lägg till";
+                btRemove.Text = "Ta bort";
+                btClear.Text = "Rensa";
+
                 ddlGender.Items.Add("Male");
                 ddlGender.Items.Add("Female");
 
@@ -65,8 +69,17 @@ namespace DSU_g5
                 {
                     populateMemberList();
                     clearMember();
-                    lblMembers.SelectedIndex = currentMemberIndex - 1;
-                    lblMembers.SelectedItem.Selected = true;
+                    if ((currentMemberIndex - 1) < 0)
+                    {
+                        lblMembers.SelectedIndex = 0;
+                        lblMembers.SelectedItem.Selected = true;
+                    }
+                    else
+                    {
+                        lblMembers.SelectedIndex = currentMemberIndex - 1;
+                        lblMembers.SelectedItem.Selected = true;
+                    }
+                    btSave.Text = "Lägg till";
                     lbUserMessage.Text = "Användare " + newMember.memberId.ToString() + " borttagen.";
                 }
             }
@@ -81,25 +94,53 @@ namespace DSU_g5
             int idMember = Convert.ToInt32(lblMembers.SelectedItem.Value);
             clearMember();
             populateMember(idMember);
+            btSave.Text = "Uppdatera";
         }
 
         protected void btClear_Click(object sender, EventArgs e)
         {
             clearMember();
             lblMembers.ClearSelection();
+            btSave.Text = "Lägg till";
         }
 
         protected void btSave_Click(object sender, EventArgs e)
         {
-            // update
-            if (lblMembers.SelectedIndex >= 0)
+            // kontroller
+            if (tbFirstName.Text == string.Empty)
             {
-                lbUserMessage.Text = string.Empty;
-                member newMember = new member();
-                if (tbIdMember.Text != string.Empty)
+                lbUserMessage.Text = lbFirstName.Text + " måste ha ett värde.";
+                return;
+            }
+            if (tbUserName.Text == string.Empty)
+            {
+                lbUserMessage.Text = lbUserName.Text + " måste ha ett värde.";
+                return;
+            }
+            if (tbIdMember.Text != string.Empty)
+            {
+                if (methods.checkUserExist(Convert.ToInt32(tbIdUser.Text), tbUserName.Text, tbUserPassword.Text) == true)
                 {
-                    newMember.memberId = Convert.ToInt32(tbIdMember.Text);
+                    lbUserMessage.Text = "Användarnamn existerar redan. Välj en annan användarnamn.";
+                    return;
                 }
+            }
+            else
+            {
+                if (methods.checkUserExist(tbUserName.Text, tbUserPassword.Text) == true)
+                {
+                    lbUserMessage.Text = "Användarnamn existerar redan. Välj en annan användarnamn.";
+                    return;
+                }
+            }
+            
+            if (tbIdMember.Text != string.Empty)
+            {
+                // update
+                lbUserMessage.Text = string.Empty;
+
+                member newMember = new member();
+                newMember.memberId = Convert.ToInt32(tbIdMember.Text);
                 newMember.firstName = tbFirstName.Text;
                 newMember.lastName = tbLastName.Text;
                 newMember.address = tbAddress.Text;
@@ -133,17 +174,10 @@ namespace DSU_g5
                 newMember.payment = cbPayment.Checked;
 
                 users newUser = new users();
-                if (tbIdUser.Text != string.Empty)
-                {
-                    newUser.idUser = Convert.ToInt32(tbIdUser.Text);
-                }
+                newUser.idUser = Convert.ToInt32(tbIdUser.Text);
                 newUser.userName = tbUserName.Text;
                 newUser.userPassword = tbUserPassword.Text;
-                
-                if (tbIdMember.Text != string.Empty)
-                {
-                    newUser.fkIdMember = newMember.memberId;
-                }
+                newUser.fkIdMember = newMember.memberId;
                 
                 int currentMemberIndex = lblMembers.SelectedIndex;
                 
@@ -151,15 +185,26 @@ namespace DSU_g5
                 {
                     populateMemberList();
                     lblMembers.SelectedIndex = currentMemberIndex;
-                    lblMembers.SelectedItem.Selected = true;
+                    if ((currentMemberIndex) <= 0)
+                    {
+                        lblMembers.SelectedIndex = 0;
+                        lblMembers.SelectedItem.Selected = true;
+                    }
+                    else
+                    {
+                        lblMembers.SelectedIndex = currentMemberIndex;
+                        lblMembers.SelectedItem.Selected = true;
+                    }
                     tbIdMember.Text = newMember.memberId.ToString();
                     tbIdUser.Text = newUser.idUser.ToString();
                     tbFkIdMember.Text = newUser.fkIdMember.ToString();
+                    btSave.Text = "Uppdatera";
                     lbUserMessage.Text = "Användare " + tbIdMember.Text + " uppdaterad. ";
                 }
             }
             else
             {
+                // insert
                 lbUserMessage.Text = string.Empty;
                 member newMember = new member();
                 if (tbIdMember.Text != string.Empty)
@@ -210,6 +255,7 @@ namespace DSU_g5
                     tbIdMember.Text = newMember.memberId.ToString();
                     tbIdUser.Text = newUser.idUser.ToString();
                     tbFkIdMember.Text = newUser.fkIdMember.ToString();
+                    btSave.Text = "Uppdatera";
                     lbUserMessage.Text = "Användare " + tbIdMember.Text + " registrerad.";
                 }
             }
@@ -222,7 +268,6 @@ namespace DSU_g5
             List<ListItem> nyMemberList = new List<ListItem>();
 
             lblMembers.Items.Clear();
-
             foreach (member mb in memberList)
             {
                 nyMemberList.Add(new ListItem(mb.firstName + " " + mb.lastName, mb.memberId.ToString()));
