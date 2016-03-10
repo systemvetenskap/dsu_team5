@@ -481,8 +481,6 @@ namespace DSU_g5
 
         #endregion
 
-
-
         #region BOKNING OCH AVBOKNING - ADMIN
 
 
@@ -1194,24 +1192,13 @@ namespace DSU_g5
                     newMember.postalCode = (string)(dr["postal_code"]);
                     newMember.city = (string)(dr["city"]);
                     newMember.mail = (string)(dr["mail"]);
-                    newMember.gender = (string)(dr["gender"]);
-                    
-                    // newMember.hcp = Convert.ToDouble((dr["hcp"]));
-                    newMember.hcp = dr["hcp"] != DBNull.Value ? Convert.ToDouble((dr["hcp"])) : 0;
-                    
-                    newMember.golfId = (string)(dr["golf_id"]);
-                    
-                    // newMember.categoryId = (int)(dr["fk_category_id"]);
+                    newMember.gender = (string)(dr["gender"]);                    
+                    newMember.hcp = dr["hcp"] != DBNull.Value ? Convert.ToDouble((dr["hcp"])) : 0.00;                    
+                    newMember.golfId = (string)(dr["golf_id"]);                    
                     newMember.categoryId = dr["fk_category_id"] != DBNull.Value ? (int)(dr["fk_category_id"]) : 0;
-                    // newMember.category = (string)(dr["member_category"]);
-                    newMember.category = dr["member_category"] != DBNull.Value ? (string)(dr["member_category"]) : "";
-                    
-                    // newMember.accessId = (int)(dr["access_id"]);
+                    newMember.category = dr["member_category"] != DBNull.Value ? (string)(dr["member_category"]) : "";                    
                     newMember.accessId = dr["access_id"] != DBNull.Value ? (int)(dr["access_id"]) : 0;
-                    // newMember.accessCategory = (string)(dr["access_category"]);
                     newMember.category = dr["member_category"] != DBNull.Value ? (string)(dr["member_category"]) : "";
-
-                    // newMember.payment = (Boolean)(dr["payment"]);
                     newMember.payment = dr["payment"] != DBNull.Value ? (Boolean)(dr["payment"]) : false;
                 }
             }
@@ -1870,7 +1857,7 @@ namespace DSU_g5
                 conn.Open();
                 string plsql = string.Empty;
 
-                plsql = plsql + "SELECT 1 AS amount ";
+                plsql = plsql + "SELECT DISTINCT 1 AS amount ";
                 plsql = plsql + " FROM users ";
                 plsql = plsql + " WHERE user_name = :newUserName ";
                 plsql = plsql + " AND user_password = :newUserpassword;";
@@ -1937,6 +1924,49 @@ namespace DSU_g5
             return newUser;
         }
 
+        public static bool checkUserExist(int idUser, string userName, string userPassword)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            int amount = 0;
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT DISTINCT 1 AS amount ";
+                plsql = plsql + " FROM users ";
+                plsql = plsql + " WHERE user_name = :newUserName ";
+                plsql = plsql + " AND user_password = :newUserpassword";
+                plsql = plsql + " AND id_user <> :newIdUser;";
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newUserName", NpgsqlDbType.Varchar));
+                command.Parameters["newUserName"].Value = userName;
+                command.Parameters.Add(new NpgsqlParameter("newUserpassword", NpgsqlDbType.Varchar));
+                command.Parameters["newUserpassword"].Value = userPassword;
+                command.Parameters.Add(new NpgsqlParameter("newIdUser", NpgsqlDbType.Integer));
+                command.Parameters["newIdUser"].Value = idUser;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    amount = (int)(dr["amount"]);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            if (amount > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion LOGGIN
 
         #region MEDLEMSREGISTRERING
@@ -1968,26 +1998,13 @@ namespace DSU_g5
                     newMember.postalCode = (string)(dr["postal_code"]);
                     newMember.city = (string)(dr["city"]);
                     newMember.mail = (string)(dr["mail"]);
-                    newMember.gender = (string)(dr["gender"]);
-                    
-                    // newMember.hcp = Convert.ToDouble((dr["hcp"]));
-                    newMember.hcp = dr["hcp"] != DBNull.Value ? Convert.ToDouble((dr["hcp"])) : 0;                    
-                    
+                    newMember.gender = (string)(dr["gender"]);                    
+                    newMember.hcp = dr["hcp"] != DBNull.Value ? Convert.ToDouble((dr["hcp"])) : 0.00;                                        
                     newMember.golfId = (string)(dr["golf_id"]);                    
-
-                    // newMember.categoryId = (int)(dr["fk_category_id"]);
                     newMember.categoryId = dr["fk_category_id"] != DBNull.Value ? (int)(dr["fk_category_id"]) : 0;
-                    
-                    // newMember.category = (string)(dr["member_category"]);
                     newMember.accessCategory = dr["member_category"] != DBNull.Value ? (string)(dr["member_category"]) : "";
-
-                    // newMember.accessId = (int)(dr["access_id"]);
                     newMember.accessId = dr["access_id"] != DBNull.Value ? (int)(dr["access_id"]) : 0;                    
-                    
-                    // newMember.accessCategory = (string)(dr["access_category"]);
                     newMember.accessCategory = dr["access_category"] != DBNull.Value ? (string)(dr["access_category"]) : "";
-                    
-                    // newMember.payment = (Boolean)(dr["payment"]);
                     newMember.payment = dr["payment"] != DBNull.Value ? (Boolean)(dr["payment"]) : false;
                     memberList.Add(newMember);
                 }
@@ -1998,7 +2015,93 @@ namespace DSU_g5
             }
             return memberList;
         }
+        
         #endregion 
+
+        #region SKAPA TÄVLING
+
+        //hämta datatable med tävlingsformer
+        public static DataTable getGameForms()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            string sql;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                sql = "SELECT * FROM gameform";
+
+                conn.Open();
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt;
+        }
+
+        //lägg till tävling i databas och returnera dess id
+        public static int insertTournament(tournament tour)
+        {
+            int id_tournament = 0;
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                conn.Open();
+                command.Connection = conn;
+                string plsql;
+
+                plsql = "INSERT INTO tournament (tour_name, tour_info, registration_start, registration_end, "+
+                        "tour_start_time, tour_start_end, publ_date_startlists, contact_person, gameform, tour_date) "+
+                        "VALUES (:tour_name, :tour_info, :registration_start, :registration_end, "+
+                        ":tour_start_time, :tour_start_end, :publ_date_startlists, :contact_person, :gameform, :tour_date) "+
+                        "RETURNING id_tournament;";
+
+                command.Parameters.Add(new NpgsqlParameter("tour_name", NpgsqlDbType.Varchar));
+                command.Parameters["tour_name"].Value = tour.tour_name;
+                command.Parameters.Add(new NpgsqlParameter("tour_info", NpgsqlDbType.Varchar));
+                command.Parameters["tour_info"].Value = tour.tour_info;
+                command.Parameters.Add(new NpgsqlParameter("registration_start", NpgsqlDbType.Date));
+                command.Parameters["registration_start"].Value = tour.registration_start;
+                command.Parameters.Add(new NpgsqlParameter("registration_end", NpgsqlDbType.Date));
+                command.Parameters["registration_end"].Value = tour.registration_end;
+                command.Parameters.Add(new NpgsqlParameter("tour_start_time", NpgsqlDbType.Time));
+                command.Parameters["tour_start_time"].Value = tour.tour_start_time;
+                command.Parameters.Add(new NpgsqlParameter("tour_start_end", NpgsqlDbType.Time));
+                command.Parameters["tour_start_end"].Value = tour.tour_end_time;
+                command.Parameters.Add(new NpgsqlParameter("publ_date_startlists", NpgsqlDbType.Date));
+                command.Parameters["publ_date_startlists"].Value = tour.publ_date_startlists;
+                command.Parameters.Add(new NpgsqlParameter("contact_person", NpgsqlDbType.Integer));
+                command.Parameters["contact_person"].Value = tour.contact_person;
+                command.Parameters.Add(new NpgsqlParameter("gameform", NpgsqlDbType.Integer));
+                command.Parameters["gameform"].Value = tour.gameform;
+                command.Parameters.Add(new NpgsqlParameter("tour_date", NpgsqlDbType.Date));
+                command.Parameters["tour_date"].Value = tour.tour_date;
+
+                command.CommandText = plsql;
+                id_tournament = Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return id_tournament;
+        }
+
+        #endregion
 
         public static game_dates maxmindates()
         {

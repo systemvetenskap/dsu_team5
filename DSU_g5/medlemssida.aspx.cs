@@ -10,14 +10,16 @@ namespace DSU_g5
     public partial class medlemssida : System.Web.UI.Page
     {
         public users g_newUser = new users();
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             g_newUser.idUser = Convert.ToInt32(Session["idUser"]);
             g_newUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
-            
+
             if (!Page.IsPostBack)
             {
+                btSave.Text = "Uppdatera";
+
                 ddlGender.Items.Add("Male");
                 ddlGender.Items.Add("Female");
 
@@ -34,7 +36,7 @@ namespace DSU_g5
                 ddlCategory.DataValueField = "Value";
                 ddlCategory.DataSource = nyCategoryLista;
                 ddlCategory.DataBind();
-                
+
                 List<access> accesCategoryList = new List<access>();
                 accesCategoryList = methods.getAccesCategoryList();
                 List<ListItem> nyAccesLista = new List<ListItem>();
@@ -51,9 +53,8 @@ namespace DSU_g5
 
                 populateMember(g_newUser.fkIdMember);
             }
-            // Eventuellt
             lbHcp.Visible = false;
-            tbHcp.Visible = false;            
+            tbHcp.Visible = false;
             lbGolfId.Visible = false;
             lbGolfId.Visible = false;
             lbGolfId.Visible = false;
@@ -64,16 +65,29 @@ namespace DSU_g5
             ddlAccessCategory.Visible = false;
             lbPayment.Visible = false;
             cbPayment.Visible = false;
-            // Eventuellt alternativ
         }
 
-        protected void btUpdate_Click(object sender, EventArgs e)
+        protected void btSave_Click(object sender, EventArgs e)
         {
             member newMember = new member();
-            if (tbIdMember.Text != string.Empty)
+            // kontroller
+            if (tbFirstName.Text == string.Empty)
             {
-                newMember.memberId = Convert.ToInt32(tbIdMember.Text);
-            }   
+                lbUserMessage.Text = lbFirstName.Text + " måste ha ett värde.";
+                return;
+            }
+            if (tbUserName.Text == string.Empty)
+            {
+                lbUserMessage.Text = lbUserName.Text + " måste ha ett värde.";
+                return;
+            }
+            if (methods.checkUserExist(Convert.ToInt32(tbIdUser.Text), tbUserName.Text, tbUserPassword.Text) == true)
+            {
+                lbUserMessage.Text = "Användarnamn existerar redan. Välj en annan användarnamn.";
+                return;
+            }
+
+            newMember.memberId = Convert.ToInt32(tbIdMember.Text);
             newMember.firstName = tbFirstName.Text;
             newMember.lastName = tbLastName.Text;
             newMember.address = tbAddress.Text;
@@ -90,23 +104,20 @@ namespace DSU_g5
             string category = liCategory.Text;
             newMember.categoryId = categoryId;
             newMember.category = category;
-            
+
             DropDownList lbAcces = (DropDownList)ddlAccessCategory;
             ListItem liAcces = lbAcces.SelectedItem;
             int accessId = Convert.ToInt32(liAcces.Value);
             string accessCategory = liAcces.Text;
             newMember.accessId = accessId;
             newMember.accessCategory = accessCategory;
-
             newMember.payment = cbPayment.Checked;
 
             users newUser = new users();
-            if (tbIdUser.Text != string.Empty)
-            {
-                newUser.idUser = Convert.ToInt32(tbIdUser.Text);
-            }
+            newUser.idUser = Convert.ToInt32(tbIdUser.Text);
             newUser.userName = tbUserName.Text;
             newUser.userPassword = tbUserPassword.Text;
+            newUser.fkIdMember = newMember.memberId;
 
             if (methods.modifyMember(newMember, newUser) == true)
             {
@@ -183,5 +194,6 @@ namespace DSU_g5
             lbUserMessage.Text = string.Empty;
         }
     }
-}
+} 
+
 
