@@ -2019,6 +2019,77 @@ namespace DSU_g5
         
         #endregion 
 
+        #region Tournaments
+        public static List<tournament> getTourList()
+        {
+            List<tournament> tourList = new List<tournament>();
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            try
+            {
+                conn.Open();
+                string sql = string.Empty;
+                DateTime d;
+                DateTime f;
+                
+                sql = "SELECT * from tournament";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    tournament newTournament = new tournament();
+                    newTournament.id_tournament = (int)(dr["id_tournament"]);
+                    newTournament.tour_name = (string)(dr["tour_name"]);
+                    newTournament.tour_info = (string)(dr["tour_info"]);
+                    newTournament.registration_start = (DateTime)(dr["registration_start"]);
+                    newTournament.registration_end = (DateTime)(dr["registration_end"]);
+                    d = DateTime.Parse((dr["tour_start_time"]).ToString());
+                    newTournament.tour_start_time = d.ToShortTimeString();
+                    f = DateTime.Parse((dr["tour_start_end"]).ToString());
+                    newTournament.tour_end_time = f.ToShortTimeString();
+                    newTournament.publ_date_startlists = (DateTime)(dr["publ_date_startlists"]);
+                    newTournament.contact_person = (int)(dr["contact_person"]);
+                    newTournament.gameform = (int)(dr["gameform"]);
+                    newTournament.hole = (int)(dr["hole"]);
+
+                    tourList.Add(newTournament);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return tourList;
+        }
+        public static DataTable getLatestTour()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            DataTable dt = new DataTable();
+            string sql;
+
+            try
+            {
+                sql = "SELECT * FROM tournament " +
+                      "ORDER BY tour_date DESC, id_tournament DESC " +
+                      "LIMIT 10;";
+                conn.Open();
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return dt;
+        }
+        #endregion
+
         public static game_dates maxmindates()
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);

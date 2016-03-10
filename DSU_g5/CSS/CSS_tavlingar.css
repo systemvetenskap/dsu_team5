@@ -1,3 +1,33 @@
 ﻿#navTavlingar a {
     background-color: #6c7 !important;
 }
+
+/*TILL TÄVLINGAR INDEX */
+
+#navIndex a {
+    background-color: #6c7 !important;
+}
+
+#tournament {
+  padding: 0 15%;
+}
+
+#tournamentSort {
+  text-align: right;
+}
+
+#tournamentSort div {
+  padding: 0.7% 0;
+}
+
+.TourItem {
+  margin-bottom: 40px;
+}
+
+.TourItem:hover {
+  cursor: pointer;
+}
+
+.TourItem:hover h2 {
+  color: red;
+}
