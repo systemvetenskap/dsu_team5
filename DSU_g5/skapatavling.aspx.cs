@@ -16,7 +16,8 @@ namespace DSU_g5
                 //fyll ddlGameForm
                 ddlGameForm.DataValueField = "gameform_id";
                 ddlGameForm.DataTextField = "gameform_name";
-                //databasmetod för att hämta gameform
+                ddlGameForm.DataSource = methods.getGameForms();
+                ddlGameForm.DataBind();
                 
                 //fyll ddlMemberCategory
                 List<member_category> memberCategoryList = new List<member_category>();
@@ -57,12 +58,15 @@ namespace DSU_g5
                 tour_info = taInformation.Value,
                 registration_start = calRegStart.SelectedDate,
                 registration_end = calRegEnd.SelectedDate,
-                tour_start_time = tbStartTime.Text,
-                tour_end_time = tbEndTime.Text,
+                tour_start_time = DateTime.Parse(tbStartTime.Text),
+                tour_end_time = DateTime.Parse(tbEndTime.Text),
                 publ_date_startlists = calPublishList.SelectedDate,
                 contact_person = Convert.ToInt32(lbContactPerson.SelectedItem.Value),
-                gameform = Convert.ToInt32(ddlGameForm.SelectedItem.Value)
+                gameform = Convert.ToInt32(ddlGameForm.SelectedItem.Value),
+                tour_date = calDate.SelectedDate
             };
+
+            int newTourId = methods.insertTournament(tour);
         }
     }
 }
