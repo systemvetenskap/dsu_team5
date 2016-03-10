@@ -18,11 +18,11 @@ namespace DSU_g5
         #region BOKNING OCH AVBOKNING - MEDLEM
 
 
-        public static void bookingByMember(DateTime date, int timeId, int playerId, int bookedById)
+        public static void bookingByMember(DateTime date, int timeId, int playerId, int bookedById, out string message)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-
-
+            message = null;
+            
             string sqlMemberAlreadyBooked;
 
             double hcp = 0;
@@ -66,7 +66,10 @@ namespace DSU_g5
                     if (drAlreadyBooked.HasRows)
                     {
                         //Medlem finns redan.
-                        HttpContext.Current.Response.Write("Medlem finns redan inbokad på detta datum och tid.");
+                        //HttpContext.Current.Response.Write("Medlem finns redan inbokad på detta datum och tid.");
+                        message = "Medlem finns redan inbokad på detta datum och tid.";
+                        //return message;
+                        
                     }
 
                     else
@@ -89,23 +92,6 @@ namespace DSU_g5
                         NpgsqlCommand cmdthird = new NpgsqlCommand(sqlHcpCount, conn);
                         NpgsqlDataReader drthird = cmdthird.ExecuteReader();
                         
-                        //if(drthird.IsDBNull(Convert.ToInt32("hcp")))
-                        //if(drthird.Has)
-                        //{
-                        //    Debug.WriteLine("Nullvärde!");
-                        //    hcp = 0;
-                        //}
-
-
-                        //if(drthird["hcp"] != DBNull.Value)
-                        //{
-                        //    hcp = double.Parse(drthird["hcp"].ToString());
-                        //}
-                        //else
-                        //{
-                        //    hcp = 0;
-                        //}
-
                         while (drthird.Read())
                         {
                             try
@@ -117,16 +103,6 @@ namespace DSU_g5
                                 hcp = 0;
                             }
                         }
-
-                        //if(drthird.Read())
-                        //{
-                        //    hcp = double.Parse(drthird["hcp"].ToString());
-                        //}
-                        //else
-                        //{
-                        //    hcp = 0;
-                        //}
-
 
                         conn.Close();
 
@@ -166,7 +142,7 @@ namespace DSU_g5
                                 else
                                 {
                                     Debug.WriteLine("Finns ej detta datum i databasen");
-                                    return;
+                                    message = "Finns ej detta datum i databasen";
                                 }
                                 dr.Close();
 
@@ -211,8 +187,8 @@ namespace DSU_g5
 
                         else
                         {
-                            HttpContext.Current.Response.Write("Antal deltagare eller för högt handicap");
-
+                            //HttpContext.Current.Response.Write("Antal deltagare eller för högt handicap");
+                            message = "Antal deltagare får max vara 4 och handicap får sammanlagt vara högst 100.";
                         }
 
                     }
@@ -241,7 +217,7 @@ namespace DSU_g5
             {
                 conn.Close();
             }
-
+            
         }
 
 
@@ -473,7 +449,7 @@ namespace DSU_g5
             List<int> memberIdList = new List<int>();
 
             string sqlMemberIDs;
-
+            
             try
             {
                 sqlMemberIDs = "SELECT id_member FROM member_new ORDER BY id_member ASC";
@@ -485,10 +461,7 @@ namespace DSU_g5
 
                 while(dr.Read())
                 {
-                    for (int i = 0; i < dr.FieldCount; i++)
-                    {
-                        memberIdList.Add(i);
-                    }
+                    memberIdList.Add(Convert.ToInt32(dr["id_member"]));
                 }
 
             }
@@ -513,14 +486,13 @@ namespace DSU_g5
         #region BOKNING OCH AVBOKNING - ADMIN
 
 
-        public static void bookMember(DateTime date, int timeId, int chosenMid)
+        public static void bookMember(DateTime date, int timeId, int chosenMid, out string message)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
+            message = null;
 
             string sqlMemberAlreadyBooked;
-
-
 
             double hcp = 0;
             double hcpNew = 0;
@@ -563,7 +535,8 @@ namespace DSU_g5
                     if (drAlreadyBooked.HasRows)
                     {
                         //Medlem finns redan.
-                        HttpContext.Current.Response.Write("Medlem finns redan inbokad på detta datum och tid.");
+                        //HttpContext.Current.Response.Write("Medlem finns redan inbokad på detta datum och tid.");
+                        message = "Medlem finns redan inbokad på detta datum och tid.";
                     }
 
                     else
@@ -581,14 +554,39 @@ namespace DSU_g5
                         conn.Close();
 
 
+                        // HÄR DET PAJJAR NEDAN
                         sqlHcpCount = "SELECT SUM (hcp) as hcp FROM member_new m INNER JOIN game_member gm ON m.id_member = gm.member_id INNER JOIN game g ON g.game_id = gm.game_id WHERE g.date_id = '" + dateId + "' AND g.time_id = '" + timeId + "'";
                         conn.Open();
                         NpgsqlCommand cmdthird = new NpgsqlCommand(sqlHcpCount, conn);
                         NpgsqlDataReader drthird = cmdthird.ExecuteReader();
-                        while (drthird.Read())
+                        while(drthird.Read())
                         {
-                            hcp = double.Parse(drthird["hcp"].ToString());
+                            
+                            //hcp = Convert.ToInt32(drthird["hcp"].ToString());
+                            if(double.TryParse(drthird["hcp"].ToString(), out hcp))
+                            {
+
+                            }
+                            else
+                            {
+                                hcp = 0;
+                            }
+                            
+                            
+                            //int handi;
+                            //if(int.Parse(drthird["hcp"].ToString()) > 0)
+                            //{
+                            //    hcp = handi;
+                            //}
+                            //else
+                            //{
+                            //    hcp = 0;
+                            //}
+                            
+                            //hcp = double.Parse(drthird["hcp"].ToString());
                         }
+                        
+                        
                         conn.Close();
 
 
@@ -671,7 +669,8 @@ namespace DSU_g5
 
                         else
                         {
-                            HttpContext.Current.Response.Write("Antal deltagare får max vara 4 och handicap får max vara 100");
+                            //HttpContext.Current.Response.Write("Antal deltagare får max vara 4 och handicap får max vara 100");
+                            message = "Antal deltagare får max vara 4 och handicap får max vara 100.";
                         }
 
                     }
