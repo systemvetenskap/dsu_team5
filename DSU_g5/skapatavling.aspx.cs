@@ -48,25 +48,140 @@ namespace DSU_g5
                 lbContactPerson.DataValueField = "Value";
                 lbContactPerson.DataSource = nyMemberList;
                 lbContactPerson.DataBind();
+
+                //fyll lbFormerSponsors
+                lbFormerSponsors.DataValueField = "sponsor_id";
+                lbFormerSponsors.DataTextField = "sponsor_name";
+                lbFormerSponsors.DataSource = methods.getSponsors();
+                lbFormerSponsors.DataBind();
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            tournament tour = new tournament {
-                tour_name = tbName.Text,
-                tour_info = taInformation.Value,
-                registration_start = calRegStart.SelectedDate,
-                registration_end = calRegEnd.SelectedDate,
-                tour_start_time = DateTime.Parse(tbStartTime.Text),
-                tour_end_time = DateTime.Parse(tbEndTime.Text),
-                publ_date_startlists = calPublishList.SelectedDate,
-                contact_person = Convert.ToInt32(lbContactPerson.SelectedItem.Value),
-                gameform = Convert.ToInt32(ddlGameForm.SelectedItem.Value),
-                tour_date = calDate.SelectedDate
+            try
+            {
+                if (tbName.Text != "" &&
+                    taInformation.Value != "" &&
+                    calRegStart.SelectedDate != DateTime.MinValue &&
+                    calRegEnd.SelectedDate != DateTime.MinValue &&
+                    calPublishList.SelectedDate != DateTime.MinValue &&
+                    lbContactPerson.SelectedIndex > -1 &&
+                    calDate.SelectedDate != DateTime.MinValue)
+                {
+                    DateTime startTime = new DateTime();
+                    DateTime endTime = new DateTime();
+
+                    if (DateTime.TryParse(tbStartTime.Text, out startTime) && DateTime.TryParse(tbEndTime.Text, out endTime))
+                    {
+                        //skapa tävlingsobjekt
+                        tournament tour = new tournament
+                        {
+                            tour_name = tbName.Text,
+                            tour_info = taInformation.Value,
+                            registration_start = calRegStart.SelectedDate,
+                            registration_end = calRegEnd.SelectedDate,
+                            tour_start_time = startTime,
+                            tour_end_time = endTime,
+                            publ_date_startlists = calPublishList.SelectedDate,
+                            contact_person = Convert.ToInt32(lbContactPerson.SelectedItem.Value),
+                            gameform = Convert.ToInt32(ddlGameForm.SelectedItem.Value),
+                            hole = 18,
+                            tour_date = calDate.SelectedDate
+                        };
+
+                        int newTourId = methods.insertTournament(tour);
+
+                        //lägg till valda sponsorer
+                        foreach (ListItem li in lbSponsors.Items)
+                        {
+                            methods.insertTour_sponsor(newTourId, Convert.ToInt32(li.Value));
+                        }
+
+                        clearFields();
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Vänligen kontrollera att tävlingens tider är korrekt inskrivna.')</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Vänligen kontrollera att alla uppgifter stämmer.')</script>");
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Ett fel uppstod. Mer information:\n"+ ex.Message.ToString() +"')</script>");
+            }
+        }
+
+        protected void btnNewSponsorAdd_Click(object sender, EventArgs e)
+        {
+            sponsor sp = new sponsor
+            {
+                sponsor_name = tbNewSponsorName.Text,
+                phone = tbNewSponsorPhone.Text
             };
 
-            int newTourId = methods.insertTournament(tour);
+            methods.insertSponsor(sp);
+
+            //fyll lbFormerSponsors
+            lbFormerSponsors.DataValueField = "sponsor_id";
+            lbFormerSponsors.DataTextField = "sponsor_name";
+            lbFormerSponsors.DataSource = methods.getSponsors();
+            lbFormerSponsors.DataBind();
+        }
+
+        protected void btnFormerSponsorsAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ListItem sponsor = lbFormerSponsors.SelectedItem;
+                lbSponsors.Items.Add(sponsor);
+                lbSponsors.SelectedIndex = -1;
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        protected void btnSponsorsRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lbSponsors.Items.Remove(lbSponsors.SelectedItem);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        //metod för att rensa alla fält
+        protected void clearFields()
+        {
+            tbName.Text = "";
+            ddlGameForm.SelectedIndex = 0;
+            ddlMemberCategory.SelectedIndex = 0;
+            taInformation.Value = "";
+            lbContactPerson.SelectedIndex = -1;
+            tbSokContactPerson.Text = "";
+            calDate.SelectedDate = DateTime.MinValue;
+            tbStartTime.Text = ":";
+            tbEndTime.Text = ":";
+            calRegStart.SelectedDate = DateTime.MinValue;
+            calRegEnd.SelectedDate = DateTime.MinValue;
+            calPublishList.SelectedDate = DateTime.MinValue;
+            lbSponsors.Items.Clear();
+            tbNewSponsorName.Text = "";
+            tbNewSponsorPhone.Text = "";
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            clearFields();
         }
     }
 }

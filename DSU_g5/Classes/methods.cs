@@ -2062,9 +2062,9 @@ namespace DSU_g5
                 string plsql;
 
                 plsql = "INSERT INTO tournament (tour_name, tour_info, registration_start, registration_end, "+
-                        "tour_start_time, tour_start_end, publ_date_startlists, contact_person, gameform, tour_date) "+
+                        "tour_start_time, tour_start_end, publ_date_startlists, contact_person, gameform, hole, tour_date) "+
                         "VALUES (:tour_name, :tour_info, :registration_start, :registration_end, "+
-                        ":tour_start_time, :tour_start_end, :publ_date_startlists, :contact_person, :gameform, :tour_date) "+
+                        ":tour_start_time, :tour_start_end, :publ_date_startlists, :contact_person, :gameform, :hole, :tour_date) "+
                         "RETURNING id_tournament;";
 
                 command.Parameters.Add(new NpgsqlParameter("tour_name", NpgsqlDbType.Varchar));
@@ -2085,6 +2085,8 @@ namespace DSU_g5
                 command.Parameters["contact_person"].Value = tour.contact_person;
                 command.Parameters.Add(new NpgsqlParameter("gameform", NpgsqlDbType.Integer));
                 command.Parameters["gameform"].Value = tour.gameform;
+                command.Parameters.Add(new NpgsqlParameter("hole", NpgsqlDbType.Integer));
+                command.Parameters["hole"].Value = tour.hole;
                 command.Parameters.Add(new NpgsqlParameter("tour_date", NpgsqlDbType.Date));
                 command.Parameters["tour_date"].Value = tour.tour_date;
 
@@ -2100,6 +2102,102 @@ namespace DSU_g5
                 conn.Close();
             }
             return id_tournament;
+        }
+
+        //hämta datatable med sponsorer
+        public static DataTable getSponsors()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            string sql;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                sql = "SELECT sponsor_id, sponsor_name FROM sponsor";
+
+                conn.Open();
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt;
+        }
+
+        //lägg till sponsor i databas och returnera dess id
+        public static int insertSponsor(sponsor sp)
+        {
+            int sponsor_id = 0;
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                conn.Open();
+                command.Connection = conn;
+                string plsql;
+
+                plsql = "INSERT INTO sponsor (sponsor_name, phone) " +
+                        "VALUES (:sponsor_name, :phone) " +
+                        "RETURNING sponsor_id;";
+
+                command.Parameters.Add(new NpgsqlParameter("sponsor_name", NpgsqlDbType.Varchar));
+                command.Parameters["sponsor_name"].Value = sp.sponsor_name;
+                command.Parameters.Add(new NpgsqlParameter("phone", NpgsqlDbType.Varchar));
+                command.Parameters["phone"].Value = sp.phone;
+
+                command.CommandText = plsql;
+                sponsor_id = Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return sponsor_id;
+        }
+
+        //lägg till koppling mellan tävling och sponsor
+        public static void insertTour_sponsor(int tour_id, int sponsor_id)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                conn.Open();
+                command.Connection = conn;
+                string plsql;
+
+                plsql = "INSERT INTO tour_sponsor (tour_id, sponsor_id) " +
+                        "VALUES (:tour_id, :sponsor_id);";
+
+                command.Parameters.Add(new NpgsqlParameter("tour_id", NpgsqlDbType.Integer));
+                command.Parameters["tour_id"].Value = tour_id;
+                command.Parameters.Add(new NpgsqlParameter("sponsor_id", NpgsqlDbType.Integer));
+                command.Parameters["sponsor_id"].Value = sponsor_id;
+
+                command.CommandText = plsql;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         #endregion
