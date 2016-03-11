@@ -2129,9 +2129,9 @@ namespace DSU_g5
                     newTournament.registration_start = (DateTime)(dr["registration_start"]);
                     newTournament.registration_end = (DateTime)(dr["registration_end"]);
                     d = DateTime.Parse((dr["tour_start_time"]).ToString());
-                    newTournament.tour_start_time = d.ToShortTimeString();
+                    newTournament.tour_start_time = d;
                     f = DateTime.Parse((dr["tour_start_end"]).ToString());
-                    newTournament.tour_end_time = f.ToShortTimeString();
+                    newTournament.tour_end_time = f;
                     newTournament.publ_date_startlists = (DateTime)(dr["publ_date_startlists"]);
                     newTournament.contact_person = (int)(dr["contact_person"]);
                     newTournament.gameform = (int)(dr["gameform"]);
@@ -2172,6 +2172,32 @@ namespace DSU_g5
                 conn.Close();
             }
 
+            return dt;
+        }
+        public static DataTable getTourByDates(string startDate, string endDate)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            DataTable dt = new DataTable();
+            string sql;
+
+            try
+            {
+                sql = "SELECT tour_info, tour_name, tour_date FROM tournament " +
+                      "WHERE tour_date BETWEEN '" + startDate + "' AND '" + endDate + "' " +
+                      "ORDER BY tour_date DESC, id_tournament DESC;";
+                conn.Open();
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
             return dt;
         }
         #endregion
