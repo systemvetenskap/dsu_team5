@@ -63,7 +63,7 @@ namespace DSU_g5
                 lbGamesMemberIsBookedOn.DataBind();
 
 
-                lbGamesMemberIsBookableBy.DataTextField = "gameID"; //Går att ta namn också. Kör gameID nu för att ha något unikt.
+                lbGamesMemberIsBookableBy.DataTextField = "namn"; //Går att ta namn också. Kör gameID nu för att ha något unikt.
                 lbGamesMemberIsBookableBy.DataValueField = "gameId";
                 lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
                 lbGamesMemberIsBookableBy.DataBind();
@@ -114,6 +114,8 @@ namespace DSU_g5
         }
         protected void BtnBookMember_Click(object sender, EventArgs e)
         {
+            string message = null;
+
             if (hfPlaceholderMemberId.Value != "")
             {
                 if (hfChosenDate.Value != "")
@@ -131,7 +133,12 @@ namespace DSU_g5
                         int timeID = Convert.ToInt32(placeholderTid);
                         DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
 
-                        methods.bookMember(trimDateTime, timeID, memberID);
+                        methods.bookMember(trimDateTime, timeID, memberID, out message);
+
+                        if(message != null)
+                        {
+                            Response.Write("<script>alert('" + message + "')</script>");
+                        }
 
                         lbBookedMembers.Items.Clear();
                         //lbBookedMembers.DataSource = null;
@@ -141,6 +148,8 @@ namespace DSU_g5
 
                         populateGrvBokning();
                         updateBookingInfo();
+
+                        mid = "";
                     }
                     else
                     {
@@ -213,53 +222,66 @@ namespace DSU_g5
         {
             //string placeholderMid = hfPlaceholderMemberId.Value;
             //int playerID = Convert.ToInt32(placeholderMid);
-            
+
+            string message = null;
+
             string anotherMember = tbBookAnotherMember.Text;
+            int intAnotherMember;
             List<int> memberIDList = methods.GetIDsFromMemberList();
 
-            if (memberIDList.Contains(Convert.ToInt32(anotherMember)))
+            if (anotherMember != "")
             {
-                if (anotherMember != "") // LÄGG TILL OM INTE MEDLEMSIDt FINNS I DATABASEN
+                if (int.TryParse(tbBookAnotherMember.Text, out intAnotherMember))
                 {
-                    if (hfChosenDate.Value != "")
+                    if (memberIDList.Contains(intAnotherMember))
                     {
-                        if (hfTimeId.Value != "")
+                        if (hfChosenDate.Value != "")
                         {
-                            int loggedInMember = inloggadUser.fkIdMember;
+                            if (hfTimeId.Value != "")
+                            {
+                                int loggedInMember = inloggadUser.fkIdMember;
 
+                                int playerID = Convert.ToInt32(anotherMember);
 
-                            int playerID = Convert.ToInt32(anotherMember);
+                                string chosenDate = hfChosenDate.Value;
+                                trimDate = chosenDate.Substring(0, 10);
+                                trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
 
-                            string chosenDate = hfChosenDate.Value;
-                            trimDate = chosenDate.Substring(0, 10);
-                            trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+                                string placeholderTid = hfTimeId.Value;
+                                int timeID = Convert.ToInt32(placeholderTid);
+                                DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
 
-                            string placeholderTid = hfTimeId.Value;
-                            int timeID = Convert.ToInt32(placeholderTid);
-                            DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+                                methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember, out message);
+                                if(message != null)
+                                {
+                                    Response.Write("<script>alert('" + message + "')</script>");
+                                }
 
-                            methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember);
-
-                            UpdateLBsAndLBLs();
+                                UpdateLBsAndLBLs();
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('" + "Välj en tid i schemat." + "')</script>");
+                            }
                         }
                         else
                         {
-                            Response.Write("<script>alert('" + "Välj en tid i schemat." + "')</script>");
+                            Response.Write("<script>alert('" + "Välj ett datum i kalenden ovan." + "')</script>");
                         }
                     }
                     else
                     {
-                        Response.Write("<script>alert('" + "Välj ett datum i kalenden ovan." + "')</script>");
+                        Response.Write("<script>alert('" + "Medlems-IDt finns inte i databasen.\\nVänligen fyll i ett nytt." + "')</script>");
                     }
                 }
                 else
                 {
-                    Response.Write("<script>alert('" + "Du måste fylla i ett medlemsId i fältet." + "')</script>");
+                    Response.Write("<script>alert('" + "Felaktigt format, enbart siffror!" + "')</script>");
                 }
             }
             else
             {
-                Response.Write("<script>alert('" + "Medlems-IDt finns inte i databasen.\\nVänligen fyll i ett nytt." + "')</script>");
+                Response.Write("<script>alert('" + "Du måste fylla i ett medlemsId i fältet." + "')</script>");
             }
 
         }
@@ -513,6 +535,8 @@ namespace DSU_g5
 
             populateGrvBokning();
             pBokningarInfo.InnerHtml = "";
+            tbSearchMember.Text = "";
+            lbBookedMembers.Items.Clear();
         }
         protected void lbAllMembers_SelectedIndexChanged(object sender, EventArgs e)
         {

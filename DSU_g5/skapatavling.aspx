@@ -42,7 +42,7 @@
             <asp:Label ID="lblRegEnd" runat="server" Text="Sista registreringsdatum"></asp:Label>
             <asp:Calendar ID="calRegEnd" runat="server"></asp:Calendar>
             <br />
-            <asp:Label ID="lblPublishList" runat="server" Text="Sista registreringsdatum"></asp:Label>
+            <asp:Label ID="lblPublishList" runat="server" Text="Startlistor publiceras"></asp:Label>
             <asp:Calendar ID="calPublishList" runat="server"></asp:Calendar>
             <br />
         </div>
