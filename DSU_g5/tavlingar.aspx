@@ -7,7 +7,7 @@
 <h2 id="headline_1" class="headline">Tävlingar</h2>
     <p class="post-info">Senast uppdaterad 2015-10-25</p>
        <div class="dropdown">               
-               <asp:DropDownList ID="ddlTourName" CSSclass="newsddl" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlTourName_SelectedIndexChanged"></asp:DropDownList>              
+               <asp:DropDownList ID="ddlTourName" CSSclass="newsddl" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlTourName_SelectedIndexChanged" Visible="False"></asp:DropDownList>              
        </div>
        <div id="tournament">
            <div id="tournamentSort">
@@ -29,6 +29,7 @@
                        <h2><%# Eval("tour_name") %></h2>
                        <p class="tourDate"><%# Eval("tour_date").ToString().Split(' ')[0] %></p>
                        <p class="tourText"><%# Eval("tour_info") %></p>
+                       <asp:Button ID="btnRegister" runat="server" Text="Anmäl" />
                    </div>
                </ItemTemplate>
            </asp:Repeater>

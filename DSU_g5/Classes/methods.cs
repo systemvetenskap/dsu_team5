@@ -2051,6 +2051,7 @@ namespace DSU_g5
                     newTournament.contact_person = (int)(dr["contact_person"]);
                     newTournament.gameform = (int)(dr["gameform"]);
                     newTournament.hole = (int)(dr["hole"]);
+                    newTournament.tour_date = (DateTime)(dr["tour_date"]);
 
                     tourList.Add(newTournament);
                 }

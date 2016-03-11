@@ -18,5 +18,6 @@ namespace DSU_g5
         public int contact_person { get; set; }
         public int gameform { get; set; }
         public int hole { get; set; }
+        public DateTime tour_date { get; set; }
     }
 }
