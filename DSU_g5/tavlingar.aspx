@@ -23,14 +23,14 @@
                </div>
                <asp:Button ID="btnTourSort" runat="server" Text="Sök" OnClick="btnTourSort_Click" />
            </div>
-           <asp:Repeater ID="RepeaterTour" runat="server">
+           <asp:Repeater ID="RepeaterTour" runat="server" OnItemCommand="RepeaterTour_ItemCommand">
                <ItemTemplate>
                    <div class="TourItem">
                        <h2><%# Eval("tour_name") %></h2>                                            
                        <p class="tourDate"><%# Eval("tour_date").ToString().Split(' ')[0] %></p>
                        <p class="tourText"><%# Eval("tour_info") %></p>
 
-                       <asp:Button ID="btnRegister" runat="server" Text="Anmäl" />
+                       <asp:Button ID="btnRegister" runat="server" Text="Anmäl" onClick="btnRegister_Click"/>
                    </div>
                </ItemTemplate>
            </asp:Repeater>

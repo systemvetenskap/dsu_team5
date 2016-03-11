@@ -72,8 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin.aspx" />
+    <Content Include="anmalantavling.aspx" />
     <Content Include="bokning.aspx" />
     <Content Include="CSS\CSS_admin.css" />
+    <Content Include="CSS\CSS_anmalantavling.css" />
     <Content Include="CSS\CSS_bokning.css" />
     <Content Include="CSS\CSS_main.css" />
     <Content Include="CSS\CSS_medlemsregistrering.css" />
@@ -114,6 +116,13 @@
     </Compile>
     <Compile Include="admin.aspx.designer.cs">
       <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="anmalantavling.aspx.cs">
+      <DependentUpon>anmalantavling.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="anmalantavling.aspx.designer.cs">
+      <DependentUpon>anmalantavling.aspx</DependentUpon>
     </Compile>
     <Compile Include="bokning.aspx.cs">
       <DependentUpon>bokning.aspx</DependentUpon>

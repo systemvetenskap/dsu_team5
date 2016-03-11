@@ -104,6 +104,11 @@ namespace DSU_g5
             RepeaterTour.DataSource = dt;
             RepeaterTour.DataBind();
         }
+
+        protected void btnRegister_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("anmalantavling.aspx");
+        }
     }
 }
 
