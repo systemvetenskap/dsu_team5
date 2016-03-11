@@ -2049,6 +2049,54 @@ namespace DSU_g5
             return maxmin;
         }
 
+        #region RESULTAT
 
+        /// <summary>
+        /// Metod för att hämta resultat för en deltagare i en tävling
+        /// </summary>
+        /// <returns></returns>
+        public static List<results> getParticipantResults()
+        {
+            List<results> resultsList = new List<results>();
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT results.tour_id AS tourId, results.member_id AS memberId,";
+                plsql = plsql + "      course.course_id AS courseId, pair, hcp, tries, gamehcp, netto";
+                plsql = plsql + " FROM course ";
+                plsql = plsql + "    LEFT JOIN results AS results ON results.course_id = course.course_id";
+                plsql = plsql + "    LEFT JOIN member_tournament AS member_tournament ";
+                plsql = plsql + "        ON member_tournament.tournament_id = results.tour_id ";
+                plsql = plsql + " AND member_tournament.member_id = results.member_id";
+                plsql = plsql + " ORDER BY course.course_id";
+
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);                
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    results newResults = new results();
+                    newResults.tourId = dr["tourId"] != DBNull.Value ? (int)(dr["tourId"]) : 0;
+                    newResults.memberId = dr["memberId"] != DBNull.Value ? (int)(dr["memberId"]) : 0;
+                    newResults.courseId = dr["courseId"] != DBNull.Value ? (int)(dr["courseId"]) : 0;
+                    newResults.pair = dr["pair"] != DBNull.Value ? (int)(dr["pair"]) : 0;
+                    newResults.hcp = dr["hcp"] != DBNull.Value ? (int)(dr["hcp"]) : 0;
+                    newResults.tries = dr["tries"] != DBNull.Value ? (int)(dr["tries"]) : 0;
+                    newResults.gamehcp = dr["gamehcp"] != DBNull.Value ? (int)(dr["gamehcp"]) : 0;
+                    newResults.netto = dr["netto"] != DBNull.Value ? (int)(dr["netto"]) : 0;
+                    resultsList.Add(newResults);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return resultsList;
+        }
+
+        #endregion
     }
 }

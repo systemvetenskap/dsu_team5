@@ -80,6 +80,7 @@
     <Content Include="CSS\CSS_login.css" />
     <Content Include="CSS\CSS_medlemssida.css" />
     <Content Include="CSS\CSS_index.css" />
+    <Content Include="CSS\CSS_resultat.css" />
     <Content Include="CSS\CSS_skapatavling.css" />
     <Content Include="CSS\CSS_tavlingar.css" />
     <Content Include="Images\halslaget_v01.png" />
@@ -103,6 +104,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="resultat.aspx" />
     <Content Include="skapatavling.aspx" />
     <Content Include="tavlingar.aspx" />
     <Content Include="Web.config" />
@@ -132,6 +134,7 @@
     <Compile Include="Classes\member_category.cs" />
     <Compile Include="Classes\methods.cs" />
     <Compile Include="Classes\news.cs" />
+    <Compile Include="Classes\results.cs" />
     <Compile Include="Classes\staff.cs" />
     <Compile Include="Classes\users.cs" />
     <Compile Include="index.aspx.cs">
@@ -174,6 +177,13 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="resultat.aspx.cs">
+      <DependentUpon>resultat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="resultat.aspx.designer.cs">
+      <DependentUpon>resultat.aspx</DependentUpon>
     </Compile>
     <Compile Include="skapatavling.aspx.cs">
       <DependentUpon>skapatavling.aspx</DependentUpon>
