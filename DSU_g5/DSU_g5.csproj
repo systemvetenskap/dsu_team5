@@ -143,6 +143,7 @@
     <Compile Include="Classes\member_category.cs" />
     <Compile Include="Classes\methods.cs" />
     <Compile Include="Classes\news.cs" />
+    <Compile Include="Classes\sponsor.cs" />
     <Compile Include="Classes\results.cs" />
     <Compile Include="Classes\staff.cs" />
     <Compile Include="Classes\tournament.cs" />
