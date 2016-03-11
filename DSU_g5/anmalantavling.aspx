@@ -5,17 +5,9 @@
     <link href="CSS/CSS_anmalantavling.css" rel="stylesheet" />
 </asp:Content>
 
-<!DOCTYPE html>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">      
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
+</asp:Content>
+
+
     
-    </div>
-    </form>
-</body>
-</html>

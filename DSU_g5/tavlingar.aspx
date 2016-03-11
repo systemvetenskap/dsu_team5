@@ -23,7 +23,7 @@
                </div>
                <asp:Button ID="btnTourSort" runat="server" Text="Sök" OnClick="btnTourSort_Click" />
            </div>
-           <asp:Repeater ID="RepeaterTour" runat="server" OnItemCommand="RepeaterTour_ItemCommand">
+           <asp:Repeater ID="RepeaterTour" runat="server">
                <ItemTemplate>
                    <div class="TourItem">
                        <h2><%# Eval("tour_name") %></h2>                                            
