@@ -333,6 +333,7 @@ namespace DSU_g5
                                   "INNER JOIN member_new m ON m.id_member = gm.member_id " +
                                   "WHERE booked_by = '" + memberId + "' " +
                                   "ORDER BY gameId ASC";
+
                 conn.Open();
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sqlGetBBByMemId, conn);
                 da.Fill(dt);
@@ -857,8 +858,8 @@ namespace DSU_g5
            
             try
             {
-                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID FROM member_new"; //first_name och last_name blir en egen kolumn som heter 'name'.
-                                                                                                        //Ska lägga till där betald == true också.
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID FROM member_new WHERE payment = true ORDER BY last_name"; //first_name och last_name blir en egen kolumn som heter 'name'.
+                                                                                                        
                 conn.Open();
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);

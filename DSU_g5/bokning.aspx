@@ -16,7 +16,7 @@
         </div>
         <div id="bokningarAdmin" runat="server">
             <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-            <asp:ListBox ID="lbAllMembers" runat="server" Rows="25" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+            <asp:ListBox ID="lbAllMembers" runat="server" Rows="10" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
             <br />
             <asp:Label ID="lblSearchMember" runat="server" Text="Sök på medlem i fältet nedan:"></asp:Label>
             <br />
@@ -68,7 +68,7 @@
         <br />
         <br />
         <br />
-        <asp:Label ID="lblInfoBookedBy" runat="server" Text="<u>Nedan visas alla bokningar som du är bokningsansvarig för</u>"></asp:Label>
+        <asp:Label ID="lblInfoBookedBy" runat="server" Text="<u>Nedan visas alla medlemsbokningar som du är bokningsansvarig för</u>"></asp:Label>
         <br />
         <asp:ListBox ID="lbGamesMemberIsBookableBy" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookableBy_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
         <br />

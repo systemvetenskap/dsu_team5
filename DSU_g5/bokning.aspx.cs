@@ -63,7 +63,7 @@ namespace DSU_g5
                 lbGamesMemberIsBookedOn.DataBind();
 
 
-                lbGamesMemberIsBookableBy.DataTextField = "gameID"; //Går att ta namn också. Kör gameID nu för att ha något unikt.
+                lbGamesMemberIsBookableBy.DataTextField = "namn"; //Går att ta namn också. Kör gameID nu för att ha något unikt.
                 lbGamesMemberIsBookableBy.DataValueField = "gameId";
                 lbGamesMemberIsBookableBy.DataSource = methods.BookedByLoggedInMemId(inloggadUser.fkIdMember);
                 lbGamesMemberIsBookableBy.DataBind();
@@ -535,6 +535,8 @@ namespace DSU_g5
 
             populateGrvBokning();
             pBokningarInfo.InnerHtml = "";
+            tbSearchMember.Text = "";
+            lbBookedMembers.Items.Clear();
         }
         protected void lbAllMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
