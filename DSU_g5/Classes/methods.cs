@@ -553,7 +553,6 @@ namespace DSU_g5
                         conn.Close();
 
 
-                        // HÄR DET PAJJAR NEDAN
                         sqlHcpCount = "SELECT SUM (hcp) as hcp FROM member_new m INNER JOIN game_member gm ON m.id_member = gm.member_id INNER JOIN game g ON g.game_id = gm.game_id WHERE g.date_id = '" + dateId + "' AND g.time_id = '" + timeId + "'";
                         conn.Open();
                         NpgsqlCommand cmdthird = new NpgsqlCommand(sqlHcpCount, conn);
@@ -565,24 +564,12 @@ namespace DSU_g5
                             if(double.TryParse(drthird["hcp"].ToString(), out hcp))
                             {
 
-                        }
+                            }
                             else
                             {
                                 hcp = 0;
                             }
-                            
-                            
-                            //int handi;
-                            //if(int.Parse(drthird["hcp"].ToString()) > 0)
-                            //{
-                            //    hcp = handi;
-                            //}
-                            //else
-                            //{
-                            //    hcp = 0;
-                            //}
-                            
-                            //hcp = double.Parse(drthird["hcp"].ToString());
+
                         }
                         
                         
@@ -2128,10 +2115,8 @@ namespace DSU_g5
                     newTournament.tour_info = (string)(dr["tour_info"]);
                     newTournament.registration_start = (DateTime)(dr["registration_start"]);
                     newTournament.registration_end = (DateTime)(dr["registration_end"]);
-                    d = DateTime.Parse((dr["tour_start_time"]).ToString());
-                    newTournament.tour_start_time = d.ToShortTimeString();
-                    f = DateTime.Parse((dr["tour_start_end"]).ToString());
-                    newTournament.tour_end_time = f.ToShortTimeString();
+                    newTournament.tour_start_time = DateTime.Parse((dr["tour_start_time"]).ToString());
+                    newTournament.tour_end_time = DateTime.Parse((dr["tour_start_end"]).ToString());
                     newTournament.publ_date_startlists = (DateTime)(dr["publ_date_startlists"]);
                     newTournament.contact_person = (int)(dr["contact_person"]);
                     newTournament.gameform = (int)(dr["gameform"]);
@@ -2205,7 +2190,5 @@ namespace DSU_g5
 
             return maxmin;
         }
-
-
     }
 }
