@@ -564,12 +564,12 @@ namespace DSU_g5
                             if(double.TryParse(drthird["hcp"].ToString(), out hcp))
                             {
 
-                            }
+                        }
                             else
                             {
                                 hcp = 0;
                             }
-
+                            
                         }
                         
                         
@@ -2157,6 +2157,32 @@ namespace DSU_g5
                 conn.Close();
             }
 
+            return dt;
+        }
+        public static DataTable getTourByDates(string startDate, string endDate)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            DataTable dt = new DataTable();
+            string sql;
+
+            try
+            {
+                sql = "SELECT tour_info, tour_name, tour_date FROM tournament " +
+                      "WHERE tour_date BETWEEN '" + startDate + "' AND '" + endDate + "' " +
+                      "ORDER BY tour_date DESC, id_tournament DESC;";
+                conn.Open();
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
             return dt;
         }
         #endregion

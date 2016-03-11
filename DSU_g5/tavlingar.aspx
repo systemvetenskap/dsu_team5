@@ -13,22 +13,23 @@
            <div id="tournamentSort">
                <div id="startDate">
                    <asp:Label ID="lblStartDateTour" runat="server" Text="Visa nyheter från:"></asp:Label>
-                   <asp:DropDownList ID="ddlStartYearTour" runat="server"></asp:DropDownList>
-                   <asp:DropDownList ID="ddlStartMonthTour" runat="server"></asp:DropDownList>
+                   <asp:DropDownList ID="ddlStartYear" runat="server"></asp:DropDownList>
+                   <asp:DropDownList ID="ddlStartMonth" runat="server"></asp:DropDownList>
                </div>
                <div id="endDate">
                    <asp:Label ID="lblEndDateTour" runat="server" Text="Till:"></asp:Label>
-                   <asp:DropDownList ID="ddlEndYearTour" runat="server"></asp:DropDownList>
-                   <asp:DropDownList ID="ddlEndMonthTour" runat="server"></asp:DropDownList>
+                   <asp:DropDownList ID="ddlEndYear" runat="server"></asp:DropDownList>
+                   <asp:DropDownList ID="ddlEndMonth" runat="server"></asp:DropDownList>
                </div>
                <asp:Button ID="btnTourSort" runat="server" Text="Sök" OnClick="btnTourSort_Click" />
            </div>
            <asp:Repeater ID="RepeaterTour" runat="server">
                <ItemTemplate>
                    <div class="TourItem">
-                       <h2><%# Eval("tour_name") %></h2>
+                       <h2><%# Eval("tour_name") %></h2>                                            
                        <p class="tourDate"><%# Eval("tour_date").ToString().Split(' ')[0] %></p>
                        <p class="tourText"><%# Eval("tour_info") %></p>
+
                        <asp:Button ID="btnRegister" runat="server" Text="Anmäl" />
                    </div>
                </ItemTemplate>

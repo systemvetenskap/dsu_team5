@@ -31,22 +31,22 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblStartDateTour;
         
         /// <summary>
-        /// ddlStartYearTour control.
+        /// ddlStartYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStartYearTour;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStartYear;
         
         /// <summary>
-        /// ddlStartMonthTour control.
+        /// ddlStartMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStartMonthTour;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStartMonth;
         
         /// <summary>
         /// lblEndDateTour control.
@@ -58,22 +58,22 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblEndDateTour;
         
         /// <summary>
-        /// ddlEndYearTour control.
+        /// ddlEndYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEndYearTour;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEndYear;
         
         /// <summary>
-        /// ddlEndMonthTour control.
+        /// ddlEndMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEndMonthTour;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEndMonth;
         
         /// <summary>
         /// btnTourSort control.
