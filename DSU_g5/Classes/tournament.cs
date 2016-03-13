@@ -19,5 +19,11 @@ namespace DSU_g5
         public int gameform { get; set; }
         public int hole { get; set; }
         public DateTime tour_date { get; set; }
+
+
+        //public override string ToString()
+        //{
+        //    return tour_name;
+        //}
     }
 }

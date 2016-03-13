@@ -26,14 +26,17 @@
            <asp:Repeater ID="RepeaterTour" runat="server">
                <ItemTemplate>
                    <div class="TourItem">
-                       <h2><%# Eval("tour_name") %></h2>                                            
+                       <%--<h2 id="header_<%# Eval("id_tournament") %>"><%# Eval("tour_name") %></h2>--%> 
+                       <h2 id="header_<%# Eval("id_tournament") %>"><%# Eval("tour_name") %></h2>                                           
                        <p class="tourDate"><%# Eval("tour_date").ToString().Split(' ')[0] %></p>
                        <p class="tourText"><%# Eval("tour_info") %></p>
+                       <%--<asp:Label ID="lblTest" runat="server" Text="xxxx"></asp:Label>--%>
 
                        <asp:Button ID="btnRegister" runat="server" Text="Anmäl" onClick="btnRegister_Click"/>
                    </div>
                </ItemTemplate>
            </asp:Repeater>
+               <%--<asp:Label ID="tezt" runat="server" Text="labilLabel"></asp:Label>--%>
        </div>
 
 </asp:Content>

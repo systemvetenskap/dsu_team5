@@ -220,8 +220,6 @@ namespace DSU_g5
 
         }
 
-
-
         public static void unBookingByMem (int gameId, int memId)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -249,7 +247,6 @@ namespace DSU_g5
                 conn.Close();
             }
         }
-
 
         public static void unBookMemWhithBookedByID (int gameId, int bookedBy)
         {
@@ -317,7 +314,6 @@ namespace DSU_g5
             return dt;
         }
 
-
         public static DataTable BookedByLoggedInMemId(int memberId)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -349,7 +345,6 @@ namespace DSU_g5
 
             return dt;
         }
-
 
         public static string GetInfoAboutGame(int gameId)
         {
@@ -442,7 +437,6 @@ namespace DSU_g5
 
             return infoAboutGame;
         }
-
 
         public static List<int> GetIDsFromMemberList()
         {
@@ -2091,7 +2085,7 @@ namespace DSU_g5
 
         #endregion
 
-        #region Tournaments
+        #region TÄVLING
         public static List<tournament> getTourList()
         {
             List<tournament> tourList = new List<tournament>();
@@ -2132,6 +2126,85 @@ namespace DSU_g5
             }
             return tourList;
         }
+
+        
+        //public static DataTable getAllTournaments()
+        //{
+        //    NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+        //    string sql;
+
+        //    DataTable dt = new DataTable();
+
+        //    try
+        //    {
+        //        sql = "SELECT (tour_name) AS namn, id_member AS mID FROM member_new WHERE payment = true ORDER BY last_name"; //first_name och last_name blir en egen kolumn som heter 'name'.
+
+        //        conn.Open();
+
+        //        NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+        //        da.Fill(dt); //Fyller dataAdatpter med dataTable.
+        //    }
+        //    catch (NpgsqlException ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        conn.Close();
+        //    }
+
+        //    return dt;
+        //}
+
+
+        public static tournament GetTournament(int tourId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            tournament t = new tournament();
+
+            string sqlGetTournament;
+
+            try
+            {
+                conn.Open();
+                sqlGetTournament = "SELECT id_tournament, tour_name, tour_info, registration_start, registration_end, tour_start_time, tour_start_end, publ_date_startlists, contact_person, gameform, hole, tour_date " +
+                                   "FROM tournament " +
+                                   "WHERE id_tournament = '" + tourId + "' ";
+
+                NpgsqlCommand cmdGetTour = new NpgsqlCommand(sqlGetTournament, conn);
+                NpgsqlDataReader dr = cmdGetTour.ExecuteReader();
+
+                while(dr.Read())
+                {
+                    t.id_tournament = Convert.ToInt32(dr["id_tournament"].ToString());
+                    t.tour_name = dr["tour_name"].ToString();
+                    t.tour_info = dr["tour_info"].ToString();
+                    t.registration_start = Convert.ToDateTime(dr["registration_start"].ToString());
+                    t.registration_end = Convert.ToDateTime(dr["registration_end"].ToString());
+                    t.tour_start_time = Convert.ToDateTime(dr["tour_start_time"].ToString());
+                    t.tour_end_time = Convert.ToDateTime(dr["tour_start_end"].ToString());
+                    t.publ_date_startlists = Convert.ToDateTime(dr["publ_date_startlists"].ToString());
+                    t.contact_person = Convert.ToInt32(dr["contact_person"].ToString());
+                    t.gameform = Convert.ToInt32(dr["gameform"].ToString());
+                    t.hole = Convert.ToInt32(dr["hole"].ToString());
+                    t.tour_date = Convert.ToDateTime(dr["tour_date"].ToString());
+                }
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return t;
+        }
+
+
+
         public static DataTable getLatestTour()
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -2140,6 +2213,10 @@ namespace DSU_g5
 
             try
             {
+
+                //sql = "SELECT id_tournament as tId ( tourname ||  ' ' ||  tour_info || ' ' || tour_date) AS tInfo FROM tournament ORDER BY tour_date DESC, id_tournament DESC LIMIT 10;";
+
+
                 sql = "SELECT * FROM tournament " +
                       "ORDER BY tour_date DESC, id_tournament DESC " +
                       "LIMIT 10;";
@@ -2185,7 +2262,123 @@ namespace DSU_g5
             }
             return dt;
         }
+
+
+        public static void RegMemberOnTour(int tourId, int memId, int resultat, out string message)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            message = null;
+            string sqlAlreadyRegisters;
+
+
+            try
+            {
+                conn.Open();
+                sqlAlreadyRegisters = "SELECT * FROM member_tournament mt " +
+                                      "INNER JOIN member_new mn " +
+                                      "ON mt.member_id = mn.id_member " +
+                                      "INNER JOIN tournament t " +
+                                      "ON mt.tournament_id = t.id_tournament " +
+                                      "WHERE member_id = '" + memId + "' AND tournament_id = '" + tourId + "'";
+                NpgsqlCommand cmdExist = new NpgsqlCommand(sqlAlreadyRegisters, conn);
+                NpgsqlDataReader dr = cmdExist.ExecuteReader();
+
+                if(dr.HasRows)
+                {
+                    message = "Vald medlem finns redan inbokad på vald tävling";
+                }
+                else
+                {
+                    string sqlAddToMT = "INSERT INTO member_tournament (member_id, tournament_id, result) VALUES (@mId, @tId, @r)";
+
+                    NpgsqlCommand cmdInsToMT = new NpgsqlCommand(sqlAddToMT, conn);
+                    cmdInsToMT.Parameters.AddWithValue("mId", memId);
+                    cmdInsToMT.Parameters.AddWithValue("tId", tourId);
+                    cmdInsToMT.Parameters.AddWithValue("r", resultat);
+
+                    //conn.Open();
+                    cmdInsToMT.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        
+        }
+
+        //METOD FÖR ATT LADDA TILL EN DATATABLE SOM VISAS I GV!
+        public static DataTable GetInfoAboutTour(int tourID)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Tävlingsnamn");
+            dt.Columns.Add("Tävlingsinfo");
+            dt.Columns.Add("Tävlingsdatum");
+            dt.Columns.Add("Registreringsstart");
+            dt.Columns.Add("Registreringsslut");
+            dt.Columns.Add("Start");
+            dt.Columns.Add("Slut");
+            dt.Columns.Add("Kontaktperson");
+            dt.Columns.Add("Antal hål");
+
+            return dt;
+
+        }
+
+
+        public static member ContactPersonName(int tourID)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            member contactPerson = new member();
+            string sqlGetName;
+
+            try
+            {
+
+                sqlGetName = "SELECT first_name, last_name " +
+                             "FROM member_new mn " +
+                             "INNER JOIN tournament t " +
+                             "ON mn.id_member = t.contact_person " +
+                             "WHERE t.id_tournament = '" + tourID + "'";
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlGetName, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while(dr.Read())
+                {
+                    contactPerson.firstName = dr["first_name"].ToString();
+                    contactPerson.lastName = dr["last_name"].ToString();
+                }
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return contactPerson;
+        }
+
+
+
         #endregion
+
+
+
+
+
 
         public static game_dates maxmindates()
         {

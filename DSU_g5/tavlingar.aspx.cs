@@ -107,7 +107,67 @@ namespace DSU_g5
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+
             Response.Redirect("anmalantavling.aspx");
+
+
+            ////ANVÄND IDT FRÅN .aspx!
+            ////int i = '<%# Eval("id_tournament")%>';
+
+            ////RepeaterTour.Items.
+
+            ////string s = "<%# Eval(tour_name) %>";
+
+
+
+            //foreach (RepeaterItem x in RepeaterTour.Items)
+            //{
+            //    Label l = (Label)x.FindControl("lblTest");
+
+            //    tezt.Text += l.Text + "<br />";
+            //}
+
+            ////foreach (RepeaterItem y in RepeaterTour.Items)
+            ////{
+            ////    <h2> 
+            ////}
+
+
+
+            ////tournament t = new tournament();
+            ////t.id_tournament = Convert.ToInt32(RepeaterTour.DataSource.ToString());
+            ////t.id_tournament = Convert.ToInt32(RepeaterTour.DataSource.GetType());
+
+
+            ////RepeaterTour.Items.OfType<Header.InnerHtml.Contains<h2>>();
+
+            //int i = RepeaterTour.Items.Count;
+
+            ////if(RepeaterTour.Items.OfType<Header.InnerHtml.Contains<h2>>)
+
+            
+            
+            //if (RepeaterTour.ClientID.Contains("<%#Eval(id_tournament)%>"))
+            //{
+            //    Response.Redirect("anmalantavling.aspx");
+            //}
+
+
+
+
+
+
+
+            //RepeaterTour.FindControl(Convert.ToString(1));
+            //if(RepeaterTour.HasControls())
+            //{
+            //    //Response.Redirect("anmalantavling.aspx");
+            //}
+            
+            
+            ////Response.Write("<script>alert('" + s + "')</script>");
+
+            ////Response.Redirect("anmalantavling.aspx");
         }
     }
 }
