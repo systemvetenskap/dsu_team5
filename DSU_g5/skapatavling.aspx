@@ -7,20 +7,26 @@
         <h2>Skapa tävling</h2>
         <div id="tournamentInfo">
             <asp:Label ID="lblName" runat="server" Text="Tävlingens namn"></asp:Label>
+            <br />
             <asp:TextBox ID="tbName" runat="server"></asp:TextBox>
             <br />
             <asp:Label ID="lblGameForm" runat="server" Text="Tävlingsform"></asp:Label>
+            <br />
             <asp:DropDownList ID="ddlGameForm" runat="server"></asp:DropDownList>
             <br />
             <asp:Label ID="lblMemberCategory" runat="server" Text="Medlemskategori"></asp:Label>
+            <br />
             <asp:DropDownList ID="ddlMemberCategory" runat="server"></asp:DropDownList>
             <br />
             <asp:Label ID="lblInformation" runat="server" Text="Information"></asp:Label>
+            <br />
             <textarea id="taInformation" runat="server" cols="36" rows="16"></textarea>
-        </div>
-        <div id="contactPerson">
+            <br />
             <asp:Label ID="lblContactPerson" runat="server" Text="Kontaktperson"></asp:Label>
+            <br />
             <asp:ListBox ID="lbContactPerson" runat="server"></asp:ListBox>
+            <br />
+            <asp:Label ID="lblSokContactPerson" runat="server" Text="Sök person"></asp:Label>
             <br />
             <asp:TextBox ID="tbSokContactPerson" runat="server"></asp:TextBox>
         </div>
@@ -28,11 +34,11 @@
             <asp:Label ID="lblDate" runat="server" Text="Tävlingens datum"></asp:Label>
             <asp:Calendar ID="calDate" runat="server"></asp:Calendar>
             <br />
-            <asp:Label ID="lblStartTime" runat="server" Text="Starttid"></asp:Label>
-            <asp:TextBox ID="tbStartTime" runat="server"></asp:TextBox>
+            <asp:Label ID="lblStartTime" runat="server" Text="Tid (00:00)"></asp:Label>
             <br />
-            <asp:Label ID="lblEndTime" runat="server" Text="Sluttid"></asp:Label>
-            <asp:TextBox ID="tbEndTime" runat="server"></asp:TextBox>
+            <asp:TextBox ID="tbStartTime" runat="server" Text=":"></asp:TextBox>
+            <asp:Label ID="lblEndTime" runat="server" Text="  till  "></asp:Label>
+            <asp:TextBox ID="tbEndTime" runat="server" Text=":"></asp:TextBox>
             <br />
         </div>
         <div id="registrationTimes">
@@ -47,9 +53,35 @@
             <br />
         </div>
         <div id="sponsors">
-
+            <div id="sponsors_1">
+                <asp:Label ID="lblSponsors" runat="server" Text="Sponsorer"></asp:Label>
+                <br />
+                <asp:ListBox ID="lbSponsors" runat="server"></asp:ListBox>
+                <br />
+                <asp:Button ID="btnSponsorsRemove" runat="server" Text="Ta bort" OnClick="btnSponsorsRemove_Click" />
+            </div>
+            <div id="sponsors_2">
+                <asp:Label ID="lblFormerSponsors" runat="server" Text="Tidigare sponsorer"></asp:Label>
+                <br />
+                <asp:ListBox ID="lbFormerSponsors" runat="server"></asp:ListBox>
+                <br />
+                <asp:Button ID="btnFormerSponsorsAdd" runat="server" Text="Lägg till" OnClick="btnFormerSponsorsAdd_Click" />
+            </div>
+            <div id="sponsors_3">
+                <asp:Label ID="lblNewSponsor" runat="server" Text="Registrera ny sponsor"></asp:Label>
+                <br />
+                <asp:Label ID="lblNewSponsorName" runat="server" Text="Namn"></asp:Label>
+                <br />
+                <asp:TextBox ID="tbNewSponsorName" runat="server"></asp:TextBox>
+                <br />
+                <asp:Label ID="lblNewSponsorPhone" runat="server" Text="Telefon"></asp:Label>
+                <br />
+                <asp:TextBox ID="tbNewSponsorPhone" runat="server"></asp:TextBox>
+                <br />
+                <asp:Button ID="btnNewSponsorAdd" runat="server" Text="Registrera" OnClick="btnNewSponsorAdd_Click" />
+            </div>
         </div>
         <asp:Button ID="btnSave" runat="server" Text="Spara" OnClick="btnSave_Click" />
-        <asp:Button ID="btnClear" runat="server" Text="Rensa" />
+        <asp:Button ID="btnClear" runat="server" Text="Rensa" OnClick="btnClear_Click" />
     </section>
 </asp:Content>
