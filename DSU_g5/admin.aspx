@@ -35,7 +35,8 @@
                 <asp:Label ID="lblSeasonEnd" runat="server" Text="Säsongsslut"></asp:Label>
                 <asp:Calendar ID="endCalendar" runat="server"></asp:Calendar>
              </div>
-             <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click"/>
+             <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click" Width="121px"/>
+             <asp:Button ID="btnRemoveDate" runat="server" Text="Stäng Banan" OnClick ="btnRemoveDate_Click" />
          </div>
      </section>
 </asp:Content>

@@ -103,6 +103,26 @@ namespace DSU_g5
                 }
             }
         }
+
+        protected void btnRemoveDate_Click(object sender, EventArgs e)
+        {
+            DateTime startDate = startCalendar.SelectedDate;
+            DateTime endDate = endCalendar.SelectedDate;
+            if (startCalendar.SelectedDate == DateTime.MinValue || endCalendar.SelectedDate == DateTime.MinValue)
+            {
+                Response.Write("<script>alert('Välj till- och från-datum.')</script>");
+            }
+            else
+            {
+                while (startDate <= endDate)
+                {
+                    methods.removeSeason(startDate, endDate);
+                    startDate = startDate.AddDays(1);
+                }
+            }
+
+
+        }
         //public void fillNews(int news_id)
         //{
         //    news newNews = new news();

@@ -1447,6 +1447,83 @@ namespace DSU_g5
                 conn.Close();
             }
         }
+        public static void removeSeason(DateTime startDate, DateTime endDate)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql;
+            conn.Open();
+            try
+            {
+                sql = "delete from game_dates where dates = '"+ startDate +"'";
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        public static game_dates maxmindates()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql = "";
+
+            game_dates maxmin = new game_dates();
+
+            DateTime year = DateTime.Now;
+            try
+            {
+                sql = "select max(dates), min(dates) from game_dates where dates >= '" + year + "'";
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+
+                    //maxmin.endDate = dr["max"].ToString();
+                    //maxmin.startDate = dr["min"].ToString();               
+                    conn.Close();
+                }
+            }
+            catch
+            {
+
+            }
+
+            return maxmin;
+        }
+
+        public static List<DateTime> getDates()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql = "";
+            DateTime year = DateTime.Now;
+            List<DateTime> datesList = new List<DateTime>();
+            try
+            {
+                conn.Open();
+                sql = "select * from game_dates where dates >= '" + year + "'";
+                NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    DateTime exDates = new DateTime();
+                    exDates = Convert.ToDateTime(dr["dates"].ToString());
+                    datesList.Add(exDates);
+                }
+            }
+            catch
+            {
+
+            }
+            return datesList;
+        }
+
 
         #endregion GAMES
 
@@ -2477,63 +2554,6 @@ namespace DSU_g5
 
 
 
-
-        public static game_dates maxmindates()
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            string sql = "";
-            
-            game_dates maxmin = new game_dates();
-            
-            DateTime year = DateTime.Now;
-            try
-            {
-                sql = "select max(dates), min(dates) from game_dates where dates >= '" +year+"'";
-                conn.Open();
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                NpgsqlDataReader dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    
-                    //maxmin.endDate = dr["max"].ToString();
-                    //maxmin.startDate = dr["min"].ToString();               
-                    conn.Close();
-                }
-            }
-            catch
-            {
-
-            }
-
-            return maxmin;
-        }
-
-        public static List<DateTime> getDates()
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            string sql = "";
-            DateTime year = DateTime.Now;
-            List<DateTime> datesList = new List<DateTime>();
-            try
-            {
-                conn.Open();
-                sql = "select * from game_dates where dates >= '" + year + "'";
-                NpgsqlCommand command = new NpgsqlCommand(sql, conn);
-                NpgsqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    DateTime exDates = new DateTime();
-                    exDates = Convert.ToDateTime(dr["dates"].ToString());
-                    datesList.Add(exDates);
-                }
-            }
-            catch
-            {
-
-            }
-            return datesList;
-        }
 
 
         #region RESULTAT
