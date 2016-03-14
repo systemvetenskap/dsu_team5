@@ -84,6 +84,7 @@
     <Content Include="CSS\CSS_index.css" />
     <Content Include="CSS\CSS_resultat.css" />
     <Content Include="CSS\CSS_skapatavling.css" />
+    <Content Include="CSS\CSS_startlistor.css" />
     <Content Include="CSS\CSS_tavlingar.css" />
     <Content Include="Images\halslaget_v01.png" />
     <Content Include="index.aspx" />
@@ -108,6 +109,7 @@
   <ItemGroup>
     <Content Include="resultat.aspx" />
     <Content Include="skapatavling.aspx" />
+    <Content Include="startlistor.aspx" />
     <Content Include="tavlingar.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -202,6 +204,13 @@
     </Compile>
     <Compile Include="skapatavling.aspx.designer.cs">
       <DependentUpon>skapatavling.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="startlistor.aspx.cs">
+      <DependentUpon>startlistor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="startlistor.aspx.designer.cs">
+      <DependentUpon>startlistor.aspx</DependentUpon>
     </Compile>
     <Compile Include="tavlingar.aspx.cs">
       <DependentUpon>tavlingar.aspx</DependentUpon>
