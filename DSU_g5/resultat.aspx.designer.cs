@@ -13,6 +13,15 @@ namespace DSU_g5 {
     public partial class resultat {
         
         /// <summary>
+        /// result control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl result;
+        
+        /// <summary>
         /// tournament control.
         /// </summary>
         /// <remarks>
@@ -58,15 +67,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbSearchTournament;
         
         /// <summary>
-        /// participant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl participant;
-        
-        /// <summary>
         /// lbParticipantList control.
         /// </summary>
         /// <remarks>
@@ -103,13 +103,22 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbSearchParticipant;
         
         /// <summary>
-        /// participantresults control.
+        /// tournamentresult control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl participantresults;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tournamentresult;
+        
+        /// <summary>
+        /// usertable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl usertable;
         
         /// <summary>
         /// gvParticipantResults control.
@@ -119,5 +128,77 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvParticipantResults;
+        
+        /// <summary>
+        /// userbuttons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl userbuttons;
+        
+        /// <summary>
+        /// btSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btSave;
+        
+        /// <summary>
+        /// btRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btRemove;
+        
+        /// <summary>
+        /// btClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btClear;
+        
+        /// <summary>
+        /// usermessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl usermessage;
+        
+        /// <summary>
+        /// lbUserMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbUserMessage;
+        
+        /// <summary>
+        /// state control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl state;
+        
+        /// <summary>
+        /// lblstate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblstate;
     }
 }
