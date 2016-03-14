@@ -27,12 +27,12 @@
                <ItemTemplate>
                    <div class="TourItem">
                        <%--<h2 id="header_<%# Eval("id_tournament") %>"><%# Eval("tour_name") %></h2>--%> 
-                       <h2 id="header_<%# Eval("id_tournament") %>"><%# Eval("tour_name") %></h2>                                           
+                       <h2 id="<%# Eval("id_tournament") %>"><%# Eval("tour_name") %></h2>                                           
                        <p class="tourDate"><%# Eval("tour_date").ToString().Split(' ')[0] %></p>
                        <p class="tourText"><%# Eval("tour_info") %></p>
                        <%--<asp:Label ID="lblTest" runat="server" Text="xxxx"></asp:Label>--%>
 
-                       <asp:Button ID="btnRegister" runat="server" Text="Anmäl" onClick="btnRegister_Click"/>
+                       <asp:Button ID="btnRegister" runat="server" Text="Anmäl" onCommand="btnRegister_Click" CommandArgument='<%# Eval("id_tournament")%>'/>
                    </div>
                </ItemTemplate>
            </asp:Repeater>

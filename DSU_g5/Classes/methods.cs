@@ -2431,7 +2431,7 @@ namespace DSU_g5
         }
 
 
-        public static member ContactPersonName(int tourID)
+        public static string ContactPersonName(int tourID)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
@@ -2466,7 +2466,7 @@ namespace DSU_g5
             {
                 conn.Close();
             }
-            return contactPerson;
+            return contactPerson.firstName + " " + contactPerson.lastName;
         }
 
 

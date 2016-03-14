@@ -105,10 +105,13 @@ namespace DSU_g5
             RepeaterTour.DataBind();
         }
 
-        protected void btnRegister_Click(object sender, EventArgs e)
+        protected void btnRegister_Click(object sender, CommandEventArgs e)
         {
+            string pageID = e.CommandArgument.ToString();
 
-            Response.Redirect("anmalantavling.aspx");
+            Response.Write("<script>alert('" + ID + "')</script>");
+            Response.Redirect("anmalantavling.aspx?ContentId=" + pageID);
+
 
 
             ////ANVÄND IDT FRÅN .aspx!
