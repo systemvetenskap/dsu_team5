@@ -673,8 +673,12 @@ namespace DSU_g5
                 e.Cell.BackColor = System.Drawing.Color.Gray;
                 e.Cell.Style.Add("cursor", "not-allowed");
                 e.Cell.ToolTip = "Du kan inte boka dessa tider. Det är utan för golfsäsongen.";
+
             }
         }
+
+
+
 
 
 
