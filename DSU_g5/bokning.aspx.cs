@@ -30,6 +30,8 @@ namespace DSU_g5
         public users inloggadUser = new users();
         public int accessId;
         game_dates maxmin = new game_dates();
+        List<DateTime> datesList = new List<DateTime>();
+
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -49,6 +51,7 @@ namespace DSU_g5
 
             List<DateTime> tider = new List<DateTime>();
             maxmin = methods.maxmindates();
+            datesList = methods.getDates();
             if (!IsPostBack)
             {                
                 lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
@@ -659,22 +662,38 @@ namespace DSU_g5
         #region VoidMetoder
         protected void calBokning_DayRender(object sender, DayRenderEventArgs e)
         {
-            string maxDate = maxmin.endDate;
-            string minDate = maxmin.startDate;
-            DateTime end = DateTime.Parse(maxDate);
-            DateTime start = DateTime.Parse(minDate);
-            end.ToShortDateString();
-            start.ToShortDateString();
 
-            if ((e.Day.Date < start) || (e.Day.Date > end))
+            //string maxDate = maxmin.endDate;
+            //string minDate = maxmin.startDate;
+            //DateTime end = DateTime.Parse(maxDate);
+            //DateTime start = DateTime.Parse(minDate);
+            //end.ToShortDateString();
+            //start.ToShortDateString();
+
+
+            foreach(DateTime d in datesList)
             {
-                e.Day.IsSelectable = false;
-                e.Cell.ForeColor = System.Drawing.Color.Black;
-                e.Cell.BackColor = System.Drawing.Color.Gray;
-                e.Cell.Style.Add("cursor", "not-allowed");
-                e.Cell.ToolTip = "Du kan inte boka dessa tider. Det är utan för golfsäsongen.";
+                if (e.Day.Date != Convert.ToDateTime(d))
+                    
+                {
+                    e.Day.IsSelectable = false;
+                    e.Cell.ForeColor = System.Drawing.Color.Black;
+                    e.Cell.BackColor = System.Drawing.Color.Gray;
+                    e.Cell.Style.Add("cursor", "not-allowed");
+                    e.Cell.ToolTip = "Du kan inte boka dessa tider. Det är utanför golfsäsongen.";                  
+                }
+                else
+                {
+                    e.Day.IsSelectable = true;
+                    e.Cell.BackColor = System.Drawing.Color.White;
+                    break;
+                }
+                
             }
         }
+          
+
+        
 
 
 

@@ -2482,8 +2482,9 @@ namespace DSU_g5
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             string sql = "";
+            
             game_dates maxmin = new game_dates();
-
+            
             DateTime year = DateTime.Now;
             try
             {
@@ -2495,8 +2496,8 @@ namespace DSU_g5
                 while (dr.Read())
                 {
                     
-                    maxmin.endDate = dr["max"].ToString();
-                    maxmin.startDate = dr["min"].ToString();               
+                    //maxmin.endDate = dr["max"].ToString();
+                    //maxmin.startDate = dr["min"].ToString();               
                     conn.Close();
                 }
             }
@@ -2507,6 +2508,33 @@ namespace DSU_g5
 
             return maxmin;
         }
+
+        public static List<DateTime> getDates()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql = "";
+            DateTime year = DateTime.Now;
+            List<DateTime> datesList = new List<DateTime>();
+            try
+            {
+                conn.Open();
+                sql = "select * from game_dates where dates >= '" + year + "'";
+                NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    DateTime exDates = new DateTime();
+                    exDates = Convert.ToDateTime(dr["dates"].ToString());
+                    datesList.Add(exDates);
+                }
+            }
+            catch
+            {
+
+            }
+            return datesList;
+        }
+
 
         #region RESULTAT
 
