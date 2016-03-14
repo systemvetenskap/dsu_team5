@@ -31,15 +31,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.DropDownList ddlAllTournaments;
         
         /// <summary>
-        /// lblTournamentInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTournamentInfo;
-        
-        /// <summary>
         /// lblTourName control.
         /// </summary>
         /// <remarks>
@@ -220,6 +211,24 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblAllMembers;
         
         /// <summary>
+        /// lblSearchMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSearchMember;
+        
+        /// <summary>
+        /// tbSearchMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSearchMember;
+        
+        /// <summary>
         /// lbMembersTournament control.
         /// </summary>
         /// <remarks>
@@ -245,6 +254,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRegMemberOnTour;
+        
+        /// <summary>
+        /// lblConfirmation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblConfirmation;
         
         /// <summary>
         /// hfTourId control.
