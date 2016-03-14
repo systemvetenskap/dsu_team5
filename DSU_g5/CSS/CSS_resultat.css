@@ -1,51 +1,112 @@
 ﻿
-#tournament {
-    width: 30%; 
-    border-color: black;
-    padding: 0.5%; 
+#ContentPlaceHolder1_result {
+    height: 600px;
+    padding: 0.5%;
+    /*border: solid;*/
+    /*border-color: blue;*/
 }
 
-#participant {
-    width: 30%; 
-    border-color: black;
+#ContentPlaceHolder1_tournament {
     float: left;
-    padding: 0.5%; 
+    width: 20%;
+    padding: 1%;
+    margin: 1%;
+    margin-top: 0;
+    padding-top: 0;
+    /*border: solid;*/
+    /*border-color: red;*/
 }
 
-.participantresults {
-    min-height: 100px;
-    width: 65%;
-    margin: 0;
-    padding: 10px 0px 10px 0px;
+.tournamentlabel {
+    margin: 1%;
+    padding: 1%;
+    clear: both;
+    width: 98%;
+}
+
+.tournamentlistbox {
+    margin: 1%;
+    padding: 1%;
+    clear: both;
+    width: 98%;
+}
+
+.tournamenttextbox {
+    margin: 1%;
+    padding: 1%;
+    clear: both;
+    width: 70%;
+}
+
+#ContentPlaceHolder1_tournamentresult {    
+    float: left;
+    width: 70%;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    /*border: solid;*/     
+    /*border-color: skyblue;*/
+}
+
+#ContentPlaceHolder1_usertable {
+    padding: 1%;
+    width: 96%;    
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    float: left;
+    /*border: solid;*/     
+    /*border-color: red;*/
 }
 
 .resultstable {
-    margin: 0;
-    margin-top: 15px;
-    padding: 0;
-    width: 65%;
-    font-family: 'Slabo 27px', serif;
-    font-size: 10px;
-    background-color: white;
+    width: 75%;
 }
 
 .resultstable tr th {
+    margin-left:2%;
+    margin-right:2%;
+    padding-left: 2%; 
+    padding-right: 2%;    
     font-weight: bold;
-    padding-top: 15px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 15px;
-    color: black;
-    font-family: 'Slabo 27px', serif;
-    font-size: 9px;
-    background-color: white;
+    color: white;
+    background-color: green;
+    min-width: 25%;
+    padding-right: 5%; 
 }
 
 .resultstable tr td {
-    padding-left: 2px;
-    padding-right: 2px;
-    color: black;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 9px;
-    background-color: white;
+    margin-left:2%;
+    margin-right:2%;
+    padding-left: 2%; 
+    padding-right: 5%; 
+    min-width: 25%;
+}
+
+#ContentPlaceHolder1_userbuttons {
+    padding: 1%;
+    min-width: 15%;
+    width: 96%;
+    /*border: solid;*/     
+    /*border-color: greenyellow;*/
+    float: left;
+}
+
+.userbutton {
+    float: left;
+    min-width: 15%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#ContentPlaceHolder1_usermessage {
+    padding: 1%;
+    min-width: 15%;
+    width: 96%;
+    /*border: solid;*/     
+    /*border-color: red;*/
+    clear: both;
 }

@@ -1751,7 +1751,6 @@ namespace DSU_g5
             }
         }
            
-
         #endregion NEWS
 
         #region LOGGIN
@@ -1863,7 +1862,7 @@ namespace DSU_g5
             if (amount > 0)
             {
                 return true;
-        }
+            }
             else
             {
                 return false;
@@ -1951,8 +1950,7 @@ namespace DSU_g5
 
         #endregion LOGGIN
 
-        #region MEDLEMSREGISTRERING
-        
+        #region MEDLEMSREGISTRERING       
         public static List<member> getMemberList()
         {
             List<member> memberList = new List<member>();
@@ -1996,8 +1994,7 @@ namespace DSU_g5
                 conn.Close();
             }
             return memberList;
-        }
-        
+        }      
         #endregion 
 
         #region SKAPA TÄVLING
@@ -2510,11 +2507,103 @@ namespace DSU_g5
 
         #region RESULTAT
 
-        /// <summary>
-        /// Metod för att hämta resultat för en deltagare i en tävling
-        /// </summary>
-        /// <returns></returns>
-        public static List<results> getParticipantResults()
+        public static List<member> getParticipantList(int tourId, string gender)
+        { 
+            List<member> memberList = new List<member>();
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT id_member, first_name, last_name, address, postal_code,";
+                plsql = plsql + "   city, mail, gender, hcp, golf_id, fk_category_id, member_category, ";
+                plsql = plsql + "   access_id, access_category, payment ";
+                plsql = plsql + " FROM member_tournament ";
+                plsql = plsql + "     LEFT JOIN tournament AS tournament ON tournament.id_tournament = member_tournament.tournament_id";
+                plsql = plsql + "     LEFT JOIN member_new AS member_new ON member_new.id_member = member_tournament.member_id";
+                plsql = plsql + " WHERE member_tournament.tournament_id = :newTournamentId ";
+                plsql = plsql + "     AND member_new.gender = :newGender";
+
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newTournamentId", NpgsqlDbType.Integer));
+                command.Parameters["newTournamentId"].Value = tourId;
+
+                // gender hårdkodad än så länge då är inte klar vilken tabell den komer att finnas 
+                command.Parameters.Add(new NpgsqlParameter("newGender", NpgsqlDbType.Varchar));
+                command.Parameters["newGender"].Value = gender; 
+                
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    member newMember = new member();
+                    newMember.memberId = (int)(dr["id_member"]);
+                    newMember.firstName = (string)(dr["first_name"]);
+                    newMember.lastName = (string)(dr["last_name"]);
+                    newMember.address = (string)(dr["address"]);
+                    newMember.postalCode = (string)(dr["postal_code"]);
+                    newMember.city = (string)(dr["city"]);
+                    newMember.mail = (string)(dr["mail"]);
+                    newMember.gender = (string)(dr["gender"]);                    
+                    newMember.hcp = dr["hcp"] != DBNull.Value ? Convert.ToDouble((dr["hcp"])) : 0.00;                                        
+                    newMember.golfId = (string)(dr["golf_id"]);                    
+                    newMember.categoryId = dr["fk_category_id"] != DBNull.Value ? (int)(dr["fk_category_id"]) : 0;
+                    newMember.accessCategory = dr["member_category"] != DBNull.Value ? (string)(dr["member_category"]) : "";
+                    newMember.accessId = dr["access_id"] != DBNull.Value ? (int)(dr["access_id"]) : 0;                    
+                    newMember.accessCategory = dr["access_category"] != DBNull.Value ? (string)(dr["access_category"]) : "";
+                    newMember.payment = dr["payment"] != DBNull.Value ? (Boolean)(dr["payment"]) : false;
+                    memberList.Add(newMember);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return memberList;
+        }
+
+        public static bool checkResultExist(int tourId, int memberId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            int amount = 0;
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT DISTINCT 1 AS amount ";
+                plsql = plsql + " FROM results ";
+                plsql = plsql + " WHERE member_id = :newMemberId ";
+                plsql = plsql + " AND tour_id = :newTourId;";
+
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = memberId;
+                command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                command.Parameters["newTourId"].Value = tourId;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    amount = (int)(dr["amount"]);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            if (amount > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static List<results> getExistsResults(int tourId, int memberId)
         {
             List<results> resultsList = new List<results>();
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
@@ -2524,15 +2613,19 @@ namespace DSU_g5
                 string plsql = string.Empty;
 
                 plsql = plsql + "SELECT results.tour_id AS tourId, results.member_id AS memberId,";
-                plsql = plsql + "      course.course_id AS courseId, pair, hcp, tries, gamehcp, netto";
-                plsql = plsql + " FROM course ";
-                plsql = plsql + "    LEFT JOIN results AS results ON results.course_id = course.course_id";
-                plsql = plsql + "    LEFT JOIN member_tournament AS member_tournament ";
-                plsql = plsql + "        ON member_tournament.tournament_id = results.tour_id ";
-                plsql = plsql + " AND member_tournament.member_id = results.member_id";
-                plsql = plsql + " ORDER BY course.course_id";
+                plsql = plsql + "      results.course_id AS courseId, pair, hcp, tries, gamehcp, netto";
+                plsql = plsql + " FROM results ";
+                plsql = plsql + "    LEFT JOIN course AS course ON course.course_id = results.course_id";
+                plsql = plsql + " WHERE tour_id = :newTourId AND member_id = :newMemberId";
+                plsql = plsql + " ORDER BY results.course_id";
 
-                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);                
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                command.Parameters["newTourId"].Value = tourId;
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = memberId;                
+
                 NpgsqlDataReader dr = command.ExecuteReader();
 
                 while (dr.Read())
@@ -2553,9 +2646,290 @@ namespace DSU_g5
             {
                 conn.Close();
             }
-            return resultsList;
+            return resultsList;        
         }
 
+        public static List<results> getDefaultResults(int tourId, int memberId)
+        {
+            List<results> resultsList = new List<results>();
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                plsql = plsql + "SELECT course.course_id AS courseId, pair, hcp, 0 AS tries, 0 AS gamehcp, 0 AS netto";
+                plsql = plsql + " FROM course";
+                plsql = plsql + " ORDER BY course.course_id";
+
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                command.Parameters["newTourId"].Value = tourId;
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = memberId;       
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    results newResults = new results();
+                    // lägger till detta som default för respektive medlem 
+                    newResults.tourId = tourId;
+                    newResults.memberId = memberId;                    
+                    newResults.courseId = dr["courseId"] != DBNull.Value ? (int)(dr["courseId"]) : 0;
+                    newResults.pair = dr["pair"] != DBNull.Value ? (int)(dr["pair"]) : 0;
+                    newResults.hcp = dr["hcp"] != DBNull.Value ? (int)(dr["hcp"]) : 0;
+                    newResults.tries = dr["tries"] != DBNull.Value ? (int)(dr["tries"]) : 0;
+                    newResults.gamehcp = dr["gamehcp"] != DBNull.Value ? (int)(dr["gamehcp"]) : 0;
+                    newResults.netto = dr["netto"] != DBNull.Value ? (int)(dr["netto"]) : 0;
+                    resultsList.Add(newResults);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return resultsList;
+        }
+        
+        public static bool addResult(List<results> resultsList)
+        { 
+            bool succesfull = false;
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlTransaction tran = null;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                conn.Open();
+                tran = conn.BeginTransaction();
+                command.Connection = conn;
+                command.Transaction = tran;
+                string plsql = string.Empty;
+
+                int memberId = 0;
+                int tourId = 0;
+                int summa_netto = 0;
+
+                foreach (results li in resultsList)
+                {
+                    plsql = string.Empty;
+                    plsql = plsql + "INSERT INTO results(";
+                    plsql = plsql + "            member_id, tour_id, course_id, tries, gamehcp, netto)";
+                    plsql = plsql + "    VALUES (:newMemberId, :newTourId, :newCourseId, :newTries, :newGamehcp, :newNetto)";
+                    plsql = plsql + " RETURNING course_id";
+                    
+                    command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                    command.Parameters["newMemberId"].Value = li.memberId;
+                    command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                    command.Parameters["newTourId"].Value = li.tourId;
+                    command.Parameters.Add(new NpgsqlParameter("newCourseId", NpgsqlDbType.Integer));
+                    command.Parameters["newCourseId"].Value = li.courseId;
+                    command.Parameters.Add(new NpgsqlParameter("newTries", NpgsqlDbType.Integer));
+                    command.Parameters["newTries"].Value = li.tries;
+                    command.Parameters.Add(new NpgsqlParameter("newGamehcp", NpgsqlDbType.Integer));
+                    command.Parameters["newGamehcp"].Value = li.gamehcp;
+                    command.Parameters.Add(new NpgsqlParameter("newNetto", NpgsqlDbType.Integer));
+                    command.Parameters["newNetto"].Value = li.netto;
+
+                    tourId = li.tourId;
+                    memberId = li.memberId;
+                    summa_netto = summa_netto + li.netto;
+
+                    command.CommandText = plsql;
+                    int course_id = Convert.ToInt32(command.ExecuteScalar());
+                }
+                
+                // upddaterar member_tournament, kolumn resultat till suma(netto)
+                plsql = string.Empty;
+                plsql = plsql + "UPDATE member_tournament";
+                plsql = plsql + "   SET result = :newNetto";
+                plsql = plsql + " WHERE tournament_id = :newTourId AND member_id = :newMemberId;";
+
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = memberId;                
+                command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                command.Parameters["newTourId"].Value = tourId;
+                command.Parameters.Add(new NpgsqlParameter("newNetto", NpgsqlDbType.Integer));
+                command.Parameters["newNetto"].Value = summa_netto;
+
+                command.CommandText = plsql;
+                // tar inte emot returen  
+                Convert.ToInt32(command.ExecuteScalar());
+
+                // lopp stop                
+                tran.Commit();
+                succesfull = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                succesfull = false;
+                tran.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return succesfull;    
+        }        
+
+        public static bool modifyResult(List<results> resultsList)
+        {
+            bool succesfull = false;
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlTransaction tran = null;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                conn.Open();
+                tran = conn.BeginTransaction();
+                command.Connection = conn;
+                command.Transaction = tran;
+                string plsql = string.Empty;
+
+                int memberId = 0;
+                int tourId = 0;
+                int summa_netto = 0;
+
+                foreach (results li in resultsList)
+                {
+                    plsql = string.Empty;
+                    plsql = plsql + "UPDATE results";
+                    plsql = plsql + "   SET tries = :newTries, gamehcp = :newGamehcp, netto = :newNetto ";
+                    plsql = plsql + " WHERE member_id = :newMemberId AND tour_id = :newTourId AND course_id = :newCourseId;";
+
+                    command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                    command.Parameters["newMemberId"].Value = li.memberId;
+                    command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                    command.Parameters["newTourId"].Value = li.tourId;
+                    command.Parameters.Add(new NpgsqlParameter("newCourseId", NpgsqlDbType.Integer));
+                    command.Parameters["newCourseId"].Value = li.courseId;
+                    command.Parameters.Add(new NpgsqlParameter("newTries", NpgsqlDbType.Integer));
+                    command.Parameters["newTries"].Value = li.tries;
+                    command.Parameters.Add(new NpgsqlParameter("newGamehcp", NpgsqlDbType.Integer));
+                    command.Parameters["newGamehcp"].Value = li.gamehcp;
+                    command.Parameters.Add(new NpgsqlParameter("newNetto", NpgsqlDbType.Integer));
+                    command.Parameters["newNetto"].Value = li.netto;
+
+                    tourId = li.tourId;
+                    memberId = li.memberId;
+
+                    summa_netto = summa_netto + li.netto;
+                    command.CommandText = plsql;
+                    int course_id = Convert.ToInt32(command.ExecuteScalar());
+                }
+                
+                // uppdateraR resultat i member_tournament till ny summa då kortet har uppdaterats.
+                plsql = string.Empty;
+                plsql = plsql + "UPDATE member_tournament";
+                plsql = plsql + "   SET result = :newNetto";
+                plsql = plsql + " WHERE tournament_id = :newTourId AND member_id = :newMemberId;";
+                
+                command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                command.Parameters["newTourId"].Value = tourId;
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = memberId;            
+                command.Parameters.Add(new NpgsqlParameter("newNetto", NpgsqlDbType.Integer));
+                command.Parameters["newNetto"].Value = summa_netto;
+
+                command.CommandText = plsql;
+                // tar inte emot returen  
+                Convert.ToInt32(command.ExecuteScalar());
+
+                tran.Commit();
+                succesfull = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                succesfull = false;
+                tran.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return succesfull;            
+        }
+
+        public static bool removeResult(List<results> resultsList)
+        {
+            bool succesfull = false;
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlTransaction tran = null;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                conn.Open();
+                tran = conn.BeginTransaction();
+                command.Connection = conn;
+                command.Transaction = tran;
+
+                string plsql = string.Empty;
+
+                int memberId = 0;
+                int tourId = 0;
+                int summa_netto = 0;
+                foreach (results li in resultsList)
+                {
+                    plsql = string.Empty;
+                    plsql = plsql + "DELETE FROM results";
+                    plsql = plsql + " WHERE tour_id = :newTourId AND member_id = :newMemberId AND course_id = :newCourseId;";
+
+                    command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                    command.Parameters["newMemberId"].Value = li.memberId;
+                    command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                    command.Parameters["newTourId"].Value = li.tourId;
+                    command.Parameters.Add(new NpgsqlParameter("newCourseId", NpgsqlDbType.Integer));
+                    command.Parameters["newCourseId"].Value = li.courseId;
+
+                    tourId = li.tourId;
+                    memberId = li.memberId;
+
+                    command.CommandText = plsql;
+                    int course_id = Convert.ToInt32(command.ExecuteScalar());
+                }
+                
+                // uppdaterat resultat i member_tournament till 0 då kortet tas bort.
+                plsql = string.Empty;
+                plsql = plsql + "UPDATE member_tournament";
+                plsql = plsql + "   SET result = :newNetto";
+                plsql = plsql + " WHERE tournament_id = :newTourId AND member_id = :newMemberId;";
+
+                command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                command.Parameters["newTourId"].Value = tourId;
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = memberId;
+                command.Parameters.Add(new NpgsqlParameter("newNetto", NpgsqlDbType.Integer));
+                command.Parameters["newNetto"].Value = summa_netto;
+
+                command.CommandText = plsql;
+                // tar inte emot returen  
+                Convert.ToInt32(command.ExecuteScalar());
+                
+                tran.Commit();
+                succesfull = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                succesfull = false;
+                tran.Rollback();
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return succesfull;
+        }                
+        
         #endregion
     }
 }
