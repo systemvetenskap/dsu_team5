@@ -53,8 +53,10 @@ namespace DSU_g5
                 lbFormerSponsors.DataValueField = "sponsor_id";
                 lbFormerSponsors.DataTextField = "sponsor_name";
                 lbFormerSponsors.DataSource = methods.getSponsors();
-                lbFormerSponsors.DataBind();
+                lbFormerSponsors.DataBind();               
             }
+
+            lblMessage.Text = "";
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -99,20 +101,21 @@ namespace DSU_g5
                         }
 
                         clearFields();
+                        lblMessage.Text = " Tävlingen är registrerad.";
                     }
                     else
                     {
-                        Response.Write("<script>alert('Vänligen kontrollera att tävlingens tider är korrekt inskrivna.')</script>");
+                        lblMessage.Text = " Vänligen kontrollera att tävlingens tider är korrekt inskrivna.";
                     }
                 }
                 else
                 {
-                    Response.Write("<script>alert('Vänligen kontrollera att alla uppgifter stämmer.')</script>");
+                    lblMessage.Text = " Vänligen kontrollera att alla uppgifter stämmer.";
                 }
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('Ett fel uppstod. Mer information:\n"+ ex.Message.ToString() +"')</script>");
+                lblMessage.Text = " Ett fel uppstod. Mer information:\n" + ex.Message.ToString();
             }
         }
 

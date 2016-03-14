@@ -96,6 +96,7 @@
         </div>
         <asp:Button ID="btnSave" runat="server" Text="Spara" OnClick="btnSave_Click" />
         <asp:Button ID="btnClear" runat="server" Text="Rensa" OnClick="btnClear_Click" />
+        <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
     </section>
     <script>
         document.getElementById("ContentPlaceHolder1_tbSokContactPerson").addEventListener("input", ListBoxFilter);
