@@ -23,6 +23,8 @@
              <asp:Button ID="removeNews" CSSclass="newsbutton" runat="server" Text="Ta bort nyhet" OnClick="btnRemoveNews_Click" />
              <br />
              <asp:Button ID="btnMailNews" runat="server" Text="Maila nyhetsbrev" Width="199px" OnClick="btnMailNews_Click" />
+              <br />
+             <asp:Label ID="lblConfirmOfInput" CSSclass="newslabel" runat="server" Text="Label" Visible="False"></asp:Label>
          </div>
          <div id="seasons">
              <asp:Label ID="lblSeason" runat="server" Text="Registrera säsong"></asp:Label>
@@ -35,7 +37,10 @@
                 <asp:Label ID="lblSeasonEnd" runat="server" Text="Säsongsslut"></asp:Label>
                 <asp:Calendar ID="endCalendar" runat="server"></asp:Calendar>
              </div>
-             <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click"/>
+             <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click" Width="121px"/>
+             <asp:Button ID="btnRemoveDate" runat="server" Text="Stäng Banan" OnClick ="btnRemoveDate_Click" />
+             <br />
+             <asp:Label ID="lblConformation" runat="server" Text=""></asp:Label>
          </div>
      </section>
 </asp:Content>

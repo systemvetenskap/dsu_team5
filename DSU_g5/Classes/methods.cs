@@ -1447,6 +1447,83 @@ namespace DSU_g5
                 conn.Close();
             }
         }
+        public static void removeSeason(DateTime startDate, DateTime endDate)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql;
+            conn.Open();
+            try
+            {
+                sql = "delete from game_dates where dates = '"+ startDate +"'";
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        public static game_dates maxmindates()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql = "";
+
+            game_dates maxmin = new game_dates();
+
+            DateTime year = DateTime.Now;
+            try
+            {
+                sql = "select max(dates), min(dates) from game_dates where dates >= '" + year + "'";
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+
+                    //maxmin.endDate = dr["max"].ToString();
+                    //maxmin.startDate = dr["min"].ToString();               
+                    conn.Close();
+                }
+            }
+            catch
+            {
+
+            }
+
+            return maxmin;
+        }
+
+        public static List<DateTime> getDates()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sql = "";
+            DateTime year = DateTime.Now;
+            List<DateTime> datesList = new List<DateTime>();
+            try
+            {
+                conn.Open();
+                sql = "select * from game_dates where dates >= '" + year + "'";
+                NpgsqlCommand command = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    DateTime exDates = new DateTime();
+                    exDates = Convert.ToDateTime(dr["dates"].ToString());
+                    datesList.Add(exDates);
+                }
+            }
+            catch
+            {
+
+            }
+            return datesList;
+        }
+
 
         #endregion GAMES
 
@@ -1681,76 +1758,7 @@ namespace DSU_g5
             return dt;
         }
 
-        public static void SkickaMail(string nyhetsbrev, string rubrik)
-        {
-            #region skicka mail till alla
-            //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            //string firstname;
-            //string lastname;
-            //string mail2;
-            //string sql = "";
-            //try
-            //{
-            //    sql = "select first_name, last_name, mail from member_new";
-            //    conn.Open();
 
-            //    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            //    NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            //    while (dr.Read())
-            //    {                   
-            //        firstname = dr["first_name"].ToString();
-            //        lastname = dr["last_name"].ToString();
-            //        mail2 = dr["mail"].ToString();
-
-            //        System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-            //        mail.To.Add(mail2);
-            //        mail.From = new MailAddress("halslaget@gmail.com", rubrik, System.Text.Encoding.UTF8);
-            //        mail.Subject = "Nyhetsbrev Hålslaget";
-            //        mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            //        mail.Body = nyhetsbrev;
-            //        mail.BodyEncoding = System.Text.Encoding.UTF8;
-            //        mail.IsBodyHtml = true;
-            //        mail.Priority = MailPriority.High;
-            //        SmtpClient client = new SmtpClient();
-            //        client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
-            //        client.Port = 587;
-            //        client.Host = "smtp.gmail.com";
-            //        client.EnableSsl = true;
-            //        client.Send(mail);
-            //    }
-            //}
-
-            //catch
-            //{
-
-            //}
-            #endregion skicka mail till alla
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-            mail.To.Add("halslaget@gmail.com");
-            mail.From = new MailAddress("halslaget@gmail.com", rubrik, System.Text.Encoding.UTF8);
-            mail.Subject = "Nyhetsbrev Hålslaget";
-            mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            mail.Body = nyhetsbrev;
-            mail.BodyEncoding = System.Text.Encoding.UTF8;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
-            SmtpClient client = new SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
-            client.EnableSsl = true;
-
-            try
-            {
-                client.Send(mail);
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
-           
         #endregion NEWS
 
         #region LOGGIN
@@ -2471,40 +2479,6 @@ namespace DSU_g5
         #endregion
 
 
-
-
-
-
-        public static game_dates maxmindates()
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            string sql = "";
-            game_dates maxmin = new game_dates();
-
-            DateTime year = DateTime.Now;
-            try
-            {
-                sql = "select max(dates), min(dates) from game_dates where dates >= '" +year+"'";
-                conn.Open();
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                NpgsqlDataReader dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    
-                    maxmin.endDate = dr["max"].ToString();
-                    maxmin.startDate = dr["min"].ToString();               
-                    conn.Close();
-                }
-            }
-            catch
-            {
-
-            }
-
-            return maxmin;
-        }
-
         #region RESULTAT
 
         public static List<member> getParticipantList(int tourId, string gender)
@@ -2690,7 +2664,96 @@ namespace DSU_g5
             {
                 conn.Close();
             }
-            return resultsList;
+            
+            var newResultList1 = resultsList.OrderBy(x => x.hcp).ToList();
+            member newMember = new member();
+            newMember = methods.getMember(memberId);
+            
+            int gameHcp = methods.getGameHcp(newMember.gender, newMember.hcp);
+            int holeCounter = 0;
+
+            // antal hål att uppdatera d.v.s. vars svårighetsgrad överstiger personlig handikap. 
+            for (int i = 0; i < newResultList1.Count(); i++)
+            {
+                if (newResultList1[i].hcp <= gameHcp)
+                {
+                    holeCounter = holeCounter + 1;
+                }
+            }  
+            
+            // om det finns hållen som är svårare än personlig handikap ska dessa uppdateras så länge det finns extra slag att tilldela
+            int counter = 0;
+            int hcpCounter = gameHcp;
+            if (holeCounter > 0)
+            {
+                // så länge samtliga extra slag är inte förbrukade helt.
+                while (hcpCounter > 0)
+                {
+                    if (newResultList1[counter].hcp <= gameHcp)
+                    {
+                        newResultList1[counter].gamehcp = newResultList1[counter].gamehcp + 1;
+                        // antalet extra slag minskas då är detta förbrukade på föregående raden
+                        hcpCounter = hcpCounter - 1;
+                    }
+                    // om antalet tilldellade
+                    counter = counter + 1;
+                    if (counter == newResultList1.Count())
+                    {
+                        counter = 0;
+                    }
+                }
+            }
+            // om anatalet uppdaterade rader är större än 0 skickas en uppdaterat lista med extra slag på respektive håll  
+            if (holeCounter > 0)
+            {
+                var newResultList2 = newResultList1.OrderBy(x => x.courseId).ToList();
+                return newResultList2;
+            }
+            else
+            {
+                var newResultList2 = resultsList.OrderBy(x => x.courseId).ToList();
+                return newResultList2;
+            }
+        }
+
+        public static int getGameHcp(string gender, double hcp)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            int gameHcp = 0;
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                if (gender == "Male")
+                {
+                    plsql = "SELECT m_gamehcp AS hcp";
+                    plsql = plsql + " FROM slope_male";
+                    plsql = plsql + " WHERE :newHcp BETWEEN m_hcplow AND m_hcphigh;";
+                }
+                else if (gender == "Female")
+                {
+                    plsql = "SELECT f_gamehcp AS hcp";
+                    plsql = plsql + " FROM slope_female";
+                    plsql = plsql + " WHERE :newHcp BETWEEN m_hcplow AND m_hcphigh;";
+                }
+
+                // kontrollen för kön behövs inte då varje registrerad delatager har en kön.  
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newHcp", NpgsqlDbType.Double));
+                command.Parameters["newHcp"].Value = hcp;
+                
+                NpgsqlDataReader dr = command.ExecuteReader();                
+                while (dr.Read())
+                {
+                    gameHcp = dr["hcp"] != DBNull.Value ? (int)(dr["hcp"]) : 0;
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return gameHcp;        
         }
         
         public static bool addResult(List<results> resultsList)
@@ -2931,5 +2994,346 @@ namespace DSU_g5
         }                
         
         #endregion
+       
+        #region skickamail
+
+        public static void SkickaMail(string nyhetsbrev, string rubrik)
+        {
+            #region skicka mail till alla
+            //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            //string firstname;
+            //string lastname;
+            //string mail2;
+            //string sql = "";
+            //try
+            //{
+            //    sql = "select first_name, last_name, mail from member_new";
+            //    conn.Open();
+
+            //    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            //    NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            //    while (dr.Read())
+            //    {                   
+            //        firstname = dr["first_name"].ToString();
+            //        lastname = dr["last_name"].ToString();
+            //        mail2 = dr["mail"].ToString();
+
+            //        System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+            //        mail.To.Add(mail2);
+            //        mail.From = new MailAddress("halslaget@gmail.com", rubrik, System.Text.Encoding.UTF8);
+            //        mail.Subject = "Nyhetsbrev Hålslaget";
+            //        mail.SubjectEncoding = System.Text.Encoding.UTF8;
+            //        mail.Body = nyhetsbrev;
+            //        mail.BodyEncoding = System.Text.Encoding.UTF8;
+            //        mail.IsBodyHtml = true;
+            //        mail.Priority = MailPriority.High;
+            //        SmtpClient client = new SmtpClient();
+            //        client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
+            //        client.Port = 587;
+            //        client.Host = "smtp.gmail.com";
+            //        client.EnableSsl = true;
+            //        client.Send(mail);
+            //    }
+            //}
+
+            //catch
+            //{
+
+            //}
+            #endregion skicka mail till alla
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+            mail.To.Add("halslaget@gmail.com");
+            mail.From = new MailAddress("halslaget@gmail.com", rubrik, System.Text.Encoding.UTF8);
+            mail.Subject = "Nyhetsbrev Hålslaget";
+            mail.SubjectEncoding = System.Text.Encoding.UTF8;
+            mail.Body = nyhetsbrev;
+            mail.BodyEncoding = System.Text.Encoding.UTF8;
+            mail.IsBodyHtml = true;
+            mail.Priority = MailPriority.High;
+            SmtpClient client = new SmtpClient();
+            client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+
+            try
+            {
+                client.Send(mail);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public static void skickaMailBokningMedlem(DateTime trimDateTime, int memberID)
+        {
+
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string firstname;
+            string lastname;
+            string mail2;
+            string sql = "";
+            try
+            {
+                sql = "select first_name, last_name, mail from member_new where id_member = " + memberID + "";
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    firstname = dr["first_name"].ToString();
+                    lastname = dr["last_name"].ToString();
+                    mail2 = dr["mail"].ToString();
+
+                    System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+                    mail.To.Add(mail2);
+                    mail.From = new MailAddress("halslaget@gmail.com", "bokning", System.Text.Encoding.UTF8);
+                    mail.Subject = "Bokning av spel på hålslaget";
+                    mail.SubjectEncoding = System.Text.Encoding.UTF8;
+                    mail.Body = "Hej " + firstname + " " + lastname + " Du har blivit bokad på datum " + trimDateTime;
+                    mail.BodyEncoding = System.Text.Encoding.UTF8;
+                    mail.IsBodyHtml = true;
+                    mail.Priority = MailPriority.High;
+                    SmtpClient client = new SmtpClient();
+                    client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
+                    client.Port = 587;
+                    client.Host = "smtp.gmail.com";
+                    client.EnableSsl = true;
+                    client.Send(mail);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        #endregion
+
+        #region startlist
+
+        public static tournament getTournament(int id_tournament)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            tournament newTour = new tournament();
+            try
+            {
+                conn.Open();
+                string sql = string.Empty;
+                sql = "SELECT id_tournament, tour_name FROM tournament WHERE id_tournament = :newIdTournament;";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newIdTournament", NpgsqlDbType.Integer));
+                command.Parameters["newIdTournament"].Value = id_tournament;
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    newTour.id_tournament = (int)(dr["id_tournament"]);
+                    newTour.tour_name = (string)(dr["tour_name"]);
+
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newTour;
+        }
+
+
+
+        public static List<member> participantsByTourId(int id_tournament)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            //member newMember = new member();
+            List<member> memberList = new List<member>();
+            string sql;
+            try
+            {
+                sql = "SELECT id_member, first_name, last_name FROM member_new mn INNER JOIN member_tournament mt " +
+                      "ON mn.id_member = mt.member_id INNER JOIN tournament t ON t.id_tournament = mt.tournament_id " +
+                      "WHERE mt.tournament_id = '" + id_tournament + "'";
+
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    member newMember = new member();
+                    newMember.memberId = int.Parse(dr["id_member"].ToString());
+                    newMember.firstName = dr["first_name"].ToString();
+                    newMember.lastName = dr["last_name"].ToString();
+                    memberList.Add(newMember);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+
+
+
+
+
+
+            //List<int> memberTournamentIdList = new List<int>();
+            //foreach (member me in memberList)
+            //{
+            //    memberTournamentIdList.Add(me.memberId);
+
+            //}
+            //List <int> page = new List<int>();
+            //Random rnd = new Random(); // <-- This line goes out of the loop        
+            //for (int i = 0; i < memberTournamentIdList.Count; i++)
+            //{
+            //    int temp = 0;
+            //    temp = rnd.Next(0, 2);
+            //    page[i] = temp;
+            //}
+
+            //Random rnd = new Random();
+            //int randomNumber = rnd.Next();
+            //for (int i = 0; i < 3; i++)
+            ////{
+            //    i = memberTournamentIdList;
+            //}
+            //
+            //return;
+
+            //Random r = new Random();
+            //int index = r.Next(memberTournamentIdList.Count);
+            //string randomString = memberTournamentIdList[index];
+            //memberTournamentIdList.Sort()
+
+            //Random r = new Random();
+            //int index = r.Next(memberList.Count);
+
+            //string randomString = memberList[index].ToString();
+
+            Random r = new Random();
+            List<member> newmemberList = new List<member>();
+            bool keepgoing = true;
+            int max = memberList.Count;
+            //for (int i = 0; i < max; i++) 
+            while (keepgoing == true)
+            {
+                int index = r.Next(memberList.Count);
+                member randomMember = (member)memberList[index];
+                if (newmemberList.Contains(randomMember) == true)
+                {
+
+                }
+                else
+                {
+                    newmemberList.Add(randomMember);
+                }
+                if (newmemberList.Count == memberList.Count)
+                {
+                    keepgoing = false;
+                }
+                else
+                {
+                    keepgoing = true;
+                }
+            }
+
+            return newmemberList;
+
+
+        }
+
+
+
+
+
+        public static List<int> GetIDsFromMemberTournaments(int id_tournament)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            List<int> memberTournamentIdList = new List<int>();
+            //List<tour_member> tourMemberParticipant = new List<tour_member>();
+            //tour_member newTourMember = new tour_member();
+            string sql;
+
+            try
+            {
+                conn.Open();
+                sql = "SELECT member_id FROM member_tournament WHERE tournament_id = '" + id_tournament + "' ORDER BY member_id ASC";
+
+                //sql ="SELECT member_tournament.member_id, member_tournament.tournament_id FROM public.member_tournament," + 
+                //     "public.member_new, public.tournament WHERE member_tournament.member_id = member_new.id_member AND" +
+                //     "tournament.id_tournament = '" + id_tournament + "'";
+
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+
+                    //newTourMember.memberId = (int)(dr["member_id"]);
+                    //newTourMember.tourId = Convert.ToInt32(dr["tournament_id"].ToString());
+                    //memberTournamentIdList.Add(newTourMember.memberId);
+
+                    //tourMemberParticipant.Add(newTourMember);
+                }
+
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                conn.Close();
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return memberTournamentIdList;
+            //return tourMemberParticipant;
+
+
+            //Random rnd = new Random();
+            //int randomNumber = rnd.Next();
+
+            //for (int i = 0; i < 3; % i++)
+            //{
+            //   memberList = i;
+            //}
+            //return;
+        }
+
+        //public static Random()
+        //{
+        //    Random rnd = new Random();
+        //    int randomNumber = rnd.Next();
+
+        //    for (int i = 0; i < 3; i++)
+        //    {
+        //        i = Convert.ToInt32(memberTournamentIdList);
+        //    }
+
+        //    return; 
+
+        //DISPLAY OUTPUT
+        //txt_output.Text += randomNumber;
+
+        //}
+
+
+        #endregion
+
+
+      
     }
 }
