@@ -9,7 +9,7 @@ namespace DSU_g5
 {
     public partial class startlistor : System.Web.UI.Page
     {
-        private int id_tournament; 
+        public int id_tournament; 
 
         protected void Page_Load(object sender, EventArgs e)
         {
