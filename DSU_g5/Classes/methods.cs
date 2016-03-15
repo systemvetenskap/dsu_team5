@@ -1758,75 +1758,6 @@ namespace DSU_g5
             return dt;
         }
 
-        public static void SkickaMail(string nyhetsbrev, string rubrik)
-        {
-            #region skicka mail till alla
-            //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            //string firstname;
-            //string lastname;
-            //string mail2;
-            //string sql = "";
-            //try
-            //{
-            //    sql = "select first_name, last_name, mail from member_new";
-            //    conn.Open();
-
-            //    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            //    NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            //    while (dr.Read())
-            //    {                   
-            //        firstname = dr["first_name"].ToString();
-            //        lastname = dr["last_name"].ToString();
-            //        mail2 = dr["mail"].ToString();
-
-            //        System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-            //        mail.To.Add(mail2);
-            //        mail.From = new MailAddress("halslaget@gmail.com", rubrik, System.Text.Encoding.UTF8);
-            //        mail.Subject = "Nyhetsbrev Hålslaget";
-            //        mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            //        mail.Body = nyhetsbrev;
-            //        mail.BodyEncoding = System.Text.Encoding.UTF8;
-            //        mail.IsBodyHtml = true;
-            //        mail.Priority = MailPriority.High;
-            //        SmtpClient client = new SmtpClient();
-            //        client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
-            //        client.Port = 587;
-            //        client.Host = "smtp.gmail.com";
-            //        client.EnableSsl = true;
-            //        client.Send(mail);
-            //    }
-            //}
-
-            //catch
-            //{
-
-            //}
-            #endregion skicka mail till alla
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-            mail.To.Add("halslaget@gmail.com");
-            mail.From = new MailAddress("halslaget@gmail.com", rubrik, System.Text.Encoding.UTF8);
-            mail.Subject = "Nyhetsbrev Hålslaget";
-            mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            mail.Body = nyhetsbrev;
-            mail.BodyEncoding = System.Text.Encoding.UTF8;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
-            SmtpClient client = new SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("halslaget@gmail.com", "halslagetg5");
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
-            client.EnableSsl = true;
-
-            try
-            {
-                client.Send(mail);
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
            
         #endregion NEWS
 
@@ -2547,231 +2478,6 @@ namespace DSU_g5
 
         #endregion
 
-        #region startlist
-
-        public static tournament getTournament(int id_tournament)
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            tournament newTour = new tournament();
-            try
-            {
-                conn.Open();
-                string sql = string.Empty;
-                sql = "SELECT id_tournament, tour_name FROM tournament WHERE id_tournament = :newIdTournament;";
-                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
-                command.Parameters.Add(new NpgsqlParameter("newIdTournament", NpgsqlDbType.Integer));
-                command.Parameters["newIdTournament"].Value = id_tournament;
-                NpgsqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    newTour.id_tournament = (int)(dr["id_tournament"]);
-                    newTour.tour_name = (string)(dr["tour_name"]);
-
-                }
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return newTour;
-        }
-
-       
-
-        public static List<member> participantsByTourId(int id_tournament)
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            //member newMember = new member();
-            List<member> memberList = new List<member>();
-            string sql;
-            try
-            {
-                sql = "SELECT id_member, first_name, last_name FROM member_new mn INNER JOIN member_tournament mt " +
-                      "ON mn.id_member = mt.member_id INNER JOIN tournament t ON t.id_tournament = mt.tournament_id " +
-                      "WHERE mt.tournament_id = '" + id_tournament + "'";
-
-                conn.Open();
-
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                NpgsqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    member newMember = new member();
-                    newMember.memberId = int.Parse(dr["id_member"].ToString());
-                    newMember.firstName = dr["first_name"].ToString();
-                    newMember.lastName = dr["last_name"].ToString();
-                    memberList.Add(newMember);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-
-            finally
-            {
-                conn.Close();
-            }
-
-
-
-
-
-
-            //List<int> memberTournamentIdList = new List<int>();
-            //foreach (member me in memberList)
-            //{
-            //    memberTournamentIdList.Add(me.memberId);
-
-            //}
-            //List <int> page = new List<int>();
-            //Random rnd = new Random(); // <-- This line goes out of the loop        
-            //for (int i = 0; i < memberTournamentIdList.Count; i++)
-            //{
-            //    int temp = 0;
-            //    temp = rnd.Next(0, 2);
-            //    page[i] = temp;
-            //}
-
-            //Random rnd = new Random();
-            //int randomNumber = rnd.Next();
-            //for (int i = 0; i < 3; i++)
-            ////{
-            //    i = memberTournamentIdList;
-            //}
-            //
-            //return;
-
-            //Random r = new Random();
-            //int index = r.Next(memberTournamentIdList.Count);
-            //string randomString = memberTournamentIdList[index];
-            //memberTournamentIdList.Sort()
-
-            //Random r = new Random();
-            //int index = r.Next(memberList.Count);
-
-            //string randomString = memberList[index].ToString();
-
-            Random r = new Random();
-            List<member> newmemberList = new List<member>();
-            bool keepgoing = true;
-            int max = memberList.Count;
-            //for (int i = 0; i < max; i++) 
-            while (keepgoing == true)
-            {
-                int index = r.Next(memberList.Count);
-                member randomMember = (member)memberList[index];
-                if (newmemberList.Contains(randomMember) == true)
-                {
-
-                }
-                else
-                {
-                    newmemberList.Add(randomMember);
-                }
-                if (newmemberList.Count == memberList.Count)
-                {
-                    keepgoing = false;
-                }
-                else
-                {
-                    keepgoing = true;
-                }
-            }
-
-            return newmemberList;
-
-
-        }
-
-
-
-
-
-        public static List<int> GetIDsFromMemberTournaments(int id_tournament)
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-            List<int> memberTournamentIdList = new List<int>();
-            //List<tour_member> tourMemberParticipant = new List<tour_member>();
-            //tour_member newTourMember = new tour_member();
-            string sql;
-
-            try
-            {
-                conn.Open();
-                sql = "SELECT member_id FROM member_tournament WHERE tournament_id = '" + id_tournament + "' ORDER BY member_id ASC";
-
-                //sql ="SELECT member_tournament.member_id, member_tournament.tournament_id FROM public.member_tournament," + 
-                //     "public.member_new, public.tournament WHERE member_tournament.member_id = member_new.id_member AND" +
-                //     "tournament.id_tournament = '" + id_tournament + "'";
-
-
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                NpgsqlDataReader dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-
-                    //newTourMember.memberId = (int)(dr["member_id"]);
-                    //newTourMember.tourId = Convert.ToInt32(dr["tournament_id"].ToString());
-                    //memberTournamentIdList.Add(newTourMember.memberId);
-
-                    //tourMemberParticipant.Add(newTourMember);
-                }
-
-            }
-
-            catch (NpgsqlException ex)
-            {
-                Debug.WriteLine(ex.Message);
-                conn.Close();
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            return memberTournamentIdList;
-            //return tourMemberParticipant;
-
-
-            //Random rnd = new Random();
-            //int randomNumber = rnd.Next();
-
-            //for (int i = 0; i < 3; % i++)
-            //{
-            //   memberList = i;
-            //}
-            //return;
-        }
-
-        //public static Random()
-        //{
-        //    Random rnd = new Random();
-        //    int randomNumber = rnd.Next();
-
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        i = Convert.ToInt32(memberTournamentIdList);
-        //    }
-
-        //    return; 
-
-        //DISPLAY OUTPUT
-        //txt_output.Text += randomNumber;
-
-        //}
-
-
-        #endregion
-
-
-
-
-
-
-
 
         #region RESULTAT
 
@@ -3199,7 +2905,7 @@ namespace DSU_g5
         }                
         
         #endregion
-
+       
         #region skickamail
 
         public static void SkickaMail(string nyhetsbrev, string rubrik)
@@ -3318,5 +3024,227 @@ namespace DSU_g5
         }
 
         #endregion
+
+        #region startlist
+
+        public static tournament getTournament(int id_tournament)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            tournament newTour = new tournament();
+            try
+            {
+                conn.Open();
+                string sql = string.Empty;
+                sql = "SELECT id_tournament, tour_name FROM tournament WHERE id_tournament = :newIdTournament;";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newIdTournament", NpgsqlDbType.Integer));
+                command.Parameters["newIdTournament"].Value = id_tournament;
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    newTour.id_tournament = (int)(dr["id_tournament"]);
+                    newTour.tour_name = (string)(dr["tour_name"]);
+
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newTour;
+        }
+
+
+
+        public static List<member> participantsByTourId(int id_tournament)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            //member newMember = new member();
+            List<member> memberList = new List<member>();
+            string sql;
+            try
+            {
+                sql = "SELECT id_member, first_name, last_name FROM member_new mn INNER JOIN member_tournament mt " +
+                      "ON mn.id_member = mt.member_id INNER JOIN tournament t ON t.id_tournament = mt.tournament_id " +
+                      "WHERE mt.tournament_id = '" + id_tournament + "'";
+
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    member newMember = new member();
+                    newMember.memberId = int.Parse(dr["id_member"].ToString());
+                    newMember.firstName = dr["first_name"].ToString();
+                    newMember.lastName = dr["last_name"].ToString();
+                    memberList.Add(newMember);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+
+
+
+
+
+
+            //List<int> memberTournamentIdList = new List<int>();
+            //foreach (member me in memberList)
+            //{
+            //    memberTournamentIdList.Add(me.memberId);
+
+            //}
+            //List <int> page = new List<int>();
+            //Random rnd = new Random(); // <-- This line goes out of the loop        
+            //for (int i = 0; i < memberTournamentIdList.Count; i++)
+            //{
+            //    int temp = 0;
+            //    temp = rnd.Next(0, 2);
+            //    page[i] = temp;
+            //}
+
+            //Random rnd = new Random();
+            //int randomNumber = rnd.Next();
+            //for (int i = 0; i < 3; i++)
+            ////{
+            //    i = memberTournamentIdList;
+            //}
+            //
+            //return;
+
+            //Random r = new Random();
+            //int index = r.Next(memberTournamentIdList.Count);
+            //string randomString = memberTournamentIdList[index];
+            //memberTournamentIdList.Sort()
+
+            //Random r = new Random();
+            //int index = r.Next(memberList.Count);
+
+            //string randomString = memberList[index].ToString();
+
+            Random r = new Random();
+            List<member> newmemberList = new List<member>();
+            bool keepgoing = true;
+            int max = memberList.Count;
+            //for (int i = 0; i < max; i++) 
+            while (keepgoing == true)
+            {
+                int index = r.Next(memberList.Count);
+                member randomMember = (member)memberList[index];
+                if (newmemberList.Contains(randomMember) == true)
+                {
+
+                }
+                else
+                {
+                    newmemberList.Add(randomMember);
+                }
+                if (newmemberList.Count == memberList.Count)
+                {
+                    keepgoing = false;
+                }
+                else
+                {
+                    keepgoing = true;
+                }
+            }
+
+            return newmemberList;
+
+
+        }
+
+
+
+
+
+        public static List<int> GetIDsFromMemberTournaments(int id_tournament)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            List<int> memberTournamentIdList = new List<int>();
+            //List<tour_member> tourMemberParticipant = new List<tour_member>();
+            //tour_member newTourMember = new tour_member();
+            string sql;
+
+            try
+            {
+                conn.Open();
+                sql = "SELECT member_id FROM member_tournament WHERE tournament_id = '" + id_tournament + "' ORDER BY member_id ASC";
+
+                //sql ="SELECT member_tournament.member_id, member_tournament.tournament_id FROM public.member_tournament," + 
+                //     "public.member_new, public.tournament WHERE member_tournament.member_id = member_new.id_member AND" +
+                //     "tournament.id_tournament = '" + id_tournament + "'";
+
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+
+                    //newTourMember.memberId = (int)(dr["member_id"]);
+                    //newTourMember.tourId = Convert.ToInt32(dr["tournament_id"].ToString());
+                    //memberTournamentIdList.Add(newTourMember.memberId);
+
+                    //tourMemberParticipant.Add(newTourMember);
+                }
+
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                conn.Close();
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return memberTournamentIdList;
+            //return tourMemberParticipant;
+
+
+            //Random rnd = new Random();
+            //int randomNumber = rnd.Next();
+
+            //for (int i = 0; i < 3; % i++)
+            //{
+            //   memberList = i;
+            //}
+            //return;
+        }
+
+        //public static Random()
+        //{
+        //    Random rnd = new Random();
+        //    int randomNumber = rnd.Next();
+
+        //    for (int i = 0; i < 3; i++)
+        //    {
+        //        i = Convert.ToInt32(memberTournamentIdList);
+        //    }
+
+        //    return; 
+
+        //DISPLAY OUTPUT
+        //txt_output.Text += randomNumber;
+
+        //}
+
+
+        #endregion
+
+
+      
     }
 }
