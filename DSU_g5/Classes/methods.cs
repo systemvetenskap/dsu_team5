@@ -3004,7 +3004,7 @@ namespace DSU_g5
 
                     System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
                     mail.To.Add(mail2);
-                    mail.From = new MailAddress("halslaget@gmail.com", "bokning", System.Text.Encoding.UTF8);
+                    mail.From = new MailAddress("halslaget@gmail.com", "Tidsbokning hålslaget", System.Text.Encoding.UTF8);
                     mail.Subject = "Bokning av spel på hålslaget";
                     mail.SubjectEncoding = System.Text.Encoding.UTF8;
                     mail.Body = "Hej " +firstname+" " +lastname+" Du har blivit bokad på datum " + trimDateTime;
