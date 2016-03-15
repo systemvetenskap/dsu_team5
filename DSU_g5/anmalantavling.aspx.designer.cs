@@ -13,6 +13,15 @@ namespace DSU_g5 {
     public partial class anmalantavling {
         
         /// <summary>
+        /// tournamentInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tournamentInfo;
+        
+        /// <summary>
         /// lblAllTournaments control.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTourInfo;
+        
+        /// <summary>
+        /// tourMemberAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tourMemberAdmin;
         
         /// <summary>
         /// lblAllMembers control.

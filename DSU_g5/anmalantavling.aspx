@@ -6,7 +6,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">      
-    <div>
+    <div id ="tournamentInfo" runat="server">
         <asp:Label ID="lblAllTournaments" runat="server" Text="<u>Välja en tävling nedan</u>"></asp:Label>
         <br />
         <asp:DropDownList ID="ddlAllTournaments" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAllTournaments_SelectedIndexChanged"></asp:DropDownList>
@@ -45,7 +45,8 @@
         <br />
         <asp:GridView ID="gvTourInfo" runat="server" OnDataBound="gvTourInfo_DataBound"></asp:GridView>
     </div>
-    <div>
+
+    <div id="tourMemberAdmin" runat="server">
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <asp:Label ID="lblAllMembers" runat="server" Text="<u>Välj en medlem att registrera på tävling</u>"></asp:Label>
         <br />

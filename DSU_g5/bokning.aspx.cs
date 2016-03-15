@@ -674,12 +674,12 @@ namespace DSU_g5
             foreach(DateTime d in datesList)
             {
                 if (e.Day.Date != Convert.ToDateTime(d))
-                    
-                {
-                    e.Day.IsSelectable = false;
-                    e.Cell.ForeColor = System.Drawing.Color.Black;
-                    e.Cell.BackColor = System.Drawing.Color.Gray;
-                    e.Cell.Style.Add("cursor", "not-allowed");
+
+            {
+                e.Day.IsSelectable = false;
+                e.Cell.ForeColor = System.Drawing.Color.Black;
+                e.Cell.BackColor = System.Drawing.Color.Gray;
+                e.Cell.Style.Add("cursor", "not-allowed");
                     e.Cell.ToolTip = "Du kan inte boka dessa tider. Det är utanför golfsäsongen.";                  
                 }
                 else
@@ -691,9 +691,9 @@ namespace DSU_g5
                 
             }
         }
-          
 
-        
+
+
 
 
 

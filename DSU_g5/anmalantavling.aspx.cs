@@ -13,22 +13,31 @@ namespace DSU_g5
         tournament selectedTournament;
         string tourQuery;
 
+        public users inloggadUser = new users();
+        public int accessId;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             tourQuery = Request.QueryString["ContentId"];
             //Response.Write("<script>alert('" + tourQuery + "')</script>");
 
+            inloggadUser.idUser = Convert.ToInt32(Session["idUser"]);
+            inloggadUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
+            accessId = Convert.ToInt32(Session["IdAccess"]);
+
+
             if(!IsPostBack)
             {
+                if (accessId != 2 && accessId != 3)
+                {
+                    tourMemberAdmin.Visible = false;
+                    btnRegMemberOnTour.Text = "Boka in mig på tävling";
+                    hfMemberId.Value = Convert.ToString(inloggadUser.fkIdMember);
+                }
 
-                //ddlAllTournaments.Items.Insert(0, "Välj tävling");
+
                 List<tournament> tourList = new List<tournament>();
                 tourList = methods.getTourList();
-
-                //foreach (var item in tourList)
-                //{
-                //    ddlAllTournaments.Items.Add(item);
-                //}
 
 
                 ddlAllTournaments.DataValueField = "id_tournament";
@@ -43,13 +52,9 @@ namespace DSU_g5
                 tour.id_tournament = Convert.ToInt32(tourQuery);
                 hfTourId.Value = tour.id_tournament.ToString();
                 selectedTournament = methods.GetTournament(tour.id_tournament);
-                //lblTournamentInfo.Text = selectedTournament.id_tournament + " " + selectedTournament.tour_name;
                
 
-                //ddlAllTournaments.SelectedIndex = 0;
-                //ddlAllTournaments.SelectedValue = "";
-                //ddlAllTournaments.ClearSelection();
-
+               
                 lbMembersTournament.DataValueField = "mID";
                 lbMembersTournament.DataTextField = "namn";
                 lbMembersTournament.DataSource = methods.showAllMembersForBooking();
@@ -132,12 +137,13 @@ namespace DSU_g5
                     int tourId = Convert.ToInt32(hfTourId.Value);
                     int memId = Convert.ToInt32(hfMemberId.Value);
                     int result = 0;
-
+                    
                     methods.RegMemberOnTour(tourId, memId, result, out message);
 
                     if(message != null)
                     {
                         Response.Write("<script>alert('" + message + "')</script>");
+                        lblConfirmation.Text = "";
                     }
                     else
                     {
