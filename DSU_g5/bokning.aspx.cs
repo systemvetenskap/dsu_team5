@@ -82,6 +82,10 @@ namespace DSU_g5
                 else
                 {
                     member.Visible = false;
+                    lblLoggedInUserId.Visible = false;
+                    lblAnotherMember.Visible = false;
+                    tbBookAnotherMember.Visible = false;
+                    btnBookedByMember.Visible = false;
                 }
             }
 
