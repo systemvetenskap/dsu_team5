@@ -93,14 +93,23 @@ namespace DSU_g5
             if (startCalendar.SelectedDate == DateTime.MinValue || endCalendar.SelectedDate == DateTime.MinValue)
             {
                 Response.Write("<script>alert('Välj till- och från-datum.')</script>");
+            
+            }
+
+            else if (startDate > endDate)
+            {
+                Response.Write("<script>alert('Välj från-datum i vänstra kalendern och till-datum i den högra ')</script>");
             }
             else
             {
+                lblConformation.Text = "Du har lagt till " + startDate.ToShortDateString() + " till " + endDate.ToShortDateString();
                 while (startDate <= endDate)
                 {
                     methods.addSeason(startDate);
                     startDate = startDate.AddDays(1);
+                    
                 }
+                
             }
         }
 
@@ -112,8 +121,13 @@ namespace DSU_g5
             {
                 Response.Write("<script>alert('Välj till- och från-datum.')</script>");
             }
+            else if (startDate > endDate)
+            {
+                Response.Write("<script>alert('Välj från-datum i vänstra kalendern och till-datum i den högra ')</script>");
+            }
             else
             {
+                lblConformation.Text = "Du har tagit bort " + startDate.ToShortDateString() + " till " + endDate.ToShortDateString();
                 while (startDate <= endDate)
                 {
                     methods.removeSeason(startDate, endDate);

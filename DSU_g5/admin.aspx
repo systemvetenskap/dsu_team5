@@ -37,6 +37,8 @@
              </div>
              <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click" Width="121px"/>
              <asp:Button ID="btnRemoveDate" runat="server" Text="Stäng Banan" OnClick ="btnRemoveDate_Click" />
+             <br />
+             <asp:Label ID="lblConformation" runat="server" Text=""></asp:Label>
          </div>
      </section>
 </asp:Content>
