@@ -23,6 +23,8 @@
              <asp:Button ID="removeNews" CSSclass="newsbutton" runat="server" Text="Ta bort nyhet" OnClick="btnRemoveNews_Click" />
              <br />
              <asp:Button ID="btnMailNews" runat="server" Text="Maila nyhetsbrev" Width="199px" OnClick="btnMailNews_Click" />
+              <br />
+             <asp:Label ID="lblConfirmOfInput" CSSclass="newslabel" runat="server" Text="Label" Visible="False"></asp:Label>
          </div>
          <div id="seasons">
              <asp:Label ID="lblSeason" runat="server" Text="Registrera säsong"></asp:Label>

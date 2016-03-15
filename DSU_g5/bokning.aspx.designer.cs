@@ -13,6 +13,15 @@ namespace DSU_g5 {
     public partial class bokning {
         
         /// <summary>
+        /// bokningar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bokningar;
+        
+        /// <summary>
         /// calBokning control.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,51 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Calendar calBokning;
         
         /// <summary>
+        /// bookMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bookMember;
+        
+        /// <summary>
+        /// lblLoggedInUserId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLoggedInUserId;
+        
+        /// <summary>
+        /// lblAnotherMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAnotherMember;
+        
+        /// <summary>
+        /// tbBookAnotherMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbBookAnotherMember;
+        
+        /// <summary>
+        /// btnBookedByMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBookedByMember;
+        
+        /// <summary>
         /// grvBokning control.
         /// </summary>
         /// <remarks>
@@ -29,6 +83,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grvBokning;
+        
+        /// <summary>
+        /// bokningarInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bokningarInfo;
         
         /// <summary>
         /// pBokningarInfo control.
@@ -103,49 +166,22 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Button BtnBookMember;
         
         /// <summary>
-        /// admin control.
+        /// member control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl admin;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl member;
         
         /// <summary>
-        /// BookedByMember control.
+        /// membersGames control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BookedByMember;
-        
-        /// <summary>
-        /// UnBookedByMember control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button UnBookedByMember;
-        
-        /// <summary>
-        /// tbBookAnotherMember control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbBookAnotherMember;
-        
-        /// <summary>
-        /// lblLoggedInUserId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLoggedInUserId;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl membersGames;
         
         /// <summary>
         /// lblGameIdInfo control.
@@ -173,6 +209,24 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInfoAboutGameId;
+        
+        /// <summary>
+        /// UnBookedByMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button UnBookedByMember;
+        
+        /// <summary>
+        /// memberBookedBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl memberBookedBy;
         
         /// <summary>
         /// lblInfoBookedBy control.
