@@ -5,17 +5,21 @@
   color: black;
 }
 
+#form1 {
+  width: 1170px;
+  margin: 0 auto;
+}
+
 #logo {
-  margin-left: 27%;
-  margin-bottom: -10%;
-  width: 45%;
+  margin-left: 23.5%;
+  margin-bottom: -11%;
+  width: 53%;
   height: auto;
   position: relative;
 }
 
 #masterNav {
   overflow: auto;
-  width: 70%;
   margin: auto;
   margin-top: 7%;
   padding-bottom: 51px;
@@ -84,14 +88,19 @@
 
 #pageContent {
   background-color: white;
-  margin: 1% 15% 0% 15%;
+  margin: 1% 0 0% 0;
   padding: 1.5%
 }
 
 footer {
   padding: 2% 0 2% 0;
-  margin: 0% 15%;
   text-align: center;
   color: white;
   background-color: #16171A;
+}
+
+@media only screen and (max-width: 1170px){
+  #form1{
+    width: auto;
+  }	
 }
