@@ -137,6 +137,7 @@ namespace DSU_g5
                         DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
 
                         methods.bookMember(trimDateTime, timeID, memberID, out message);
+                        methods.skickaMailBokningMedlem(trimDateTime, memberID); // johan
 
                         if(message != null)
                         {
