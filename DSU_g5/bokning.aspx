@@ -4,11 +4,26 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
-    <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged" OnDayRender="calBokning_DayRender"></asp:Calendar>
     <br />
-    <div id="bokningar">
+    <div id="bokningar" runat="server">
+        <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged" OnDayRender="calBokning_DayRender"></asp:Calendar>
+        <div id ="bookMember" runat="server">
+            <%-- DIV 1 LBLOGGEDINUSER ID --%>
+            <asp:Label ID="lblLoggedInUserId" runat="server" Text="Inloggad ID"></asp:Label>
+            <br />
+            <br />
+            <asp:Label ID="lblAnotherMember" runat="server" Text="<u>Fyll i MedlemsID nedan</u>"></asp:Label>
+            <br />
+            <%-- DIV 1 TBOOKANOTHERMEMBER --%>
+            <asp:TextBox ID="tbBookAnotherMember" runat="server"></asp:TextBox>
+            <br />
+            <%-- DIV 1 BOOKEDBYMEMBER --%>
+            <asp:Button ID="btnBookedByMember" runat="server" Text="Boka in medlem" OnClick="btnBookedByMember_Click" /> 
+            <br />
+        </div>
         <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
-        <div id="bokningarInfo">
+        <br />
+        <div id="bokningarInfo" runat="server">
             <p id="pBokningarInfo" runat="server"></p>
             <asp:ListBox ID="lbBookedMembers" runat="server" OnSelectedIndexChanged="lbBookedMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
             <br />
@@ -45,39 +60,37 @@
         </div>
     </div>
     <br />
-    <div id="admin" runat="server">
-        <asp:Button ID="BookedByMember" runat="server" Text="Boka in medlem" OnClick="btnBookedByMember_Click" />
-        <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka min bokning" OnClick="btnUnBookedByMember_Click" />
+    <div id="member" runat="server">
         <br />
-        <asp:TextBox ID="tbBookAnotherMember" runat="server"></asp:TextBox>
-
-        <br />
-        <asp:Label ID="lblLoggedInUserId" runat="server" Text="Inloggad ID"></asp:Label>
-        <br />
-        <br />
-        <br />
-        <br />
-        <asp:Label ID="lblGameIdInfo" runat="server" Text="<u>Nedan visas alla dina bokningar</u>"></asp:Label>
-        <br />
-
-        <asp:ListBox ID="lbGamesMemberIsBookedOn" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookedOn_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
-        <br />
-
-        <asp:Label ID="lblInfoAboutGameId" runat="server" Text="Här visas information om den valda bokningen i listan ovan."></asp:Label>
+        <div id="membersGames" runat="server">
+        <%-- DIV 2 LBGAMEIDINFO --%>
+            <asp:Label ID="lblGameIdInfo" runat="server" Text="<u>Mina bokningar</u>"></asp:Label>
+            <br />
+            <%-- DIV 2 LBGAMESMEMBERISBOOKEDON --%>
+            <asp:ListBox ID="lbGamesMemberIsBookedOn" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookedOn_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+            <br />
+            <%-- DIV 2 LBINFOABOUTGAMID --%>
+            <asp:Label ID="lblInfoAboutGameId" runat="server" Text="Här visas information om den valda bokningen i listan ovan."></asp:Label>
+            <br />
+             <%-- DIV 2 UNBOOKEDBYMEMBER --%>
+            <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka min bokning" OnClick="btnUnBookedByMember_Click" />
+            <br />
+        </div>
         <br />
         <br />
-        <br />
-        <br />
-        <asp:Label ID="lblInfoBookedBy" runat="server" Text="<u>Nedan visas alla medlemsbokningar som du är bokningsansvarig för</u>"></asp:Label>
-        <br />
-        <asp:ListBox ID="lbGamesMemberIsBookableBy" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookableBy_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
-        <br />
-        <asp:Label ID="lblBookedByInfoGame" runat="server" Text="Här visas information om det valda gameId:t ovan."></asp:Label>
-        <br />
-        <br />
-        <asp:Button ID="btnUnBookMemberByBookedBy" runat="server" Text="Avboka tid som du är bokningsansvarig för" OnClick="btnUnBookMemberByBookedBy_Click" />
-        <br />
-        <br />
+        <div id="memberBookedBy" runat="server">
+            <%-- DIV 3 LBINFOBOOKEDBY --%>
+            <asp:Label ID="lblInfoBookedBy" runat="server" Text="<u>Nedan visas alla medlemsbokningar som du är bokningsansvarig för</u>"></asp:Label>
+            <br />
+            <%-- DIV 3 LBGAMESMEMBERISBOOKABLEBY --%>
+            <asp:ListBox ID="lbGamesMemberIsBookableBy" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookableBy_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+            <br />
+            <%-- DIV 3 LBLBOOKEDBYINFOGAME --%>
+            <asp:Label ID="lblBookedByInfoGame" runat="server" Text="Här visas information om den valda bokningen ovan."></asp:Label>
+            <br />
+            <%-- DIV 3 BTNUNBOOKMEMBERBYBOOKEDBY --%>
+            <asp:Button ID="btnUnBookMemberByBookedBy" runat="server" Text="Avboka tid" OnClick="btnUnBookMemberByBookedBy_Click" />
+        </div>
     </div>
 
     <asp:HiddenField ID="hfPlaceholderMemberId" runat="server" />
