@@ -41,6 +41,10 @@ namespace DSU_g5
             methods.updateNews(newNews);
             methods.getNewsList();
             populateNewsNameList();
+
+          
+           lblConfirmOfInput.Text = "Uppdatering klar";
+            
         }
 
         protected void btnRemoveNews_Click(object sender, EventArgs e)
