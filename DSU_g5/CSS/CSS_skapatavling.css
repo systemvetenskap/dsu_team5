@@ -52,6 +52,16 @@
     height: 162px;
 }
 
+#registrationTimes:before {
+    display: block;
+    height: 40px;
+    width: auto;
+    padding: 9px 0 0 0;
+    font-size: 24px;
+    text-indent: 15px;
+    content: "Kontaktperson och registreringstider";
+}
+
 #registrationTimes {
     overflow: auto;
     margin: 1% 0 0 0;
