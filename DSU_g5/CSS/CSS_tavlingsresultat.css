@@ -1,0 +1,36 @@
+﻿#navTavlingar a {
+    background-color: #6c7 !important;
+}
+
+#dropdown {
+    margin: 0 0 2% 2%;
+}
+
+#dropdown u {
+    text-decoration: none;
+}
+
+#table {
+    margin: 0 0 3% 2%;
+}
+
+#ContentPlaceHolder1_gvResults {
+    width: 30%;
+}
+
+#ContentPlaceHolder1_gvResults tbody {
+    border: white solid 3px;
+}
+
+#ContentPlaceHolder1_gvResults th {
+    border-right: white solid 3px;
+    text-align: left;
+}
+
+#ContentPlaceHolder1_gvResults tr {
+    border-bottom: lightgrey solid 3px;
+}
+
+#ContentPlaceHolder1_gvResults td {
+    border: none;
+}

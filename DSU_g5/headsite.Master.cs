@@ -57,7 +57,10 @@ namespace DSU_g5
                 {
                     "ASP.admin_aspx",
                     "ASP.medlemsregistrering_aspx",
-                    "ASP.skapatavlingar_aspx"
+                    "ASP.skapatavlingar_aspx",
+                    "ASP.resultat_aspx",
+                    "ASP.skapatavling_aspx",
+                    "ASP.startlistor_aspx"
                 };
 
                 //sidor som besökare kommer åt (publika sidor)
@@ -65,7 +68,8 @@ namespace DSU_g5
                 {
                     "ASP.index_aspx",
                     "ASP.login_aspx",
-                    "ASP.tavlingar_aspx"
+                    "ASP.tavlingar_aspx",
+                    "ASP.tavlingsresultat_aspx"
                 };
 
                 if (g_idAccess == 1) //medlem

@@ -1,4 +1,8 @@
-﻿/*MEDLEM*/
+﻿#navBokning a {
+    background-color: #6c7 !important;
+}
+
+/*MEDLEM*/
 #ContentPlaceHolder1_member{
   overflow: auto;
   padding-left:2%;
