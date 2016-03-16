@@ -83,6 +83,7 @@
     <Content Include="CSS\CSS_medlemssida.css" />
     <Content Include="CSS\CSS_index.css" />
     <Content Include="CSS\CSS_resultat.css" />
+    <Content Include="CSS\CSS_scorekort.css" />
     <Content Include="CSS\CSS_skapatavling.css" />
     <Content Include="CSS\CSS_startlistor.css" />
     <Content Include="CSS\CSS_tavlingar.css" />
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="resultat.aspx" />
+    <Content Include="scorekort.aspx" />
     <Content Include="skapatavling.aspx" />
     <Content Include="startlistor.aspx" />
     <Content Include="tavlingar.aspx" />
@@ -200,6 +202,13 @@
     </Compile>
     <Compile Include="resultat.aspx.designer.cs">
       <DependentUpon>resultat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="scorekort.aspx.cs">
+      <DependentUpon>scorekort.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="scorekort.aspx.designer.cs">
+      <DependentUpon>scorekort.aspx</DependentUpon>
     </Compile>
     <Compile Include="skapatavling.aspx.cs">
       <DependentUpon>skapatavling.aspx</DependentUpon>

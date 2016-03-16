@@ -3408,10 +3408,11 @@ namespace DSU_g5
 
             try
             {
-                sql = "SELECT (first_name ||  ' ' ||  last_name) AS Namn, result AS Resultat "+
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, result AS resultat, hcp "+
                       "FROM member_tournament, member_new "+
                       "WHERE member_tournament.member_id = member_new.id_member "+
-                      "AND tournament_id = "+ gameId +";";
+                      "AND tournament_id = "+ gameId +" "+
+                      "ORDER BY resultat ASC, hcp ASC;";
 
                 conn.Open();
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);

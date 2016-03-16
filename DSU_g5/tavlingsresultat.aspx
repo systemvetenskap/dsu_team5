@@ -16,6 +16,7 @@
                 <Columns>
                     <asp:BoundField DataField="namn" HeaderText="Namn" />
                     <asp:BoundField DataField="resultat" HeaderText="Resultat" />
+                    <asp:BoundField DataField="hcp" HeaderText="Handicap" />
                 </Columns>
             </asp:GridView>
         </div>
