@@ -17,8 +17,9 @@ namespace DSU_g5
             if (!Page.IsPostBack)
             {
                 populateNewsNameList();
-                }
+                
             }
+       }
           
         protected void btnPublish_Click(object sender, EventArgs e)
         {
@@ -28,6 +29,15 @@ namespace DSU_g5
             newNews.newsDate = DateTime.Now;
             methods.addNews(newNews);
             populateNewsNameList();
+
+            if (methods.addNews(newNews) == true)
+            {
+                methods.addNews(newNews);
+              //Response.Write("<script>alert('" + s + "')</script>");
+
+            }
+             
+
          }
 
         protected void btnUpdateNews_Click(object sender, EventArgs e)
@@ -42,8 +52,13 @@ namespace DSU_g5
             methods.getNewsList();
             populateNewsNameList();
 
+
+            if (methods.updateNews(newNews) == true)
+            {
+                methods.updateNews(newNews);
+                lblConfirmOfInput.Text = "Uppdatering klar";
+            }
           
-           lblConfirmOfInput.Text = "Uppdatering klar";
             
         }
 
@@ -53,10 +68,23 @@ namespace DSU_g5
             newNews.newsId = Convert.ToInt32(ddlNewsName.SelectedItem.Value);
             methods.removeNews(newNews);
             populateNewsNameList();
+
+            if (methods.removeNews(newNews) == true)
+            {
+                methods.removeNews(newNews);
+                lblConfirmOfInput.Text = "Nyhet är borttagen";
+            }
+        
         }
 
         protected void ddlNewsName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+                txtNewNews.Visible = false;
+                publishNews.Visible = false;
+            
+            
+            
             DropDownList newsName = (DropDownList)sender;
             ListItem li = newsName.SelectedItem;
             news newNews = new news();
@@ -64,6 +92,9 @@ namespace DSU_g5
            
             newNews = methods.getNews(news_id); 
             textNews.InnerText = newNews.newsInfo;
+           
+
+
         }
              
         public void populateNewsNameList()
@@ -88,6 +119,14 @@ namespace DSU_g5
             string nyhetsbrev = textNews.InnerText;
             string rubrik = ddlNewsName.SelectedItem.ToString();
             methods.SkickaMail(nyhetsbrev, rubrik);
+
+            if (methods.SkickaMail(nyhetsbrev, rubrik) == true)
+            {
+                methods.SkickaMail(nyhetsbrev, rubrik);
+                lblConfirmOfInput.Text = "Nyhetsbrev är sänt till medlemmar";
+            }
+        
+            lblConfirmOfInput.Text = "Nyhet är borttagen";
         }
 
         protected void btnAddSeason_Click(object sender, EventArgs e)
@@ -140,6 +179,14 @@ namespace DSU_g5
             }
 
 
+        }
+
+        protected void txtNewNews_TextChanged(object sender, EventArgs e)
+        {
+            updateNews.Visible = false;
+            removeNews.Visible = false;
+            ddlNewsName.Visible = false;
+            
         }
         //public void fillNews(int news_id)
         //{

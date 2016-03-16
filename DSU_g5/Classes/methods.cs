@@ -1557,8 +1557,9 @@ namespace DSU_g5
             return newsList;
         }
 
-        public static void addNews(news newNews)
+        public static bool addNews(news newNews)
         {
+            bool successfull = false;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction trans = null;
 
@@ -1584,6 +1585,7 @@ namespace DSU_g5
                 command.CommandText = sql;
                 int newsID = Convert.ToInt32(command.ExecuteScalar());
                 trans.Commit();
+                successfull = true;
               
             }
             catch (Exception ex)
@@ -1595,16 +1597,18 @@ namespace DSU_g5
             {
                 conn.Close();
             }
+            return successfull;
         }
 
-        public static void updateNews(news newNews)
+        public static bool updateNews(news newNews)
         {
+            bool successfull = false;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction trans = null;
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = conn;
-          
+
             try
             {
                 string sql = string.Empty;
@@ -1617,18 +1621,19 @@ namespace DSU_g5
                 command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
                 command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
                 command.Parameters.Add(new NpgsqlParameter("newNewsName", NpgsqlDbType.Varchar));
-                command.Parameters["newNewsName"].Value = newNews.newsName;                
+                command.Parameters["newNewsName"].Value = newNews.newsName;
                 command.Parameters.Add(new NpgsqlParameter("newNewsDate", NpgsqlDbType.Date));
-                command.Parameters["newNewsDate"].Value = newNews.newsDate;                
-                
+                command.Parameters["newNewsDate"].Value = newNews.newsDate;
+
                 command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
                 command.Parameters["newNewsId"].Value = newNews.newsId;
 
                 command.CommandText = sql;
                 int news_id = Convert.ToInt32(command.ExecuteScalar());
-               
+
                 trans.Commit();
-               
+                successfull = true;
+
             }
             catch (Exception ex)
             {
@@ -1639,10 +1644,12 @@ namespace DSU_g5
             {
                 conn.Close();
             }
+            return successfull;
         }
 
-        public static void removeNews(news newNews)
+        public static bool removeNews(news newNews)
         {
+            bool successfull = false;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction tran = null;
 
@@ -1662,6 +1669,7 @@ namespace DSU_g5
                 command.CommandText = sql;
                 int news_id = Convert.ToInt32(command.ExecuteScalar());
                 tran.Commit();
+                successfull = true;
             }
             catch (Exception ex)
             {
@@ -1672,6 +1680,7 @@ namespace DSU_g5
             {
                 conn.Close();
             }
+            return successfull;
         }
 
         public static news getNews(int news_id)
@@ -2908,8 +2917,9 @@ namespace DSU_g5
        
         #region skickamail
 
-        public static void SkickaMail(string nyhetsbrev, string rubrik)
+        public static bool SkickaMail(string nyhetsbrev, string rubrik)
         {
+            bool successfull = false;
             #region skicka mail till alla
             //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             //string firstname;
@@ -2967,6 +2977,7 @@ namespace DSU_g5
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
+            successfull = true;
 
             try
             {
@@ -2976,6 +2987,7 @@ namespace DSU_g5
             {
 
             }
+            return successfull;
         }
 
         public static void skickaMailBokningMedlem(DateTime trimDateTime, int memberID)
