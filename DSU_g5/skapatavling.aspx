@@ -120,14 +120,37 @@
             }
 
         function toggleSection(section) {
-            if ($("#ContentPlaceHolder1_hf"+ section +"Folded").text() == "true"){
+            if ($("#ContentPlaceHolder1_hf"+ section +"Folded").val() == "true"){
                 $("#"+ section).show();
-                $("#ContentPlaceHolder1_hf"+ section +"Folded").text("false");
+                $("#ContentPlaceHolder1_hf"+ section +"Folded").val("false");
             }
             else{
                 $("#"+ section).hide();
-                $("#ContentPlaceHolder1_hf"+ section +"Folded").text("true");
+                $("#ContentPlaceHolder1_hf"+ section +"Folded").val("true");
             }
+        }
+
+        function isPostBack(){
+                return document.referrer.indexOf(document.location.href) > -1;
+            }
+
+        if (isPostBack()){
+            if ($("#ContentPlaceHolder1_hfregistrationTimesFolded").val() == "true"){
+                $("#registrationTimes").hide();
+            }
+            else {
+                $("#registrationTimes").show();
+            }
+            if ($("#ContentPlaceHolder1_hfsponsorsFolded").val() == "true"){
+                $("#sponsors").hide();
+            }
+            else {
+                $("#sponsors").show();
+            }
+        }
+        else {
+            toggleSection("registrationTimes");
+            toggleSection("sponsors");
         }
     </script>
 </asp:Content>
