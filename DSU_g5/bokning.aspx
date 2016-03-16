@@ -30,9 +30,9 @@
 
         <div id="bokningarInfo" runat="server">
             <p id="pBokningarInfo" runat="server"></p>
-            <asp:ListBox ID="lbBookedMembers" runat="server" OnSelectedIndexChanged="lbBookedMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+            <asp:ListBox ID="lbBookedMembers" runat="server" OnSelectedIndexChanged="lbBookedMembers_SelectedIndexChanged" AutoPostBack="true" Visible="false"></asp:ListBox>
             <br />
-            <asp:Button ID="BtnDelMemberFromGame" runat="server" Text="Ta bort" OnClick="BtnDelMemberFromGame_Click" />
+            <asp:Button ID="BtnDelMemberFromGame" runat="server" Text="Ta bort" OnClick="BtnDelMemberFromGame_Click" Visible="false"/>
         </div>
     </div>
         <div id="bokningarAdmin" runat="server">
