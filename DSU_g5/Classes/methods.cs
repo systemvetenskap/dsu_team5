@@ -3133,12 +3133,12 @@ namespace DSU_g5
 
             Random r = new Random();
             List<member> newmemberList = new List<member>();
-            string groupstring = "";
+            //string groupstring = "";
             bool keepgoing = true;
             int max = memberList.Count;
             //for (int i = 0; i < max; i++) 
             while (keepgoing == true)
-            { 
+            {
                 
                 int index = r.Next(memberList.Count);
                 member randomMember = (member)memberList[index];
@@ -3151,17 +3151,19 @@ namespace DSU_g5
                 {
                     newmemberList.Add(randomMember);
                 }
-                if (newmemberList.Count == memberList.Count)
+                if (newmemberList.Count == 3 )//memberList.Count
                 {
                     keepgoing = false;
+                    
+
                 }
                 else
                 {
                     keepgoing = true;
-                    for (int i = 0; i < 3; i++)
-                    {
-                        index += r.Next(memberList.Count);
-                    }
+                    //for (int i = 0; i < 3; i++)
+                    //{
+                    //    index += r.Next(memberList.Count);
+                    //}
                   
                 }
 
