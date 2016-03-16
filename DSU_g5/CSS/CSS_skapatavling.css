@@ -1,4 +1,5 @@
-﻿#navAdmin a {
+﻿#navAdmin a:nth-last-child(2),
+#navAdmin #aSkapatavling {
     background-color: #6c7 !important;
 }
 
