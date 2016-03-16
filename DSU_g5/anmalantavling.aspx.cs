@@ -34,6 +34,10 @@ namespace DSU_g5
                     btnRegMemberOnTour.Text = "Boka in mig på tävling";
                     hfMemberId.Value = Convert.ToString(inloggadUser.fkIdMember);
                 }
+                else
+                {
+                    regButton.Attributes.Add("style", "margin-left: 40%");
+                }
 
 
                 List<tournament> tourList = new List<tournament>();

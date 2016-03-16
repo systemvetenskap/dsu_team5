@@ -77,10 +77,15 @@ namespace DSU_g5
                     bokningarAdmin.Visible = false;
                     lbBookedMembers.Visible = false;
                     BtnDelMemberFromGame.Visible = false;
+                    member.Visible = true;
                 }
                 else
                 {
-                    admin.Visible = false;
+                    member.Visible = false;
+                    lblLoggedInUserId.Visible = false;
+                    lblAnotherMember.Visible = false;
+                    tbBookAnotherMember.Visible = false;
+                    btnBookedByMember.Visible = false;
                 }
             }
 
@@ -287,6 +292,7 @@ namespace DSU_g5
             {
                 Response.Write("<script>alert('" + "Du måste fylla i ett medlemsId i fältet." + "')</script>");
             }
+            tbBookAnotherMember.Text = "";
 
         }
 

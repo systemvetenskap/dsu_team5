@@ -1767,7 +1767,7 @@ namespace DSU_g5
             return dt;
         }
 
-           
+
         #endregion NEWS
 
         #region LOGGIN
@@ -2673,7 +2673,96 @@ namespace DSU_g5
             {
                 conn.Close();
             }
-            return resultsList;
+            
+            var newResultList1 = resultsList.OrderBy(x => x.hcp).ToList();
+            member newMember = new member();
+            newMember = methods.getMember(memberId);
+            
+            int gameHcp = methods.getGameHcp(newMember.gender, newMember.hcp);
+            int holeCounter = 0;
+
+            // antal hål att uppdatera d.v.s. vars svårighetsgrad överstiger personlig handikap. 
+            for (int i = 0; i < newResultList1.Count(); i++)
+            {
+                if (newResultList1[i].hcp <= gameHcp)
+                {
+                    holeCounter = holeCounter + 1;
+                }
+            }  
+            
+            // om det finns hållen som är svårare än personlig handikap ska dessa uppdateras så länge det finns extra slag att tilldela
+            int counter = 0;
+            int hcpCounter = gameHcp;
+            if (holeCounter > 0)
+            {
+                // så länge samtliga extra slag är inte förbrukade helt.
+                while (hcpCounter > 0)
+                {
+                    if (newResultList1[counter].hcp <= gameHcp)
+                    {
+                        newResultList1[counter].gamehcp = newResultList1[counter].gamehcp + 1;
+                        // antalet extra slag minskas då är detta förbrukade på föregående raden
+                        hcpCounter = hcpCounter - 1;
+                    }
+                    // om antalet tilldellade
+                    counter = counter + 1;
+                    if (counter == newResultList1.Count())
+                    {
+                        counter = 0;
+                    }
+                }
+            }
+            // om anatalet uppdaterade rader är större än 0 skickas en uppdaterat lista med extra slag på respektive håll  
+            if (holeCounter > 0)
+            {
+                var newResultList2 = newResultList1.OrderBy(x => x.courseId).ToList();
+                return newResultList2;
+            }
+            else
+            {
+                var newResultList2 = resultsList.OrderBy(x => x.courseId).ToList();
+                return newResultList2;
+            }
+        }
+
+        public static int getGameHcp(string gender, double hcp)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            int gameHcp = 0;
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+
+                if (gender == "Male")
+                {
+                    plsql = "SELECT m_gamehcp AS hcp";
+                    plsql = plsql + " FROM slope_male";
+                    plsql = plsql + " WHERE :newHcp BETWEEN m_hcplow AND m_hcphigh;";
+                }
+                else if (gender == "Female")
+                {
+                    plsql = "SELECT f_gamehcp AS hcp";
+                    plsql = plsql + " FROM slope_female";
+                    plsql = plsql + " WHERE :newHcp BETWEEN m_hcplow AND m_hcphigh;";
+                }
+
+                // kontrollen för kön behövs inte då varje registrerad delatager har en kön.  
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newHcp", NpgsqlDbType.Double));
+                command.Parameters["newHcp"].Value = hcp;
+                
+                NpgsqlDataReader dr = command.ExecuteReader();                
+                while (dr.Read())
+                {
+                    gameHcp = dr["hcp"] != DBNull.Value ? (int)(dr["hcp"]) : 0;
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return gameHcp;        
         }
         
         public static bool addResult(List<results> resultsList)
@@ -3014,7 +3103,7 @@ namespace DSU_g5
 
                     System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
                     mail.To.Add(mail2);
-                    mail.From = new MailAddress("halslaget@gmail.com", "bokning", System.Text.Encoding.UTF8);
+                    mail.From = new MailAddress("halslaget@gmail.com", "Tidsbokning hålslaget", System.Text.Encoding.UTF8);
                     mail.Subject = "Bokning av spel på hålslaget";
                     mail.SubjectEncoding = System.Text.Encoding.UTF8;
                     mail.Body = "Hej " + firstname + " " + lastname + " Du har blivit bokad på datum " + trimDateTime;
