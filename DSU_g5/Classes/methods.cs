@@ -681,6 +681,47 @@ namespace DSU_g5
             }
 
         }
+        public static void stangbanan(DateTime startDate, DateTime startTime, DateTime endTime)
+        {
+            string sqlfirst = "";
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            List<game_starts> timesToBook = new List<game_starts>();
+            DateTime d = Convert.ToDateTime(startTime);
+            DateTime e = Convert.ToDateTime(endTime);
+
+            string vadsomhelst = d.ToString("HH:mm");
+            DateTime start = Convert.ToDateTime(vadsomhelst);
+
+            try
+            {
+                sqlfirst = "SELECT time_id FROM game_starts WHERE time_id BETWEEN '" + d + "' AND '" + e + "'";
+                conn.Open();
+                NpgsqlCommand cmdfirst = new NpgsqlCommand(sqlfirst, conn);
+                NpgsqlDataReader drfirst = cmdfirst.ExecuteReader();
+                while (drfirst.Read())
+                {
+                    game_starts manyTimes = new game_starts();
+                    manyTimes.timeId = int.Parse(drfirst["time_id"].ToString());
+                    manyTimes.times = DateTime.Parse(drfirst["times"].ToString());
+                    //DateTime d.ToShortTimeString() = manyTimes.times;
+                    timesToBook.Add(manyTimes);
+                    
+                }
+                conn.Close();
+
+
+
+
+                //sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
+
+                //                    sqlInsToGM = "INSERT INTO game_member (game_id, member_id) VALUES (@gId, @mId)";
+            }
+            catch
+            {
+
+            }
+        }
+                                     
 
         public static void unBookMember(DateTime date, int timeId, int chosenMemberId)
         {

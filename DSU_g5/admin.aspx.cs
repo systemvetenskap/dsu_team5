@@ -121,7 +121,16 @@ namespace DSU_g5
         {
             DateTime startDate = startCalendar.SelectedDate;
             DateTime endDate = endCalendar.SelectedDate;
-            if (startCalendar.SelectedDate == DateTime.MinValue || endCalendar.SelectedDate == DateTime.MinValue)
+
+            if (startCalendar.SelectedDate != DateTime.MinValue && endCalendar.SelectedDate == DateTime.MinValue)
+            {
+                DateTime startTime = DateTime.Parse(txtFrom.Text);
+                DateTime endTime = DateTime.Parse(txtTo.Text);
+                //int startTime = int.Parse(txtFrom.Text);
+                //int endTime = int.Parse(txtTo.Text);
+                methods.stangbanan(startDate, startTime, endTime);
+            }
+            else if (startCalendar.SelectedDate == DateTime.MinValue || endCalendar.SelectedDate == DateTime.MinValue)
             {
                 Response.Write("<script>alert('Välj till- och från-datum.')</script>");
             }

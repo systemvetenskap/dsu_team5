@@ -41,6 +41,9 @@
              <br />
              <asp:Button ID="btnRemoveDate" runat="server" Text="Stäng Banan" OnClick ="btnRemoveDate_Click" />
              <br />
+             <asp:TextBox ID="txtFrom" runat="server"></asp:TextBox> - 
+             <asp:TextBox ID="txtTo" runat="server"></asp:TextBox>
+             <br />
              <asp:Label ID="lblConformation" runat="server" Text=""></asp:Label>
          </div>
      </section>

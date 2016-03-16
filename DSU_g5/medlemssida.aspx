@@ -24,7 +24,7 @@
             <asp:TextBox ID="tbAddress" CssClass="membertextbox" runat="server"></asp:TextBox>
             <br />
             <asp:Label ID="lbPostalCode" CssClass="memberlabel" runat="server" Text="Postkod"></asp:Label>
-            <asp:TextBox ID="tbPostalCode" CssClass="membertextbox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="tbPostalCode" CssClass="membertextbox" runat="server" MaxLength="5" input type ="number"></asp:TextBox>
             <br />
             <asp:Label ID="lbCity" CssClass="memberlabel" runat="server" Text="Stad"></asp:Label>
             <asp:TextBox ID="tbCity" CssClass="membertextbox" runat="server"></asp:TextBox>

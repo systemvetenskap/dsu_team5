@@ -10,5 +10,9 @@ namespace DSU_g5
         public int timeId { get; set; }
 
         public DateTime times { get; set; }
+        public override string ToString()
+        {
+            return times.ToShortTimeString();
+        }
     }
 }

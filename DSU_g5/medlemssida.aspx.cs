@@ -65,6 +65,7 @@ namespace DSU_g5
             ddlAccessCategory.Visible = false;
             lbPayment.Visible = false;
             cbPayment.Visible = false;
+            btRemove.Visible = false;
         }
 
         protected void btSave_Click(object sender, EventArgs e)
@@ -122,7 +123,8 @@ namespace DSU_g5
             if (methods.modifyMember(newMember, newUser) == true)
             {
                 populateMember(newMember.memberId);
-                lbUserMessage.Text = "Uppdatering klar";
+                //lbUserMessage.Text = "Uppdatering klar";
+                Response.Write("<script>alert('Uppdatering klar')</script>");
             }
         }
 
