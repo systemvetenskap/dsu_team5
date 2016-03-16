@@ -3333,7 +3333,35 @@ namespace DSU_g5
 
         #endregion
 
+        //hämta datatable med tävlingsresultat
+        public static DataTable getResultsTable(int gameId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
+            string sql;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS Namn, result AS Resultat "+
+                      "FROM member_tournament, member_new "+
+                      "WHERE member_tournament.member_id = member_new.id_member "+
+                      "AND tournament_id = "+ gameId +";";
+
+                conn.Open();
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt;
+        }
       
     }
 }

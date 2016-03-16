@@ -8,7 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>    
     <div id ="tournamentInfo" runat="server">
-        <asp:Label ID="lblAllTournaments" runat="server" Text="<u>Välja en tävling nedan</u>"></asp:Label>
+        <asp:Label ID="lblAllTournaments" runat="server" Text="<u>Välj en tävling nedan</u>"></asp:Label>
         <br />
         <asp:DropDownList ID="ddlAllTournaments" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAllTournaments_SelectedIndexChanged"></asp:DropDownList>
         <br />

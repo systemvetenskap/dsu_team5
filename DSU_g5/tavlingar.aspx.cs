@@ -172,6 +172,12 @@ namespace DSU_g5
 
             ////Response.Redirect("anmalantavling.aspx");
         }
+
+        protected void btnResults_Command(object sender, CommandEventArgs e)
+        {
+            string pageID = e.CommandArgument.ToString();
+            Response.Redirect("tavlingsresultat.aspx?ContentId=" + pageID);
+        }
     }
 }
 

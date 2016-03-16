@@ -57,8 +57,11 @@
                     <li id="navAdmin" runat="server">
                         <a href="/admin.aspx">Administration</a>
                         <ul class="subMenu">
-                            <li><a href="/skapatavling.aspx">Skapa tävling</a></li>
-                            <li><a href="/medlemsregistrering.aspx">Medlemsreg.</a></li>
+                            <li><a id="aMedlemsregistrering" href="/medlemsregistrering.aspx">Medlemsreg.</a></li>
+                            <li><a id="aSkapatavling" href="/skapatavling.aspx">Skapa tävling</a></li>
+                            <li><a id="aAnmalantavling" href="/anmalantavling.aspx">Tävlingsanmälan</a></li>
+                            <li><a id="aStartlistor" href="/startlistor.aspx">Startlistor</a></li>
+                            <li><a id="aResultat" href="/resultat.aspx">Resultatreg.</a></li>
                         </ul>
                     </li>
                     <!--<li>
