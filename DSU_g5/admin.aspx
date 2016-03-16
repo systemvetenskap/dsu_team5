@@ -4,10 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <section id="adminsida">
-         <div id="news">
+         <div id="newsdiv" >
              <asp:Label ID="lblNewNews" CSSclass="newslabel" runat="server" Text="Lägg till nyhet"></asp:Label>
              <br />
-             <asp:TextBox ID="txtNewNews" CSSclass="newstextbox" runat="server">Nyhetsnamn</asp:TextBox>
+             <asp:TextBox ID="txtNewNews" CSSclass="newstextbox" runat="server" AutoPostBack="true" OnTextChanged="txtNewNews_TextChanged"></asp:TextBox>
              <br />
              <asp:Label ID="lblUpdateNews" CSSclass="newslabel" runat="server" Text="Uppdatera nyhet"></asp:Label>
              <br />
@@ -24,7 +24,6 @@
              <br />
              <asp:Button ID="btnMailNews" runat="server" Text="Maila nyhetsbrev" Width="199px" OnClick="btnMailNews_Click" />
               <br />
-             <asp:Label ID="lblConfirmOfInput" CSSclass="newslabel" runat="server" Text="Label" Visible="False"></asp:Label>
          </div>
          <div id="seasons">
              <asp:Label ID="lblSeason" runat="server" Text="Registrera säsong"></asp:Label>

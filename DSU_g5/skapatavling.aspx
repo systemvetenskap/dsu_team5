@@ -42,6 +42,7 @@
                 <asp:TextBox ID="tbEndTime" runat="server" Text=":"></asp:TextBox>
             </div>
         </div>
+        <div id="regTimesFold" class="foldable" onclick="$('#registrationTimes').toggle()"><p>Kontaktperson & registreringstider</p></div>
         <div id="registrationTimes">
             <div id="contact">
                 <asp:Label ID="lblContactPerson" runat="server" Text="Kontaktperson"></asp:Label>
@@ -65,6 +66,7 @@
                 <asp:Calendar ID="calPublishList" runat="server"></asp:Calendar>
             </div>
         </div>
+        <div id="sponsorsFold" class="foldable" onclick="$('#sponsors').toggle()"><p>Sponsorer</p></div>
         <div id="sponsors">
             <div id="sponsors_1">
                 <asp:Label ID="lblSponsors" runat="server" Text="Sponsorer"></asp:Label>
@@ -113,6 +115,9 @@
                         $("#ContentPlaceHolder1_lbContactPerson option:eq(" + i + ")").show();
                     }
                 }
-            }                
+            }
+
+            $('#registrationTimes').hide()
+            $('#sponsors').hide()
     </script>
 </asp:Content>

@@ -5,12 +5,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 <h2 id="headline_1" class="headline">Tävlingar</h2>
-    <p class="post-info">Senast uppdaterad 2015-10-25</p>
        <div class="dropdown">               
                <asp:DropDownList ID="ddlTourName" CSSclass="newsddl" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlTourName_SelectedIndexChanged" Visible="False"></asp:DropDownList>              
        </div>
        <div id="tournament">
-           <div id="tournamentSort">
+          <%-- <div id="tournamentSort">
                <div id="startDate">
                    <asp:Label ID="lblStartDateTour" runat="server" Text="Visa nyheter från:"></asp:Label>
                    <asp:DropDownList ID="ddlStartYear" runat="server"></asp:DropDownList>
@@ -22,7 +21,7 @@
                    <asp:DropDownList ID="ddlEndMonth" runat="server"></asp:DropDownList>
                </div>
                <asp:Button ID="btnTourSort" runat="server" Text="Sök" OnClick="btnTourSort_Click" />
-           </div>
+           </div>--%>
            <asp:Repeater ID="RepeaterTour" runat="server">
                <ItemTemplate>
                    <div class="TourItem">
@@ -33,6 +32,7 @@
                        <%--<asp:Label ID="lblTest" runat="server" Text="xxxx"></asp:Label>--%>
 
                        <asp:Button ID="btnRegister" runat="server" Text="Anmäl" onCommand="btnRegister_Click" CommandArgument='<%# Eval("id_tournament")%>'/>
+                       <asp:Button ID="btnResults" runat="server" Text="Visa resultat" onCommand="btnResults_Command" CommandArgument='<%# Eval("id_tournament")%>'/>
                    </div>
                </ItemTemplate>
            </asp:Repeater>

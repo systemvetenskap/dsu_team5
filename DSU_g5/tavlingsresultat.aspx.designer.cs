@@ -10,24 +10,33 @@
 namespace DSU_g5 {
     
     
-    public partial class tavlingar {
+    public partial class tavlingsresultat {
         
         /// <summary>
-        /// ddlTourName control.
+        /// lblAllTournaments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTourName;
+        protected global::System.Web.UI.WebControls.Label lblAllTournaments;
         
         /// <summary>
-        /// RepeaterTour control.
+        /// ddlAllTournaments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterTour;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAllTournaments;
+        
+        /// <summary>
+        /// gvResults control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvResults;
     }
 }

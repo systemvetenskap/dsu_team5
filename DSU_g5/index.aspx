@@ -5,7 +5,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">      
     <h2 id="headline_1" class="headline">Nyheter</h2>
-    <p class="post-info">Senast uppdaterad 2015-10-25</p>
        <!--<div class="dropdown">               
                <asp:DropDownList ID="ddlNewsName" CSSclass="newsddl" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlNewsName_SelectedIndexChanged"></asp:DropDownList>              
        </div>-->

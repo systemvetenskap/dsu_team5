@@ -3,10 +3,12 @@
     <link href="CSS/CSS_bokning.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-    <br />
+
     <div id="bokningar" runat="server">
-        <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged" OnDayRender="calBokning_DayRender"></asp:Calendar>
+        <div id="calenderDiv">
+            <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged" OnDayRender="calBokning_DayRender"></asp:Calendar>
+        </div>
+
         <div id ="bookMember" runat="server">
             <%-- DIV 1 LBLOGGEDINUSER ID --%>
             <asp:Label ID="lblLoggedInUserId" runat="server" Text="Inloggad ID"></asp:Label>
@@ -21,24 +23,32 @@
             <asp:Button ID="btnBookedByMember" runat="server" Text="Boka in medlem" OnClick="btnBookedByMember_Click" /> 
             <br />
         </div>
-        <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
-        <br />
+
+        <div id ="gridViewTider" runat="server">
+            <asp:GridView ID="grvBokning" runat="server" OnDataBound="grvBokning_DataBound"></asp:GridView>
+        </div>
+
         <div id="bokningarInfo" runat="server">
             <p id="pBokningarInfo" runat="server"></p>
-            <asp:ListBox ID="lbBookedMembers" runat="server" OnSelectedIndexChanged="lbBookedMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+            <asp:ListBox ID="lbBookedMembers" runat="server" OnSelectedIndexChanged="lbBookedMembers_SelectedIndexChanged" AutoPostBack="true" Visible="false"></asp:ListBox>
             <br />
-            <asp:Button ID="BtnDelMemberFromGame" runat="server" Text="Ta bort" OnClick="BtnDelMemberFromGame_Click" />
+            <asp:Button ID="BtnDelMemberFromGame" runat="server" Text="Ta bort" OnClick="BtnDelMemberFromGame_Click" Visible="false"/>
         </div>
+    </div>
         <div id="bokningarAdmin" runat="server">
             <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-            <asp:ListBox ID="lbAllMembers" runat="server" Rows="10" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+            <div id="listBoxMedlemar">
+                <asp:ListBox ID="lbAllMembers" runat="server" Rows="10" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+            </div>
             <br />
-            <asp:Label ID="lblSearchMember" runat="server" Text="Sök på medlem i fältet nedan:"></asp:Label>
-            <br />
-            <asp:TextBox ID="tbSearchMember" runat="server"></asp:TextBox>
-            <br />
-            <asp:Button ID="BtnBookMember" runat="server" Text="Boka medlem" OnClick="BtnBookMember_Click" />
-            
+            <div id="searchMember">
+                <asp:Label ID="lblSearchMember" runat="server" Text="Sök på medlem i fältet nedan:"></asp:Label>
+                <br />
+                <asp:TextBox ID="tbSearchMember" runat="server"></asp:TextBox>
+                <br />
+                <asp:Button ID="BtnBookMember" runat="server" Text="Boka medlem" OnClick="BtnBookMember_Click" />
+            </div>
+
             <script>
                 document.getElementById("ContentPlaceHolder1_tbSearchMember").addEventListener("input", ListBoxFilter);
                 function ListBoxFilter() {
@@ -58,7 +68,6 @@
             </script>
 
         </div>
-    </div>
     <br />
     <div id="member" runat="server">
         <br />
@@ -80,7 +89,7 @@
         <br />
         <div id="memberBookedBy" runat="server">
             <%-- DIV 3 LBINFOBOOKEDBY --%>
-            <asp:Label ID="lblInfoBookedBy" runat="server" Text="<u>Nedan visas alla medlemsbokningar som du är bokningsansvarig för</u>"></asp:Label>
+            <asp:Label ID="lblInfoBookedBy" runat="server" Text="<u>Alla medlemsbokningar som du är bokningsansvarig för</u>"></asp:Label>
             <br />
             <%-- DIV 3 LBGAMESMEMBERISBOOKABLEBY --%>
             <asp:ListBox ID="lbGamesMemberIsBookableBy" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookableBy_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>

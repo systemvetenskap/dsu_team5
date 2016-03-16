@@ -41,68 +41,68 @@ namespace DSU_g5
         protected void populateNewsSortDropdowns()
         {
             //år
-            int thisYear = Convert.ToInt32(DateTime.Now.Year);
-            int firstYear = 2010;
-            List<int> years = new List<int>();
+            //int thisYear = Convert.ToInt32(DateTime.Now.Year);
+            //int firstYear = 2010;
+            //List<int> years = new List<int>();
 
-            for (int i = firstYear; i <= thisYear; i++)
-            {
-                years.Add(i);
-            }
+            //for (int i = firstYear; i <= thisYear; i++)
+            //{
+            //    years.Add(i);
+            //}
 
-            years.Sort((y, x) => x.CompareTo(y));
-            ddlStartYear.DataSource = years;
-            ddlStartYear.DataBind();
-            ddlEndYear.DataSource = years;
-            ddlEndYear.DataBind();
+            //years.Sort((y, x) => x.CompareTo(y));
+            //ddlStartYear.DataSource = years;
+            //ddlStartYear.DataBind();
+            //ddlEndYear.DataSource = years;
+            //ddlEndYear.DataBind();
 
-            //månader
-            List<string> months = new List<string> 
-            {
-                "Januari",
-                "Februari",
-                "Mars",
-                "April",
-                "Maj",
-                "Juni",
-                "Juli",
-                "Augusti",
-                "September",
-                "Oktober",
-                "November",
-                "December"
-            };
+            ////månader
+            //List<string> months = new List<string> 
+            //{
+            //    "Januari",
+            //    "Februari",
+            //    "Mars",
+            //    "April",
+            //    "Maj",
+            //    "Juni",
+            //    "Juli",
+            //    "Augusti",
+            //    "September",
+            //    "Oktober",
+            //    "November",
+            //    "December"
+            //};
 
-            ddlStartMonth.DataSource = months;
-            ddlStartMonth.DataBind();
-            ddlEndMonth.DataSource = months;
-            ddlEndMonth.DataBind();
+            //ddlStartMonth.DataSource = months;
+            //ddlStartMonth.DataBind();
+            //ddlEndMonth.DataSource = months;
+            //ddlEndMonth.DataBind();
         }
         protected void btnTourSort_Click(object sender, EventArgs e)
         {
-            string startYear = ddlStartYear.Text;
-            string endYear = ddlEndYear.Text;
-            string em = ddlEndMonth.Text;
+            //string startYear = ddlStartYear.Text;
+            //string endYear = ddlEndYear.Text;
+            //string em = ddlEndMonth.Text;
 
-            string startDate = startYear + "-" + (ddlStartMonth.SelectedIndex + 1).ToString().PadLeft(2, '0') + "-01";
-            string endDate = endYear + "-" + (ddlEndMonth.SelectedIndex + 1).ToString().PadLeft(2, '0');
+            //string startDate = startYear + "-" + (ddlStartMonth.SelectedIndex + 1).ToString().PadLeft(2, '0') + "-01";
+            //string endDate = endYear + "-" + (ddlEndMonth.SelectedIndex + 1).ToString().PadLeft(2, '0');
 
-            if (em == "Februari")
-            {
-                endDate += "-28";
-            }
-            else if (em == "April" || em == "Juni" || em == "September" || em == "November")
-            {
-                endDate += "-31";
-            }
-            else
-            {
-                endDate += "-30";
-            }
+            //if (em == "Februari")
+            //{
+            //    endDate += "-28";
+            //}
+            //else if (em == "April" || em == "Juni" || em == "September" || em == "November")
+            //{
+            //    endDate += "-31";
+            //}
+            //else
+            //{
+            //    endDate += "-30";
+            //}
 
-            DataTable dt = methods.getTourByDates(startDate, endDate);
-            RepeaterTour.DataSource = dt;
-            RepeaterTour.DataBind();
+            //DataTable dt = methods.getTourByDates(startDate, endDate);
+            //RepeaterTour.DataSource = dt;
+            //RepeaterTour.DataBind();
         }
 
         protected void btnRegister_Click(object sender, CommandEventArgs e)
@@ -171,6 +171,12 @@ namespace DSU_g5
             ////Response.Write("<script>alert('" + s + "')</script>");
 
             ////Response.Redirect("anmalantavling.aspx");
+        }
+
+        protected void btnResults_Command(object sender, CommandEventArgs e)
+        {
+            string pageID = e.CommandArgument.ToString();
+            Response.Redirect("tavlingsresultat.aspx?ContentId=" + pageID);
         }
     }
 }

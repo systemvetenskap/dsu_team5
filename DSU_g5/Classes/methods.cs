@@ -1598,8 +1598,9 @@ namespace DSU_g5
             return newsList;
         }
 
-        public static void addNews(news newNews)
+        public static bool addNews(news newNews)
         {
+            bool successfull = false;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction trans = null;
 
@@ -1625,6 +1626,7 @@ namespace DSU_g5
                 command.CommandText = sql;
                 int newsID = Convert.ToInt32(command.ExecuteScalar());
                 trans.Commit();
+                successfull = true;
               
             }
             catch (Exception ex)
@@ -1636,16 +1638,18 @@ namespace DSU_g5
             {
                 conn.Close();
             }
+            return successfull;
         }
 
-        public static void updateNews(news newNews)
+        public static bool updateNews(news newNews)
         {
+            bool successfull = false;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction trans = null;
 
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = conn;
-          
+
             try
             {
                 string sql = string.Empty;
@@ -1658,18 +1662,19 @@ namespace DSU_g5
                 command.Parameters.Add(new NpgsqlParameter("newNewsInfo", NpgsqlDbType.Varchar));
                 command.Parameters["newNewsInfo"].Value = newNews.newsInfo;
                 command.Parameters.Add(new NpgsqlParameter("newNewsName", NpgsqlDbType.Varchar));
-                command.Parameters["newNewsName"].Value = newNews.newsName;                
+                command.Parameters["newNewsName"].Value = newNews.newsName;
                 command.Parameters.Add(new NpgsqlParameter("newNewsDate", NpgsqlDbType.Date));
-                command.Parameters["newNewsDate"].Value = newNews.newsDate;                
-                
+                command.Parameters["newNewsDate"].Value = newNews.newsDate;
+
                 command.Parameters.Add(new NpgsqlParameter("newNewsId", NpgsqlDbType.Integer));
                 command.Parameters["newNewsId"].Value = newNews.newsId;
 
                 command.CommandText = sql;
                 int news_id = Convert.ToInt32(command.ExecuteScalar());
-               
+
                 trans.Commit();
-               
+                successfull = true;
+
             }
             catch (Exception ex)
             {
@@ -1680,10 +1685,12 @@ namespace DSU_g5
             {
                 conn.Close();
             }
+            return successfull;
         }
 
-        public static void removeNews(news newNews)
+        public static bool removeNews(news newNews)
         {
+            bool successfull = false;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlTransaction tran = null;
 
@@ -1703,6 +1710,7 @@ namespace DSU_g5
                 command.CommandText = sql;
                 int news_id = Convert.ToInt32(command.ExecuteScalar());
                 tran.Commit();
+                successfull = true;
             }
             catch (Exception ex)
             {
@@ -1713,6 +1721,7 @@ namespace DSU_g5
             {
                 conn.Close();
             }
+            return successfull;
         }
 
         public static news getNews(int news_id)
@@ -3038,8 +3047,9 @@ namespace DSU_g5
        
         #region skickamail
 
-        public static void SkickaMail(string nyhetsbrev, string rubrik)
+        public static bool SkickaMail(string nyhetsbrev, string rubrik)
         {
+            bool successfull = false;
             #region skicka mail till alla
             //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             //string firstname;
@@ -3097,6 +3107,7 @@ namespace DSU_g5
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
+            successfull = true;
 
             try
             {
@@ -3106,6 +3117,7 @@ namespace DSU_g5
             {
 
             }
+            return successfull;
         }
 
         public static void skickaMailBokningMedlem(DateTime trimDateTime, int memberID)
@@ -3263,30 +3275,42 @@ namespace DSU_g5
 
             Random r = new Random();
             List<member> newmemberList = new List<member>();
+            //string groupstring = "";
             bool keepgoing = true;
             int max = memberList.Count;
             //for (int i = 0; i < max; i++) 
             while (keepgoing == true)
             {
+                
                 int index = r.Next(memberList.Count);
                 member randomMember = (member)memberList[index];
                 if (newmemberList.Contains(randomMember) == true)
                 {
-
+                    
+                    
                 }
                 else
                 {
                     newmemberList.Add(randomMember);
                 }
-                if (newmemberList.Count == memberList.Count)
+                if (newmemberList.Count == 3 )//memberList.Count
                 {
                     keepgoing = false;
+                    
+
                 }
                 else
                 {
                     keepgoing = true;
+                    //for (int i = 0; i < 3; i++)
+                    //{
+                    //    index += r.Next(memberList.Count);
+                    //}
+                  
                 }
+
             }
+            
 
             return newmemberList;
 
@@ -3374,7 +3398,35 @@ namespace DSU_g5
 
         #endregion
 
+        //hämta datatable med tävlingsresultat
+        public static DataTable getResultsTable(int gameId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
 
+            string sql;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS Namn, result AS Resultat "+
+                      "FROM member_tournament, member_new "+
+                      "WHERE member_tournament.member_id = member_new.id_member "+
+                      "AND tournament_id = "+ gameId +";";
+
+                conn.Open();
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt;
+        }
       
     }
 }
