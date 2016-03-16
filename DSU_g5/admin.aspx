@@ -7,7 +7,7 @@
          <div id="newsdiv" >
              <asp:Label ID="lblNewNews" CSSclass="newslabel" runat="server" Text="Lägg till nyhet"></asp:Label>
              <br />
-             <asp:TextBox ID="txtNewNews" CSSclass="newstextbox" runat="server" AutoPostBack="true" OnTextChanged="txtNewNews_TextChanged">Nyhetsnamn</asp:TextBox>
+             <asp:TextBox ID="txtNewNews" CSSclass="newstextbox" runat="server" AutoPostBack="true" OnTextChanged="txtNewNews_TextChanged"></asp:TextBox>
              <br />
              <asp:Label ID="lblUpdateNews" CSSclass="newslabel" runat="server" Text="Uppdatera nyhet"></asp:Label>
              <br />

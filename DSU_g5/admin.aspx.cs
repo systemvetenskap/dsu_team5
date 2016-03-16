@@ -33,7 +33,7 @@ namespace DSU_g5
 
             //    methods.addNews(newNews);
                 Response.Write("<script>alert('Publicering klar')</script>");
-                txtNewNews.Text = "";
+                txtNewNews.Text = string.Empty;
                 updateNews.Visible = true;
                 removeNews.Visible = true;
                 ddlNewsName.Visible = true;
@@ -51,7 +51,11 @@ namespace DSU_g5
             methods.getNewsList();
             populateNewsNameList();
 
-
+            txtNewNews.Text = string.Empty;
+            updateNews.Visible = true;
+            removeNews.Visible = true;
+            ddlNewsName.Visible = true;
+            lblUpdateNews.Visible = true;
             //if (methods.updateNews(newNews) == true)
             //{
             //    methods.updateNews(newNews);
@@ -70,6 +74,11 @@ namespace DSU_g5
             //    methods.removeNews(newNews);
                 Response.Write("<script>alert('Nyhet är borttagen')</script>");
             //}
+                txtNewNews.Text = string.Empty;
+                updateNews.Visible = true;
+                removeNews.Visible = true;
+                ddlNewsName.Visible = true;
+                lblUpdateNews.Visible = true;
         }
         protected void btnMailNews_Click(object sender, EventArgs e)
         {
@@ -82,6 +91,11 @@ namespace DSU_g5
                 methods.SkickaMail(nyhetsbrev, rubrik);
                 Response.Write("<script>alert('Nyhetsbrev är sänt till medlemmar')</script>");
             //}
+                txtNewNews.Text = "";
+                updateNews.Visible = true;
+                removeNews.Visible = true;
+                ddlNewsName.Visible = true;
+                lblUpdateNews.Visible = true;
         }
         protected void btnAddSeason_Click(object sender, EventArgs e)
         {
@@ -162,7 +176,7 @@ namespace DSU_g5
         protected void ddlNewsName_SelectedIndexChanged(object sender, EventArgs e)
         {
             
-            txtNewNews.Visible = false;
+            
             publishNews.Visible = false;
             lblNewNews.Visible = false;
             
@@ -174,6 +188,7 @@ namespace DSU_g5
            
             newNews = methods.getNews(news_id); 
             textNews.InnerText = newNews.newsInfo;
+            txtNewNews.Text = newNews.newsName;
            
 
 
