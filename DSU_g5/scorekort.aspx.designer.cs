@@ -13,6 +13,15 @@ namespace DSU_g5 {
     public partial class scorekort {
         
         /// <summary>
+        /// lblslagkort control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblslagkort;
+        
+        /// <summary>
         /// lbl1 control.
         /// </summary>
         /// <remarks>
@@ -202,13 +211,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl11;
         
         /// <summary>
-        /// TextBox2 control.
+        /// tbx11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox tbx11;
         
         /// <summary>
         /// lbl12 control.
@@ -220,13 +229,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl12;
         
         /// <summary>
-        /// TextBox3 control.
+        /// txb12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox txb12;
         
         /// <summary>
         /// lbl13 control.
@@ -238,13 +247,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl13;
         
         /// <summary>
-        /// TextBox4 control.
+        /// tbx13 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox tbx13;
         
         /// <summary>
         /// lbl14 control.
@@ -256,13 +265,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl14;
         
         /// <summary>
-        /// TextBox5 control.
+        /// tbx14 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox5;
+        protected global::System.Web.UI.WebControls.TextBox tbx14;
         
         /// <summary>
         /// lbl15 control.
@@ -274,13 +283,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl15;
         
         /// <summary>
-        /// TextBox6 control.
+        /// txb15 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox6;
+        protected global::System.Web.UI.WebControls.TextBox txb15;
         
         /// <summary>
         /// lbl16 control.
@@ -292,13 +301,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl16;
         
         /// <summary>
-        /// TextBox7 control.
+        /// txb17 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox7;
+        protected global::System.Web.UI.WebControls.TextBox txb17;
         
         /// <summary>
         /// lbl17 control.
@@ -310,13 +319,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl17;
         
         /// <summary>
-        /// TextBox8 control.
+        /// tbx17 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox8;
+        protected global::System.Web.UI.WebControls.TextBox tbx17;
         
         /// <summary>
         /// lbl18 control.
@@ -328,12 +337,12 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl18;
         
         /// <summary>
-        /// TextBox9 control.
+        /// tbx18 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox9;
+        protected global::System.Web.UI.WebControls.TextBox tbx18;
     }
 }

@@ -5,7 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>
         <div id="tries1-9">
-
+            <asp:Label ID="lblslagkort" runat="server" Text="Slagkort"></asp:Label>
+            <br />
             <asp:Label ID="lbl1" runat="server" Text="Hål 1"></asp:Label>
             <asp:TextBox ID="txb1" runat="server"></asp:TextBox>
             <br />
@@ -39,29 +40,29 @@
             <asp:Label ID="lbl10" runat="server" Text="Hål 10"></asp:Label>
             <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbl11" runat="server" Text="Hål 2"></asp:Label>
-            <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+            <asp:Label ID="lbl11" runat="server" Text="Hål 11"></asp:Label>
+            <asp:TextBox ID="tbx11" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbl12" runat="server" Text="Hål 3"></asp:Label>
-            <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+            <asp:Label ID="lbl12" runat="server" Text="Hål 12"></asp:Label>
+            <asp:TextBox ID="txb12" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbl13" runat="server" Text="Hål 4"></asp:Label>
-            <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+            <asp:Label ID="lbl13" runat="server" Text="Hål 13"></asp:Label>
+            <asp:TextBox ID="tbx13" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbl14" runat="server" Text="Hål 5"></asp:Label>
-            <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+            <asp:Label ID="lbl14" runat="server" Text="Hål 14"></asp:Label>
+            <asp:TextBox ID="tbx14" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbl15" runat="server" Text="Hål 6"></asp:Label>
-            <asp:TextBox ID="TextBox6" runat="server"></asp:TextBox>
+            <asp:Label ID="lbl15" runat="server" Text="Hål 15"></asp:Label>
+            <asp:TextBox ID="txb15" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbl16" runat="server" Text="Hål 7"></asp:Label>
-            <asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
+            <asp:Label ID="lbl16" runat="server" Text="Hål 16"></asp:Label>
+            <asp:TextBox ID="txb17" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbl17" runat="server" Text="Hål 8"></asp:Label>
-            <asp:TextBox ID="TextBox8" runat="server"></asp:TextBox>
+            <asp:Label ID="lbl17" runat="server" Text="Hål 17"></asp:Label>
+            <asp:TextBox ID="tbx17" runat="server"></asp:TextBox>
             <br />
             <asp:Label ID="lbl18" runat="server" Text="Hål 18"></asp:Label>
-            <asp:TextBox ID="TextBox9" runat="server"></asp:TextBox>
+            <asp:TextBox ID="tbx18" runat="server"></asp:TextBox>
             <br />
 
             </div>
