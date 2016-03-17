@@ -7,6 +7,11 @@
     <meta charset ="utf-8" />
     <title>Hålslaget GK - Vi slår hål på golfetablissemanget</title>
     <link href="CSS/CSS_main.css" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="JavaScript/datepicker-sv.js"></script>
+    <script src="JavaScript/JS_main.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

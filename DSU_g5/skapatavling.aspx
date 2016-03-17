@@ -1,11 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="skapatavling.aspx.cs" Inherits="DSU_g5.skapatavling" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/CSS_skapatavling.css" rel="stylesheet" />
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <h2>Skapa tävling</h2>
     <section>
-        <h2>Skapa tävling</h2>
         <div id="tournamentInfo">
             <div id="info">
                 <asp:Label ID="lblName" runat="server" Text="Tävlingens namn"></asp:Label>
@@ -29,17 +28,17 @@
         <div id="tournamentTimes">
             <div id="date">
                 <asp:Label ID="lblDate" runat="server" Text="Tävlingens datum"></asp:Label>
-                <asp:Calendar ID="calDate" runat="server"></asp:Calendar>
-            </div>
-            <div id="time">
-                <asp:Label ID="lblStartTime" runat="server" Text="Starttid (00:00)"></asp:Label>
-                <br />
-                <asp:TextBox ID="tbStartTime" runat="server" Text=":"></asp:TextBox>
-                <br />
-                <br />
-                <asp:Label ID="lblEndTime" runat="server" Text="Sluttid (00:00)"></asp:Label>
-                <br />
-                <asp:TextBox ID="tbEndTime" runat="server" Text=":"></asp:TextBox>
+                <asp:TextBox ID="tbDateCal" CssClass="calendar" runat="server"></asp:TextBox>
+                <div id="time">
+                    <asp:Label ID="lblStartTime" runat="server" Text="Starttid (00:00)"></asp:Label>
+                    <br />
+                    <asp:TextBox ID="tbStartTime" runat="server" Text=":"></asp:TextBox>
+                    <br />
+                    <br />
+                    <asp:Label ID="lblEndTime" runat="server" Text="Sluttid (00:00)"></asp:Label>
+                    <br />
+                    <asp:TextBox ID="tbEndTime" runat="server" Text=":"></asp:TextBox>
+                </div>
             </div>
         </div>
         <div id="regTimesFold" class="foldable" onclick="toggleSection('registrationTimes')"><p>Kontaktperson & registreringstider</p></div>
@@ -55,15 +54,15 @@
             </div>
             <div>
                 <asp:Label ID="lblRegStart" runat="server" Text="Första registreringsdatum"></asp:Label>
-                <asp:Calendar ID="calRegStart" runat="server"></asp:Calendar>
+                <asp:TextBox ID="tbRegStartCal" CssClass="calendar" runat="server"></asp:TextBox>
             </div>
             <div>
                 <asp:Label ID="lblRegEnd" runat="server" Text="Sista registreringsdatum"></asp:Label>
-                <asp:Calendar ID="calRegEnd" runat="server"></asp:Calendar>
+                <asp:TextBox ID="tbRegEndCal" CssClass="calendar" runat="server"></asp:TextBox>
             </div>
             <div>
                 <asp:Label ID="lblPublishList" runat="server" Text="Startlistor publiceras"></asp:Label>
-                <asp:Calendar ID="calPublishList" runat="server"></asp:Calendar>
+                <asp:TextBox ID="tbPublishListCal" CssClass="calendar" runat="server"></asp:TextBox>
             </div>
         </div>
         <div id="sponsorsFold" class="foldable" onclick="toggleSection('sponsors')"><p>Sponsorer</p></div>
@@ -136,16 +135,16 @@
 
         if (isPostBack()){
             if ($("#ContentPlaceHolder1_hfregistrationTimesFolded").val() == "true"){
-                $("#registrationTimes").hide();
+                $("#registrationTimes").hide('slow');
             }
             else {
-                $("#registrationTimes").show();
+                $("#registrationTimes").show('slow');
             }
             if ($("#ContentPlaceHolder1_hfsponsorsFolded").val() == "true"){
-                $("#sponsors").hide();
+                $("#sponsors").hide('slow');
             }
             else {
-                $("#sponsors").show();
+                $("#sponsors").show('slow');
             }
         }
         else {
