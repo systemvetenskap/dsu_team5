@@ -42,7 +42,7 @@
                 <asp:TextBox ID="tbEndTime" runat="server" Text=":"></asp:TextBox>
             </div>
         </div>
-        <div id="regTimesFold" class="foldable" onclick="$('#registrationTimes').toggle()"><p>Kontaktperson & registreringstider</p></div>
+        <div id="regTimesFold" class="foldable" onclick="toggleSection('registrationTimes')"><p>Kontaktperson & registreringstider</p></div>
         <div id="registrationTimes">
             <div id="contact">
                 <asp:Label ID="lblContactPerson" runat="server" Text="Kontaktperson"></asp:Label>
@@ -66,7 +66,7 @@
                 <asp:Calendar ID="calPublishList" runat="server"></asp:Calendar>
             </div>
         </div>
-        <div id="sponsorsFold" class="foldable" onclick="$('#sponsors').toggle()"><p>Sponsorer</p></div>
+        <div id="sponsorsFold" class="foldable" onclick="toggleSection('sponsors')"><p>Sponsorer</p></div>
         <div id="sponsors">
             <div id="sponsors_1">
                 <asp:Label ID="lblSponsors" runat="server" Text="Sponsorer"></asp:Label>
@@ -99,6 +99,8 @@
         <asp:Button ID="btnSave" runat="server" Text="Spara" OnClick="btnSave_Click" />
         <asp:Button ID="btnClear" runat="server" Text="Rensa" OnClick="btnClear_Click" />
         <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+        <asp:HiddenField ID="hfregistrationTimesFolded" runat="server" />
+        <asp:HiddenField ID="hfsponsorsFolded" runat="server" />
     </section>
     <script>
         document.getElementById("ContentPlaceHolder1_tbSokContactPerson").addEventListener("input", ListBoxFilter);
@@ -117,7 +119,38 @@
                 }
             }
 
-            $('#registrationTimes').hide()
-            $('#sponsors').hide()
+        function toggleSection(section) {
+            if ($("#ContentPlaceHolder1_hf"+ section +"Folded").val() == "true"){
+                $("#"+ section).show();
+                $("#ContentPlaceHolder1_hf"+ section +"Folded").val("false");
+            }
+            else{
+                $("#"+ section).hide();
+                $("#ContentPlaceHolder1_hf"+ section +"Folded").val("true");
+            }
+        }
+
+        function isPostBack(){
+                return document.referrer.indexOf(document.location.href) > -1;
+            }
+
+        if (isPostBack()){
+            if ($("#ContentPlaceHolder1_hfregistrationTimesFolded").val() == "true"){
+                $("#registrationTimes").hide();
+            }
+            else {
+                $("#registrationTimes").show();
+            }
+            if ($("#ContentPlaceHolder1_hfsponsorsFolded").val() == "true"){
+                $("#sponsors").hide();
+            }
+            else {
+                $("#sponsors").show();
+            }
+        }
+        else {
+            toggleSection("registrationTimes");
+            toggleSection("sponsors");
+        }
     </script>
 </asp:Content>

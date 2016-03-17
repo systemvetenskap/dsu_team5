@@ -53,7 +53,7 @@ namespace DSU_g5
                 lbFormerSponsors.DataValueField = "sponsor_id";
                 lbFormerSponsors.DataTextField = "sponsor_name";
                 lbFormerSponsors.DataSource = methods.getSponsors();
-                lbFormerSponsors.DataBind();               
+                lbFormerSponsors.DataBind();
             }
 
             lblMessage.Text = "";
