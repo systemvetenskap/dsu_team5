@@ -63,13 +63,18 @@ namespace DSU_g5
         {
             try
             {
+                DateTime date = new DateTime();
+                DateTime regStart = new DateTime();
+                DateTime regEnd = new DateTime();
+                DateTime publishList = new DateTime();
+
                 if (tbName.Text != "" &&
                     taInformation.Value != "" &&
-                    calRegStart.SelectedDate != DateTime.MinValue &&
-                    calRegEnd.SelectedDate != DateTime.MinValue &&
-                    calPublishList.SelectedDate != DateTime.MinValue &&
+                    DateTime.TryParse(tbRegStartCal.Text, out regStart) &&
+                    DateTime.TryParse(tbRegEndCal.Text, out regEnd) &&
+                    DateTime.TryParse(tbPublishListCal.Text, out publishList) &&
                     lbContactPerson.SelectedIndex > -1 &&
-                    calDate.SelectedDate != DateTime.MinValue)
+                    DateTime.TryParse(tbDateCal.Text, out date))
                 {
                     DateTime startTime = new DateTime();
                     DateTime endTime = new DateTime();
@@ -81,15 +86,15 @@ namespace DSU_g5
                         {
                             tour_name = tbName.Text,
                             tour_info = taInformation.Value,
-                            registration_start = calRegStart.SelectedDate,
-                            registration_end = calRegEnd.SelectedDate,
+                            registration_start = regStart,
+                            registration_end = regEnd,
                             tour_start_time = startTime,
                             tour_end_time = endTime,
-                            publ_date_startlists = calPublishList.SelectedDate,
+                            publ_date_startlists = publishList,
                             contact_person = Convert.ToInt32(lbContactPerson.SelectedItem.Value),
                             gameform = Convert.ToInt32(ddlGameForm.SelectedItem.Value),
                             hole = 18,
-                            tour_date = calDate.SelectedDate
+                            tour_date = date
                         };
 
                         int newTourId = methods.insertTournament(tour);
@@ -171,12 +176,12 @@ namespace DSU_g5
             taInformation.Value = "";
             lbContactPerson.SelectedIndex = -1;
             tbSokContactPerson.Text = "";
-            calDate.SelectedDate = DateTime.MinValue;
+            tbDateCal.Text = "";
             tbStartTime.Text = ":";
             tbEndTime.Text = ":";
-            calRegStart.SelectedDate = DateTime.MinValue;
-            calRegEnd.SelectedDate = DateTime.MinValue;
-            calPublishList.SelectedDate = DateTime.MinValue;
+            tbRegStartCal.Text = "";
+            tbRegEndCal.Text = "";
+            tbPublishListCal.Text = "";
             lbSponsors.Items.Clear();
             tbNewSponsorName.Text = "";
             tbNewSponsorPhone.Text = "";
