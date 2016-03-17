@@ -12,7 +12,7 @@ namespace DSU_g5
         public DateTime times { get; set; }
         public override string ToString()
         {
-            return times.ToShortTimeString();
+            return timeId.ToString();
         }
     }
 }

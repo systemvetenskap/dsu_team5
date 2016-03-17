@@ -684,17 +684,29 @@ namespace DSU_g5
         public static void stangbanan(DateTime startDate, DateTime startTime, DateTime endTime)
         {
             string sqlfirst = "";
+            string sqlsecond = "";
+            string sqlthird = "";
+            string sqlforth = "";
+            int gameID;
+            int memberId = 1093;
+            //int dateId;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             List<game_starts> timesToBook = new List<game_starts>();
+            List<game_dates> dateToBook = new List<game_dates>();
+            List<int> memberToBook = new List<int>();
+
             DateTime d = Convert.ToDateTime(startTime);
             DateTime e = Convert.ToDateTime(endTime);
 
             string vadsomhelst = d.ToString("HH:mm");
-            DateTime start = Convert.ToDateTime(vadsomhelst);
+            TimeSpan start = TimeSpan.Parse(vadsomhelst);
+
+            string vadsomhelst2 = e.ToString("HH:mm");
+            TimeSpan end = TimeSpan.Parse(vadsomhelst2);
 
             try
             {
-                sqlfirst = "SELECT time_id FROM game_starts WHERE time_id BETWEEN '" + d + "' AND '" + e + "'";
+                sqlfirst = "SELECT time_id, times FROM game_starts WHERE times BETWEEN '" + start + "' AND '" + end + "'";
                 conn.Open();
                 NpgsqlCommand cmdfirst = new NpgsqlCommand(sqlfirst, conn);
                 NpgsqlDataReader drfirst = cmdfirst.ExecuteReader();
@@ -702,23 +714,73 @@ namespace DSU_g5
                 {
                     game_starts manyTimes = new game_starts();
                     manyTimes.timeId = int.Parse(drfirst["time_id"].ToString());
-                    manyTimes.times = DateTime.Parse(drfirst["times"].ToString());
-                    //DateTime d.ToShortTimeString() = manyTimes.times;
+                    //d.ToShortTimeString() = manyTimes.times;
                     timesToBook.Add(manyTimes);
-                    
+
                 }
                 conn.Close();
+                try
+                {
+                    sqlsecond = "SELECT dates_id FROM game_dates WHERE dates = '" + startDate + "'";
+                    conn.Open();
+                    NpgsqlCommand cmdsecond = new NpgsqlCommand(sqlsecond, conn);
+                    NpgsqlDataReader drsecond = cmdsecond.ExecuteReader();
+                    while (drsecond.Read())
+                    {
+                        game_dates dates = new game_dates();
+                        dates.dateId = int.Parse(drsecond["dates_id"].ToString());
+                        dateToBook.Add(dates);
+                    }
+                    conn.Close();
+                }
+                catch (NpgsqlException ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    conn.Close();
+                }
 
+                for (int i = 0; i < timesToBook.Count; i++)
+                {
+                    try
+                    {
+                        
+                        int tid = int.Parse(timesToBook[i].ToString());
+                        int date = int.Parse(dateToBook[0].ToString());
+                        sqlthird = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
 
+                        NpgsqlCommand plsql = new NpgsqlCommand(sqlthird, conn);
+                        plsql.Parameters.AddWithValue("da", date);
+                        plsql.Parameters.AddWithValue("t", tid);
 
+                        conn.Open();
+                        gameID = Convert.ToInt32(plsql.ExecuteScalar());
+                        memberToBook.Add(gameID);
+                        sqlforth = "INSERT INTO game_member (game_id, member_id) VALUES (@da, @t)";
+                        NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlforth, conn);
 
-                //sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
+                        cmdDelGM.Parameters.AddWithValue("da", gameID);
+                        cmdDelGM.Parameters.AddWithValue("t", memberId);
+
+                        cmdDelGM.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+             
+  
+    
+                //sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t);
 
                 //                    sqlInsToGM = "INSERT INTO game_member (game_id, member_id) VALUES (@gId, @mId)";
             }
-            catch
+            catch (NpgsqlException ex)
             {
-
+                Debug.WriteLine(ex.Message);
+                conn.Close();
             }
         }
                                      
