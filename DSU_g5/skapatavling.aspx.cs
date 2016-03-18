@@ -18,7 +18,7 @@ namespace DSU_g5
                 ddlGameForm.DataTextField = "gameform_name";
                 ddlGameForm.DataSource = methods.getGameForms();
                 ddlGameForm.DataBind();
-                
+
                 //fyll ddlMemberCategory
                 List<member_category> memberCategoryList = new List<member_category>();
                 memberCategoryList = methods.getMemberCategoryList();
@@ -34,28 +34,24 @@ namespace DSU_g5
                 ddlMemberCategory.DataSource = nyCategoryLista;
                 ddlMemberCategory.DataBind();
 
-                //fyll lbContactPerson
-                List<member> memberList = new List<member>();
-                memberList = methods.getMemberList();
-                List<ListItem> nyMemberList = new List<ListItem>();
-
-                foreach (member mb in memberList)
-                {
-                    nyMemberList.Add(new ListItem(mb.firstName + " " + mb.lastName, mb.memberId.ToString()));
-                }
-
-                lbContactPerson.DataTextField = "Text";
-                lbContactPerson.DataValueField = "Value";
-                lbContactPerson.DataSource = nyMemberList;
-                lbContactPerson.DataBind();
-
                 //fyll lbFormerSponsors
                 lbFormerSponsors.DataValueField = "sponsor_id";
                 lbFormerSponsors.DataTextField = "sponsor_name";
                 lbFormerSponsors.DataSource = methods.getSponsors();
                 lbFormerSponsors.DataBind();
+
             }
 
+            //array till kontaktpersonssökningstextboxkontroll
+            List<member> memberList = new List<member>();
+            memberList = methods.getMemberList();
+
+            foreach (member me in memberList)
+            {
+                ClientScript.RegisterArrayDeclaration("contactPersons",
+                "{label: '" + me.firstName + " " + me.lastName + "', value: '" + me.memberId + "'}");
+            }
+            
             lblMessage.Text = "";
         }
 
@@ -73,7 +69,7 @@ namespace DSU_g5
                     DateTime.TryParse(tbRegStartCal.Text, out regStart) &&
                     DateTime.TryParse(tbRegEndCal.Text, out regEnd) &&
                     DateTime.TryParse(tbPublishListCal.Text, out publishList) &&
-                    lbContactPerson.SelectedIndex > -1 &&
+                    hfContactPerson.Value != "" &&
                     DateTime.TryParse(tbDateCal.Text, out date))
                 {
                     DateTime startTime = new DateTime();
@@ -91,7 +87,7 @@ namespace DSU_g5
                             tour_start_time = startTime,
                             tour_end_time = endTime,
                             publ_date_startlists = publishList,
-                            contact_person = Convert.ToInt32(lbContactPerson.SelectedItem.Value),
+                            contact_person = Convert.ToInt32(hfContactPerson.Value),
                             gameform = Convert.ToInt32(ddlGameForm.SelectedItem.Value),
                             hole = 18,
                             tour_date = date
@@ -174,8 +170,8 @@ namespace DSU_g5
             ddlGameForm.SelectedIndex = 0;
             ddlMemberCategory.SelectedIndex = 0;
             taInformation.Value = "";
-            lbContactPerson.SelectedIndex = -1;
             tbSokContactPerson.Text = "";
+            hfContactPerson.Value = "";
             tbDateCal.Text = "";
             tbStartTime.Text = ":";
             tbEndTime.Text = ":";

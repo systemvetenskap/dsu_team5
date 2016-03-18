@@ -119,6 +119,12 @@
   cursor: pointer;
 }
 
+.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 footer {
   padding: 2% 0 2% 0;
   text-align: center;
