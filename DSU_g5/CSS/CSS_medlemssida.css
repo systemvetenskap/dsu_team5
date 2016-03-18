@@ -2,14 +2,114 @@
     background-color: #6c7 !important;
 }
 
-#medlemsregistrering
-{
-    width: 100%;
+/* första sektion */
+#medlemsgolfrundor {
+    overflow: auto;
+    padding-bottom: 2%;
+    width: 70%;
 }
 
+.foldable p {
+    display: block;
+    height: 40px;
+    width: auto;
+    padding: 1% 0 0 0;
+    font-size: 23px;
+    text-indent: 15px;
+    border-top: 1px solid lightgrey;
+}
+
+.foldable:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+/* andra sektion */
+/* tredje sektion medlemsuppgifter */
+/* Lagt till koden detta för att få enhetlig utseende på både medlemsida och medlemsregistrering */ 
+/* sektion med grid div */
+
+#medlemstavlingar {
+    float: left;
+    width: 70%;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    /* border: solid; */
+    /* border-color: skyblue; */
+}
+
+#medlemsuppgifterFold {
+    clear: both;
+    border: solid;     
+    /* border-color: skyblue; */
+    width: 70%;
+}
+
+#medlemsuppgifterE {
+    clear: both;
+    width: 70%;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    /* border: solid;     */
+    /* border-color: green; */
+}
+
+#medlemsuppgifter {    
+    clear: both;
+    float: left;
+    width: 70%;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    /* border: solid;     */
+    /* border-color: skyblue; */
+}
+
+/* sektion för gridar */
+.usergrid {
+    width: 75%;
+    padding: 1%;
+    width: 96%;    
+    margin-top: 0;
+    margin-bottom: 1%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    float: left;
+    /* border: solid; */
+    /* border-color: red; */
+}
+
+.usergrid tr th {
+    margin-left:2%;
+    margin-right:2%;
+    padding-left: 2%; 
+    padding-right: 2%;    
+    font-weight: bold;
+    color: white;
+    background-color: green;
+    min-width: 25%;
+    padding-right: 5%; 
+}
+
+.usergrid tr td {
+    margin-left:2%;
+    margin-right:2%;
+    padding-left: 2%; 
+    padding-right: 5%; 
+    min-width: 25%;
+}
+
+/* sektion för medlemsuppgifter */
+/* sektion */
+/* div */
 #medlemsuppgifter {
     width: 30%;
-    float: left;
+    clear: both;
     padding: 1% 2% 1% 1%;
     text-align: right;
 }
@@ -32,6 +132,12 @@
     float: left;
 }
 
+#medlemslista {
+    width: 30%;
+    float: left;
+    padding: 1% 1% 1% 2%;
+}
+
 #ContentPlaceHolder1_lbIdMember,
 #ContentPlaceHolder1_tbIdMember,
 #ContentPlaceHolder1_lbIdUser,
@@ -41,9 +147,43 @@
     display: none;
 }
 
-#knappar {
+/* sektion med knappar */
+/* 
+#ContentPlaceHolder1_userbuttons {
     clear: both;
+    padding: 1%;
+    min-width: 15%;
+    width: 96%;
+    border: solid;
+    border-color: beige;
+}
+*/
+
+#userbuttons {
+    clear: both;
+    padding: 1%;
+    min-width: 15%;
+    padding: 1% 2% 1% 1%;
+    width: 96%;
+    /* border: solid;     */
+    /* border-color: yellow; */
+}
+
+.userbutton {
+    float: left;
+    min-width: 15%;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
+
+#usermessage {
+    clear: both;
+    padding: 1%;
+    min-width: 15%;
+    width: 30%;
+    /* border: solid;     */
+    /* border-color: red; */
+    clear: both;
+}
+

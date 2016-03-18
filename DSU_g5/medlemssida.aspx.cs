@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
 
 namespace DSU_g5
 {
@@ -18,6 +19,17 @@ namespace DSU_g5
 
             if (!Page.IsPostBack)
             {
+                // section ett rundor
+                DataTable dtr = methods.getGameMember(g_newUser.fkIdMember);
+                gvGameMember.DataSource = dtr;
+                gvGameMember.DataBind();
+
+                // section två tävlingar
+                DataTable dtt = methods.getMemberTournament(g_newUser.fkIdMember);
+                gvMemberTournament.DataSource = dtt;
+                gvMemberTournament.DataBind();
+
+                // section tre för medlemsuppgifter
                 btSave.Text = "Uppdatera";
 
                 ddlGender.Items.Add("Male");

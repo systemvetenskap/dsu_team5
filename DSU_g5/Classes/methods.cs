@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Data;
 using System.Net.Mail;
 
-
 namespace DSU_g5
 {
 
@@ -1405,7 +1404,58 @@ namespace DSU_g5
             }
             return accesCategoryList;
         }
-        
+
+        // section för golfrundor 
+        public static DataTable getGameMember(int member_id)
+        {
+            DataTable newGameMember = new DataTable();
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+                plsql = "SELECT game_member.game_id AS game_id, member_id, dates, times";
+                plsql = plsql + " FROM game_member ";
+                plsql = plsql + "   LEFT OUTER JOIN game AS game ON game.game_id = game_member.game_id";
+                plsql = plsql + "   LEFT OUTER JOIN game_dates AS game_dates ON game_dates.dates_id = game.date_id";
+                plsql = plsql + "   LEFT OUTER JOIN game_starts AS game_starts ON game_starts.time_id = game.time_id";
+                plsql = plsql + "  WHERE member_id = " + member_id + " ";
+                plsql = plsql + " ORDER BY dates;";
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(plsql, conn);
+                da.Fill(newGameMember);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newGameMember;
+        }
+
+        public static DataTable getMemberTournament(int member_id)
+        {
+            DataTable newMemberTournament = new DataTable();
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            try
+            {
+                conn.Open();
+                string plsql = string.Empty;
+                plsql = "SELECT tournament.tour_name, tournament.tour_date, tournament.tour_start_time, start_time";
+                plsql = plsql + " FROM member_tournament";
+                plsql = plsql + "    LEFT OUTER JOIN tournament AS tournament ON tournament.id_tournament = member_tournament.tournament_id";
+                plsql = plsql + "  WHERE member_id = " + member_id + " ";
+                plsql = plsql + " ORDER BY tournament.tour_date;";
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(plsql, conn);
+                da.Fill(newMemberTournament);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newMemberTournament;        
+        }
+
         #endregion MEDLEMSSIDA
 
         #region GAMES
