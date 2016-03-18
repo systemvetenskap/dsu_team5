@@ -30,6 +30,7 @@ namespace DSU_g5
             //tournament newTour = new tournament();
             if (li.Value == "Välj tävling")
             {
+                hfTourId.Value = "";
                 gvRandom.DataSource = null;
                 gvRandom.DataBind();
             }
@@ -135,6 +136,7 @@ namespace DSU_g5
 
             if (li.Value == "Välj tävling")
             {
+                hfTourWithST.Value = "";
                 gvHasStartlist.DataSource = null;
                 gvHasStartlist.DataBind();
             }

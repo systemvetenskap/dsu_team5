@@ -90,6 +90,7 @@
     <Content Include="CSS\CSS_startlistor.css" />
     <Content Include="CSS\CSS_tavlingar.css" />
     <Content Include="CSS\CSS_tavlingsresultat.css" />
+    <Content Include="Images\golf-787477_960_720.jpg" />
     <Content Include="Images\halslaget_v01.png" />
     <Content Include="Images\kalenderikon_v01.png" />
     <Content Include="index.aspx" />

@@ -16,6 +16,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <div id="content">
     <form id="form1" runat="server">
         <header>
             <asp:Image ID="logo" ImageUrl="/Images/halslaget_v01.png" runat="server" />
@@ -97,5 +98,6 @@
             <p>© 2016 Hålslaget GK</p>
         </footer>
     </form>
+    </div>
 </body>
 </html>
