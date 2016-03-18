@@ -13,6 +13,42 @@ namespace DSU_g5 {
     public partial class medlemssida {
         
         /// <summary>
+        /// gvGameMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvGameMember;
+        
+        /// <summary>
+        /// btBookCancelGame control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btBookCancelGame;
+        
+        /// <summary>
+        /// gvMemberTournament control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvMemberTournament;
+        
+        /// <summary>
+        /// btBookCancelTournament control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btBookCancelTournament;
+        
+        /// <summary>
         /// lbIdMember control.
         /// </summary>
         /// <remarks>
@@ -337,6 +373,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Button btRemove;
         
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
         /// lbUserMessage control.
         /// </summary>
         /// <remarks>
@@ -344,5 +389,23 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbUserMessage;
+        
+        /// <summary>
+        /// hfmedlemstavlingarFolded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfmedlemstavlingarFolded;
+        
+        /// <summary>
+        /// hfmedlemsuppgifterFolded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfmedlemsuppgifterFolded;
     }
 }

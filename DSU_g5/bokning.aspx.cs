@@ -76,7 +76,7 @@ namespace DSU_g5
                 {
                     bokningarAdmin.Visible = false;
                     lbBookedMembers.Visible = false;
-                    BtnDelMemberFromGame.Visible = false;
+                    BtnDelMemberFromGame.Visible = true;
                     member.Visible = true;
                 }
                 else

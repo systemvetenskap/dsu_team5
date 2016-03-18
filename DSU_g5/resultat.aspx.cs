@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Web.Security;
 
 namespace DSU_g5
 {
@@ -91,9 +92,12 @@ namespace DSU_g5
 
         protected void lblParticipantList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             // hämtar in värdena i globaler
             g_tournamentId = Convert.ToInt32(lblTournamentList.SelectedItem.Value);
             g_memberId = Convert.ToInt32(lblParticipantList.SelectedItem.Value);
+            Session["TournamentId"] = g_tournamentId;
+            Session["AccMember"] = g_memberId;
 
             // rensar griden 
             gvParticipantResults.DataSource = string.Empty;
@@ -170,6 +174,15 @@ namespace DSU_g5
 
         protected void btSave_Click(object sender, EventArgs e)
         {
+            // hämtar in värdena i globaler
+            int accessId = Convert.ToInt32(Session["IdAccess"]);
+            // Session["TournamentId"] = g_tournamentId;
+            // Session["AccMember"] = g_memberId;
+            
+            FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);
+            Response.Redirect("scorekort.aspx");
+
+            /* 
             List<results> resultsList = new List<results>();
 
             // lägger till tävling och deltagarnummer i griden
@@ -218,6 +231,7 @@ namespace DSU_g5
                     lbUserMessage.Text = "Ett fel har uppståt vid insert.";
                 }
             }
+            */ 
         }
 
         protected void btRemove_Click(object sender, EventArgs e)
