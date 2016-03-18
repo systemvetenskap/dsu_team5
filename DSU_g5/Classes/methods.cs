@@ -684,17 +684,29 @@ namespace DSU_g5
         public static void stangbanan(DateTime startDate, DateTime startTime, DateTime endTime)
         {
             string sqlfirst = "";
+            string sqlsecond = "";
+            string sqlthird = "";
+            string sqlforth = "";
+            int gameID;
+            int memberId = 1093;
+            //int dateId;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             List<game_starts> timesToBook = new List<game_starts>();
+            List<game_dates> dateToBook = new List<game_dates>();
+            List<int> memberToBook = new List<int>();
+
             DateTime d = Convert.ToDateTime(startTime);
             DateTime e = Convert.ToDateTime(endTime);
 
             string vadsomhelst = d.ToString("HH:mm");
-            DateTime start = Convert.ToDateTime(vadsomhelst);
+            TimeSpan start = TimeSpan.Parse(vadsomhelst);
+
+            string vadsomhelst2 = e.ToString("HH:mm");
+            TimeSpan end = TimeSpan.Parse(vadsomhelst2);
 
             try
             {
-                sqlfirst = "SELECT time_id FROM game_starts WHERE time_id BETWEEN '" + d + "' AND '" + e + "'";
+                sqlfirst = "SELECT time_id, times FROM game_starts WHERE times BETWEEN '" + start + "' AND '" + end + "'";
                 conn.Open();
                 NpgsqlCommand cmdfirst = new NpgsqlCommand(sqlfirst, conn);
                 NpgsqlDataReader drfirst = cmdfirst.ExecuteReader();
@@ -702,23 +714,73 @@ namespace DSU_g5
                 {
                     game_starts manyTimes = new game_starts();
                     manyTimes.timeId = int.Parse(drfirst["time_id"].ToString());
-                    manyTimes.times = DateTime.Parse(drfirst["times"].ToString());
-                    //DateTime d.ToShortTimeString() = manyTimes.times;
+                    //d.ToShortTimeString() = manyTimes.times;
                     timesToBook.Add(manyTimes);
-                    
+
                 }
                 conn.Close();
+                try
+                {
+                    sqlsecond = "SELECT dates_id FROM game_dates WHERE dates = '" + startDate + "'";
+                    conn.Open();
+                    NpgsqlCommand cmdsecond = new NpgsqlCommand(sqlsecond, conn);
+                    NpgsqlDataReader drsecond = cmdsecond.ExecuteReader();
+                    while (drsecond.Read())
+                    {
+                        game_dates dates = new game_dates();
+                        dates.dateId = int.Parse(drsecond["dates_id"].ToString());
+                        dateToBook.Add(dates);
+                    }
+                    conn.Close();
+                }
+                catch (NpgsqlException ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    conn.Close();
+                }
 
+                for (int i = 0; i < timesToBook.Count; i++)
+                {
+                    try
+                    {
+                        
+                        int tid = int.Parse(timesToBook[i].ToString());
+                        int date = int.Parse(dateToBook[0].ToString());
+                        sqlthird = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
 
+                        NpgsqlCommand plsql = new NpgsqlCommand(sqlthird, conn);
+                        plsql.Parameters.AddWithValue("da", date);
+                        plsql.Parameters.AddWithValue("t", tid);
 
+                        conn.Open();
+                        gameID = Convert.ToInt32(plsql.ExecuteScalar());
+                        memberToBook.Add(gameID);
+                        sqlforth = "INSERT INTO game_member (game_id, member_id) VALUES (@da, @t)";
+                        NpgsqlCommand cmdDelGM = new NpgsqlCommand(sqlforth, conn);
 
-                //sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t) RETURNING game_id";
+                        cmdDelGM.Parameters.AddWithValue("da", gameID);
+                        cmdDelGM.Parameters.AddWithValue("t", memberId);
+
+                        cmdDelGM.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                        conn.Close();
+                    }
+                }
+             
+  
+    
+                //sqlInsToGame = "INSERT INTO game (date_id, time_id) VALUES (@da, @t);
 
                 //                    sqlInsToGM = "INSERT INTO game_member (game_id, member_id) VALUES (@gId, @mId)";
             }
-            catch
+            catch (NpgsqlException ex)
             {
-
+                Debug.WriteLine(ex.Message);
+                conn.Close();
             }
         }
                                      
@@ -3197,33 +3259,191 @@ namespace DSU_g5
         }
 
 
-
-        public static List<member> participantsByTourId(int id_tournament)
+        public static List<string> participantsByTourId(int id_tournament, int numOfGroups, out string message)
         {
+            message = null;
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            int membersPerGroup;
+            int memPerG = numOfGroups;
+            tournament newTour = new tournament(); ;
             //member newMember = new member();
             List<member> memberList = new List<member>();
-            string sql;
+            List<string> memberGroup = new List<string>();
+            string sqlIfStartTimeOnTourExist;
+
             try
             {
-                sql = "SELECT id_member, first_name, last_name FROM member_new mn INNER JOIN member_tournament mt " +
-                      "ON mn.id_member = mt.member_id INNER JOIN tournament t ON t.id_tournament = mt.tournament_id " +
-                      "WHERE mt.tournament_id = '" + id_tournament + "'";
+                //sqlIfStartTimeOnTourExist = "SELECT start_time FROM member_tournament WHERE tournament_id ='" + id_tournament + "'";
+                
+                //conn.Open();
 
-                conn.Open();
+                //NpgsqlCommand cmdExist = new NpgsqlCommand(sqlIfStartTimeOnTourExist, conn);
+                //NpgsqlDataReader drExist = cmdExist.ExecuteReader();
 
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                NpgsqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    member newMember = new member();
-                    newMember.memberId = int.Parse(dr["id_member"].ToString());
-                    newMember.firstName = dr["first_name"].ToString();
-                    newMember.lastName = dr["last_name"].ToString();
-                    memberList.Add(newMember);
-                }
+                //if (drExist.Read())
+                //{
+                    
+                //    message = "Det finns redan starttider för denna tävling.";
+                //}
 
+                //else
+                //{
+
+
+
+
+
+                    string sql;
+
+                    try
+                    {
+                        sql = "SELECT id_member, first_name, last_name, id_tournament, tour_start_time FROM member_new mn INNER JOIN member_tournament mt " +
+                              "ON mn.id_member = mt.member_id INNER JOIN tournament t ON t.id_tournament = mt.tournament_id " +
+                              "WHERE mt.tournament_id = '" + id_tournament + "'";
+
+                        conn.Open();
+
+                        NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                        NpgsqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            member newMember = new member();
+                            newMember.memberId = int.Parse(dr["id_member"].ToString());
+                            newMember.firstName = dr["first_name"].ToString();
+                            newMember.lastName = dr["last_name"].ToString();
+                            memberList.Add(newMember);
+
+
+                            newTour.id_tournament = Convert.ToInt32(dr["id_tournament"].ToString());
+                            newTour.tour_start_time = Convert.ToDateTime(dr["tour_start_time"].ToString());
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.Message);
+                    }
+
+                    finally
+                    {
+                        conn.Close();
+                    }
+
+
+
+                    Random r = new Random();
+                    List<member> newmemberList = new List<member>();
+                    bool keepgoing = true;
+                    int max = memberList.Count;
+                    while (keepgoing == true)
+                    {
+
+                        int index = r.Next(memberList.Count);
+                        member randomMember = (member)memberList[index];
+                        if (newmemberList.Contains(randomMember) == true)
+                        {
+
+
+                        }
+                        else
+                        {
+                            newmemberList.Add(randomMember);
+
+                            if (memberList.Count == newmemberList.Count)
+                            {
+                                break;
+                            }
+                        }
+
+                    }
+
+
+                    //if(newmemberList.Count > 20)
+                    //{
+                    //    membersPerGroup = 4;
+                    //}
+                    //else
+                    //{
+                    //    membersPerGroup = 3;
+                    //}
+
+
+                    
+
+                    string memberIDGroupID = "";
+
+
+                    int grupp = 1;
+                    int antalIGrupp = 0;
+
+                    DateTime startTime = newTour.tour_start_time;
+                    string hourMinute = startTime.ToShortTimeString();
+
+                    string sqlUpdateStartTime;
+
+
+                    foreach (member member in newmemberList)
+                    {
+                        if (antalIGrupp != memPerG)
+                        {
+                            memberIDGroupID = member.memberId + " " + member.firstName + " " + member.lastName + " " + hourMinute;
+                            memberGroup.Add(memberIDGroupID);
+                            try
+                            {
+                                conn.Open();
+                                sqlUpdateStartTime = "UPDATE member_tournament SET start_time = @st WHERE member_id = '" + member.memberId + "' AND tournament_id = '" + newTour.id_tournament + "'";
+
+                                NpgsqlCommand cmd = new NpgsqlCommand(sqlUpdateStartTime, conn);
+                                cmd.Parameters.AddWithValue("st", hourMinute);
+                                cmd.ExecuteNonQuery();
+                                conn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                            }
+
+                            finally
+                            {
+                                conn.Close();
+                            }
+
+
+                            antalIGrupp++;
+                        }
+                        else
+                        {
+                            grupp++;
+                            startTime = Convert.ToDateTime(hourMinute);
+                            hourMinute = startTime.AddMinutes(10).ToShortTimeString();
+                            memberIDGroupID = member.memberId + " " + member.firstName + " " + member.lastName + " " + hourMinute;
+                            memberGroup.Add(memberIDGroupID);
+                            try
+                            {
+                                conn.Open();
+                                sqlUpdateStartTime = "UPDATE member_tournament SET start_time = @st WHERE member_id = '" + member.memberId + "' AND tournament_id = '" + newTour.id_tournament + "'";
+
+                                NpgsqlCommand cmd = new NpgsqlCommand(sqlUpdateStartTime, conn);
+                                cmd.Parameters.AddWithValue("st", hourMinute);
+                                cmd.ExecuteNonQuery();
+                                conn.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                            }
+
+                            finally
+                            {
+                                conn.Close();
+                            }
+                            antalIGrupp = 1;
+                        }
+
+                    }
+                //}
             }
+
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -3233,86 +3453,10 @@ namespace DSU_g5
             {
                 conn.Close();
             }
-
-
-
-
-
-
-            //List<int> memberTournamentIdList = new List<int>();
-            //foreach (member me in memberList)
-            //{
-            //    memberTournamentIdList.Add(me.memberId);
-
-            //}
-            //List <int> page = new List<int>();
-            //Random rnd = new Random(); // <-- This line goes out of the loop        
-            //for (int i = 0; i < memberTournamentIdList.Count; i++)
-            //{
-            //    int temp = 0;
-            //    temp = rnd.Next(0, 2);
-            //    page[i] = temp;
-            //}
-
-            //Random rnd = new Random();
-            //int randomNumber = rnd.Next();
-            //for (int i = 0; i < 3; i++)
-            ////{
-            //    i = memberTournamentIdList;
-            //}
-            //
-            //return;
-
-            //Random r = new Random();
-            //int index = r.Next(memberTournamentIdList.Count);
-            //string randomString = memberTournamentIdList[index];
-            //memberTournamentIdList.Sort()
-
-            //Random r = new Random();
-            //int index = r.Next(memberList.Count);
-
-            //string randomString = memberList[index].ToString();
-
-            Random r = new Random();
-            List<member> newmemberList = new List<member>();
-            //string groupstring = "";
-            bool keepgoing = true;
-            int max = memberList.Count;
-            //for (int i = 0; i < max; i++) 
-            while (keepgoing == true)
-            {
-                
-                int index = r.Next(memberList.Count);
-                member randomMember = (member)memberList[index];
-                if (newmemberList.Contains(randomMember) == true)
-                {
-                    
-                    
-                }
-                else
-                {
-                    newmemberList.Add(randomMember);
-                }
-                if (newmemberList.Count == 3 )//memberList.Count
-                {
-                    keepgoing = false;
-                    
-
-                }
-                else
-                {
-                    keepgoing = true;
-                    //for (int i = 0; i < 3; i++)
-                    //{
-                    //    index += r.Next(memberList.Count);
-                    //}
-                  
-                }
-
-            }
             
+            return memberGroup;
 
-            return newmemberList;
+
 
 
         }

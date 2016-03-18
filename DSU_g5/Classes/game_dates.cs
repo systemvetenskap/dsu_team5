@@ -15,9 +15,8 @@ namespace DSU_g5
 
         public override string ToString()
         {
-            return dates.ToString();
-
-
+            return dateId.ToString();
+            //ändrade till dateId från dates för att stänga banan skulle fungera.
         }
     }
 }

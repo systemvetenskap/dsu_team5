@@ -94,13 +94,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblDate;
         
         /// <summary>
-        /// calDate control.
+        /// tbDateCal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calDate;
+        protected global::System.Web.UI.WebControls.TextBox tbDateCal;
         
         /// <summary>
         /// lblStartTime control.
@@ -184,13 +184,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblRegStart;
         
         /// <summary>
-        /// calRegStart control.
+        /// tbRegStartCal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calRegStart;
+        protected global::System.Web.UI.WebControls.TextBox tbRegStartCal;
         
         /// <summary>
         /// lblRegEnd control.
@@ -202,13 +202,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblRegEnd;
         
         /// <summary>
-        /// calRegEnd control.
+        /// tbRegEndCal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calRegEnd;
+        protected global::System.Web.UI.WebControls.TextBox tbRegEndCal;
         
         /// <summary>
         /// lblPublishList control.
@@ -220,13 +220,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblPublishList;
         
         /// <summary>
-        /// calPublishList control.
+        /// tbPublishListCal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar calPublishList;
+        protected global::System.Web.UI.WebControls.TextBox tbPublishListCal;
         
         /// <summary>
         /// lblSponsors control.

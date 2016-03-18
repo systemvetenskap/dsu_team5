@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -17,8 +18,8 @@ namespace DSU_g5
             {
                 populateTournamentList();
 
+                ddlTournamentList.Text = "";
             }
-        
         }
 
         protected void ddlTournamentList_SelectedIndexChanged(object sender, EventArgs e)
@@ -27,11 +28,23 @@ namespace DSU_g5
             ListItem li = tournamentList.SelectedItem;
             tournament newTour = new tournament();
             id_tournament = Convert.ToInt32(li.Value);
-            List<member> memberList = new List<member>();
-            memberList = methods.participantsByTourId(id_tournament);
+            //List<member> randomMemberList = new List<member>();
+            ////randomMemberList = methods.participantsByTourId(id_tournament);
 
-            LsbParticipants.DataSource = memberList;
-            LsbParticipants.DataBind();
+            ////LsbParticipants.DataSource = randomMemberList;
+            ////LsbParticipants.DataBind();
+
+
+            //List<string> medlemStarttime = new List<string>();
+            //medlemStarttime = methods.participantsByTourId(id_tournament);
+
+            //LsbParticipants.DataSource = medlemStarttime;
+            //LsbParticipants.DataBind();
+
+            hfTourId.Value = li.Value;
+
+
+
 
 
             //startList.Text = methods.GetIDsFromMemberTournaments(id_tournament).ToString();
@@ -52,12 +65,52 @@ namespace DSU_g5
 
         protected void btnStartlist_Click(object sender, EventArgs e)
         {
+            List<string> medlemStarttime = new List<string>();
+            
+            string mess = null;
+            if (hfTourId.Value != "")
+            {
 
+                int numG = Convert.ToInt32(tbMemPerGroup.Text);
+
+                List<member> randomMemberList = new List<member>();
+
+                medlemStarttime = methods.participantsByTourId(Convert.ToInt32(hfTourId.Value), numG, out mess);
+
+
+                //LsbParticipants.DataSource = medlemStarttime;
+                //LsbParticipants.DataBind();
+                DataTable dt = new DataTable();
+                dt.Columns.Add("MemberID");
+                dt.Columns.Add("Förnamn");
+                dt.Columns.Add("Efternamn");
+                dt.Columns.Add("Starttid");
+
+                string[] splitted;
+
+                foreach (string s in medlemStarttime)
+                {
+
+                    splitted = s.Split(' ');
+                    dt.Rows.Add(splitted[0], splitted[1], splitted[2], splitted[3]);
+                }
+
+
+                gvRandom.DataSource = dt;
+                gvRandom.DataBind();
+            }
+            else
+            {
+                Response.Write("<script>alert('" + "Du måste välja en tävling" + "')</script>");
+            }
+
+
+            
         }
 
         protected void gvRandom_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         public void populateTournamentList()
