@@ -45,12 +45,8 @@
         <div id="registrationTimes">
             <div id="contact">
                 <asp:Label ID="lblContactPerson" runat="server" Text="Kontaktperson"></asp:Label>
-                <br />
-                <asp:ListBox ID="lbContactPerson" runat="server"></asp:ListBox>
-                <br />
-                <asp:Label ID="lblSokContactPerson" runat="server" Text="Sök person"></asp:Label>
-                <br />
                 <asp:TextBox ID="tbSokContactPerson" runat="server"></asp:TextBox>
+                <asp:HiddenField ID="hfContactPerson" runat="server" />
             </div>
             <div>
                 <asp:Label ID="lblRegStart" runat="server" Text="Första registreringsdatum"></asp:Label>
@@ -102,7 +98,7 @@
         <asp:HiddenField ID="hfsponsorsFolded" runat="server" />
     </section>
     <script>
-        document.getElementById("ContentPlaceHolder1_tbSokContactPerson").addEventListener("input", ListBoxFilter);
+        //document.getElementById("ContentPlaceHolder1_tbSokContactPerson").addEventListener("input", ListBoxFilter);
             function ListBoxFilter() {
                 var input = $("#ContentPlaceHolder1_tbSokContactPerson").val();
                 var regex = new RegExp(input, "i");
@@ -118,13 +114,28 @@
                 }
             }
 
+        $(function () { 
+            $("#ContentPlaceHolder1_tbSokContactPerson").autocomplete({
+                source: contactPersons,
+                focus: function (event, ui) {
+                    $("#ContentPlaceHolder1_tbSokContactPerson").val(ui.item.label);
+                    return false;
+                },
+                select: function (event, ui) {
+                    $("#ContentPlaceHolder1_tbSokContactPerson").val(ui.item.label);
+                    $("#ContentPlaceHolder1_hfContactPerson").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+
         function toggleSection(section) {
             if ($("#ContentPlaceHolder1_hf"+ section +"Folded").val() == "true"){
-                $("#"+ section).show();
+                $("#"+ section).show(500);
                 $("#ContentPlaceHolder1_hf"+ section +"Folded").val("false");
             }
             else{
-                $("#"+ section).hide();
+                $("#"+ section).hide(500);
                 $("#ContentPlaceHolder1_hf"+ section +"Folded").val("true");
             }
         }
@@ -135,16 +146,16 @@
 
         if (isPostBack()){
             if ($("#ContentPlaceHolder1_hfregistrationTimesFolded").val() == "true"){
-                $("#registrationTimes").hide('slow');
+                $("#registrationTimes").hide();
             }
             else {
-                $("#registrationTimes").show('slow');
+                $("#registrationTimes").show();
             }
             if ($("#ContentPlaceHolder1_hfsponsorsFolded").val() == "true"){
-                $("#sponsors").hide('slow');
+                $("#sponsors").hide();
             }
             else {
-                $("#sponsors").show('slow');
+                $("#sponsors").show();
             }
         }
         else {
