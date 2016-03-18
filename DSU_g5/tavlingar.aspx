@@ -6,7 +6,7 @@
 
 <h2 id="headline_1" class="headline">Tävlingar</h2>
        <div class="dropdown">               
-               <asp:DropDownList ID="ddlTourName" CSSclass="newsddl" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlTourName_SelectedIndexChanged" Visible="False"></asp:DropDownList>              
+               <asp:DropDownList ID="ddlTourName" CSSclass="dropdown" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlTourName_SelectedIndexChanged" Visible="False"></asp:DropDownList>              
        </div>
        <div id="tournament">
           <%-- <div id="tournamentSort">

@@ -10,7 +10,7 @@
     <div id ="tournamentInfo" runat="server">
         <asp:Label ID="lblAllTournaments" runat="server" Text="<u>Välj en tävling nedan</u>"></asp:Label>
         <br />
-        <asp:DropDownList ID="ddlAllTournaments" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAllTournaments_SelectedIndexChanged"></asp:DropDownList>
+        <asp:DropDownList ID="ddlAllTournaments" runat="server" CssClass="dropdown" AutoPostBack="true" OnSelectedIndexChanged="ddlAllTournaments_SelectedIndexChanged"></asp:DropDownList>
         <br />
         <%--<asp:Label ID="lblTournamentInfo" runat="server" Text="Här visas information om vald tävling."></asp:Label>--%>
         <br />

@@ -17,8 +17,9 @@ namespace DSU_g5
             if (!Page.IsPostBack)
             {
                 populateTournamentList();
-
-                ddlTournamentList.Text = "";
+                populateTournamentWithST();
+                ddlTournamentList.Items.Insert(0, "Välj tävling");
+                ddlTourWithStarttime.Items.Insert(0, "Välj tävling");
             }
         }
 
@@ -26,42 +27,24 @@ namespace DSU_g5
         {
             DropDownList tournamentList = (DropDownList)sender;
             ListItem li = tournamentList.SelectedItem;
-            tournament newTour = new tournament();
-            id_tournament = Convert.ToInt32(li.Value);
-            //List<member> randomMemberList = new List<member>();
-            ////randomMemberList = methods.participantsByTourId(id_tournament);
+            //tournament newTour = new tournament();
+            if (li.Value == "Välj tävling")
+            {
+                gvRandom.DataSource = null;
+                gvRandom.DataBind();
+            }
+            else
+            {
+                id_tournament = Convert.ToInt32(li.Value);
 
-            ////LsbParticipants.DataSource = randomMemberList;
-            ////LsbParticipants.DataBind();
-
-
-            //List<string> medlemStarttime = new List<string>();
-            //medlemStarttime = methods.participantsByTourId(id_tournament);
-
-            //LsbParticipants.DataSource = medlemStarttime;
-            //LsbParticipants.DataBind();
-
-            hfTourId.Value = li.Value;
-
-
-
-
-
-            //startList.Text = methods.GetIDsFromMemberTournaments(id_tournament).ToString();
-
-            //DropDownList ddlTourName = (DropDownList)sender;
-            //ListItem li = ddlTourName.SelectedItem;
-            //string value = li.Text;
-
-
-            //newNews = methods.getNews(news_id);
-            //textNews.InnerText = newNews.newsInfo;
+                hfTourId.Value = li.Value;
+            }
         }
 
-        protected void LsbParticipants_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        //protected void LsbParticipants_SelectedIndexChanged(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         protected void btnStartlist_Click(object sender, EventArgs e)
         {
@@ -77,27 +60,36 @@ namespace DSU_g5
 
                 medlemStarttime = methods.participantsByTourId(Convert.ToInt32(hfTourId.Value), numG, out mess);
 
+                if (medlemStarttime.Count >= 1)
+                {//LsbParticipants.DataSource = medlemStarttime;
+                    //LsbParticipants.DataBind();
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("MemberID");
+                    dt.Columns.Add("Namn");
+                    //dt.Columns.Add("Förnamn");
+                    //dt.Columns.Add("Efternamn");
+                    dt.Columns.Add("Starttid");
 
-                //LsbParticipants.DataSource = medlemStarttime;
-                //LsbParticipants.DataBind();
-                DataTable dt = new DataTable();
-                dt.Columns.Add("MemberID");
-                dt.Columns.Add("Förnamn");
-                dt.Columns.Add("Efternamn");
-                dt.Columns.Add("Starttid");
+                    string[] splitted;
 
-                string[] splitted;
+                    foreach (string s in medlemStarttime)
+                    {
 
-                foreach (string s in medlemStarttime)
+                        splitted = s.Split(' ');
+                        dt.Rows.Add(splitted[0], splitted[1] + " " + splitted[2], splitted[3]);
+                    }
+
+
+                    gvRandom.DataSource = dt;
+                    gvRandom.DataBind();
+                }
+                else
                 {
-
-                    splitted = s.Split(' ');
-                    dt.Rows.Add(splitted[0], splitted[1], splitted[2], splitted[3]);
+                    Response.Write("<script>alert('" + "Tävlingen har inga deltagare." + "')</script>");
+                    gvRandom.DataSource = null;
+                    gvRandom.DataBind();
                 }
 
-
-                gvRandom.DataSource = dt;
-                gvRandom.DataBind();
             }
             else
             {
@@ -108,10 +100,6 @@ namespace DSU_g5
             
         }
 
-        protected void gvRandom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
 
         public void populateTournamentList()
         {
@@ -124,11 +112,39 @@ namespace DSU_g5
                 newListTournaments.Add(new ListItem(tour.tour_name, tour.id_tournament.ToString()));
             }
 
-
             ddlTournamentList.DataValueField = "id_tournament";
             ddlTournamentList.DataTextField = "tour_name";
             ddlTournamentList.DataSource = tourList;
             ddlTournamentList.DataBind();
+
+        }
+
+        public void populateTournamentWithST()
+        {
+            ddlTourWithStarttime.DataTextField = "tour_name";
+            ddlTourWithStarttime.DataValueField = "id_tournament";
+            ddlTourWithStarttime.DataSource = methods.toursWithST();
+            ddlTourWithStarttime.DataBind();
+        }
+
+        protected void ddlTourWithStarttime_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlTourWithStarttime = (DropDownList)sender;
+            ListItem li = ddlTourWithStarttime.SelectedItem;
+            hfTourWithST.Value = li.Value;
+
+            if (li.Value == "Välj tävling")
+            {
+                gvHasStartlist.DataSource = null;
+                gvHasStartlist.DataBind();
+            }
+            else
+            {
+                int tourID = Convert.ToInt32(hfTourWithST.Value);
+
+                gvHasStartlist.DataSource = methods.getMembersWithST(tourID);
+                gvHasStartlist.DataBind();
+            }
         }
 
     }

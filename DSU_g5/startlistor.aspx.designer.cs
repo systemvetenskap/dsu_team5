@@ -22,6 +22,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.DropDownList ddlTournamentList;
         
         /// <summary>
+        /// lblMemPerGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMemPerGroup;
+        
+        /// <summary>
         /// tbMemPerGroup control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,24 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.GridView gvRandom;
         
         /// <summary>
+        /// ddlTourWithStarttime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTourWithStarttime;
+        
+        /// <summary>
+        /// gvHasStartlist control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvHasStartlist;
+        
+        /// <summary>
         /// hfTourId control.
         /// </summary>
         /// <remarks>
@@ -65,5 +92,14 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hfTourId;
+        
+        /// <summary>
+        /// hfTourWithST control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfTourWithST;
     }
 }

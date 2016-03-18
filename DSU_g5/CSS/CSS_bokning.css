@@ -52,7 +52,7 @@
 
 #ContentPlaceHolder1_bokningar{
    overflow: auto;
-   height:520px;
+   height:540px;
    /*background-color:pink;*/
    padding-top:3%;
 }

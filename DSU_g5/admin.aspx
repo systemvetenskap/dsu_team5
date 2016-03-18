@@ -11,7 +11,7 @@
              <br />
              <asp:Label ID="lblUpdateNews" CSSclass="newslabel" runat="server" Text="Uppdatera nyhet"></asp:Label>
              <br />
-             <asp:DropDownList ID="ddlNewsName" CSSclass="newsddl" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlNewsName_SelectedIndexChanged"></asp:DropDownList>
+             <asp:DropDownList ID="ddlNewsName" CSSclass="dropdown" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlNewsName_SelectedIndexChanged"></asp:DropDownList>
              <br />
              <textarea id="textNews" runat="server" cols="36" rows="16"></textarea>
              <br />
@@ -36,9 +36,9 @@
                 <asp:Label ID="lblSeasonEnd" runat="server" Text="Säsongsslut"></asp:Label>
                 <asp:Calendar ID="endCalendar" runat="server"></asp:Calendar>
              </div>
-             <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click" Width="121px"/>
+             <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click" Width="162px"/>
              <br />
-             <asp:Button ID="btnRemoveDate" runat="server" Text="Stäng Banan" OnClick ="btnRemoveDate_Click" />
+             <asp:Button ID="btnRemoveDate" runat="server" Text="Stäng Banan" OnClick ="btnRemoveDate_Click" Width="163px" />
              <br />
              <asp:TextBox ID="txtFrom" runat="server"></asp:TextBox> - 
              <asp:TextBox ID="txtTo" runat="server"></asp:TextBox>
