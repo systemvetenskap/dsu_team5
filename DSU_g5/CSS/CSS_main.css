@@ -92,6 +92,13 @@
   padding: 1.5%
 }
 
+.ui-datepicker-trigger {
+  width: 17%;
+  height: auto;
+  margin: 0 0 -5% 2%;
+  cursor: pointer;
+}
+
 footer {
   padding: 2% 0 2% 0;
   text-align: center;

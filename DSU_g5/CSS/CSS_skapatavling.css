@@ -3,6 +3,10 @@
     background-color: #6c7 !important;
 }
 
+section {
+    margin: 0 2% 0 2%;
+}
+
 #tournamentInfo {
     overflow: auto;
     float: left;
@@ -35,13 +39,17 @@
 
 #date {
     float: left;
-    padding: 0 7% 0 0;
+    padding: 0 7% 10%; 0;
     width: 45%;
+}
+
+#time {
+    margin: 10% 0 0 0;
 }
 
 #time input {
     text-align: center;
-    width: 23%;
+    width: 50%;
 }
 
 #contact {

@@ -91,9 +91,12 @@ namespace DSU_g5
 
         protected void lblParticipantList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             // hämtar in värdena i globaler
             g_tournamentId = Convert.ToInt32(lblTournamentList.SelectedItem.Value);
             g_memberId = Convert.ToInt32(lblParticipantList.SelectedItem.Value);
+            Session["AccMember"] = g_memberId;
+            Session["GTournamentId"] = g_tournamentId;
 
             // rensar griden 
             gvParticipantResults.DataSource = string.Empty;

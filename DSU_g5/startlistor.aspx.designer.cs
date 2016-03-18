@@ -22,13 +22,22 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.DropDownList ddlTournamentList;
         
         /// <summary>
-        /// LsbParticipants control.
+        /// tbMemPerGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox LsbParticipants;
+        protected global::System.Web.UI.WebControls.TextBox tbMemPerGroup;
+        
+        /// <summary>
+        /// rvTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvTextbox;
         
         /// <summary>
         /// btnStartlist control.
@@ -47,5 +56,14 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvRandom;
+        
+        /// <summary>
+        /// hfTourId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfTourId;
     }
 }
