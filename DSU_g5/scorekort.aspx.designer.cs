@@ -193,13 +193,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl10;
         
         /// <summary>
-        /// TextBox1 control.
+        /// txb10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txb10;
         
         /// <summary>
         /// lbl11 control.
@@ -211,13 +211,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl11;
         
         /// <summary>
-        /// tbx11 control.
+        /// txb11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbx11;
+        protected global::System.Web.UI.WebControls.TextBox txb11;
         
         /// <summary>
         /// lbl12 control.
@@ -247,13 +247,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl13;
         
         /// <summary>
-        /// tbx13 control.
+        /// txb13 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbx13;
+        protected global::System.Web.UI.WebControls.TextBox txb13;
         
         /// <summary>
         /// lbl14 control.
@@ -265,13 +265,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl14;
         
         /// <summary>
-        /// tbx14 control.
+        /// txb14 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbx14;
+        protected global::System.Web.UI.WebControls.TextBox txb14;
         
         /// <summary>
         /// lbl15 control.
@@ -301,13 +301,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl16;
         
         /// <summary>
-        /// txb17 control.
+        /// txb16 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txb17;
+        protected global::System.Web.UI.WebControls.TextBox txb16;
         
         /// <summary>
         /// lbl17 control.
@@ -319,13 +319,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl17;
         
         /// <summary>
-        /// tbx17 control.
+        /// txb17 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbx17;
+        protected global::System.Web.UI.WebControls.TextBox txb17;
         
         /// <summary>
         /// lbl18 control.
@@ -337,12 +337,30 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lbl18;
         
         /// <summary>
-        /// tbx18 control.
+        /// txb18 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbx18;
+        protected global::System.Web.UI.WebControls.TextBox txb18;
+        
+        /// <summary>
+        /// btntries control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btntries;
+        
+        /// <summary>
+        /// btnupdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnupdate;
     }
 }

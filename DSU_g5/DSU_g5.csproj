@@ -97,6 +97,8 @@
     <Content Include="Npgsql.dll" />
     <Content Include="packages.config" />
     <Content Include="headsite.Master" />
+    <None Include="Properties\PublishProfiles\miun-dsu5 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\miun-dsu5 - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

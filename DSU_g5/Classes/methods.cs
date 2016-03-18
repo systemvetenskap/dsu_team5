@@ -3428,6 +3428,79 @@ namespace DSU_g5
             }
             return dt;
         }
-      
+
+        #region SCORECARD
+
+        public static void updateTries()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {  
+                results newResults = new results();
+                conn.Open();
+                command.Connection = conn;
+                string sql;
+
+                sql = "UPDATE results  SET tries = :newTries  WHERE member_id = :newMember_id AND tour_id = :newTour_id AND course_id = :newCourse_id";
+
+                command.Parameters.Add(new NpgsqlParameter("newTries", NpgsqlDbType.Integer));
+                command.Parameters["newTries"].Value = newResults.tries;
+              
+
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+
+        public static void addTries(results newResults)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+            try
+            {
+                //results newResults = new results();
+                conn.Open();
+                command.Connection = conn;
+                string sql;
+
+                sql = "INSERT INTO results(member_id, tour_id, course_id, tries) VALUES (:newMemberId, :newTourId, :newCourseId, :newTries);";
+
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = newResults.memberId;
+                command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                command.Parameters["newTourId"].Value = newResults.tourId;
+                command.Parameters.Add(new NpgsqlParameter("newCourseId", NpgsqlDbType.Integer));
+                command.Parameters["newCourseId"].Value = newResults.courseId;
+                command.Parameters.Add(new NpgsqlParameter("newTries", NpgsqlDbType.Integer));
+                command.Parameters["newTries"].Value = newResults.tries;
+
+
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        #endregion
+
     }
 }
