@@ -417,10 +417,12 @@ namespace DSU_g5
                             string klass = "lbCell";
 
                             //loopa igenom bokningar för att hitta deltagare och bokningsmöjlighet
+                            int memberCount = 0;
                             foreach (games g in gamesList)
                             {
                                 if (g.timeId == timeID)
                                 {
+                                    memberCount++;
                                     double totalHcp = 0;
                                     foreach (member m in g.memberInGameList)
                                     {
@@ -438,7 +440,7 @@ namespace DSU_g5
                                         totalHcp += m.hcp;
                                     }
 
-                                    if (g.memberInGameList.Count >= 4 || totalHcp > 100)
+                                    if (memberCount >= 4 || totalHcp >= 100)
                                     {
                                         klass = "lbCell_full";
                                     }

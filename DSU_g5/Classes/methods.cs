@@ -1647,6 +1647,10 @@ namespace DSU_g5
             {
 
             }
+            finally
+            {
+                conn.Close();
+            }
 
             return maxmin;
         }
@@ -1673,6 +1677,10 @@ namespace DSU_g5
             catch
             {
 
+            }
+            finally
+            {
+                conn.Close();
             }
             return datesList;
         }
@@ -2120,7 +2128,7 @@ namespace DSU_g5
 
         #endregion LOGGIN
 
-        #region MEDLEMSREGISTRERING       
+        #region MEDLEMSREGISTRERING
         public static List<member> getMemberList()
         {
             List<member> memberList = new List<member>();
@@ -2675,7 +2683,6 @@ namespace DSU_g5
 
         #endregion
 
-
         #region RESULTAT
 
         public static List<member> getParticipantList(int tourId, string gender)
@@ -3188,7 +3195,38 @@ namespace DSU_g5
                 conn.Close();
             }
             return succesfull;
-        }                
+        }
+
+        //hämta datatable med tävlingsresultat
+        public static DataTable getResultsTable(int gameId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+
+            string sql;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, result AS resultat, hcp " +
+                      "FROM member_tournament, member_new " +
+                      "WHERE member_tournament.member_id = member_new.id_member " +
+                      "AND tournament_id = " + gameId + " " +
+                      "ORDER BY resultat ASC, hcp ASC;";
+
+                conn.Open();
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt;
+        }
         
         #endregion
        
@@ -3309,6 +3347,10 @@ namespace DSU_g5
             catch (Exception ex)
             {
 
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
@@ -3660,37 +3702,6 @@ namespace DSU_g5
 
 
         #endregion
-
-        //hämta datatable med tävlingsresultat
-        public static DataTable getResultsTable(int gameId)
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
-
-            string sql;
-            DataTable dt = new DataTable();
-
-            try
-            {
-                sql = "SELECT (first_name ||  ' ' ||  last_name) AS namn, result AS resultat, hcp "+
-                      "FROM member_tournament, member_new "+
-                      "WHERE member_tournament.member_id = member_new.id_member "+
-                      "AND tournament_id = "+ gameId +" "+
-                      "ORDER BY resultat ASC, hcp ASC;";
-
-                conn.Open();
-                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
-                da.Fill(dt);
-            }
-            catch (NpgsqlException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-        }
 
         #region SCORECARD
 
