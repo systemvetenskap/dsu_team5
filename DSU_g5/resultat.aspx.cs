@@ -19,6 +19,7 @@ namespace DSU_g5
         {
             if (!Page.IsPostBack)
             {
+                lblstate.Visible = false;
                 // Steg 1. Hämtar listan med samtliga tillgänliga tävlingar och lägger det i lblTournamentList
                 List<tournament> tourList = new List<tournament>();
                 tourList = methods.getTourList();
@@ -32,7 +33,7 @@ namespace DSU_g5
                 lblTournamentList.DataValueField = "Value";
                 lblTournamentList.DataSource = nytourList;
                 lblTournamentList.DataBind();
-
+               
                 // Steg 2. Kontrollerar om det finns rader i tävlingslistan för att hämta vald tävling
                 if (lblTournamentList.Items.Count > 0)
                 {
@@ -142,6 +143,7 @@ namespace DSU_g5
                     resultsList = methods.getExistsResults(tournamentId, memberId);
                     gvParticipantResults.DataSource = resultsList;
                     gvParticipantResults.DataBind();
+
                     lblstate.Text = "2";
                     btSave.Text = "Uppdatera";
                     lbUserMessage.Text = "";
@@ -161,13 +163,24 @@ namespace DSU_g5
                     lbUserMessage.Text = "";
                 }
 
-                // lägger till tävling och deltagarnummer i griden
                 GridView gridview = (GridView)gvParticipantResults;
+                gridview.HeaderRow.Cells[0].Text = "TävlingId"; // tourId
+                gridview.HeaderRow.Cells[1].Text = "MedlemId"; // memberId
+
+                gridview.HeaderRow.Cells[2].Text = "Hål"; // courseId
+                gridview.HeaderRow.Cells[3].Text = "Par"; // pair
+                gridview.HeaderRow.Cells[4].Text = "HCP/ind"; // hcp (hålsvårighet) 
+                gridview.HeaderRow.Cells[5].Text = "Slag"; // Tries
+                gridview.HeaderRow.Cells[6].Text = "Erhåll/slag"; // gameHCP
+                gridview.HeaderRow.Cells[7].Text = "Netto"; // netto
+
+                gridview.HeaderRow.Cells[0].Visible = false; // tourId
+                gridview.HeaderRow.Cells[1].Visible = false; // memberId
+
                 foreach (GridViewRow row in gridview.Rows)
                 {
-                    row.Cells[5].Attributes.Add("contenteditable", "true");
-                    row.Cells[6].Attributes.Add("contenteditable", "true");
-                    row.Cells[7].Attributes.Add("contenteditable", "true");
+                    row.Cells[0].Visible = false; // tourId
+                    row.Cells[1].Visible = false; // memberId                                         
                 }
             }
         }
