@@ -112,6 +112,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblSeasonStart;
         
         /// <summary>
+        /// tbSeasonStartCal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSeasonStartCal;
+        
+        /// <summary>
         /// startCalendar control.
         /// </summary>
         /// <remarks>
@@ -130,6 +139,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Label lblSeasonEnd;
         
         /// <summary>
+        /// tbSeasonEndCal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSeasonEndCal;
+        
+        /// <summary>
         /// endCalendar control.
         /// </summary>
         /// <remarks>
@@ -137,24 +155,6 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Calendar endCalendar;
-        
-        /// <summary>
-        /// btnAddSeason control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddSeason;
-        
-        /// <summary>
-        /// btnRemoveDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRemoveDate;
         
         /// <summary>
         /// txtFrom control.
@@ -173,6 +173,24 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTo;
+        
+        /// <summary>
+        /// btnAddSeason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddSeason;
+        
+        /// <summary>
+        /// btnRemoveDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRemoveDate;
         
         /// <summary>
         /// lblConformation control.

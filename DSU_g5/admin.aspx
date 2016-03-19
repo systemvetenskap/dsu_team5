@@ -29,19 +29,23 @@
              <asp:Label ID="lblSeason" runat="server" Text="Registrera säsong"></asp:Label>
              <div id="seasonStart">
                 <asp:Label ID="lblSeasonStart" runat="server" Text="Säsongsstart"></asp:Label>
-                 <br/>
+                <br />
+                <asp:TextBox ID="tbSeasonStartCal" CssClass="calendar" runat="server"></asp:TextBox>
+                <br/>
                 <asp:Calendar ID="startCalendar" runat="server"></asp:Calendar>
              </div>
              <div id="seasonEnd">
                 <asp:Label ID="lblSeasonEnd" runat="server" Text="Säsongsslut"></asp:Label>
+                <br />
+                <asp:TextBox ID="tbSeasonEndCal" CssClass="calendar" runat="server"></asp:TextBox>
                 <asp:Calendar ID="endCalendar" runat="server"></asp:Calendar>
              </div>
-             <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click" Width="162px"/>
-             <br />
-             <asp:Button ID="btnRemoveDate" runat="server" Text="Stäng Banan" OnClick ="btnRemoveDate_Click" Width="163px" />
              <br />
              <asp:TextBox ID="txtFrom" runat="server"></asp:TextBox> - 
              <asp:TextBox ID="txtTo" runat="server"></asp:TextBox>
+             <br />
+             <asp:Button ID="btnAddSeason" runat="server" Text="Registrera säsong" OnClick="btnAddSeason_Click" Width="162px"/>
+             <asp:Button ID="btnRemoveDate" runat="server" Text="Stäng Banan" OnClick ="btnRemoveDate_Click" Width="163px" />
              <br />
              <asp:Label ID="lblConformation" runat="server" Text=""></asp:Label>
          </div>
