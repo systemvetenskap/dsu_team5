@@ -14,12 +14,12 @@
         <div id="medlemsgolfrundorFold" class="foldable" onclick="toggleSection('medlemsgolfrundor')"><p>Mina golf rundor</p></div>
         <div id="medlemsgolfrundor">
              <asp:GridView ID="gvGameMember" CssClass="usergrid" runat="server" AutoPostBack="true" ></asp:GridView>
-             <asp:Button ID="btBookCancelGame" CssClass="userbutton" runat="server" Text="Boka/avboka spel"/>
+             <asp:Button ID="btBookCancelGame" CssClass="userbutton" runat="server" Text="Boka/avboka spel" OnClick="btBookCancelGame_Click"/>
         </div>
         <div id="regMedlemstavlingarFold" class="foldable" onclick="toggleSection('medlemstavlingar')"><p>Mina tävlingar</p></div>
         <div id="medlemstavlingar">
              <asp:GridView ID="gvMemberTournament" CssClass="usergrid" runat="server" AutoPostBack="true" ></asp:GridView>
-             <asp:Button ID="btBookCancelTournament" CssClass="userbutton" runat="server" Text="Boka/avboka tävling"/>
+             <asp:Button ID="btBookCancelTournament" CssClass="userbutton" runat="server" Text="Boka/avboka tävling" OnClick="btBookCancelTournament_Click"/>
         </div>
         <div id="medlemsregistreringFold" class="foldable" onclick="toggleSection('medlemsregistrering')"><p>Mina medlemsuppgifter</p></div>
         <div id="medlemsregistrering">
