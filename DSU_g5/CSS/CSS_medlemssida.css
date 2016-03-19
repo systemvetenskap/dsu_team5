@@ -2,7 +2,7 @@
     background-color: #6c7 !important;
 }
 
-/* första sektion */
+/* första sektion medlemsgolfrundor */
 #medlemsgolfrundor {
     overflow: auto;
     padding-bottom: 2%;
@@ -24,11 +24,7 @@
     cursor: pointer;
 }
 
-/* andra sektion */
-/* tredje sektion medlemsuppgifter */
-/* Lagt till koden detta för att få enhetlig utseende på både medlemsida och medlemsregistrering */ 
-/* sektion med grid div */
-
+/* andra sektion medlemstavlingar */
 #medlemstavlingar {
     float: left;
     width: 70%;
@@ -36,26 +32,11 @@
     padding-top: 0;
     margin-bottom: 0;
     padding-bottom: 0;
-    /* border: solid; */
-    /* border-color: skyblue; */
 }
 
-#medlemsuppgifterFold {
+#medlemsregistreringFold {
     clear: both;
-    border: solid;     
-    /* border-color: skyblue; */
-    width: 70%;
-}
-
-#medlemsuppgifterE {
-    clear: both;
-    width: 70%;
-    margin-top: 0;
-    padding-top: 0;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    /* border: solid;     */
-    /* border-color: green; */
+    width: 100%;
 }
 
 #medlemsuppgifter {    
@@ -66,8 +47,6 @@
     padding-top: 0;
     margin-bottom: 0;
     padding-bottom: 0;
-    /* border: solid;     */
-    /* border-color: skyblue; */
 }
 
 /* sektion för gridar */
@@ -80,8 +59,6 @@
     padding-top: 0%;
     padding-bottom: 0%;
     float: left;
-    /* border: solid; */
-    /* border-color: red; */
 }
 
 .usergrid tr th {
@@ -105,17 +82,24 @@
 }
 
 /* sektion för medlemsuppgifter */
-/* sektion */
-/* div */
+#medlemsregistrering
+{
+    clear: both;
+    width: 100%;
+}
+
 #medlemsuppgifter {
     width: 30%;
-    clear: both;
+    float: left;
     padding: 1% 2% 1% 1%;
     text-align: right;
 }
 
-#medlemsuppgifter input, select {
-    margin-top: 5px;
+#medlemsaccess {
+    width: 30%;
+    float: left;
+    padding: 1% 2% 1% 1%;
+    text-align: right;
 }
 
 #ContentPlaceHolder1_ddlGender,
@@ -148,28 +132,15 @@
 }
 
 /* sektion med knappar */
-/* 
-#ContentPlaceHolder1_userbuttons {
-    clear: both;
-    padding: 1%;
-    min-width: 15%;
-    width: 96%;
-    border: solid;
-    border-color: beige;
-}
-*/
-
 #userbuttons {
-    clear: both;
     padding: 1%;
     min-width: 15%;
     padding: 1% 2% 1% 1%;
-    width: 96%;
-    /* border: solid;     */
-    /* border-color: yellow; */
+    width: 30%;
+    clear: both;
 }
 
-.userbutton {
+.userbutton {    
     float: left;
     min-width: 15%;
     border-radius: 5px;
@@ -182,8 +153,5 @@
     padding: 1%;
     min-width: 15%;
     width: 30%;
-    /* border: solid;     */
-    /* border-color: red; */
-    clear: both;
 }
 

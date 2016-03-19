@@ -283,24 +283,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.CheckBox cbPayment;
         
         /// <summary>
-        /// lbIdUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbIdUser;
-        
-        /// <summary>
-        /// tbIdUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbIdUser;
-        
-        /// <summary>
         /// lbUserName control.
         /// </summary>
         /// <remarks>
@@ -355,6 +337,24 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbFkIdMember;
         
         /// <summary>
+        /// lbIdUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbIdUser;
+        
+        /// <summary>
+        /// tbIdUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbIdUser;
+        
+        /// <summary>
         /// btSave control.
         /// </summary>
         /// <remarks>
@@ -373,15 +373,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Button btRemove;
         
         /// <summary>
-        /// Label2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-        
-        /// <summary>
         /// lbUserMessage control.
         /// </summary>
         /// <remarks>
@@ -389,6 +380,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbUserMessage;
+        
+        /// <summary>
+        /// hfmedlemsgolfrundorFolded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfmedlemsgolfrundorFolded;
         
         /// <summary>
         /// hfmedlemstavlingarFolded control.
@@ -400,12 +400,12 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.HiddenField hfmedlemstavlingarFolded;
         
         /// <summary>
-        /// hfmedlemsuppgifterFolded control.
+        /// hfmedlemsregistreringFolded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfmedlemsuppgifterFolded;
+        protected global::System.Web.UI.WebControls.HiddenField hfmedlemsregistreringFolded;
     }
 }

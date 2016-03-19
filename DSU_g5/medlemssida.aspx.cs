@@ -24,10 +24,21 @@ namespace DSU_g5
                 gvGameMember.DataSource = dtr;
                 gvGameMember.DataBind();
 
+                // lägger till kolumner till DataTable 
+                // newGameMember.Columns.Add("game_id");
+                // newGameMember.Columns.Add("member_id");
+                // newGameMember.Columns.Add("dates");
+                // newGameMember.Columns.Add("times");
+
                 // section två tävlingar
                 DataTable dtt = methods.getMemberTournament(g_newUser.fkIdMember);
                 gvMemberTournament.DataSource = dtt;
                 gvMemberTournament.DataBind();
+
+                // tour_name = (string)(dr["tour_name"]);
+                // tour_date = Convert.ToDateTime(dr["tour_date"]).ToShortDateString();
+                // tour_start_time = Convert.ToDateTime(dr["tour_start_time"]).ToShortTimeString();
+                // start_time = Convert.ToDateTime(dr["start_time"]).ToShortTimeString();
 
                 // section tre för medlemsuppgifter
                 btSave.Text = "Uppdatera";

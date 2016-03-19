@@ -1409,7 +1409,19 @@ namespace DSU_g5
         public static DataTable getGameMember(int member_id)
         {
             DataTable newGameMember = new DataTable();
+            int gameId;
+            int memberId;
+            String dates;
+            String times;
+
+            // lägger till kolumner till DataTable 
+            newGameMember.Columns.Add("SpelId");
+            newGameMember.Columns.Add("MedlemsId");
+            newGameMember.Columns.Add("Datum");
+            newGameMember.Columns.Add("Tid");
+
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+           
             try
             {
                 conn.Open();
@@ -1419,11 +1431,22 @@ namespace DSU_g5
                 plsql = plsql + "   LEFT OUTER JOIN game AS game ON game.game_id = game_member.game_id";
                 plsql = plsql + "   LEFT OUTER JOIN game_dates AS game_dates ON game_dates.dates_id = game.date_id";
                 plsql = plsql + "   LEFT OUTER JOIN game_starts AS game_starts ON game_starts.time_id = game.time_id";
-                plsql = plsql + "  WHERE member_id = " + member_id + " ";
+                plsql = plsql + "  WHERE member_id = :newMemberId";
                 plsql = plsql + " ORDER BY dates;";
 
-                NpgsqlDataAdapter da = new NpgsqlDataAdapter(plsql, conn);
-                da.Fill(newGameMember);
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = member_id;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    gameId = (int)(dr["game_id"]);
+                    memberId = (int)(dr["member_id"]);
+                    dates = Convert.ToDateTime(dr["dates"]).ToShortDateString();
+                    times = Convert.ToDateTime(dr["times"]).ToShortTimeString();
+                    newGameMember.Rows.Add(gameId, memberId, dates, times);
+                }
             }
             finally
             {
@@ -1435,6 +1458,18 @@ namespace DSU_g5
         public static DataTable getMemberTournament(int member_id)
         {
             DataTable newMemberTournament = new DataTable();
+
+            String tour_name;            
+            String tour_date;
+            String tour_start_time;
+            String start_time;
+
+            // lägger till kolumner till DataTable 
+            newMemberTournament.Columns.Add("Tävlingsnamn");
+            newMemberTournament.Columns.Add("Tävlingsdatum");
+            newMemberTournament.Columns.Add("Starttid");
+            newMemberTournament.Columns.Add("Min starttid");            
+            
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             try
             {
@@ -1443,11 +1478,22 @@ namespace DSU_g5
                 plsql = "SELECT tournament.tour_name, tournament.tour_date, tournament.tour_start_time, start_time";
                 plsql = plsql + " FROM member_tournament";
                 plsql = plsql + "    LEFT OUTER JOIN tournament AS tournament ON tournament.id_tournament = member_tournament.tournament_id";
-                plsql = plsql + "  WHERE member_id = " + member_id + " ";
+                plsql = plsql + "  WHERE member_id = :newMemberId";
                 plsql = plsql + " ORDER BY tournament.tour_date;";
 
-                NpgsqlDataAdapter da = new NpgsqlDataAdapter(plsql, conn);
-                da.Fill(newMemberTournament);
+                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = member_id;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    tour_name = (string)(dr["tour_name"]);
+                    tour_date = Convert.ToDateTime(dr["tour_date"]).ToShortDateString();
+                    tour_start_time = Convert.ToDateTime(dr["tour_start_time"]).ToShortTimeString();
+                    start_time = Convert.ToDateTime(dr["start_time"]).ToShortTimeString();
+                    newMemberTournament.Rows.Add(tour_name, tour_date, tour_start_time, start_time);
+                }
             }
             finally
             {
@@ -3084,7 +3130,7 @@ namespace DSU_g5
                     int course_id = Convert.ToInt32(command.ExecuteScalar());
                 }
                 
-                // uppdateraR resultat i member_tournament till ny summa då kortet har uppdaterats.
+                // uppdaterar resultat i member_tournament till ny summa då kortet har uppdaterats.
                 plsql = string.Empty;
                 plsql = plsql + "UPDATE member_tournament";
                 plsql = plsql + "   SET result = :newNetto";
@@ -3342,7 +3388,6 @@ namespace DSU_g5
             }
             return newTour;
         }
-
 
         public static List<string> participantsByTourId(int id_tournament, int numOfGroups, out string message)
         {
@@ -3724,7 +3769,6 @@ namespace DSU_g5
                 conn.Close();
             }
         }
-
 
         public static void addTries(results newResults)
         {
