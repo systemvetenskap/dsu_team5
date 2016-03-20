@@ -65,7 +65,6 @@
             <div id="userbuttons" runat="server">
                 <asp:Button ID="btSave" CssClass="userbutton" runat="server" Text="Spara" OnClick="btSave_Click" />
                 <asp:Button ID="btRemove" CssClass="userbutton" runat="server" Text="Ta bort" OnClick="btRemove_Click" />
-                <asp:Button ID="btClear" CssClass="userbutton" runat="server" Text="Rensa" OnClick="btClear_Click" />
             </div>
             <div id="usermessage" runat="server">
                  <asp:Label ID="lbUserMessage" Text="Testar labellen" runat="server" ></asp:Label>

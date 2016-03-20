@@ -64,11 +64,14 @@
             <asp:Label ID="lbl18" runat="server" Text="Hål 18"></asp:Label>
             <asp:TextBox ID="txb18" runat="server"></asp:TextBox>
             <br />
-            <asp:Button ID="btntries" runat="server" Text="Skicka resultaten" OnClick="btntries_Click" />
-            <br />
             <asp:Button ID="btnupdate" runat="server" Text="Uppdatera resultat" OnClick="btnupdate_Click" />
             <br />
+            <br />
+            <asp:Button ID="btnReturn" runat="server" Text="Tillbaka till resultatlista"  OnClick="btnReturn_Click" />
+            <br />
             </div>
-
+            <div id="usermessage" runat="server">
+                 <asp:Label ID="lbUserMessage" Text="Testar labellen" runat="server" ></asp:Label>
+            </div>
     </section>
 </asp:Content>
