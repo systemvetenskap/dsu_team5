@@ -100,9 +100,14 @@ namespace DSU_g5
         }
         protected void btnAddSeason_Click(object sender, EventArgs e)
         {
-            DateTime startDate = startCalendar.SelectedDate;
-            DateTime endDate = endCalendar.SelectedDate;
-            if (startCalendar.SelectedDate == DateTime.MinValue || endCalendar.SelectedDate == DateTime.MinValue)
+            //DateTime startDate = startCalendar.SelectedDate;
+            //DateTime endDate = endCalendar.SelectedDate;
+            DateTime startDate = new DateTime();
+            DateTime endDate = new DateTime();
+            DateTime.TryParse(tbSeasonStartCal.Text, out startDate);
+            DateTime.TryParse(tbSeasonEndCal.Text, out endDate);
+
+            if (startDate == DateTime.MinValue || endDate == DateTime.MinValue)
             {
                 Response.Write("<script>alert('Välj till- och från-datum.')</script>");
             
@@ -125,24 +130,35 @@ namespace DSU_g5
 
         protected void btnRemoveDate_Click(object sender, EventArgs e)
         {
-            DateTime startDate = startCalendar.SelectedDate;
-            DateTime endDate = endCalendar.SelectedDate;
+            //DateTime startDate = startCalendar.SelectedDate;
+            //DateTime endDate = endCalendar.SelectedDate;
+            DateTime startDate = new DateTime();
+            DateTime endDate = new DateTime();
+            DateTime.TryParse(tbSeasonStartCal.Text, out startDate);
+            DateTime.TryParse(tbSeasonEndCal.Text, out endDate);
 
-            if (startCalendar.SelectedDate != DateTime.MinValue && endCalendar.SelectedDate == DateTime.MinValue)
+            if (startDate != DateTime.MinValue && endDate == DateTime.MinValue)
             {
-                DateTime startTime = DateTime.Parse(txtFrom.Text);
-                DateTime endTime = DateTime.Parse(txtTo.Text);
-                //int startTime = int.Parse(txtFrom.Text);
-                //int endTime = int.Parse(txtTo.Text);
-                methods.stangbanan(startDate, startTime, endTime);
+                try
+                {
+                    DateTime startTime = DateTime.Parse(txtFrom.Text);
+                    DateTime endTime = DateTime.Parse(txtTo.Text);
+                    //int startTime = int.Parse(txtFrom.Text);
+                    //int endTime = int.Parse(txtTo.Text);
+                    methods.stangbanan(startDate, startTime, endTime);
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('Ett fel uppstod. Mer information:\n"+ ex.Message +"')</script>");
+                }
             }
-            else if (startCalendar.SelectedDate == DateTime.MinValue || endCalendar.SelectedDate == DateTime.MinValue)
+            else if (startDate == DateTime.MinValue || endDate == DateTime.MinValue)
             {
                 Response.Write("<script>alert('Välj till- och från-datum.')</script>");
             }
             else if (startDate > endDate)
             {
-                Response.Write("<script>alert('Välj från-datum i vänstra kalendern och till-datum i den högra ')</script>");
+                Response.Write("<script>alert('Välj från-datum i övre kalendern och till-datum i den undre.')</script>");
             }
             else
             {
