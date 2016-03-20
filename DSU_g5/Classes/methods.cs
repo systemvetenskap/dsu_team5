@@ -3633,9 +3633,10 @@ namespace DSU_g5
             {
                 conn.Open();
 
-                sqlmembersWithST = "SELECT id_member, first_name, last_name, id_tournament, tour_start_time FROM member_new mn INNER JOIN member_tournament mt " +
+                sqlmembersWithST = "SELECT id_member, first_name, last_name, id_tournament, start_time FROM member_new mn INNER JOIN member_tournament mt " +
                                    "ON mn.id_member = mt.member_id INNER JOIN tournament t ON t.id_tournament = mt.tournament_id " +
-                                   "WHERE mt.tournament_id = '" + tour_id + "'";
+                                   "WHERE mt.tournament_id = '" + tour_id + "' " +
+                                   "ORDER BY start_time ASC";
 
                 NpgsqlCommand cmd = new NpgsqlCommand(sqlmembersWithST, conn);
                 NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -3648,7 +3649,7 @@ namespace DSU_g5
 
 
                     t.id_tournament = Convert.ToInt32(dr["id_tournament"].ToString());
-                    t.tour_start_time = Convert.ToDateTime(dr["tour_start_time"].ToString());
+                    t.tour_start_time = Convert.ToDateTime(dr["start_time"].ToString());
                     string hourMinute = t.tour_start_time.ToShortTimeString();
 
 
