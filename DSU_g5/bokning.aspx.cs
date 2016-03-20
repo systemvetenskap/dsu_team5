@@ -54,10 +54,10 @@ namespace DSU_g5
             datesList = methods.getDates();
             if (!IsPostBack)
             {                
-                lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
-                lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
-                lbAllMembers.DataSource = methods.showAllMembersForBooking();
-                lbAllMembers.DataBind();
+                //lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
+                //lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
+                //lbAllMembers.DataSource = methods.showAllMembersForBooking();
+                //lbAllMembers.DataBind();
 
                                 //NYTT NEDAN!
                 lbGamesMemberIsBookedOn.DataValueField = "gID";
@@ -103,6 +103,23 @@ namespace DSU_g5
 
                 }
             }
+
+            //array till kontaktpersonssökningstextboxkontroll
+            List<member> memberList = new List<member>();
+            memberList = methods.getMemberList();
+
+            DataTable members = methods.showAllMembersForBooking();
+            foreach (DataRow dr in members.Rows)
+            {
+                ClientScript.RegisterArrayDeclaration("members",
+                "{label: '" + dr["namn"] + "', value: '" + dr["mID"] + "'}");
+            }
+
+            //foreach (member me in memberList)
+            //{
+            //    ClientScript.RegisterArrayDeclaration("contactPersons",
+            //    "{label: '" + me.firstName + " " + me.lastName + "', value: '" + me.memberId + "'}");
+            //}
         }
 
  

@@ -1,6 +1,22 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="bokning.aspx.cs" Inherits="DSU_g5.bokning" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/CSS_bokning.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            $("#ContentPlaceHolder1_tbSearchMember").autocomplete({
+                source: members,
+                focus: function (event, ui) {
+                    $("#ContentPlaceHolder1_tbSearchMember").val(ui.item.label);
+                    return false;
+                },
+                select: function (event, ui) {
+                    $("#ContentPlaceHolder1_tbSearchMember").val(ui.item.label);
+                    $("#ContentPlaceHolder1_hfPlaceholderMemberId").val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -36,9 +52,8 @@
         </div>
     </div>
         <div id="bokningarAdmin" runat="server">
-            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
             <div id="listBoxMedlemar">
-                <asp:ListBox ID="lbAllMembers" runat="server" Rows="10" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+               <!-- <asp:ListBox ID="lbAllMembers" runat="server" Rows="10" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox> -->
             </div>
             <br />
             <div id="searchMember">
@@ -48,9 +63,10 @@
                 <br />
                 <asp:Button ID="BtnBookMember" runat="server" Text="Boka medlem" OnClick="BtnBookMember_Click" />
             </div>
+        </div>
 
             <script>
-                document.getElementById("ContentPlaceHolder1_tbSearchMember").addEventListener("input", ListBoxFilter);
+                //document.getElementById("ContentPlaceHolder1_tbSearchMember").addEventListener("input", ListBoxFilter);
                 function ListBoxFilter() {
                     var input = $("#ContentPlaceHolder1_tbSearchMember").val();
                     var regex = new RegExp(input, "i");
@@ -67,7 +83,6 @@
                 }                
             </script>
 
-        </div>
     <br />
     <div id="member" runat="server">
         <br />
