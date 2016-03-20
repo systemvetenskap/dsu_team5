@@ -3694,23 +3694,28 @@ namespace DSU_g5
 
         #region SCORECARD
 
-        public static void updateTries()
+        public static void updateTries(results newResults)
         {
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = conn;
             try
             {  
-                results newResults = new results();
+                //results newResults = new results();
                 conn.Open();
                 command.Connection = conn;
                 string sql;
 
-                sql = "UPDATE results  SET tries = :newTries  WHERE member_id = :newMember_id AND tour_id = :newTour_id AND course_id = :newCourse_id";
+                sql = "UPDATE results  SET tries = :newTries  WHERE member_id = :newMemberId AND tour_id = :newTourId AND course_id = :newCourseId";
 
                 command.Parameters.Add(new NpgsqlParameter("newTries", NpgsqlDbType.Integer));
                 command.Parameters["newTries"].Value = newResults.tries;
-              
+                command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
+                command.Parameters["newMemberId"].Value = newResults.memberId;
+                command.Parameters.Add(new NpgsqlParameter("newTourId", NpgsqlDbType.Integer));
+                command.Parameters["newTourId"].Value = newResults.tourId;
+                command.Parameters.Add(new NpgsqlParameter("newCourseId", NpgsqlDbType.Integer));
+                command.Parameters["newCourseId"].Value = newResults.courseId;
 
                 command.CommandText = sql;
                 command.ExecuteNonQuery();
@@ -3731,6 +3736,9 @@ namespace DSU_g5
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
             NpgsqlCommand command = new NpgsqlCommand();
             command.Connection = conn;
+
+
+           
             try
             {
                 //results newResults = new results();
@@ -3738,7 +3746,7 @@ namespace DSU_g5
                 command.Connection = conn;
                 string sql;
 
-                sql = "INSERT INTO results(member_id, tour_id, course_id, tries) VALUES (:newMemberId, :newTourId, :newCourseId, :newTries);";
+                sql = "INSERT INTO results(member_id, tour_id, course_id, tries, gamehcp, netto) VALUES (:newMemberId, :newTourId, :newCourseId, :newTries, :newGameHcp, :newNetto);";
 
                 command.Parameters.Add(new NpgsqlParameter("newMemberId", NpgsqlDbType.Integer));
                 command.Parameters["newMemberId"].Value = newResults.memberId;
@@ -3748,6 +3756,10 @@ namespace DSU_g5
                 command.Parameters["newCourseId"].Value = newResults.courseId;
                 command.Parameters.Add(new NpgsqlParameter("newTries", NpgsqlDbType.Integer));
                 command.Parameters["newTries"].Value = newResults.tries;
+                command.Parameters.Add(new NpgsqlParameter("newGameHcp", NpgsqlDbType.Integer));
+                command.Parameters["newGameHcp"].Value = newResults.gamehcp;
+                command.Parameters.Add(new NpgsqlParameter("newNetto", NpgsqlDbType.Integer));
+                command.Parameters["newNetto"].Value = newResults.netto;
 
 
                 command.CommandText = sql;

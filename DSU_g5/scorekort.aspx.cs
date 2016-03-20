@@ -110,6 +110,8 @@ namespace DSU_g5
 
         protected void btnupdate_Click(object sender, EventArgs e)
         {
+           
+
             newResult.tourId = g_tournament_id;
             newResult.memberId = g_acc_member;
 
@@ -120,75 +122,75 @@ namespace DSU_g5
 
             newResult.courseId = 1;
             newResult.tries = Convert.ToInt32(txb1.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 2;
             newResult.tries = Convert.ToInt32(txb2.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 3;
             newResult.tries = Convert.ToInt32(txb3.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 4;
             newResult.tries = Convert.ToInt32(txb4.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 5;
             newResult.tries = Convert.ToInt32(txb5.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 6;
             newResult.tries = Convert.ToInt32(txb6.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 7;            
             newResult.tries = Convert.ToInt32(txb7.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 8;
             newResult.tries = Convert.ToInt32(txb8.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 9;
             newResult.tries = Convert.ToInt32(txb9.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 10;
             newResult.tries = Convert.ToInt32(txb10.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 11;
             newResult.tries = Convert.ToInt32(txb11.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 12;
             newResult.tries = Convert.ToInt32(txb12.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 13;
             newResult.tries = Convert.ToInt32(txb13.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 14;
             newResult.tries = Convert.ToInt32(txb14.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 15;
             newResult.tries = Convert.ToInt32(txb15.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 16;
             newResult.tries = Convert.ToInt32(txb16.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             newResult.courseId = 17;
             newResult.tries = Convert.ToInt32(txb17.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
             
             newResult.courseId = 18;
             newResult.tries = Convert.ToInt32(txb18.Text);
-            methods.updateTries();
+            methods.updateTries(newResult);
 
             clearFields();
 
