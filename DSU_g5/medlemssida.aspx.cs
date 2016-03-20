@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Web.Security;
 
 namespace DSU_g5
 {
@@ -206,6 +207,23 @@ namespace DSU_g5
             tbMail.Text = string.Empty;
             tbGolfId.Text = string.Empty;
             lbUserMessage.Text = string.Empty;
+        }
+
+        protected void btBookCancelGame_Click(object sender, EventArgs e)
+        {
+            // hämtar in värdena i globaler
+            int accessId = Convert.ToInt32(Session["IdAccess"]);
+            FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);
+            Response.Redirect("bokning.aspx");
+        }
+
+        protected void btBookCancelTournament_Click(object sender, EventArgs e)
+        {
+            // hämtar in värdena i globaler
+            int accessId = Convert.ToInt32(Session["IdAccess"]);
+            FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);
+            Response.Redirect("tavlingar.aspx");
+            // Response.Redirect("anmalantavling.aspx");
         }
     }
 } 

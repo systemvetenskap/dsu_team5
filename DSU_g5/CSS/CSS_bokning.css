@@ -106,6 +106,8 @@
 .lbCell_full {
   background-color: #f66;
   display: block;
+  width: 50px;
+  height: 45px;
   text-decoration: none;
   color: black;
   padding: 4px;
