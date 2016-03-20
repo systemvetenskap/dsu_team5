@@ -17,6 +17,7 @@ namespace DSU_g5
             if (!Page.IsPostBack)
             {
                 populateNewsNameList();
+                ddlNewsName.Items.Insert(0, "Välj nyhet");
                 
             }
         }
@@ -199,8 +200,7 @@ namespace DSU_g5
             textNews.InnerText = newNews.newsInfo;
             txtNewNews.Text = newNews.newsName;
            
-
-
+            
         }
 
         #endregion
@@ -209,10 +209,10 @@ namespace DSU_g5
         #region TextChanged
         protected void txtNewNews_TextChanged(object sender, EventArgs e)
         {
-            updateNews.Visible = false;
-            removeNews.Visible = false;
-            ddlNewsName.Visible = false;
-            lblUpdateNews.Visible = false;
+            updateNews.Visible = true;
+            removeNews.Visible = true;
+            ddlNewsName.Visible = true;
+            lblUpdateNews.Visible = true;
             
         }
 

@@ -49,8 +49,10 @@ namespace DSU_g5
                 ddlAllTournaments.DataSource = tourList;
                 ddlAllTournaments.DataBind();
 
-
                 ddlAllTournaments.SelectedValue = tourQuery;
+                //ddlAllTournaments behöver ingen Items.Insert för man kan bara bli hänvisad hit via tavlingar.aspx. Här används istället en QueryString. /Andreas
+
+
 
                 tournament tour = new tournament();
                 tour.id_tournament = Convert.ToInt32(tourQuery);
