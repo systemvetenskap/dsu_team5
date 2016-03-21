@@ -8,6 +8,7 @@
   padding-left:2%;
   margin-top:-10%;
   /*background-color:lightgreen;*/
+  padding-bottom:3%;
 }
 
 #ContentPlaceHolder1_bookMember{
@@ -40,6 +41,7 @@
 #ContentPlaceHolder1_bokningarAdmin{
     /*background-color:purple;*/
     margin-top:-22%;
+    padding-bottom:12%;
     /*float:left;*/
 }
 

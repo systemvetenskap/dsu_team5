@@ -1,6 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="tavlingar.aspx.cs" Inherits="DSU_g5.tavlingar" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/CSS_tavlingar.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            var accessId = '<%= Session["IdAccess"] %>';
+            if (accessId < 2) {
+                $(".hideButton").hide();
+            }
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -31,7 +39,7 @@
                        <p class="tourText"><%# Eval("tour_info") %></p>
                        <%--<asp:Label ID="lblTest" runat="server" Text="xxxx"></asp:Label>--%>
 
-                       <asp:Button ID="btnRegister" runat="server" Text="Anmäl" onCommand="btnRegister_Click" CommandArgument='<%# Eval("id_tournament")%>'/>
+                       <asp:Button ID="btnRegister" CssClass="hideButton" runat="server" Text="Anmäl" onCommand="btnRegister_Click" CommandArgument='<%# Eval("id_tournament")%>'/>
                        <asp:Button ID="btnResults" runat="server" Text="Visa resultat" onCommand="btnResults_Command" CommandArgument='<%# Eval("id_tournament")%>'/>
                        <br />
                        <br />
