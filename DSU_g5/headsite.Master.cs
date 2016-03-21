@@ -60,7 +60,8 @@ namespace DSU_g5
                     "ASP.skapatavlingar_aspx",
                     "ASP.resultat_aspx",
                     "ASP.skapatavling_aspx",
-                    "ASP.startlistor_aspx"
+                    "ASP.startlistor_aspx",
+                    "ASP.anmanlantavling_aspx"
                 };
 
                 //sidor som besökare kommer åt (publika sidor)

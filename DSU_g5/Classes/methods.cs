@@ -1491,7 +1491,14 @@ namespace DSU_g5
                     tour_name = (string)(dr["tour_name"]);
                     tour_date = Convert.ToDateTime(dr["tour_date"]).ToShortDateString();
                     tour_start_time = Convert.ToDateTime(dr["tour_start_time"]).ToShortTimeString();
-                    start_time = Convert.ToDateTime(dr["start_time"]).ToShortTimeString();
+                    if (dr["start_time"] != DBNull.Value)
+                    {
+                        start_time = Convert.ToDateTime(dr["start_time"]).ToShortTimeString();
+                    }
+                    else
+                    {
+                        start_time = "";
+                    }
                     newMemberTournament.Rows.Add(tour_name, tour_date, tour_start_time, start_time);
                 }
             }
