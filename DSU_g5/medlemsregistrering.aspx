@@ -6,6 +6,23 @@
             width: 177px;
         }
     </style>
+    <script>
+        $(function () {
+            $("#ContentPlaceHolder1_tbSearch").autocomplete({
+                source: members,
+                focus: function (event, ui) {
+                    $("#ContentPlaceHolder1_tbSearch").val(ui.item.label);
+                    return false;
+                },
+                select: function (event, ui) {
+                    $("#ContentPlaceHolder1_tbSearch").val(ui.item.label);
+                    $("#ContentPlaceHolder1_hfSearchMember").val(ui.item.value);
+                    __doPostBack();
+                    return false;
+                }
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section id="medlemsregistrering">
@@ -64,18 +81,19 @@
             <br />
         </div>
         <div id="medlemslista">
-            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+            <%--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
             <asp:Label ID="lbMembersList" CssClass="memberlabel" runat="server" Text="Medlemslista"></asp:Label>
             <br />
             <asp:ListBox ID="lblMembers" CssClass="membertextbox" runat="server" Height="191px" Width="215px" AutoPostBack="true" OnSelectedIndexChanged="lblMembers_SelectedIndexChanged" ></asp:ListBox>
-            <br />
+            <br />--%>
             <asp:Label ID="lbSearch" CssClass="memberlabel" runat="server" Text="Sök medlem"></asp:Label>
             <br />
             <asp:TextBox ID="tbSearch" CssClass="membertextbox" runat="server" Width="209px"></asp:TextBox>
+            <asp:HiddenField ID="hfSearchMember" runat="server" OnValueChanged="hfSearchMember_ValueChanged" />
             <br />
             <br />
             <script>
-                document.getElementById("ContentPlaceHolder1_tbSearch").addEventListener("input", ListBoxFilter);
+                //document.getElementById("ContentPlaceHolder1_tbSearch").addEventListener("input", ListBoxFilter);
                 function ListBoxFilter() {
                     var input = $("#ContentPlaceHolder1_tbSearch").val();
                     var regex = new RegExp(input, "i");
