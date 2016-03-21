@@ -27,3 +27,6 @@
   text-decoration:underline;
 }
 
+#showAmount {
+  float: left;
+}

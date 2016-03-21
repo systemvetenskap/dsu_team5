@@ -92,6 +92,7 @@
     <Content Include="CSS\CSS_tavlingsresultat.css" />
     <Content Include="Images\golf-787477_960_720.jpg" />
     <Content Include="Images\halslaget_v01.png" />
+    <Content Include="Images\halslaget_v02.png" />
     <Content Include="Images\kalenderikon_v02.png" />
     <Content Include="index.aspx" />
     <Content Include="JavaScript\datepicker-sv.js" />
