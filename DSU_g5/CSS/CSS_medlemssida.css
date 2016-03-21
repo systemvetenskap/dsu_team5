@@ -34,8 +34,8 @@
     width: 70%;
     margin-top: 0;
     padding-top: 0;
-    margin-bottom: 0;
-    padding-bottom: 0;
+    margin-bottom: 4%;
+    padding-bottom: 0%;
 }
 
 #medlemsregistreringFold {
@@ -47,10 +47,10 @@
     clear: both;
     float: left;
     width: 70%;
-    margin-top: 0;
-    padding-top: 0;
+    padding-top: 2%;
     margin-bottom: 0;
     padding-bottom: 0;
+    margin-top: 0%;
 }
 
 /* sektion för gridar */
@@ -58,7 +58,6 @@
     width: 75%;
     padding: 1%;
     width: 96%;    
-    margin-top: 0;
     margin-bottom: 1%;
     padding-top: 0%;
     padding-bottom: 0%;
@@ -109,7 +108,7 @@
 #ContentPlaceHolder1_ddlGender,
 #ContentPlaceHolder1_ddlAccessCategory,
 #ContentPlaceHolder1_ddlCategory {
-    width: 47%;
+    width: 59%;
 }
 
 #ContentPlaceHolder1_cbPayment {
@@ -119,6 +118,7 @@
 .memberlabel {
     float: left;
 }
+
 
 #medlemslista {
     width: 30%;
@@ -150,6 +150,8 @@
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    margin-bottom: 5%;
+    padding-bottom: 5%;
 }
 
 #usermessage {

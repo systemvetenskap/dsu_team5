@@ -22,11 +22,11 @@
 #ContentPlaceHolder1_ddlGender,
 #ContentPlaceHolder1_ddlAccessCategory,
 #ContentPlaceHolder1_ddlCategory {
-    width: 47%;
+    width: 59%;
 }
 
 #ContentPlaceHolder1_cbPayment {
-    margin-right: 42%;
+    margin-right: 55%;
 }
 
 .memberlabel {

@@ -11,7 +11,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
     <section id="medlemssida">
-        <div id="medlemsgolfrundorFold" class="foldable" onclick="toggleSection('medlemsgolfrundor')"><p>Mina golf rundor</p></div>
+        <div id="medlemsgolfrundorFold" class="foldable" onclick="toggleSection('medlemsgolfrundor')"><p>Mina golfrundor</p></div>
         <div id="medlemsgolfrundor">
              <asp:GridView ID="gvGameMember" CssClass="usergrid" runat="server" AutoPostBack="true" ></asp:GridView>
              <asp:Button ID="btBookCancelGame" CssClass="userbutton" runat="server" Text="Boka/avboka spel" OnClick="btBookCancelGame_Click"/>
@@ -19,7 +19,7 @@
         <div id="regMedlemstavlingarFold" class="foldable" onclick="toggleSection('medlemstavlingar')"><p>Mina tävlingar</p></div>
         <div id="medlemstavlingar">
              <asp:GridView ID="gvMemberTournament" CssClass="usergrid" runat="server" AutoPostBack="true" ></asp:GridView>
-             <asp:Button ID="btBookCancelTournament" CssClass="userbutton" runat="server" Text="Boka/avboka tävling" OnClick="btBookCancelTournament_Click"/>
+             <asp:Button ID="btBookCancelTournament" CssClass="userbutton" runat="server" Text="Boka tävling" OnClick="btBookCancelTournament_Click"/>
         </div>
         <div id="medlemsregistreringFold" class="foldable" onclick="toggleSection('medlemsregistrering')"><p>Mina medlemsuppgifter</p></div>
         <div id="medlemsregistrering">
@@ -46,7 +46,7 @@
                 <asp:TextBox ID="tbMail" CssClass="membertextbox" runat="server"></asp:TextBox>
                 <br />
                 <asp:Label ID="lbGender" CssClass="memberlabel" runat="server" Text="Kön"></asp:Label>
-                <asp:DropDownList ID="ddlGender" CssClass="membertextbox" runat="server" ></asp:DropDownList>
+                <asp:DropDownList ID="ddlGender" runat="server" ></asp:DropDownList>
                 <br />
                 <!-- <asp:Label ID="lbHcp" CssClass="memberlabel" runat="server" Text="HCP"></asp:Label> -->
                 <!-- <asp:TextBox ID="tbHcp" CssClass="membertextbox" runat="server" ></asp:TextBox> -->

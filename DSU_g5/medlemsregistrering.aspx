@@ -27,7 +27,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section id="medlemsregistrering">
         <div id="medlemsuppgifter">
-            <asp:Label ID="lbIdMember" CssClass="memberlabel" runat="server" Text="Medlems ID"></asp:Label>
+            <asp:Label ID="lbIdMember" CssClass="memberlabel" runat="server" Text="Medlems-ID"></asp:Label>
             <asp:TextBox ID="tbIdMember" CssClass="membertextbox" runat="server"></asp:TextBox>
             <br />
             <asp:Label ID="lbFirstName" CssClass="memberlabel" runat="server" Text="Förnamn"></asp:Label>
@@ -54,20 +54,20 @@
             <asp:Label ID="lbHcp" CssClass="memberlabel" runat="server" Text="HCP"></asp:Label>
             <asp:TextBox ID="tbHcp" CssClass="membertextbox" runat="server" ></asp:TextBox>
             <br />
-            <asp:Label ID="lbGolfId" CssClass="memberlabel" runat="server" Text="Golf Id"></asp:Label>
+            <asp:Label ID="lbGolfId" CssClass="memberlabel" runat="server" Text="Golf-ID"></asp:Label>
             <asp:TextBox ID="tbGolfId" CssClass="membertextbox" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbCategory" CssClass="memberlabel" runat="server" Text="Medlems kategori" ></asp:Label>
+            <asp:Label ID="lbCategory" CssClass="memberlabel" runat="server" Text="Medlemskategori" ></asp:Label>
             <asp:DropDownList ID="ddlCategory" CssClass="membertextbox" runat="server" ></asp:DropDownList>     
             <br />
-            <asp:Label ID="lbAccessCategory" CssClass="memberlabel" runat="server" Text="Access Kategori" ></asp:Label>
+            <asp:Label ID="lbAccessCategory" CssClass="memberlabel" runat="server" Text="Behörighet" ></asp:Label>
             <asp:DropDownList ID="ddlAccessCategory" CssClass="membertextbox" runat="server" ></asp:DropDownList>     
             <br />        
             <asp:Label ID="lbPayment" CssClass="memberlabel" runat="server" Text="Betalning" ></asp:Label>
             <asp:CheckBox ID="cbPayment" CssClass="membercheckbox" runat="server" />
             <br />
             <br />
-            <asp:Label ID="lbIdUser" CssClass="memberlabel" runat="server" Text="AnvändarId"></asp:Label>
+            <asp:Label ID="lbIdUser" CssClass="memberlabel" runat="server" Text="Användar-ID"></asp:Label>
             <asp:TextBox ID="tbIdUser" CssClass="membertextbox" runat="server"></asp:TextBox>
             <br />
             <asp:Label ID="lbUserName" CssClass="memberlabel" runat="server" Text="Användarnamn"></asp:Label>
@@ -76,7 +76,7 @@
             <asp:Label ID="lbUserPassword" CssClass="memberlabel" runat="server" Text="Lösenord"></asp:Label>
             <asp:TextBox ID="tbUserPassword" CssClass="membertextbox" runat="server"></asp:TextBox>
             <br />
-            <asp:Label ID="lbFkIdMember" CssClass="memberlabel" runat="server" Text="MedlemsId"></asp:Label>
+            <asp:Label ID="lbFkIdMember" CssClass="memberlabel" runat="server" Text="Medlems-ID"></asp:Label>
             <asp:TextBox ID="tbFkIdMember" CssClass="membertextbox" runat="server"></asp:TextBox>
             <br />
         </div>
