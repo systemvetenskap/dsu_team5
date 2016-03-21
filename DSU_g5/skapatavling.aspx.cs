@@ -173,8 +173,8 @@ namespace DSU_g5
             tbSokContactPerson.Text = "";
             hfContactPerson.Value = "";
             tbDateCal.Text = "";
-            tbStartTime.Text = ":";
-            tbEndTime.Text = ":";
+            tbStartTime.Text = "";
+            tbEndTime.Text = "";
             tbRegStartCal.Text = "";
             tbRegEndCal.Text = "";
             tbPublishListCal.Text = "";

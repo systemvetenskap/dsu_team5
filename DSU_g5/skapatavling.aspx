@@ -32,12 +32,12 @@
                 <div id="time">
                     <asp:Label ID="lblStartTime" runat="server" Text="Starttid (00:00)"></asp:Label>
                     <br />
-                    <asp:TextBox ID="tbStartTime" runat="server" Text=":"></asp:TextBox>
+                    <asp:TextBox ID="tbStartTime" runat="server" Text=""></asp:TextBox>
                     <br />
                     <br />
                     <asp:Label ID="lblEndTime" runat="server" Text="Sluttid (00:00)"></asp:Label>
                     <br />
-                    <asp:TextBox ID="tbEndTime" runat="server" Text=":"></asp:TextBox>
+                    <asp:TextBox ID="tbEndTime" runat="server" Text=""></asp:TextBox>
                 </div>
             </div>
         </div>
