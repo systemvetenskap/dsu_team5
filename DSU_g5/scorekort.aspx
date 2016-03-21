@@ -8,7 +8,7 @@
             <asp:Label ID="lblslagkort" runat="server" Text="Slagkort"></asp:Label>
             <br />
             <asp:Label ID="lbl1" runat="server" Text="Hål 1"></asp:Label>
-            <asp:TextBox ID="txb1" runat="server" ></asp:TextBox>
+            <asp:TextBox ID="txb1" runat="server" onblur="checkTextField(this);"></asp:TextBox>
             <asp:CompareValidator ControlToValidate="txb1" runat="server" ErrorMessage="Antal slag måste anges i siffror" Operator="DataTypeCheck" Type="Integer" ></asp:CompareValidator>
             <br />
             <asp:Label ID="lbl2" runat="server" Text="Hål 2"></asp:Label>
@@ -79,8 +79,8 @@
             <asp:CompareValidator ControlToValidate="txb17" runat="server" ErrorMessage="Antal slag måste anges i siffror" Operator="DataTypeCheck" Type="Integer" ></asp:CompareValidator>
             <br />
             <asp:Label ID="lbl18" runat="server" Text="Hål 18"></asp:Label>
-            <asp:TextBox ID="txb18" runat="server"></asp:TextBox>
-            <asp:CompareValidator ControlToValidate="txb18" runat="server" ErrorMessage="Antal slag måste anges i siffror" Operator="DataTypeCheck" Type="Integer" ></asp:CompareValidator>
+            <asp:TextBox ID="txb18" runat="server" aria-required="True"></asp:TextBox>
+            <asp:CompareValidator ControlToValidate="txb18" runat="server" ErrorMessage="Antal slag måste anges i siffror" Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
             <br />
             <asp:Button ID="btnupdate" runat="server" Text="Uppdatera resultat" OnClick="btnupdate_Click" />
             <br />
@@ -88,7 +88,14 @@
             <br />
             </div>
             <div id="usermessage" runat="server">
-                 <asp:Label ID="lbUserMessage" Text="Testar labellen" runat="server" ></asp:Label>
+                 <asp:Label ID="lbUserMessage" Text="Testar label" runat="server" ></asp:Label>
          </div>
+      
     </section>
+     <script>
+         function checkTextField(field) {
+             if (field.value == '') {
+                 alert("Field is empty");
+             }
+         }</script>
 </asp:Content>
