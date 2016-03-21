@@ -25,20 +25,27 @@ namespace DSU_g5
         #region KNAPPAR
         protected void btnPublish_Click(object sender, EventArgs e)
         {
-            news newNews = new news();
-            newNews.newsName = txtNewNews.Text;
-            newNews.newsInfo = textNews.InnerText;
-            newNews.newsDate = DateTime.Now;
-            methods.addNews(newNews);
-            populateNewsNameList();
+            if (textNews.InnerText != "")
+            {
+                news newNews = new news();
+                newNews.newsName = txtNewNews.Text;
+                newNews.newsInfo = textNews.InnerText;
+                newNews.newsDate = DateTime.Now;
+                methods.addNews(newNews);
+                populateNewsNameList();
 
-            //    methods.addNews(newNews);
+                //    methods.addNews(newNews);
                 Response.Write("<script>alert('Publicering klar')</script>");
                 txtNewNews.Text = string.Empty;
                 updateNews.Visible = true;
                 removeNews.Visible = true;
                 ddlNewsName.Visible = true;
                 lblUpdateNews.Visible = true;
+            }
+            else
+            {
+                Response.Write("<script>alert('Fyll i nyhetsinfo')</script>");
+            }
          }
         protected void btnUpdateNews_Click(object sender, EventArgs e)
         {
@@ -65,38 +72,52 @@ namespace DSU_g5
         }
         protected void btnRemoveNews_Click(object sender, EventArgs e)
         {
-            news newNews = new news();
-            newNews.newsId = Convert.ToInt32(ddlNewsName.SelectedItem.Value);
-            methods.removeNews(newNews);
-            populateNewsNameList();
+            if (textNews.InnerText != "")
+            {
+                news newNews = new news();
+                newNews.newsId = Convert.ToInt32(ddlNewsName.SelectedItem.Value);
+                methods.removeNews(newNews);
+                populateNewsNameList();
 
-            //if (methods.removeNews(newNews) == true)
-            //{
-            //    methods.removeNews(newNews);
+                //if (methods.removeNews(newNews) == true)
+                //{
+                //    methods.removeNews(newNews);
                 Response.Write("<script>alert('Nyhet är borttagen')</script>");
-            //}
+                //}
                 txtNewNews.Text = string.Empty;
                 updateNews.Visible = true;
                 removeNews.Visible = true;
                 ddlNewsName.Visible = true;
                 lblUpdateNews.Visible = true;
+            }
+            else
+            {
+                Response.Write("<script>alert('Välj en nyhet att ta bort')</script>");
+            }
         }
         protected void btnMailNews_Click(object sender, EventArgs e)
         {
-            string nyhetsbrev = textNews.InnerText;
-            string rubrik = ddlNewsName.SelectedItem.ToString();
-            methods.SkickaMail(nyhetsbrev, rubrik);
+            if (textNews.InnerText != "")
+            {
+                string nyhetsbrev = textNews.InnerText;
+                string rubrik = ddlNewsName.SelectedItem.ToString();
+                methods.SkickaMail(nyhetsbrev, rubrik);
 
-            //if (methods.SkickaMail(nyhetsbrev, rubrik) == true)
-            //{
+                //if (methods.SkickaMail(nyhetsbrev, rubrik) == true)
+                //{
                 methods.SkickaMail(nyhetsbrev, rubrik);
                 Response.Write("<script>alert('Nyhetsbrev är sänt till medlemmar')</script>");
-            //}
+                //}
                 txtNewNews.Text = "";
                 updateNews.Visible = true;
                 removeNews.Visible = true;
                 ddlNewsName.Visible = true;
                 lblUpdateNews.Visible = true;
+            }
+            else
+            {
+                Response.Write("<script>alert('Välj en nyhet att maila')</script>");
+            }      
         }
         protected void btnAddSeason_Click(object sender, EventArgs e)
         {
