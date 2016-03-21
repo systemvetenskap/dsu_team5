@@ -7,7 +7,7 @@
     overflow: auto;
 }
 
-#news {
+#newsdiv {
     float: left;
     margin-right: 5%;
 }
@@ -15,6 +15,7 @@
 .newslabel {
     width: 150px;
     float: left;
+    margin: 0 0 2% 0;
 }
 
 .newstextbox {
@@ -38,25 +39,31 @@
 }
 
 #seasons {
-    width: 36%;
-    margin-top: 0.5%;
+    width: 35%;
     float: right;
 }
 
-#ContentPlaceHolder1_startCalendar {
-    float: left;
-    margin: 0 4% 0 0;
+#seasons div {
+    margin: 1% 0 0 0;
+}
+
+#seasons input{
+    width: 160px;
+}
+
+#calendars{
+    overflow: auto;
+    padding: 4% 0 0 0;
 }
 
 #seasonStart {
-    margin-top: 2%;
+    display: block;
+    width: 250px;
+    height: 80px;
 }
 
 #seasonEnd {
-    margin: -5.2% 0% 0% 0%;
-}
-
-#ContentPlaceHolder1_btnAddSeason {
-    margin-top: 1%;
-    margin-right: 40%
+    display: block;
+    width: 250px;
+    height: 80px;
 }
