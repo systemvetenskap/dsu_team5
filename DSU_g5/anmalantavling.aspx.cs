@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -61,13 +62,24 @@ namespace DSU_g5
                
 
                
-                lbMembersTournament.DataValueField = "mID";
-                lbMembersTournament.DataTextField = "namn";
-                lbMembersTournament.DataSource = methods.showAllMembersForBooking();
-                lbMembersTournament.DataBind();
+                //lbMembersTournament.DataValueField = "mID";
+                //lbMembersTournament.DataTextField = "namn";
+                //lbMembersTournament.DataSource = methods.showAllMembersForBooking();
+                //lbMembersTournament.DataBind();
 
                 //Tar med Queryvärdet och fyller textboxar.
                 infoAboutTourTBs(Convert.ToInt32(tourQuery));
+            }
+
+            //array till kontaktpersonssökningstextboxkontroll
+            List<member> memberList = new List<member>();
+            memberList = methods.getMemberList();
+
+            DataTable members = methods.showAllMembersForBooking();
+            foreach (DataRow dr in members.Rows)
+            {
+                ClientScript.RegisterArrayDeclaration("members",
+                "{label: '" + dr["namn"] + "', value: '" + dr["mID"] + "'}");
             }
         }
 
@@ -110,19 +122,19 @@ namespace DSU_g5
 
         protected void lbMembersTournament_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblConfirmation.Text = "";
-            ListBox lb = (ListBox)sender;
-            ListItem li = lb.SelectedItem;
+            //lblConfirmation.Text = "";
+            //ListBox lb = (ListBox)sender;
+            //ListItem li = lb.SelectedItem;
 
-            member mem = new member();
-            mem.memberId = Convert.ToInt32(li.Value);
-            //int memberId = Convert.ToInt32(li.Value);
+            //member mem = new member();
+            //mem.memberId = Convert.ToInt32(li.Value);
+            ////int memberId = Convert.ToInt32(li.Value);
 
-            hfMemberId.Value = mem.memberId.ToString();
+            //hfMemberId.Value = mem.memberId.ToString();
 
-            selectedMember = methods.getMember(mem.memberId);
+            //selectedMember = methods.getMember(mem.memberId);
 
-            lblMemberInfo.Text = selectedMember.memberId + " " + selectedMember.firstName + " " + selectedMember.lastName + " " + selectedMember.gender + " " + selectedMember.hcp;
+            //lblMemberInfo.Text = selectedMember.memberId + " " + selectedMember.firstName + " " + selectedMember.lastName + " " + selectedMember.gender + " " + selectedMember.hcp;
         }
 
         #endregion
@@ -193,6 +205,17 @@ namespace DSU_g5
         protected void gvTourInfo_DataBound(object sender, EventArgs e)
         {
 
+        }
+
+        protected void hfMemberId_ValueChanged(object sender, EventArgs e)
+        {
+            lblConfirmation.Text = "";
+            HiddenField hf = (HiddenField)sender;
+            int memberId = Convert.ToInt32(hf.Value);
+
+            selectedMember = methods.getMember(memberId);
+
+            lblMemberInfo.Text = selectedMember.memberId + " " + selectedMember.firstName + " " + selectedMember.lastName + " " + selectedMember.gender + " " + selectedMember.hcp;
         }
     }
 }
