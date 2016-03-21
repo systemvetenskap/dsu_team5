@@ -38,6 +38,9 @@
         <asp:Label ID="lblTourInfo" runat="server" Text="Tävlingsinfo"></asp:Label>
         <asp:TextBox ID="tbTourInfo" runat="server" ReadOnly="True"></asp:TextBox>
         <br />
+        <asp:Label ID="lblGameform" runat="server" Text="Tävlingsform"></asp:Label>
+        <asp:TextBox ID="tbGameform" runat="server" ReadOnly="True"></asp:TextBox>
+        <br />
         <asp:Label ID="lblTourDate" runat="server" Text="Tävlingsdatum"></asp:Label>
         <asp:TextBox ID="tbTourDate" runat="server" ReadOnly="True"></asp:TextBox>
         <br />

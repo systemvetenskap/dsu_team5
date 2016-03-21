@@ -108,6 +108,7 @@ namespace DSU_g5
                 //infoAboutTourTBs(tour.id_tournament);
                 tbTourName.Text = selectedTournament.tour_name;
                 tbTourInfo.Text = selectedTournament.tour_info;
+                tbGameform.Text = methods.getGameformName(selectedTournament.gameform);
                 tbTourDate.Text = selectedTournament.tour_date.ToShortDateString();
                 tbRegStart.Text = selectedTournament.registration_start.ToShortDateString();
                 tbRegEnd.Text = selectedTournament.registration_end.ToShortDateString();
@@ -203,10 +204,11 @@ namespace DSU_g5
         {
             tournament t = new tournament();
             t = methods.GetTournament(Convert.ToInt32(tourQuery));
-
-
+            
+            
             tbTourName.Text = t.tour_name;
             tbTourInfo.Text = t.tour_info;
+            tbGameform.Text = methods.getGameformName(t.gameform);
             tbTourDate.Text = t.tour_date.ToShortDateString();
             tbRegStart.Text = t.registration_start.ToShortDateString();
             tbRegEnd.Text = t.registration_end.ToShortDateString();
@@ -224,6 +226,7 @@ namespace DSU_g5
 
             tbTourName.Text = string.Empty;
             tbTourInfo.Text = string.Empty;
+            tbGameform.Text = string.Empty;
             tbTourDate.Text = string.Empty;
             tbRegStart.Text = string.Empty;
             tbRegEnd.Text = string.Empty;

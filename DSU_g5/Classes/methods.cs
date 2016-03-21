@@ -2765,6 +2765,39 @@ namespace DSU_g5
             return contactPerson.firstName + " " + contactPerson.lastName;
         }
 
+        //hämta namn på spelform
+        public static string getGameformName(int gameformID)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sqlGetName;
+            string gameformName = "";
+
+            try
+            {
+
+                sqlGetName = "SELECT gameform_name FROM gameform WHERE gameform_id = "+ gameformID +";";
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlGetName, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    gameformName = dr["gameform_name"].ToString();
+                }
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return gameformName;
+        }
+
 
 
         #endregion
