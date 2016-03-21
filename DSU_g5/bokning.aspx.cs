@@ -52,6 +52,8 @@ namespace DSU_g5
             List<DateTime> tider = new List<DateTime>();
             maxmin = methods.maxmindates();
             datesList = methods.getDates();
+
+
             if (!IsPostBack)
             {                
                 //lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
@@ -76,7 +78,7 @@ namespace DSU_g5
                 {
                     bokningarAdmin.Visible = false;
                     lbBookedMembers.Visible = false;
-                    BtnDelMemberFromGame.Visible = true;
+                    BtnDelMemberFromGame.Visible = false;
                     member.Visible = true;
                 }
                 else
@@ -86,6 +88,7 @@ namespace DSU_g5
                     lblAnotherMember.Visible = false;
                     tbBookAnotherMember.Visible = false;
                     btnBookedByMember.Visible = false;
+                    bokningarInfo.Visible = true;
                 }
             }
 
@@ -180,6 +183,9 @@ namespace DSU_g5
                         updateBookingInfo();
 
                         mid = "";
+                        hfPlaceholderMemberId.Value = "";
+                        tbSearchMember.Text = "";
+                        
                     }
                     else
                     {
@@ -193,7 +199,7 @@ namespace DSU_g5
             }
             else
             {
-                Response.Write("<script>alert('" + "Du måste välja medlem i listan." + "')</script>");
+                Response.Write("<script>alert('" + "Sök på medlem i fältet." + "')</script>");
             }
 
         }
@@ -523,6 +529,12 @@ namespace DSU_g5
 
                 //presentera info om golfrunda och deltagare: datum, tid, deltagare, handicap, golf-ID, totalt handicap
                 updateBookingInfo();
+
+                if (accessId == 2 || accessId == 3)
+                {
+                    lbBookedMembers.Visible = true;
+                    BtnDelMemberFromGame.Visible = true;
+                }
             }
             catch (Exception ex)
             {

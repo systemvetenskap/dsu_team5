@@ -50,9 +50,9 @@ namespace DSU_g5
                 ddlAllTournaments.DataSource = tourList;
                 ddlAllTournaments.DataBind();
 
-                ddlAllTournaments.SelectedValue = tourQuery;
-                //ddlAllTournaments behöver ingen Items.Insert för man kan bara bli hänvisad hit via tavlingar.aspx. Här används istället en QueryString. /Andreas
+                ddlAllTournaments.Items.Insert(0, "Välj Tävling");
 
+                ddlAllTournaments.SelectedValue = tourQuery;
 
 
                 tournament tour = new tournament();
@@ -86,37 +86,45 @@ namespace DSU_g5
         #region SELECTED INDEX CHANGED
         protected void ddlAllTournaments_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             lblConfirmation.Text = "";
             DropDownList ddl = (DropDownList)sender;
             ListItem li = ddl.SelectedItem;
 
-            tournament tour = new tournament();
-            //tour.id_tournament = Convert.ToInt32(tourQuery);
-            tour.id_tournament = Convert.ToInt32(ddl.SelectedItem.Value);
-            //int tournamentID = Convert.ToInt32(ddl.SelectedItem.Value);
+            if (ddl.SelectedItem.Value != "Välj Tävling")
+            {
 
-            hfTourId.Value = tour.id_tournament.ToString();
+                tournament tour = new tournament();
+                //tour.id_tournament = Convert.ToInt32(tourQuery);
+                tour.id_tournament = Convert.ToInt32(ddl.SelectedItem.Value);
+                //int tournamentID = Convert.ToInt32(ddl.SelectedItem.Value);
 
-            selectedTournament = methods.GetTournament(tour.id_tournament);
-            
-            //lblTournamentInfo.Text = selectedTournament.id_tournament + " " + selectedTournament.tour_name;
+                hfTourId.Value = tour.id_tournament.ToString();
 
-            //infoAboutTourTBs(tour.id_tournament);
-            tbTourName.Text = selectedTournament.tour_name;
-            tbTourInfo.Text = selectedTournament.tour_info;
-            tbTourDate.Text = selectedTournament.tour_date.ToShortDateString();
-            tbRegStart.Text = selectedTournament.registration_start.ToShortDateString();
-            tbRegEnd.Text = selectedTournament.registration_end.ToShortDateString();
-            tbTourStart.Text = selectedTournament.tour_start_time.ToShortTimeString();
-            tbTourEnd.Text = selectedTournament.tour_end_time.ToShortTimeString();
-            tbContactPerson.Text = Convert.ToString(methods.ContactPersonName(tour.id_tournament));
-            tbHole.Text = selectedTournament.hole.ToString();
-            
-            
+                selectedTournament = methods.GetTournament(tour.id_tournament);
+
+                //lblTournamentInfo.Text = selectedTournament.id_tournament + " " + selectedTournament.tour_name;
+
+                //infoAboutTourTBs(tour.id_tournament);
+                tbTourName.Text = selectedTournament.tour_name;
+                tbTourInfo.Text = selectedTournament.tour_info;
+                tbTourDate.Text = selectedTournament.tour_date.ToShortDateString();
+                tbRegStart.Text = selectedTournament.registration_start.ToShortDateString();
+                tbRegEnd.Text = selectedTournament.registration_end.ToShortDateString();
+                tbTourStart.Text = selectedTournament.tour_start_time.ToShortTimeString();
+                tbTourEnd.Text = selectedTournament.tour_end_time.ToShortTimeString();
+                tbContactPerson.Text = Convert.ToString(methods.ContactPersonName(tour.id_tournament));
+                tbHole.Text = selectedTournament.hole.ToString();
             
             //Gridview
             gvTourInfo.DataSource = methods.GetInfoAboutTour(tour.id_tournament);
             gvTourInfo.DataBind();
+            }
+            else
+            {
+                ClearTextBoxes();
+            }
+
 
         }
 
@@ -147,7 +155,7 @@ namespace DSU_g5
         {
             string message = null;
 
-            if(hfTourId.Value != "")
+            if(hfTourId.Value != "" && hfTourId.Value != "0")
             {
                 if (hfMemberId.Value != "")
                 {
@@ -160,7 +168,15 @@ namespace DSU_g5
 
                     if(message != null)
                     {
-                        Response.Write("<script>alert('" + message + "')</script>");
+                        if(accessId != 2 && accessId != 3)
+                        {
+                            Response.Write("<script>alert('" + "Du är redan inbokad på denna tävling." + "')</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('" + message + "')</script>");
+                        }
+
                         lblConfirmation.Text = "";
                     }
                     else
@@ -202,6 +218,21 @@ namespace DSU_g5
 
         }
 
+        private void ClearTextBoxes()
+        {
+            hfTourId.Value = "";
+
+            tbTourName.Text = string.Empty;
+            tbTourInfo.Text = string.Empty;
+            tbTourDate.Text = string.Empty;
+            tbRegStart.Text = string.Empty;
+            tbRegEnd.Text = string.Empty;
+            tbTourStart.Text = string.Empty;
+            tbTourEnd.Text = string.Empty;
+            tbContactPerson.Text = string.Empty;
+            tbHole.Text = string.Empty;
+        }
+
         protected void gvTourInfo_DataBound(object sender, EventArgs e)
         {
 
@@ -215,7 +246,7 @@ namespace DSU_g5
 
             selectedMember = methods.getMember(memberId);
 
-            lblMemberInfo.Text = selectedMember.memberId + " " + selectedMember.firstName + " " + selectedMember.lastName + " " + selectedMember.gender + " " + selectedMember.hcp;
+            lblMemberInfo.Text = selectedMember.memberId + " " + selectedMember.firstName + " " + selectedMember.lastName + " " + selectedMember.gender + " " + selectedMember.hcp + " hcp";
         }
     }
 }
