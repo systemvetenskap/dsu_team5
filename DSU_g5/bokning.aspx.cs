@@ -52,6 +52,8 @@ namespace DSU_g5
             List<DateTime> tider = new List<DateTime>();
             maxmin = methods.maxmindates();
             datesList = methods.getDates();
+
+
             if (!IsPostBack)
             {                
                 //lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".

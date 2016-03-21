@@ -22,7 +22,10 @@
 
     <div id="bokningar" runat="server">
         <div id="calenderDiv">
-            <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged" OnDayRender="calBokning_DayRender"></asp:Calendar>
+            <asp:Calendar ID="calBokning" runat="server" OnSelectionChanged="calBokning_SelectionChanged" OnDayRender="calBokning_DayRender">
+                <SelectedDayStyle BorderStyle="Groove" BorderColor="#4CAF50" BorderWidth="3px"/> 
+                <SelectorStyle BackColor="Purple" />
+            </asp:Calendar>
         </div>
 
         <div id ="bookMember" runat="server">
@@ -85,6 +88,7 @@
 
     <br />
     <div id="member" runat="server">
+        <hr />
         <br />
         <div id="membersGames" runat="server">
         <%-- DIV 2 LBGAMEIDINFO --%>
