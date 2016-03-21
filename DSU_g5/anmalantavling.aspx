@@ -3,6 +3,23 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/CSS_anmalantavling.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            $("#ContentPlaceHolder1_tbSearchMember").autocomplete({
+                source: members,
+                focus: function (event, ui) {
+                    $("#ContentPlaceHolder1_tbSearchMember").val(ui.item.label);
+                    return false;
+                },
+                select: function (event, ui) {
+                    $("#ContentPlaceHolder1_tbSearchMember").val(ui.item.label);
+                    $("#ContentPlaceHolder1_hfMemberId").val(ui.item.value);
+                    __doPostBack();
+                    return false;
+                }
+            });
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -46,11 +63,11 @@
     </div>
 
     <div id="tourMemberAdmin" runat="server">
-        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <%--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <asp:Label ID="lblAllMembers" runat="server" Text="<u>Välj en medlem att registrera på tävling</u>"></asp:Label>
         <br />
         <asp:ListBox ID="lbMembersTournament" runat="server" Rows="10" OnSelectedIndexChanged="lbMembersTournament_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
-        <br />
+        <br />--%>
         <asp:Label ID="lblSearchMember" runat="server" Text="Sök medlem"></asp:Label>
         <br />
         <asp:TextBox ID="tbSearchMember" runat="server"></asp:TextBox>
@@ -58,7 +75,7 @@
         <asp:Label ID="lblMemberInfo" runat="server" Text="Här visas nformation om vald medlem."></asp:Label>
 
         <script>
-                document.getElementById("ContentPlaceHolder1_tbSearchMember").addEventListener("input", ListBoxFilter);
+                //document.getElementById("ContentPlaceHolder1_tbSearchMember").addEventListener("input", ListBoxFilter);
                 function ListBoxFilter() {
                     var input = $("#ContentPlaceHolder1_tbSearchMember").val();
                     var regex = new RegExp(input, "i");
@@ -83,7 +100,7 @@
     </div>
         <br />
     <asp:HiddenField ID="hfTourId" runat="server" />
-    <asp:HiddenField ID="hfMemberId" runat="server" />
+    <asp:HiddenField ID="hfMemberId" runat="server" OnValueChanged="hfMemberId_ValueChanged" />
     </section>
 </asp:Content>
 
