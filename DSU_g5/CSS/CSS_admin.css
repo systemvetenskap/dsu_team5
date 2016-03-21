@@ -5,6 +5,7 @@
 #adminsida {
     width: 100%;
     overflow: auto;
+    padding-bottom:3%;
 }
 
 #newsdiv {
