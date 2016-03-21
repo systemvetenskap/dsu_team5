@@ -473,6 +473,43 @@ namespace DSU_g5
             return memberIdList;
         }
 
+        //hämta närmaste valbara datum för bokning
+        public static DateTime getNextBookableDate()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            
+            string datum = DateTime.Now.ToShortDateString();
+            string sql;
+            DateTime nextDate = new DateTime();
+            
+            try
+            {
+                sql = "SELECT min(dates) AS datum FROM game_dates "+
+                      "WHERE dates >= '"+ datum +"';";
+
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    DateTime.TryParse(dr["datum"].ToString(), out nextDate);
+                }
+
+            }
+            catch (NpgsqlException ex)
+            {
+               
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return nextDate;
+        }
+
         #endregion
 
         #region BOKNING OCH AVBOKNING - ADMIN
@@ -1494,12 +1531,8 @@ namespace DSU_g5
                     if (dr["start_time"] != DBNull.Value)
                     {
                         start_time = Convert.ToDateTime(dr["start_time"]).ToShortTimeString();
+                        newMemberTournament.Rows.Add(tour_name, tour_date, tour_start_time, start_time);
                     }
-                    else
-                    {
-                        start_time = "";
-                    }
-                    newMemberTournament.Rows.Add(tour_name, tour_date, tour_start_time, start_time);
                 }
             }
             finally
@@ -2755,6 +2788,7 @@ namespace DSU_g5
                 plsql = plsql + "     LEFT JOIN member_new AS member_new ON member_new.id_member = member_tournament.member_id";
                 plsql = plsql + " WHERE member_tournament.tournament_id = :newTournamentId ";
                 plsql = plsql + "     AND member_new.gender = :newGender";
+                plsql = plsql + " ORDER BY id_member";
 
                 NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newTournamentId", NpgsqlDbType.Integer));

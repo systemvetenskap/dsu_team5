@@ -43,7 +43,7 @@
                  </div>
              </div>
              <div id="times">
-                <asp:Label ID="lblSeasonTimes" runat="server" Text="Tider"></asp:Label>
+                <asp:Label ID="lblSeasonTimes" runat="server" Text="Tider (00:00)"></asp:Label>
                 <br />
                 <asp:TextBox ID="txtFrom" runat="server"></asp:TextBox> - 
                 <asp:TextBox ID="txtTo" runat="server"></asp:TextBox>

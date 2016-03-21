@@ -68,3 +68,9 @@
     width: 250px;
     height: 80px;
 }
+
+#ContentPlaceHolder1_txtFrom,
+#ContentPlaceHolder1_txtTo {
+    width: 100px !important;
+    margin: 0 0 2% 0;
+}

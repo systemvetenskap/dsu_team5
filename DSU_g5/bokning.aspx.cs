@@ -94,7 +94,7 @@ namespace DSU_g5
             {
                 try
                 {
-                    populateGrvBokning();
+                    //populateGrvBokning();
                     updateBookingInfo();
                     //lbGamesMemberIsBookedOn.SelectedIndex = -1;
                     //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
@@ -103,6 +103,15 @@ namespace DSU_g5
                 {
 
                 }
+            }
+
+            try
+            {
+                populateGrvBokning();
+            }
+            catch
+            {
+
             }
 
             //array till kontaktpersonssökningstextboxkontroll
@@ -116,11 +125,6 @@ namespace DSU_g5
                 "{label: '" + dr["namn"] + "', value: '" + dr["mID"] + "'}");
             }
 
-            //foreach (member me in memberList)
-            //{
-            //    ClientScript.RegisterArrayDeclaration("contactPersons",
-            //    "{label: '" + me.firstName + " " + me.lastName + "', value: '" + me.memberId + "'}");
-            //}
         }
 
  
@@ -372,8 +376,19 @@ namespace DSU_g5
         {
             try
             {
-                //DateTime datum = new DateTime();
-                DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+                DateTime datum;
+                
+                if (hfChosenDate.Value != "")
+                {
+                    datum = Convert.ToDateTime(hfChosenDate.Value);
+                }
+                else
+                {
+                    datum = methods.getNextBookableDate();
+                    hfChosenDate.Value = datum.ToShortDateString();
+                    calBokning.SelectedDate = datum;
+                }
+
                 List<member> bookedMembers = new List<member>();
                 bookedMembers = methods.getBookedMember(datum);
 
@@ -418,10 +433,8 @@ namespace DSU_g5
         {
             try
             {
-                //DateTime datum = new DateTime(2016, 3, 7);
                 DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
                 List<games> gamesList = methods.getGamesByDate(datum);
-
                 GridView gridview = (GridView)sender;
 
                 int column = 0;
@@ -497,7 +510,6 @@ namespace DSU_g5
                 DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
                 hfTimeId.Value = timeId;
                 List<games> gamesList = methods.getGamesByDate(datum);
-
 
                 int gameId = 0;
                 foreach (games g in gamesList)
