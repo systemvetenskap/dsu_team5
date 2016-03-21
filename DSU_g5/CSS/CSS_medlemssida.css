@@ -1,4 +1,8 @@
-﻿#navMedlemssida a {
+﻿#medlemssida{
+    padding-bottom:30%;
+}
+
+#navMedlemssida a {
     background-color: #6c7 !important;
 }
 

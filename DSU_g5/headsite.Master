@@ -19,7 +19,7 @@
     <div id="content">
     <form id="form1" runat="server">
         <header>
-            <asp:Image ID="logo" ImageUrl="/Images/halslaget_v01.png" runat="server" />
+            <a href="index.aspx"><asp:Image ID="logo" ImageUrl="/Images/halslaget_v01.png" runat="server" /></a>
         </header>
         <nav id="masterNav">
             <div id="masterNavTop">

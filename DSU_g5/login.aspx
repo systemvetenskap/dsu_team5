@@ -11,6 +11,7 @@
     <section id="loginsida">
         <br />
         <br />
+        <br />
         <asp:Label ID="lbUserName" runat="server" Text="Användarnamn"></asp:Label>
         <br />
         <asp:TextBox ID="tbUserName" runat="server" MaxLength="20" Height="25px" Width="180px" ></asp:TextBox>

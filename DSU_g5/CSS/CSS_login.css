@@ -1,7 +1,8 @@
 ﻿#loginsida
 {
     width: 100%;
-    height: 400px;
+    padding-bottom:28%;
+    /*height: 400px;*/
 }
 
 .memberlabel {

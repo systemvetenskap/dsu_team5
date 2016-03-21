@@ -8,6 +8,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>    
     <div id ="tournamentInfo" runat="server">
+        <br />
         <asp:Label ID="lblAllTournaments" runat="server" Text="<u>Välj en tävling nedan</u>"></asp:Label>
         <br />
         <asp:DropDownList ID="ddlAllTournaments" runat="server" CssClass="dropdown" AutoPostBack="true" OnSelectedIndexChanged="ddlAllTournaments_SelectedIndexChanged"></asp:DropDownList>
@@ -80,6 +81,7 @@
         <br />
         <asp:Label ID="lblConfirmation" runat="server" Text="" Font-Bold="true" ForeColor="Green"></asp:Label>
     </div>
+        <br />
     <asp:HiddenField ID="hfTourId" runat="server" />
     <asp:HiddenField ID="hfMemberId" runat="server" />
     </section>

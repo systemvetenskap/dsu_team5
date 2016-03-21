@@ -131,5 +131,6 @@
             toggleSection("medlemsregistrering");
         }
         </script>
+
     </section>
 </asp:Content>

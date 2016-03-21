@@ -13,6 +13,7 @@
              <br />
              <asp:DropDownList ID="ddlNewsName" CSSclass="dropdown" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlNewsName_SelectedIndexChanged"></asp:DropDownList>
              <br />
+             <br />
              <textarea id="textNews" runat="server" cols="36" rows="16"></textarea>
              <br />
              <asp:Button ID="publishNews" CSSclass="newsbutton" runat="server" Text="Publicera nyheter" OnClick="btnPublish_Click" />

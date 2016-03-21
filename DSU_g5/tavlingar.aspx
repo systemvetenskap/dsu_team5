@@ -33,6 +33,9 @@
 
                        <asp:Button ID="btnRegister" runat="server" Text="Anmäl" onCommand="btnRegister_Click" CommandArgument='<%# Eval("id_tournament")%>'/>
                        <asp:Button ID="btnResults" runat="server" Text="Visa resultat" onCommand="btnResults_Command" CommandArgument='<%# Eval("id_tournament")%>'/>
+                       <br />
+                       <br />
+                       <hr />
                    </div>
                </ItemTemplate>
            </asp:Repeater>
