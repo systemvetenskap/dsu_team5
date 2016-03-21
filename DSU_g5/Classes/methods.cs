@@ -473,6 +473,43 @@ namespace DSU_g5
             return memberIdList;
         }
 
+        //hämta närmaste valbara datum för bokning
+        public static DateTime getNextBookableDate()
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            
+            string datum = DateTime.Now.ToShortDateString();
+            string sql;
+            DateTime nextDate = new DateTime();
+            
+            try
+            {
+                sql = "SELECT min(dates) AS datum FROM game_dates "+
+                      "WHERE dates >= '"+ datum +"';";
+
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    DateTime.TryParse(dr["datum"].ToString(), out nextDate);
+                }
+
+            }
+            catch (NpgsqlException ex)
+            {
+               
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return nextDate;
+        }
+
         #endregion
 
         #region BOKNING OCH AVBOKNING - ADMIN
