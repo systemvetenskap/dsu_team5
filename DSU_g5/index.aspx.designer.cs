@@ -22,6 +22,24 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.DropDownList ddlNewsName;
         
         /// <summary>
+        /// lblShowAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblShowAmount;
+        
+        /// <summary>
+        /// ddlShowAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlShowAmount;
+        
+        /// <summary>
         /// lblStartDate control.
         /// </summary>
         /// <remarks>

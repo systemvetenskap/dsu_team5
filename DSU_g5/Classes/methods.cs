@@ -1530,10 +1530,10 @@ namespace DSU_g5
                     tour_start_time = Convert.ToDateTime(dr["tour_start_time"]).ToShortTimeString();
                     if (dr["start_time"] != DBNull.Value)
                     {
-                        start_time = Convert.ToDateTime(dr["start_time"]).ToShortTimeString();
-                        newMemberTournament.Rows.Add(tour_name, tour_date, tour_start_time, start_time);
-                    }
+                    start_time = Convert.ToDateTime(dr["start_time"]).ToShortTimeString();
+                    newMemberTournament.Rows.Add(tour_name, tour_date, tour_start_time, start_time);
                 }
+            }
             }
             finally
             {
@@ -1968,7 +1968,7 @@ namespace DSU_g5
             {
                 sql = "SELECT news_info, news_name, news_date FROM news " +
                       "ORDER BY news_date DESC, news_id DESC " +
-                      "LIMIT 10;";
+                      "LIMIT 30;";
                 conn.Open();
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
@@ -2763,6 +2763,39 @@ namespace DSU_g5
                 conn.Close();
             }
             return contactPerson.firstName + " " + contactPerson.lastName;
+        }
+
+        //hämta namn på spelform
+        public static string getGameformName(int gameformID)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            string sqlGetName;
+            string gameformName = "";
+
+            try
+            {
+
+                sqlGetName = "SELECT gameform_name FROM gameform WHERE gameform_id = "+ gameformID +";";
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlGetName, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    gameformName = dr["gameform_name"].ToString();
+                }
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return gameformName;
         }
 
 

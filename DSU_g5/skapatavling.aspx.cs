@@ -63,6 +63,8 @@ namespace DSU_g5
                 DateTime regStart = new DateTime();
                 DateTime regEnd = new DateTime();
                 DateTime publishList = new DateTime();
+                DateTime startTime = new DateTime();
+                DateTime endTime = new DateTime();
 
                 if (tbName.Text != "" &&
                     taInformation.Value != "" &&
@@ -70,53 +72,88 @@ namespace DSU_g5
                     DateTime.TryParse(tbRegEndCal.Text, out regEnd) &&
                     DateTime.TryParse(tbPublishListCal.Text, out publishList) &&
                     hfContactPerson.Value != "" &&
-                    DateTime.TryParse(tbDateCal.Text, out date))
+                    DateTime.TryParse(tbDateCal.Text, out date) &&
+                    DateTime.TryParse(tbStartTime.Text, out startTime) &&
+                    DateTime.TryParse(tbEndTime.Text, out endTime))
                 {
-                    DateTime startTime = new DateTime();
-                    DateTime endTime = new DateTime();
-
-                    if (DateTime.TryParse(tbStartTime.Text, out startTime) && DateTime.TryParse(tbEndTime.Text, out endTime))
+                    
+                    //skapa tävlingsobjekt
+                    tournament tour = new tournament
                     {
-                        //skapa tävlingsobjekt
-                        tournament tour = new tournament
-                        {
-                            tour_name = tbName.Text,
-                            tour_info = taInformation.Value,
-                            registration_start = regStart,
-                            registration_end = regEnd,
-                            tour_start_time = startTime,
-                            tour_end_time = endTime,
-                            publ_date_startlists = publishList,
-                            contact_person = Convert.ToInt32(hfContactPerson.Value),
-                            gameform = Convert.ToInt32(ddlGameForm.SelectedItem.Value),
-                            hole = 18,
-                            tour_date = date
-                        };
+                        tour_name = tbName.Text,
+                        tour_info = taInformation.Value,
+                        registration_start = regStart,
+                        registration_end = regEnd,
+                        tour_start_time = startTime,
+                        tour_end_time = endTime,
+                        publ_date_startlists = publishList,
+                        contact_person = Convert.ToInt32(hfContactPerson.Value),
+                        gameform = Convert.ToInt32(ddlGameForm.SelectedItem.Value),
+                        hole = 18,
+                        tour_date = date
+                    };
 
-                        int newTourId = methods.insertTournament(tour);
+                    int newTourId = methods.insertTournament(tour);
 
-                        //lägg till valda sponsorer
-                        foreach (ListItem li in lbSponsors.Items)
-                        {
-                            methods.insertTour_sponsor(newTourId, Convert.ToInt32(li.Value));
-                        }
-
-                        clearFields();
-                        lblMessage.Text = " Tävlingen är registrerad.";
-                    }
-                    else
+                    //lägg till valda sponsorer
+                    foreach (ListItem li in lbSponsors.Items)
                     {
-                        lblMessage.Text = " Vänligen kontrollera att tävlingens tider är korrekt inskrivna.";
+                        methods.insertTour_sponsor(newTourId, Convert.ToInt32(li.Value));
                     }
+
+                    clearFields();
+                    lblMessage.Text = " Tävlingen är registrerad.";
                 }
                 else
                 {
-                    lblMessage.Text = " Vänligen kontrollera att alla uppgifter stämmer.";
+                    string meddelande = "Registrering misslyckades. Vänligen kontrollera att följande uppgifter stämmer:\\n";
+                    
+                    if (tbName.Text == "")
+                    {
+                        meddelande += "\\nTävlingens namn";
+                    }
+                    if (taInformation.Value == "")
+                    {
+                        meddelande += "\\nInformation";
+                    }
+                    if (!DateTime.TryParse(tbDateCal.Text, out date))
+                    {
+                        meddelande += "\\nTävlingens datum";
+                    }
+                    if (!DateTime.TryParse(tbStartTime.Text, out startTime))
+                    {
+                        meddelande += "\\nStarttid";
+                    }
+                    if (!DateTime.TryParse(tbEndTime.Text, out endTime))
+                    {
+                        meddelande += "\\nSluttid";
+                    }
+                    if (hfContactPerson.Value == "")
+                    {
+                        meddelande += "\\nKontaktperson";
+                    }
+                    if (!DateTime.TryParse(tbRegStartCal.Text, out regStart))
+                    {
+                        meddelande += "\\nFörsta registreringsdatum";
+                    }
+                    if (!DateTime.TryParse(tbRegEndCal.Text, out regEnd))
+                    {
+                        meddelande += "\\nSista registreringsdatum";
+                    }
+                    if (!DateTime.TryParse(tbPublishListCal.Text, out publishList))
+                    {
+                        meddelande += "\\nStartlistor publiceras";
+                    }
+
+                    Response.Write("<script>alert('" + meddelande + "')</script>");
+                    lblMessage.Text = " Registrering misslyckades.";
                 }
             }
             catch (Exception ex)
             {
-                lblMessage.Text = " Ett fel uppstod. Mer information:\n" + ex.Message.ToString();
+                string meddelande = " Ett fel uppstod. Mer information:\\n" + ex.Message.ToString();
+                Response.Write("<script>alert('" + meddelande + "')</script>");
+                lblMessage.Text = " Registrering misslyckades.";
             }
         }
 

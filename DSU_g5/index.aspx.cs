@@ -26,6 +26,11 @@ namespace DSU_g5
                 RepeaterNews.DataBind();
 
                 populateNewsSortDropdowns();
+
+                //Fyll ddlShowAmount
+                List<string> amount = new List<string> { "5", "10", "20", "30" };
+                ddlShowAmount.DataSource = amount;
+                ddlShowAmount.DataBind();
             }
         }
 
@@ -42,7 +47,7 @@ namespace DSU_g5
         {
             //år
             int thisYear = Convert.ToInt32(DateTime.Now.Year);
-            int firstYear = 2010;
+            int firstYear = 2015;
             List<int> years = new List<int>();
 
             for (int i = firstYear; i <= thisYear; i++)
