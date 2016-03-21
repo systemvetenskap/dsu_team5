@@ -6,10 +6,13 @@
     <section>
         <div id="startlistor">
             <div id="allaStartlistor">
+                <br />
+                <asp:Label ID="lblTourList" runat="server" Text="<u>Välj tävling att slumpa starttid</u>"></asp:Label>
+                <br />
                 <asp:DropDownList ID="ddlTournamentList" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlTournamentList_SelectedIndexChanged" CssClass="dropdown"></asp:DropDownList>
                 <%--<input id="tbMembersPerGroup" type="number" min="3" max="4" runat="server" maxlength="1" />
                 --%><br />
-                <asp:Label ID="lblMemPerGroup" runat="server" Text="Antal medlemmar i grupp: "></asp:Label>
+                <asp:Label ID="lblMemPerGroup" runat="server" Text="Medlemmar i grupp: "></asp:Label>
                 <asp:TextBox ID="tbMemPerGroup" runat="server" MaxLength="1" Text="3" TextMode="Number" Width="36px" Height="16px"></asp:TextBox>
                 <br />
                 <asp:RangeValidator ID="rvTextbox" runat="server" ErrorMessage="Värdet måste vara 3 eller 4" Display="Dynamic" ControlToValidate="tbMemPerGroup" Type="Integer" MinimumValue="3" MaximumValue="4" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
@@ -23,6 +26,9 @@
             </div>
 
             <div id="startlistorMedStarttider">
+                <br />
+                <asp:Label ID="lblTourST" runat="server" Text="<u>Välj tävling för att visa starttider</u>"></asp:Label>
+                <br />
                 <asp:DropDownList ID="ddlTourWithStarttime" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlTourWithStarttime_SelectedIndexChanged"></asp:DropDownList>
                 <br />
                 <br />

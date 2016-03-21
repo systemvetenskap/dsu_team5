@@ -6,6 +6,7 @@
 
 section {
   overflow: auto;
+  padding-bottom:15%;
 }
 
 #ContentPlaceHolder1_tournamentInfo {

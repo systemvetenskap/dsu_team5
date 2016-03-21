@@ -13,6 +13,15 @@ namespace DSU_g5 {
     public partial class startlistor {
         
         /// <summary>
+        /// lblTourList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTourList;
+        
+        /// <summary>
         /// ddlTournamentList control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvRandom;
+        
+        /// <summary>
+        /// lblTourST control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTourST;
         
         /// <summary>
         /// ddlTourWithStarttime control.

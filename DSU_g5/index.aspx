@@ -28,6 +28,8 @@
                        <h2><%# Eval("news_name") %></h2>
                        <p class="newsDate"><%# Eval("news_date").ToString().Split(' ')[0] %></p>
                        <p class="newsText"><%# Eval("news_info") %></p>
+                       <br />
+                       <hr />
                    </div>
                </ItemTemplate>
            </asp:Repeater>
