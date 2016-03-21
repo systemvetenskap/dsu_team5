@@ -141,8 +141,10 @@ namespace DSU_g5
             {
                 try
                 {
+                    
                     DateTime startTime = DateTime.Parse(txtFrom.Text);
                     DateTime endTime = DateTime.Parse(txtTo.Text);
+                    lblConformation.Text = "Du har stängt banan på datum: " + startDate + " på tiderna " + startTime.ToShortTimeString() + " till " + endTime.ToShortTimeString();
                     //int startTime = int.Parse(txtFrom.Text);
                     //int endTime = int.Parse(txtTo.Text);
                     methods.stangbanan(startDate, startTime, endTime);
@@ -162,11 +164,18 @@ namespace DSU_g5
             }
             else
             {
-                lblConformation.Text = "Du har tagit bort " + startDate.ToShortDateString() + " till " + endDate.ToShortDateString();
-                while (startDate <= endDate)
+                if (txtTo.Text != "" || txtFrom.Text != "")
                 {
-                    methods.removeSeason(startDate, endDate);
-                    startDate = startDate.AddDays(1);
+                    Response.Write("<script>alert('Välj endast datum i översta tabellen när du vill stänga banan på specifik tid')</script>");
+                }
+                else
+                {
+                    lblConformation.Text = "Du har tagit bort " + startDate.ToShortDateString() + " till " + endDate.ToShortDateString();
+                    while (startDate <= endDate)
+                    {
+                        methods.removeSeason(startDate, endDate);
+                        startDate = startDate.AddDays(1);
+                    }
                 }
             }
 
