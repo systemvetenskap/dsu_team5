@@ -16,7 +16,7 @@ input[type="text"] {
 
 #tries1-9 {
     padding: 1%;
-    width: 40%;
+    width: 30%;
     border: solid;     
     border-color: greenyellow;
     float: left;
@@ -24,49 +24,20 @@ input[type="text"] {
 
 #tries10-18 {
     padding: 1%;
-    width: 40%;
+    width: 30%;
     border: solid;     
     border-color: greenyellow;
     float: left;
 }
 
-.memberlabel {
-    /*margin-left:2%;*/
-    /*margin-right:2%;*/
-    padding-left: 2%; 
-    padding-right: 1%; 
-    padding-top: 2%;
-    width: 15%;
-    height: 20px;
-    border: solid;     
-    border-color: blue;
-    float: left;
+.membertxb {
+    width: 20%;
 }
 
-.membertextbox {
-    padding-left: 2%; 
-    padding-right: 2%; 
-    border: solid;     
-    border-color: blue;
-    width: 15%;
-    height: 20px;
-    float: left;
-}
 
-.membererrbox {
-    padding-left: 2%; 
-    padding-right: 1%; 
-    padding-top: 2%;
-    width: 30%;
-    height: 20px;
-    border: solid;     
-    border-color: blue;
-    clear: both;
-}
 
 #ContentPlaceHolder1_userbuttons {
     padding: 1%;
-    min-width: 15%;
     width: 96%;
     border: solid;     
     border-color: greenyellow;
@@ -74,11 +45,11 @@ input[type="text"] {
 }
 
 .userbutton {
-    float: left;
     min-width: 15%;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+  
 }
 
 #ContentPlaceHolder1_usermessage {
