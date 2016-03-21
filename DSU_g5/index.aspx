@@ -1,6 +1,24 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="DSU_g5.index" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/CSS_index.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            document.getElementById("ContentPlaceHolder1_ddlShowAmount").addEventListener("change", changeAmount); 
+                function changeAmount(){
+                    var amount = $("#ContentPlaceHolder1_ddlShowAmount").val();
+                    var arrItems = document.getElementsByClassName('newsItem');
+                    for (var i = 0; i < arrItems.length; i++) {
+                        if (i >= amount) {
+                            document.getElementsByClassName('newsItem')[i].style.display = "none";
+                        }
+                        else {
+                            document.getElementsByClassName('newsItem')[i].style.display = "inline";
+                        }
+                    }
+                }
+                changeAmount();
+            });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">      
@@ -10,6 +28,10 @@
        </div>-->
        <div id="news">
            <div id="newsSort">
+               <div id="showAmount">
+                   <asp:Label ID="lblShowAmount" runat="server" Text="Visa antal nyheter:"></asp:Label>
+                   <asp:DropDownList ID="ddlShowAmount" runat="server"></asp:DropDownList>
+               </div>
                <div id="startDate">
                    <asp:Label ID="lblStartDate" runat="server" Text="Visa nyheter från:"></asp:Label>
                    <asp:DropDownList ID="ddlStartYear" runat="server"></asp:DropDownList>

@@ -1968,7 +1968,7 @@ namespace DSU_g5
             {
                 sql = "SELECT news_info, news_name, news_date FROM news " +
                       "ORDER BY news_date DESC, news_id DESC " +
-                      "LIMIT 10;";
+                      "LIMIT 30;";
                 conn.Open();
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
