@@ -2647,7 +2647,7 @@ namespace DSU_g5
 
                 if(dr.HasRows)
                 {
-                    message = "Vald medlem finns redan inbokad på vald tävling";
+                    message = "Vald medlem finns redan inbokad på vald tävling.";
                 }
                 else
                 {

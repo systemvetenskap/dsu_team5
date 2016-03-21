@@ -4,7 +4,7 @@
     <script>
         $(function () {
             var accessId = '<%= Session["IdAccess"] %>';
-            if (accessId < 2) {
+            if (accessId < 1) {
                 $(".hideButton").hide();
             }
         });
