@@ -23,7 +23,6 @@
 #ContentPlaceHolder1_ddlAccessCategory,
 #ContentPlaceHolder1_ddlCategory {
     width: 32%;
-    float: left;
 }
 
 #ContentPlaceHolder1_cbPayment {
@@ -36,31 +35,13 @@
     float: left;
     padding-right: 12%;
     clear: left; 
-
-    
+ 
 }
 
-.memberlabel2{
-    width: 10%;
-    padding-right: 12%;
-    clear: left; 
-}
 
 #ContentPlaceHolder1_lbSearch {
     width: 30%;
       
-}
-
-
-.membererrbox{
-    width: 10%;
-    padding-right: 12%;
-    clear: left; 
-}
-
-
-.membertextbox {
-    float: left;
 }
 
 #medlemslista {
@@ -76,7 +57,6 @@
 #ContentPlaceHolder1_lbFkIdMember,
 #ContentPlaceHolder1_tbFkIdMember {
     display: none;
-    float: left;
     
 }
 

@@ -33,22 +33,22 @@
             <br />
             <asp:Label ID="lbFirstName" CssClass="memberlabel" runat="server" Text="Förnamn"></asp:Label>
             <asp:TextBox ID="tbFirstName" CssClass="membertextbox" runat="server"></asp:TextBox>
-            <asp:RegularExpressionValidator CssClass="memberlabel2" runat="server" id="regexpSSN" ControlToValidate="tbFirstName" ValidationExpression="[a-ö]*" ErrorMessage = "Endast text" Display="Dynamic" />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbFirstName" ValidationExpression="([a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
             <br />
             <asp:Label ID="lbLastName" CssClass="memberlabel" runat="server" Text="Efternamn"></asp:Label>
             <asp:TextBox ID="tbLastName" CssClass="membertextbox" runat="server"></asp:TextBox>
-            <asp:RegularExpressionValidator CssClass="memberlabel2" runat="server" id="RegularExpressionValidator1" ControlToValidate="tbLastName" ValidationExpression="[a-ö]*" ErrorMessage = "Endast text" Display="Dynamic" />
+            <asp:RegularExpressionValidator ID="regexpSSN1" runat="server" ControlToValidate="tbLastName" ValidationExpression="([a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
             <br />        
             <asp:Label ID="lbAddress" CssClass="memberlabel" runat="server" Text="Address"></asp:Label>
             <asp:TextBox ID="tbAddress" CssClass="membertextbox" runat="server"></asp:TextBox>
             <br />
             <asp:Label ID="lbPostalCode" CssClass="memberlabel" runat="server" Text="Postkod"></asp:Label>
             <asp:TextBox ID="tbPostalCode" CssClass="membertextbox" runat="server"></asp:TextBox>
-            <asp:RangeValidator ID="RangeValidator1" CssClass="memberlabel2" runat="server" ErrorMessage="Endast numeriskt värde" Display="Dynamic" ControlToValidate="tbPostalCode" Type="Integer" MinimumValue="0" MaximumValue="99999" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
+            <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Endast numeriskt värde" ControlToValidate="tbPostalCode" Type="Integer" MinimumValue="0" MaximumValue="99999" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
             <br />
             <asp:Label ID="lbCity" CssClass="memberlabel" runat="server" Text="Stad"></asp:Label>
             <asp:TextBox ID="tbCity" CssClass="membertextbox" runat="server"></asp:TextBox>
-            <asp:RegularExpressionValidator CssClass="memberlabel2" runat="server" id="RegularExpressionValidator2" ControlToValidate="tbCity" ValidationExpression="[a-ö]*" ErrorMessage = "Endast text" Display="Dynamic" />
+            <asp:RegularExpressionValidator runat="server" id="RegularExpressionValidator2" ControlToValidate="tbCity" ValidationExpression="([a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
             <br />
             <asp:Label ID="lbMail" CssClass="memberlabel" runat="server" Text="E-post"></asp:Label>
             <asp:TextBox ID="tbMail" CssClass="membertextbox" runat="server"></asp:TextBox>
@@ -58,11 +58,11 @@
             <br />
             <asp:Label ID="lbHcp" CssClass="memberlabel" runat="server" Text="HCP"></asp:Label>
             <asp:TextBox ID="tbHcp" CssClass="membertextbox" runat="server" ></asp:TextBox>
-            <asp:RangeValidator ID="rvTextbox" runat="server" ErrorMessage="Värdet måste vara i siffror" Display="Dynamic" ControlToValidate="tbHcp" Type="Integer" MinimumValue="0" MaximumValue="36" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
+            <asp:RangeValidator ID="rvTextbox" runat="server" ErrorMessage="Endast numeriskt värde" Display="Dynamic" ControlToValidate="tbHcp" Type="Integer" MinimumValue="0" MaximumValue="36" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
             <br />
             <asp:Label ID="lbGolfId" CssClass="memberlabel" runat="server" Text="Golf-ID"></asp:Label>
             <asp:TextBox ID="tbGolfId" CssClass="membertextbox" runat="server"></asp:TextBox>
-            <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="Värdet måste vara i siffror" Display="Dynamic" ControlToValidate="tbGolfId" Type="Integer" MinimumValue="0" MaximumValue="36" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
+            <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="Endast numeriskt värde" Display="Dynamic" ControlToValidate="tbGolfId" Type="Integer" MinimumValue="0" MaximumValue="36" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
             <br />
             <asp:Label ID="lbCategory" CssClass="memberlabel" runat="server" Text="Medlemskategori" ></asp:Label>
             <asp:DropDownList ID="ddlCategory" CssClass="membertextbox" runat="server" ></asp:DropDownList>     

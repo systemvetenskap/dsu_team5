@@ -49,13 +49,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbFirstName;
         
         /// <summary>
-        /// regexpSSN control.
+        /// RegularExpressionValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexpSSN;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
         /// lbLastName control.
@@ -76,13 +76,13 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbLastName;
         
         /// <summary>
-        /// RegularExpressionValidator1 control.
+        /// regexpSSN1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexpSSN1;
         
         /// <summary>
         /// lbAddress control.
