@@ -29,64 +29,64 @@ namespace DSU_g5
                 if (txtNewNews.Text != "")
                 {
 
-                    news newNews = new news();
-                    newNews.newsName = txtNewNews.Text;
-                    newNews.newsInfo = textNews.InnerText;
-                    newNews.newsDate = DateTime.Now;
-                    methods.addNews(newNews);
-                    populateNewsNameList();
-                    ddlNewsName.Items.Insert(0, "Välj nyhet");
-
-                    //    methods.addNews(newNews);
-                    Response.Write("<script>alert('Publicering klar')</script>");
-                    txtNewNews.Text = string.Empty;
-                    updateNews.Visible = true;
-                    removeNews.Visible = true;
-                    ddlNewsName.Visible = true;
-                    lblUpdateNews.Visible = true;
-
-                    hfNewsId.Value = "";
-                }
-                else
-                {
-                    Response.Write("<script>alert('" + "Fyll i nyhetsrubrik." + "')</script>");
-                }
-            }
-            else
-            {
-                Response.Write("<script>alert('Fyll i nyhetsinfo.')</script>");
-            }
-         }
-        protected void btnUpdateNews_Click(object sender, EventArgs e)
-        {
-            if (hfNewsId.Value != "" && Convert.ToInt32(hfNewsId.Value) != 0)
-            {
                 news newNews = new news();
-                newNews.newsId = Convert.ToInt32(ddlNewsName.SelectedItem.Value);
                 newNews.newsName = txtNewNews.Text;
                 newNews.newsInfo = textNews.InnerText;
                 newNews.newsDate = DateTime.Now;
-
-                methods.updateNews(newNews);
-                methods.getNewsList();
+                methods.addNews(newNews);
                 populateNewsNameList();
+                    ddlNewsName.Items.Insert(0, "Välj nyhet");
 
+                //    methods.addNews(newNews);
+                Response.Write("<script>alert('Publicering klar')</script>");
                 txtNewNews.Text = string.Empty;
                 updateNews.Visible = true;
                 removeNews.Visible = true;
                 ddlNewsName.Visible = true;
                 lblUpdateNews.Visible = true;
 
+                    hfNewsId.Value = "";
+            }
+            else
+            {
+                    Response.Write("<script>alert('" + "Fyll i nyhetsrubrik." + "')</script>");
+            }
+         }
+            else
+            {
+                Response.Write("<script>alert('Fyll i nyhetsinfo.')</script>");
+            }
+        }
+        protected void btnUpdateNews_Click(object sender, EventArgs e)
+        {
+            if (hfNewsId.Value != "" && Convert.ToInt32(hfNewsId.Value) != 0)
+            {
+            news newNews = new news();
+            newNews.newsId = Convert.ToInt32(ddlNewsName.SelectedItem.Value);         
+            newNews.newsName = txtNewNews.Text;
+            newNews.newsInfo = textNews.InnerText;
+            newNews.newsDate = DateTime.Now;
+          
+            methods.updateNews(newNews);
+            methods.getNewsList();
+            populateNewsNameList();
+
+            txtNewNews.Text = string.Empty;
+            updateNews.Visible = true;
+            removeNews.Visible = true;
+            ddlNewsName.Visible = true;
+            lblUpdateNews.Visible = true;
+
                 hfNewsId.Value = "";
 
-                //if (methods.updateNews(newNews) == true)
-                //{
-                //    methods.updateNews(newNews);
+            //if (methods.updateNews(newNews) == true)
+            //{
+            //    methods.updateNews(newNews);
                 Response.Write("<script>alert('Uppdatering klar.')</script>");
                 populateNewsNameList();
                 ddlNewsName.Items.Insert(0, "Välj nyhet");
-                //}
-            }
+            //}
+        }
             else
             {
                 Response.Write("<script>alert('" + "Du måste välja en nyhet." + "')</script>");
@@ -97,33 +97,33 @@ namespace DSU_g5
 
             if (hfNewsId.Value != "" && Convert.ToInt32(hfNewsId.Value) != 0)
             {
-                if (textNews.InnerText != "")
-                {
-                    news newNews = new news();
-                    newNews.newsId = Convert.ToInt32(ddlNewsName.SelectedItem.Value);
-                    methods.removeNews(newNews);
-                    populateNewsNameList();
+            if (textNews.InnerText != "")
+            {
+                news newNews = new news();
+                newNews.newsId = Convert.ToInt32(ddlNewsName.SelectedItem.Value);
+                methods.removeNews(newNews);
+                populateNewsNameList();
 
-                    //if (methods.removeNews(newNews) == true)
-                    //{
-                    //    methods.removeNews(newNews);
-                    Response.Write("<script>alert('Nyhet är borttagen')</script>");
+                //if (methods.removeNews(newNews) == true)
+                //{
+                //    methods.removeNews(newNews);
+                Response.Write("<script>alert('Nyhet är borttagen')</script>");
                     populateNewsNameList();
                     ddlNewsName.Items.Insert(0, "Välj nyhet");
-                    //}
-                    txtNewNews.Text = string.Empty;
-                    updateNews.Visible = true;
-                    removeNews.Visible = true;
-                    ddlNewsName.Visible = true;
-                    lblUpdateNews.Visible = true;
+                //}
+                txtNewNews.Text = string.Empty;
+                updateNews.Visible = true;
+                removeNews.Visible = true;
+                ddlNewsName.Visible = true;
+                lblUpdateNews.Visible = true;
 
                     hfNewsId.Value = "";
-                }
-                else
-                {
-                    Response.Write("<script>alert('Välj en nyhet att ta bort.')</script>");
-                }
             }
+            else
+            {
+                    Response.Write("<script>alert('Välj en nyhet att ta bort.')</script>");
+            }
+        }
             else
             {
                 Response.Write("<script>alert('" + "Du måste välja en nyhet." + "')</script>");
@@ -207,7 +207,7 @@ namespace DSU_g5
                 }
                 catch (Exception ex)
                 {
-                    Response.Write("<script>alert('Ett fel uppstod. Mer information:\n"+ ex.Message +"')</script>");
+                    Response.Write("<script>alert('Ett fel uppstod. Mer information:\n" + ex.Message + "')</script>");
                 }
             }
             else if (startDate == DateTime.MinValue || endDate == DateTime.MinValue)
@@ -271,7 +271,7 @@ namespace DSU_g5
             publishNews.Visible = false;
             lblNewNews.Visible = false;
             
-            
+
             DropDownList newsName = (DropDownList)sender;
             ListItem li = newsName.SelectedItem;
 
@@ -294,14 +294,14 @@ namespace DSU_g5
                 removeNews.Visible = true;
                 btnMailNews.Visible = true;
 
-                news newNews = new news();
+            news newNews = new news();
                 //news_id = Convert.ToInt32(li.Value);
                 hfNewsId.Value = li.Value;
 
-
+           
                 newNews = methods.getNews(Convert.ToInt32(hfNewsId.Value));
-                textNews.InnerText = newNews.newsInfo;
-                txtNewNews.Text = newNews.newsName;
+            textNews.InnerText = newNews.newsInfo;
+            txtNewNews.Text = newNews.newsName;
             }
             
         }
@@ -324,6 +324,3 @@ namespace DSU_g5
        
     }
 }
-            
-            
-
