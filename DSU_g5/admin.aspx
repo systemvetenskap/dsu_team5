@@ -27,10 +27,16 @@
               <br />
          </div>
          <div id="seasons">
+             <asp:Label ID="lblSeasonInst" runat="server" Text="Registrera säsong: Välj Säsongsstart och Säsongsslut samt Tider, tryck Registrera säsong"></asp:Label>
+             <br />
+             <br />
+             <asp:Label ID="lblCloseInst" runat="server" Text="Stäng banan: Välj Säsongsstart och Tider för stängning, tryck Stäng banan"></asp:Label>
+             <br />
+             <br />
              <asp:Label ID="lblSeason" runat="server" Text="Registrera säsong"></asp:Label>
              <div id="calendars">
                  <div id="seasonStart">
-                    <asp:Label ID="lblSeasonStart" runat="server" Text="Säsongsstart"></asp:Label>
+                    <asp:Label ID="lblSeasonStart" runat="server" Text="Säsongsstart/Stänga banan"></asp:Label>
                     <br />
                     <asp:TextBox ID="tbSeasonStartCal" CssClass="calendar" runat="server"></asp:TextBox>
                    <!-- <asp:Calendar ID="startCalendar" runat="server"></asp:Calendar> -->

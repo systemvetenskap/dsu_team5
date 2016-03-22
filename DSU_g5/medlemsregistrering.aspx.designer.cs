@@ -49,6 +49,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbFirstName;
         
         /// <summary>
+        /// regexpSSN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexpSSN;
+        
+        /// <summary>
         /// lbLastName control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbLastName;
+        
+        /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
         /// lbAddress control.
@@ -103,6 +121,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbPostalCode;
         
         /// <summary>
+        /// RangeValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
+        
+        /// <summary>
         /// lbCity control.
         /// </summary>
         /// <remarks>
@@ -119,6 +146,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCity;
+        
+        /// <summary>
+        /// RegularExpressionValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
         
         /// <summary>
         /// lbMail control.
@@ -175,6 +211,15 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbHcp;
         
         /// <summary>
+        /// rvTextbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rvTextbox;
+        
+        /// <summary>
         /// lbGolfId control.
         /// </summary>
         /// <remarks>
@@ -191,6 +236,15 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbGolfId;
+        
+        /// <summary>
+        /// RangeValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
         
         /// <summary>
         /// lbCategory control.

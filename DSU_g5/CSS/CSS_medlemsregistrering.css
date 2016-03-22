@@ -9,11 +9,11 @@
 }
 
 #medlemsuppgifter {
-    width: 30%;
+    width: 55%;
     float: left;
     padding: 1% 2% 1% 1%;
-    text-align: right;
-}
+    text-align: left;
+ }
 
 #medlemsuppgifter input, select {
     margin-top: 5px;
@@ -22,14 +22,44 @@
 #ContentPlaceHolder1_ddlGender,
 #ContentPlaceHolder1_ddlAccessCategory,
 #ContentPlaceHolder1_ddlCategory {
-    width: 59%;
+    width: 32%;
+    float: left;
 }
 
 #ContentPlaceHolder1_cbPayment {
-    margin-right: 55%;
+    float: left;
+    
 }
 
 .memberlabel {
+    width: 10%;
+    float: left;
+    padding-right: 12%;
+    clear: left; 
+
+    
+}
+
+.memberlabel2{
+    width: 10%;
+    padding-right: 12%;
+    clear: left; 
+}
+
+#ContentPlaceHolder1_lbSearch {
+    width: 30%;
+      
+}
+
+
+.membererrbox{
+    width: 10%;
+    padding-right: 12%;
+    clear: left; 
+}
+
+
+.membertextbox {
     float: left;
 }
 
@@ -46,6 +76,8 @@
 #ContentPlaceHolder1_lbFkIdMember,
 #ContentPlaceHolder1_tbFkIdMember {
     display: none;
+    float: left;
+    
 }
 
 #knappar {
@@ -53,4 +85,5 @@
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+
 }
