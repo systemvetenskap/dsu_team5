@@ -763,7 +763,7 @@ namespace DSU_g5
             lbGamesMemberIsBookableBy.SelectedIndex = -1;
 
             lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
-            lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+            lblBookedByInfoGame.Text = "Här visas information om den valda bokningen ovan.";
         }
         #endregion
 
