@@ -236,8 +236,17 @@ namespace DSU_g5
                         lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
                         lbBookedMembers.DataBind();
 
+
+                        int x = lbBookedMembers.Items.Count;
+                        if (x == 0)
+                        {
+                            lbBookedMembers.Visible = false;
+                            BtnDelMemberFromGame.Visible = false;
+                        }
+
                         populateGrvBokning();
                         updateBookingInfo();
+
                     }
                     else
                     {
