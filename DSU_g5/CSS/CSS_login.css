@@ -1,0 +1,24 @@
+﻿#loginsida
+{
+    width: 100%;
+    padding-bottom:28%;
+    /*height: 400px;*/
+}
+
+.memberlabel {
+    width: 150px;
+    float: left;
+}
+
+.membertextbox {
+    width: 200px;
+}
+
+.memberbutton {
+    width: 200px;
+}
+
+.memberddl {
+    width: 200px;
+    margin-bottom: 0px;
+}

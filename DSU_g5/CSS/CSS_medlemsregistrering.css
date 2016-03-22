@@ -1,0 +1,56 @@
+﻿#navAdmin a:nth-last-child(2),
+#navAdmin #aMedlemsregistrering {
+    background-color: #6c7 !important;
+}
+
+#medlemsregistrering
+{
+    width: 100%;
+}
+
+#medlemsuppgifter {
+    width: 30%;
+    float: left;
+    padding: 1% 2% 1% 1%;
+    text-align: right;
+}
+
+#medlemsuppgifter input, select {
+    margin-top: 5px;
+}
+
+#ContentPlaceHolder1_ddlGender,
+#ContentPlaceHolder1_ddlAccessCategory,
+#ContentPlaceHolder1_ddlCategory {
+    width: 59%;
+}
+
+#ContentPlaceHolder1_cbPayment {
+    margin-right: 55%;
+}
+
+.memberlabel {
+    float: left;
+}
+
+#medlemslista {
+    width: 30%;
+    float: left;
+    padding: 1.3% 1% 1% 2%;
+}
+
+#ContentPlaceHolder1_lbIdMember,
+#ContentPlaceHolder1_tbIdMember,
+#ContentPlaceHolder1_lbIdUser,
+#ContentPlaceHolder1_tbIdUser,
+#ContentPlaceHolder1_lbFkIdMember,
+#ContentPlaceHolder1_tbFkIdMember {
+    display: none;
+}
+
+#knappar {
+    clear: both;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -25,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,10 +51,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Mono.Security">
+    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Mono.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Npgsql">
+    <Reference Include="Npgsql, Version=2.2.4.3, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
@@ -69,7 +73,43 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin.aspx" />
+    <Content Include="anmalantavling.aspx" />
+    <Content Include="bokning.aspx" />
+    <Content Include="CSS\CSS_admin.css" />
+    <Content Include="CSS\CSS_anmalantavling.css" />
+    <Content Include="CSS\CSS_bokning.css" />
+    <Content Include="CSS\CSS_main.css" />
+    <Content Include="CSS\CSS_medlemsregistrering.css" />
+    <Content Include="CSS\CSS_login.css" />
+    <Content Include="CSS\CSS_medlemssida.css" />
+    <Content Include="CSS\CSS_index.css" />
+    <Content Include="CSS\CSS_resultat.css" />
+    <Content Include="CSS\CSS_scorekort.css" />
+    <Content Include="CSS\CSS_skapatavling.css" />
+    <Content Include="CSS\CSS_startlistor.css" />
+    <Content Include="CSS\CSS_tavlingar.css" />
+    <Content Include="CSS\CSS_tavlingsresultat.css" />
+    <Content Include="Images\golf-787477_960_720.jpg" />
+    <Content Include="Images\halslaget_v02.png" />
+    <Content Include="Images\halslaget_v04.png" />
+    <Content Include="Images\kalenderikon_v02.png" />
+    <Content Include="index.aspx" />
+    <Content Include="JavaScript\datepicker-sv.js" />
+    <Content Include="JavaScript\JS_main.js" />
+    <Content Include="login.aspx" />
+    <Content Include="medlemsregistrering.aspx" />
+    <Content Include="medlemssida.aspx" />
+    <Content Include="Mono.Security.dll" />
+    <Content Include="Npgsql.dll" />
     <Content Include="packages.config" />
+    <Content Include="headsite.Master" />
+    <None Include="Properties\PublishProfiles\miun-dsu5 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\miun-dsu5 - Web Deploy.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -78,22 +118,142 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="resultat.aspx" />
+    <Content Include="scorekort.aspx" />
+    <Content Include="skapatavling.aspx" />
+    <Content Include="startlistor.aspx" />
+    <Content Include="tavlingar.aspx" />
+    <Content Include="tavlingsresultat.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="anmalantavling.aspx.cs">
+      <DependentUpon>anmalantavling.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="anmalantavling.aspx.designer.cs">
+      <DependentUpon>anmalantavling.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bokning.aspx.cs">
+      <DependentUpon>bokning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bokning.aspx.designer.cs">
+      <DependentUpon>bokning.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Classes\access.cs" />
-    <Compile Include="Classes\games.cs" />
+    <Compile Include="Classes\game.cs" />
+    <Compile Include="Classes\game_member.cs" />
+    <Compile Include="Classes\group.cs" />
+    <Compile Include="Classes\old_games.cs" />
+    <Compile Include="Classes\game_dates.cs" />
+    <Compile Include="Classes\game_starts.cs" />
     <Compile Include="Classes\member.cs" />
     <Compile Include="Classes\member_category.cs" />
+    <Compile Include="Classes\methods.cs" />
+    <Compile Include="Classes\news.cs" />
+    <Compile Include="Classes\sponsor.cs" />
+    <Compile Include="Classes\results.cs" />
     <Compile Include="Classes\staff.cs" />
+    <Compile Include="Classes\tournament.cs" />
+    <Compile Include="Classes\users.cs" />
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="medlemsregistrering.aspx.cs">
+      <DependentUpon>medlemsregistrering.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="medlemsregistrering.aspx.designer.cs">
+      <DependentUpon>medlemsregistrering.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="medlemssida.aspx.cs">
+      <DependentUpon>medlemssida.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="medlemssida.aspx.designer.cs">
+      <DependentUpon>medlemssida.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="headsite.Master.cs">
+      <DependentUpon>headsite.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="headsite.Master.designer.cs">
+      <DependentUpon>headsite.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="resultat.aspx.cs">
+      <DependentUpon>resultat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="resultat.aspx.designer.cs">
+      <DependentUpon>resultat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="scorekort.aspx.cs">
+      <DependentUpon>scorekort.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="scorekort.aspx.designer.cs">
+      <DependentUpon>scorekort.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="skapatavling.aspx.cs">
+      <DependentUpon>skapatavling.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="skapatavling.aspx.designer.cs">
+      <DependentUpon>skapatavling.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="startlistor.aspx.cs">
+      <DependentUpon>startlistor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="startlistor.aspx.designer.cs">
+      <DependentUpon>startlistor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="tavlingar.aspx.cs">
+      <DependentUpon>tavlingar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="tavlingar.aspx.designer.cs">
+      <DependentUpon>tavlingar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="tavlingsresultat.aspx.cs">
+      <DependentUpon>tavlingsresultat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="tavlingsresultat.aspx.designer.cs">
+      <DependentUpon>tavlingsresultat.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>
@@ -118,8 +278,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

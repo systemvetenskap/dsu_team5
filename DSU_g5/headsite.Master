@@ -1,0 +1,103 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="headsite.Master.cs" Inherits="DSU_g5.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset ="utf-8" />
+    <title>Hålslaget GK - Vi slår hål på golfetablissemanget</title>
+    <link href="CSS/CSS_main.css" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="JavaScript/datepicker-sv.js"></script>
+    <script src="JavaScript/JS_main.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="content">
+    <form id="form1" runat="server">
+        <header>
+            <a href="index.aspx"><asp:Image ID="logo" ImageUrl="/Images/halslaget_v04.png" runat="server" /></a>
+        </header>
+        <nav id="masterNav">
+            <div id="masterNavTop">
+                <asp:LinkButton ID="Loggin" runat="server" OnClick="Loggin_Click">Logga in</asp:LinkButton>
+                <asp:LinkButton ID="Loggout" runat="server" OnClick="Loggout_Click">Logga ut</asp:LinkButton>
+            </div>
+            <div id="masterNavBottom">     
+                <ul id="masterNavMenu">
+                    <li id="navIndex" runat="server">
+                        <a href="/index.aspx">Hem</a>
+                        <!--<ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>-->
+                    </li>
+                    <li id="navTavlingar" runat="server">
+                        <a href="/tavlingar.aspx">Tävlingar</a>
+                        <!--<ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>-->
+                    </li>
+                    <li id="navBokning" runat="server">
+                        <a href="/bokning.aspx">Boka golfrunda</a>
+                        <!--<ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>-->
+                    </li>
+                    <li id="navMedlemssida" runat="server">
+                        <a href="/medlemssida.aspx">Mina uppgifter</a>
+                        <!--<ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>-->
+                    </li>
+                    <li id="navAdmin" runat="server">
+                        <a href="/admin.aspx">Administration</a>
+                        <ul class="subMenu">
+                            <li><a id="aMedlemsregistrering" href="/medlemsregistrering.aspx">Medlemsreg.</a></li>
+                            <li><a id="aSkapatavling" href="/skapatavling.aspx">Skapa tävling</a></li>
+                            <li><a id="aAnmalantavling" href="/anmalantavling.aspx">Tävlingsanmälan</a></li>
+                            <li><a id="aStartlistor" href="/startlistor.aspx">Startlistor</a></li>
+                            <li><a id="aResultat" href="/resultat.aspx">Resultatreg.</a></li>
+                        </ul>
+                    </li>
+                    <!--<li>
+                        <a href="#">menyval 5</a>
+                        <ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">menyval 6</a>
+                        <ul class="subMenu">
+                            <li><a href="#">alternativ 1</a></li>
+                            <li><a href="#">alternativ 2</a></li>
+                            <li><a href="#">alternativ 3</a></li>
+                        </ul>
+                    </li>-->
+                </ul>
+            </div>
+        </nav>
+        <div id="pageContent">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            <!-- här är de individuella sidornas innehåll --> 
+            </asp:ContentPlaceHolder>
+        </div>
+        <footer>
+            <p>© 2016 Hålslaget GK</p>
+        </footer>
+    </form>
+    </div>
+</body>
+</html>

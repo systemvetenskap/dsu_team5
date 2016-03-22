@@ -1,0 +1,32 @@
+﻿#navIndex a {
+    background-color: #6c7 !important;
+}
+
+#news {
+  padding: 0 15%;
+}
+
+#newsSort {
+  text-align: right;
+}
+
+#newsSort div {
+  padding: 0.7% 0;
+}
+
+.newsItem {
+  margin-bottom: 40px;
+}
+
+/*.newsItem:hover {
+  cursor: pointer;
+}*/
+
+.newsItem:hover h2 {
+  color: brown;
+  text-decoration:underline;
+}
+
+#showAmount {
+  float: left;
+}

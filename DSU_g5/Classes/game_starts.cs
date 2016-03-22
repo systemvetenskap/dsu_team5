@@ -5,14 +5,14 @@ using System.Web;
 
 namespace DSU_g5
 {
-    public class access
+    public class game_starts
     {
-        public int accessId { get; set; }
-        public string accessCategory { get; set; }
+        public int timeId { get; set; }
 
+        public DateTime times { get; set; }
         public override string ToString()
         {
-            return accessId + " " + accessCategory;
+            return timeId.ToString();
         }
     }
 }

@@ -1,0 +1,46 @@
+﻿#navTavlingar a {
+    background-color: #6c7 !important;
+}
+
+#dropdown {
+    margin: 0 0 2% 2%;
+}
+
+#dropdown u {
+    text-decoration: none;
+}
+
+#table {
+    margin: 0 0 3% 2%;
+}
+
+#ContentPlaceHolder1_gvResults {
+    width: 33%;
+}
+
+#ContentPlaceHolder1_gvResults tbody {
+    border: white solid 3px;
+}
+
+#ContentPlaceHolder1_gvResults th {
+    border-right: white solid 3px;
+    text-align: right;
+}
+
+#ContentPlaceHolder1_gvResults th:first-of-type {
+    text-align: left;
+}
+
+#ContentPlaceHolder1_gvResults tr {
+    border-bottom: lightgrey solid 3px;
+}
+
+#ContentPlaceHolder1_gvResults td {
+    border: none;
+}
+
+#ContentPlaceHolder1_gvResults td:nth-last-child(1),
+#ContentPlaceHolder1_gvResults td:nth-last-child(2) {
+    text-align: right;
+    width: 30%;
+}

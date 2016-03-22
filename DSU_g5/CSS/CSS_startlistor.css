@@ -1,0 +1,77 @@
+﻿#navAdmin a:nth-last-child(2),
+#navAdmin #aStartlistor {
+    background-color: #6c7 !important;
+}
+
+#startlistor{
+    overflow:auto;
+}
+
+#allaStartlistor{
+    width:40%;
+    float:left;
+}
+
+#startlistorMedStarttider{
+    width:40%;
+    float:left;
+    margin-left:5%;
+}
+
+
+#ContentPlaceHolder1_gvRandom, 
+#ContentPlaceHolder1_gvHasStartlist {
+    width: 80%;
+    color:#464646;
+}
+
+#ContentPlaceHolder1_gvRandom tbody, 
+#ContentPlaceHolder1_gvHasStartlist tbody {
+    border: white solid 3px;
+}
+
+#ContentPlaceHolder1_gvRandom th, 
+#ContentPlaceHolder1_gvHasStartlist th {
+    border-right: white solid 3px;
+    text-align: right;
+}
+
+#ContentPlaceHolder1_gvRandom th:first-of-type, 
+#ContentPlaceHolder1_gvHasStartlist th:first-of-type {
+    text-align: left;
+    width:15%;
+}
+
+#ContentPlaceHolder1_gvRandom th:nth-child(2),
+#ContentPlaceHolder1_gvHasStartlist th:nth-child(2){
+    text-align: center;
+    width:80%;
+}
+#ContentPlaceHolder1_gvRandom th:nth-child(3),
+#ContentPlaceHolder1_gvHasStartlist th:nth-child(3){
+    text-align: center;
+    width:5%;
+}
+
+#ContentPlaceHolder1_gvRandom tr, 
+#ContentPlaceHolder1_gvHasStartlist tr {
+    border-bottom: lightgrey solid 3px;
+}
+
+#ContentPlaceHolder1_gvRandom td, 
+#ContentPlaceHolder1_gvHasStartlist td {
+    border: none;
+    
+}
+
+#ContentPlaceHolder1_gvRandom td:nth-last-child(1), 
+#ContentPlaceHolder1_gvHasStartlist td:nth-last-child(1),
+#ContentPlaceHolder1_gvRandom td:nth-last-child(2), 
+#ContentPlaceHolder1_gvHasStartlist td:nth-last-child(2) {
+    text-align: center;
+    width: 30%;
+}
+
+section{
+    padding-bottom:34%;
+}

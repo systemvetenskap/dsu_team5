@@ -1,0 +1,124 @@
+﻿#navAdmin a:nth-last-child(2),
+#navAdmin #aSkapatavling {
+    background-color: #6c7 !important;
+}
+
+section {
+    margin: 0 2% 0 2%;
+    padding-bottom:2%;
+}
+
+#tournamentInfo {
+    overflow: auto;
+    float: left;
+    width: 60%;
+}
+
+#info {
+    float: left;
+}
+
+#info input,
+#info select {
+    margin-bottom: 5%;
+    width: 100%;
+}
+
+#infobox {
+    margin-left: 37%;
+}
+
+#ContentPlaceHolder1_taInformation {
+    width: 400px;
+    height: 200px;
+}
+
+#tournamentTimes {
+    overflow: auto;
+    padding-bottom: 2%;
+}
+
+#date {
+    float: left;
+    padding: 0 7% 10% 6%;
+    width: 55%;
+}
+
+.calendar {
+    width: 160px;
+}
+
+#time {
+    margin: 10% 0 0 0;
+}
+
+#time input {
+    width: 100px;
+}
+
+#contact {
+    margin-left: 45%;
+    margin-top: -14%;
+}
+
+#ContentPlaceHolder1_lbContactPerson {
+    height: 162px;
+}
+
+.foldable p {
+    display: block;
+    height: 40px;
+    width: auto;
+    padding: 1% 0 0 0;
+    font-size: 23px;
+    text-indent: 15px;
+    border-top: 1px solid lightgrey;
+}
+
+.foldable:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+#registrationTimes {
+    overflow: auto;
+    margin: 1% 0 5% 0;
+}
+
+#registrationTimes span {
+    display: block;
+    height: 25px;
+}
+
+#ContentPlaceHolder1_tbSokContactPerson {
+    margin-top: 9px;
+}
+
+#registrationTimes div {
+    float: left;
+    width: 20%;
+    margin: 0 2% 2% 0;
+}
+
+#sponsors {
+    overflow: auto;
+    margin: 0 0 3% 0;
+    padding: 0 0 2% 0;
+    border-bottom: 1px solid lightgrey;
+}
+
+#sponsors div {
+    float: left;
+    margin: 0 4% 0 0;
+    width: 15%;
+}
+
+#sponsors select {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 5%;
+}
+
+#sponsors input {
+    margin-bottom: 5.3%;
+}

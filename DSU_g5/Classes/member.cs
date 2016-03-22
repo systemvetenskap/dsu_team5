@@ -16,7 +16,16 @@ namespace DSU_g5
         public string mail { get; set; }
         public string gender { get; set; }
         public double hcp { get; set; }
-        public int golfId { get; set; }
+        public string golfId { get; set; }
+        public int categoryId { get; set; }
+        public string category { get; set; }
+        public int accessId { get; set; }
+        public string accessCategory { get; set; }
+        public Boolean payment { get; set; }
 
+        public override string ToString()
+        {
+            return firstName + " " + lastName + " ," + hcp + " ," + gender;
+        }
     }
 }

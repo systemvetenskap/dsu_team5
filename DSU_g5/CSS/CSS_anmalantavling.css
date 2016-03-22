@@ -1,0 +1,46 @@
+﻿#navAdmin a:nth-last-child(2),
+#navAdmin #aAnmalantavling,
+#navTavlingar a {
+    background-color: #6c7 !important;
+}
+
+section {
+  overflow: auto;
+  padding-bottom:15%;
+}
+
+#ContentPlaceHolder1_tournamentInfo {
+  float: left;
+  width: 40%;
+  text-align: right;
+  margin: 0 0 1% 0;
+}
+
+#ContentPlaceHolder1_tournamentInfo span,
+#ContentPlaceHolder1_tournamentInfo select{
+  float: left;
+}
+
+u {
+  text-decoration: none;
+}
+
+#ContentPlaceHolder1_tournamentInfo input {
+  margin: 0 29% 1% 0;
+}
+
+#ContentPlaceHolder1_tourMemberAdmin {
+  margin: 5.5% 0 0 0;
+}
+
+#ContentPlaceHolder1_lbMembersTournament,
+#ContentPlaceHolder1_tbSearchMember {
+  width: 200px;
+  margin: 0 0 0.8% 0;
+}
+
+#ContentPlaceHolder1_regButton {
+  clear: left;
+  display: block;
+  height: 55px;
+}

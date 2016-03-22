@@ -1,0 +1,54 @@
+﻿#navAdmin a:nth-last-child(2) {
+    background-color: #6c7 !important;
+}
+
+input[type="text"] {
+    margin: 0.5% 0 0 1%;
+}
+
+#tries1-9 input[type="text"] {
+    margin-left: 1.8%
+}
+
+#ContentPlaceHolder1_btnupdate {
+    margin-top: 2%;
+}
+
+#tries1-9 {
+    padding: 1%;
+    width: 30%;
+    float: left;
+}
+
+#tries10-18 {
+    padding: 1%;
+    width: 30%;
+    float: left;
+}
+
+.membertxb {
+    width: 20%;
+}
+
+
+
+#ContentPlaceHolder1_userbuttons {
+    padding: 1%;
+    width: 96%;
+    float: left;
+}
+
+.userbutton {
+    min-width: 15%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  
+}
+
+#ContentPlaceHolder1_usermessage {
+    padding: 1%;
+    min-width: 15%;
+    width: 96%;
+    clear: both;
+}

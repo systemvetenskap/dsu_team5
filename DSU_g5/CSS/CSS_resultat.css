@@ -1,0 +1,116 @@
+﻿#navAdmin a:nth-last-child(2),
+#navAdmin #aResultat {
+    background-color: #6c7 !important;
+}
+
+#ContentPlaceHolder1_result {
+    height: 600px;
+    padding: 0.5%;
+    /*border: solid;*/
+    /*border-color: blue;*/
+}
+
+#ContentPlaceHolder1_tournament {
+    float: left;
+    width: 20%;
+    padding: 1%;
+    margin: 1%;
+    margin-top: 0;
+    padding-top: 0;
+    /*border: solid;*/
+    /*border-color: red;*/
+}
+
+.tournamentlabel {
+    margin: 1%;
+    padding: 1%;
+    clear: both;
+    width: 98%;
+}
+
+.tournamentlistbox {
+    margin: 1%;
+    padding: 1%;
+    clear: both;
+    width: 98%;
+}
+
+.tournamenttextbox {
+    margin: 1%;
+    padding: 1%;
+    clear: both;
+    width: 70%;
+}
+
+#ContentPlaceHolder1_tournamentresult {    
+    float: left;
+    width: 70%;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    /*border: solid;*/     
+    /*border-color: skyblue;*/
+}
+
+#ContentPlaceHolder1_usertable {
+    padding: 1%;
+    width: 96%;    
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    float: left;
+    /*border: solid;*/     
+    /*border-color: red;*/
+}
+
+.resultstable {
+    width: 75%;
+}
+
+.resultstable tr th {
+    margin-left:2%;
+    margin-right:2%;
+    padding-left: 2%; 
+    padding-right: 2%;    
+    font-weight: bold;
+    color: white;
+    background-color: green;
+    min-width: 25%;
+    padding-right: 5%; 
+}
+
+.resultstable tr td {
+    margin-left:2%;
+    margin-right:2%;
+    padding-left: 2%; 
+    padding-right: 5%; 
+    min-width: 25%;
+}
+
+#ContentPlaceHolder1_userbuttons {
+    padding: 1%;
+    min-width: 15%;
+    width: 96%;
+    /*border: solid;*/     
+    /*border-color: greenyellow;*/
+    float: left;
+}
+
+.userbutton {
+    float: left;
+    min-width: 15%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#ContentPlaceHolder1_usermessage {
+    padding: 1%;
+    min-width: 15%;
+    width: 96%;
+    /*border: solid;*/     
+    /*border-color: red;*/
+    clear: both;
+}
