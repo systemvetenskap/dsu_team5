@@ -14,6 +14,11 @@ namespace DSU_g5
 
     public static class methods
     {
+        public static int g_tournamentId { get; set; }
+        public static int g_memberId { get; set; }
+        public static int g_participantIndex { get; set; }
+        public static int g_tournamentIndex { get; set; }
+
         #region BOKNING OCH AVBOKNING - MEDLEM
 
 
@@ -3058,7 +3063,7 @@ namespace DSU_g5
                 {
                     plsql = "SELECT f_gamehcp AS hcp";
                     plsql = plsql + " FROM slope_female";
-                    plsql = plsql + " WHERE :newHcp BETWEEN m_hcplow AND m_hcphigh;";
+                    plsql = plsql + " WHERE :newHcp BETWEEN f_hcplow AND f_hcphigh;";
                 }
 
                 // kontrollen för kön behövs inte då varje registrerad delatager har en kön.  

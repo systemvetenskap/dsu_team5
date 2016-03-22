@@ -20,10 +20,12 @@ namespace DSU_g5
             if (!Page.IsPostBack)
             {
                 lblstate.Visible = false;
+                
                 // Steg 1. Hämtar listan med samtliga tillgänliga tävlingar och lägger det i lblTournamentList
                 List<tournament> tourList = new List<tournament>();
                 tourList = methods.getTourList();
-                // använder en extra listan för att lägga nyckel i "Value" och presentera enbart information om id't och tour_name    
+                
+                // använder en extra listan för att lägga nyckel i "Value" och visa enbart information om id't och tour_name    
                 List<ListItem> nytourList = new List<ListItem>();
                 foreach (tournament li in tourList)
                 {
@@ -33,61 +35,49 @@ namespace DSU_g5
                 lblTournamentList.DataValueField = "Value";
                 lblTournamentList.DataSource = nytourList;
                 lblTournamentList.DataBind();
-               
-                // Steg 2. Kontrollerar om det finns rader i tävlingslistan för att hämta vald tävling
+
+                // Steg 2. Hämtar deltagare
                 if (lblTournamentList.Items.Count > -1)
                 {
-                    // om tävlingslista innehåler rader, vi är tillbaka från scorecard, ska index sättas till den ursprungliga index för tävling. 
-                    int tournamentIndex = -1;
-                    tournamentIndex = Convert.ToInt32(Session["tournamentIndex"]);
-                    if (tournamentIndex > -1)
+                    if (methods.g_tournamentId > 0)
                     {
-                        lblTournamentList.SelectedIndex = tournamentIndex;
+                        lblTournamentList.SelectedIndex = methods.g_tournamentIndex;
+                        // lblTournamentList.SelectedItem.Value = methods.g_tournamentId.ToString();
                         lblTournamentList.SelectedItem.Selected = true;
-                        g_tournamentId = Convert.ToInt32(lblTournamentList.SelectedItem.Value);
                     }
                     else
                     {
                         lblTournamentList.SelectedIndex = 0;
-                        lblTournamentList.SelectedItem.Selected = true;
-                        g_tournamentId = Convert.ToInt32(lblTournamentList.SelectedItem.Value);                    
-                    }                    
-                    // om tävligen finns, hämta alla deltagare för respektive tävling in list boxen lblParticipantList
+                        lblTournamentList.SelectedItem.Selected = true;                    
+                    }
                     if (lblTournamentList.Items.Count > -1)
                     {
+                        g_tournamentId = Convert.ToInt32(lblTournamentList.SelectedItem.Value);
                         getParticipantList(g_tournamentId, g_gender);
                     }
                 }
-                                
-                // Steg 3. kontrollerar om det finns rader i deltagar listan för att hämta
+
+                // Steg 3. Hämtar deltagar info
                 if (lblParticipantList.Items.Count > -1)
                 {
-                    // om vi är tillbaka från scorecard skall index i den lblParticipantList sättas till den ursprungliga
-                    int participantIndex = -1;
-                    participantIndex = Convert.ToInt32(Session["participantIndex"]);
-                    if (participantIndex > -1)
+                    if (methods.g_memberId > 0)
                     {
-                        lblParticipantList.SelectedIndex = participantIndex;
+                        lblParticipantList.SelectedIndex = methods.g_participantIndex;
+                        // lblParticipantList.SelectedItem.Value = methods.g_memberId.ToString();
                         lblParticipantList.SelectedItem.Selected = true;
-                        g_memberId = Convert.ToInt32(lblParticipantList.SelectedItem.Value);
                     }
                     else
-                    {
+                    {                       
                         lblParticipantList.SelectedIndex = 0;
-                        lblParticipantList.SelectedItem.Selected = true;
-                        g_memberId = Convert.ToInt32(lblParticipantList.SelectedItem.Value);                    
+                        lblParticipantList.SelectedItem.Selected = true;                        
                     }
-                    // hämtar uppgifter om aktuell deltagare till griden.
+
                     if ((lblTournamentList.Items.Count > -1) && (lblParticipantList.Items.Count > -1))
                     {
+                        g_memberId = Convert.ToInt32(lblParticipantList.SelectedItem.Value);
                         getParticipantInfo(g_tournamentId, g_memberId);
-                        // hämtar in värdena i globaler i fall man går till scorecard direkt  
-                        Session["TournamentId"] = g_tournamentId;
-                        Session["AccMember"] = g_memberId;
-                        Session["tournamentIndex"] = lblTournamentList.SelectedIndex.ToString();
-                        Session["participantIndex"] = lblParticipantList.SelectedIndex.ToString();
                     }
-                }                
+                }
             }
         }
 
@@ -104,7 +94,6 @@ namespace DSU_g5
             gvParticipantResults.DataSource = string.Empty;
             gvParticipantResults.DataBind();
 
-            // hämtar aktuella deltagare i deltagarlistan
             getParticipantList(g_tournamentId, g_gender);
         }
 
@@ -118,7 +107,7 @@ namespace DSU_g5
             gvParticipantResults.DataSource = string.Empty;
             gvParticipantResults.DataBind();
 
-            // hämtar uppgifter för aktuell deltagare i gridview
+            // hämtar uppgifter för aktuell deltagare
             getParticipantInfo(g_tournamentId, g_memberId);
         }
 
@@ -186,95 +175,67 @@ namespace DSU_g5
                 }
 
                 GridView gridview = (GridView)gvParticipantResults;
-                gridview.HeaderRow.Cells[0].Text = "TävlingId"; // tourId
-                gridview.HeaderRow.Cells[1].Text = "MedlemId"; // memberId
+                gridview.HeaderRow.Cells[0].Text = "TävlingId";  // tourId
+                gridview.HeaderRow.Cells[1].Text = "MedlemId";  // memberId
 
-                gridview.HeaderRow.Cells[2].Text = "Hål"; // courseId
-                gridview.HeaderRow.Cells[3].Text = "Par"; // pair
-                gridview.HeaderRow.Cells[4].Text = "HCP/ind"; // hcp (hålsvårighet) 
-                gridview.HeaderRow.Cells[5].Text = "Slag"; // Tries
-                gridview.HeaderRow.Cells[6].Text = "Erhåll/slag"; // gameHCP
-                gridview.HeaderRow.Cells[7].Text = "Netto"; // netto
+                gridview.HeaderRow.Cells[2].Text = "Hål";  // courseId
+                gridview.HeaderRow.Cells[3].Text = "Par";  // pair
+                gridview.HeaderRow.Cells[4].Text = "HCP/ind";  // hcp (hålsvårighet) 
+                gridview.HeaderRow.Cells[5].Text = "Slag";  // Tries
+                gridview.HeaderRow.Cells[6].Text = "Erhåll/slag";  // gameHCP
+                gridview.HeaderRow.Cells[7].Text = "Netto";  // netto
 
-                gridview.HeaderRow.Cells[0].Visible = false; // tourId
-                gridview.HeaderRow.Cells[1].Visible = false; // memberId
+                gridview.HeaderRow.Cells[0].Visible = false;  // tourId
+                gridview.HeaderRow.Cells[1].Visible = false;  // memberId
 
                 foreach (GridViewRow row in gridview.Rows)
                 {
-                    row.Cells[0].Visible = false; // tourId
-                    row.Cells[1].Visible = false; // memberId                                         
+                    row.Cells[0].Visible = false;  // tourId
+                    row.Cells[1].Visible = false;  // memberId                                         
                 }
             }
         }
 
         protected void btSave_Click(object sender, EventArgs e)
         {
-            if ((lblTournamentList.SelectedIndex > -1) && (lblParticipantList.SelectedIndex > -1))
-            {
-                int tournamentIndex = lblTournamentList.SelectedIndex;
-                int participantIndex = lblParticipantList.SelectedIndex;
+            // globala variabler
+            methods.g_tournamentIndex = lblTournamentList.SelectedIndex;
+            methods.g_participantIndex = lblParticipantList.SelectedIndex;
 
-                // hämtar in värdena i globaler
-                g_tournamentId = Convert.ToInt32(lblTournamentList.SelectedItem.Value);
-                g_memberId = Convert.ToInt32(lblParticipantList.SelectedItem.Value);
+            // globala variabler, används på scorekort 
+            methods.g_tournamentId = Convert.ToInt32(lblTournamentList.SelectedItem.Value);
+            methods.g_memberId = Convert.ToInt32(lblParticipantList.SelectedItem.Value);
 
-                Session["TournamentId"] = g_tournamentId;
-                Session["AccMember"] = g_memberId;
-                Session["tournamentIndex"] = tournamentIndex.ToString();
-                Session["participantIndex"] = participantIndex.ToString();
-
-                int accessId = Convert.ToInt32(Session["IdAccess"]);
-                FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);
-                Response.Redirect("scorekort.aspx");
-            }
-            else
-            {
-                lbUserMessage.Text = "Du måste välja en tävling och en deltagare innan du kan göra registrering";
-            }
+            // hämtar in värdena i globaler
+            int accessId = Convert.ToInt32(Session["IdAccess"]);            
+            FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);
+            Response.Redirect("scorekort.aspx");
         }
 
         protected void btRemove_Click(object sender, EventArgs e)
         {
-            if ((lblTournamentList.SelectedIndex > -1) && (lblParticipantList.SelectedIndex > -1))
+            List<results> resultsList = new List<results>();
+            // lägger till tävling och deltagarnummer i griden
+            GridView gridview = (GridView)gvParticipantResults;
+            foreach (GridViewRow row in gridview.Rows)
             {
-                List<results> resultsList = new List<results>();
-                // lägger till tävling och deltagarnummer i griden
-                GridView gridview = (GridView)gvParticipantResults;
-                foreach (GridViewRow row in gridview.Rows)
-                {
-                    results newResult = new results();
-                    newResult.tourId = Convert.ToInt32(row.Cells[0].Text);
-                    newResult.memberId = Convert.ToInt32(row.Cells[1].Text);
-                    newResult.courseId = Convert.ToInt32(row.Cells[2].Text);
-                    newResult.pair = Convert.ToInt32(row.Cells[3].Text);
-                    newResult.hcp = Convert.ToInt32(row.Cells[4].Text);
-                    newResult.tries = Convert.ToInt32(row.Cells[5].Text);
-                    newResult.gamehcp = Convert.ToInt32(row.Cells[6].Text);
-                    newResult.netto = Convert.ToInt32(row.Cells[7].Text);
-                    resultsList.Add(newResult);
-                }
-                // anrop till db för att ta bort datat
-                if (methods.removeResult(resultsList) == true)
-                {
-                    lblstate.Text = "1";
-                    btSave.Text = "Lägg till slag";
-                    lbUserMessage.Text = "Resultat borttagen";
-                    
-                    // hämtar in värdena i globaler
-                    g_tournamentId = Convert.ToInt32(lblTournamentList.SelectedItem.Value);
-                    g_memberId = Convert.ToInt32(lblParticipantList.SelectedItem.Value);
-
-                    // rensar griden 
-                    gvParticipantResults.DataSource = string.Empty;
-                    gvParticipantResults.DataBind();
-
-                    // hämtar uppgifter för aktuell deltagare i gridview
-                    getParticipantInfo(g_tournamentId, g_memberId);
-                }
+                results newResult = new results();
+                newResult.tourId = Convert.ToInt32(row.Cells[0].Text);
+                newResult.memberId = Convert.ToInt32(row.Cells[1].Text);
+                newResult.courseId = Convert.ToInt32(row.Cells[2].Text);
+                newResult.pair = Convert.ToInt32(row.Cells[3].Text);
+                newResult.hcp = Convert.ToInt32(row.Cells[4].Text);
+                newResult.tries = Convert.ToInt32(row.Cells[5].Text);
+                newResult.gamehcp = Convert.ToInt32(row.Cells[6].Text);
+                newResult.netto = Convert.ToInt32(row.Cells[7].Text);
+                resultsList.Add(newResult);
             }
-            else
+            // anrop till db för att ta bort datat
+            if (methods.removeResult(resultsList) == true)
             {
-                lbUserMessage.Text = "Du måste välja en tävling och en deltagare innan du kan ta bort resultatet.";
+                lblstate.Text = "1";
+                btSave.Text = "Lägg till slag";
+                lbUserMessage.Text = "Resultat borttagen";
             }
         }        
     }
