@@ -90,6 +90,9 @@
                 <br />
                 <asp:Button ID="btnNewSponsorAdd" runat="server" Text="Registrera" OnClick="btnNewSponsorAdd_Click" />
             </div>
+            <div id="sponsors_4">
+                <p id="phoneText">Numret innehåller ogiltiga värden.</p>
+            </div>
         </div>
         <asp:Button ID="btnSave" runat="server" Text="Spara" OnClick="btnSave_Click" />
         <asp:Button ID="btnClear" runat="server" Text="Rensa" OnClick="btnClear_Click" />
@@ -98,21 +101,17 @@
         <asp:HiddenField ID="hfsponsorsFolded" runat="server" />
     </section>
     <script>
-        //document.getElementById("ContentPlaceHolder1_tbSokContactPerson").addEventListener("input", ListBoxFilter);
-            function ListBoxFilter() {
-                var input = $("#ContentPlaceHolder1_tbSokContactPerson").val();
-                var regex = new RegExp(input, "i");
-                var antalPoster = $("#ContentPlaceHolder1_lbContactPerson").children().length;
-                for (i = 0; i < antalPoster; i++) {
-                    var namn = $("#ContentPlaceHolder1_lbContactPerson").children()[i].innerHTML;
-                    if (!namn.match(regex)) {
-                        $("#ContentPlaceHolder1_lbContactPerson option:eq(" + i + ")").hide();
-                    }
-                    else {
-                        $("#ContentPlaceHolder1_lbContactPerson option:eq(" + i + ")").show();
-                    }
+        document.getElementById("ContentPlaceHolder1_tbNewSponsorPhone").addEventListener("input", phoneControl);
+            function phoneControl() {
+                var input = $("#ContentPlaceHolder1_tbNewSponsorPhone").val();
+                if (input.match(/^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/i)) {
+                    $("#phoneText").hide();
+                }
+                else {
+                    $("#phoneText").show();
                 }
             }
+        $("#phoneText").hide();
 
         $(function () { 
             $("#ContentPlaceHolder1_tbSokContactPerson").autocomplete({

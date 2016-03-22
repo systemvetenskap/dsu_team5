@@ -24,6 +24,8 @@ namespace DSU_g5
                 memberCategoryList = methods.getMemberCategoryList();
                 List<ListItem> nyCategoryLista = new List<ListItem>();
 
+                nyCategoryLista.Add(new ListItem("Välj kategori", "0"));
+
                 foreach (member_category me in memberCategoryList)
                 {
                     nyCategoryLista.Add(new ListItem(me.category, me.categoryId.ToString()));
@@ -68,11 +70,13 @@ namespace DSU_g5
 
                 if (tbName.Text != "" &&
                     taInformation.Value != "" &&
+                    ddlMemberCategory.SelectedValue != "0" &&
                     DateTime.TryParse(tbRegStartCal.Text, out regStart) &&
                     DateTime.TryParse(tbRegEndCal.Text, out regEnd) &&
                     DateTime.TryParse(tbPublishListCal.Text, out publishList) &&
                     hfContactPerson.Value != "" &&
                     DateTime.TryParse(tbDateCal.Text, out date) &&
+                    DateTime.Parse(tbDateCal.Text) >= DateTime.Now &&
                     DateTime.TryParse(tbStartTime.Text, out startTime) &&
                     DateTime.TryParse(tbEndTime.Text, out endTime))
                 {
@@ -116,7 +120,11 @@ namespace DSU_g5
                     {
                         meddelande += "\\nInformation";
                     }
-                    if (!DateTime.TryParse(tbDateCal.Text, out date))
+                    if (ddlMemberCategory.SelectedValue == "0")
+                    {
+                        meddelande += "\\nMedlemskategori";
+                    }
+                    if (!DateTime.TryParse(tbDateCal.Text, out date) || DateTime.Parse(tbDateCal.Text) < DateTime.Now)
                     {
                         meddelande += "\\nTävlingens datum";
                     }
@@ -172,6 +180,9 @@ namespace DSU_g5
             lbFormerSponsors.DataTextField = "sponsor_name";
             lbFormerSponsors.DataSource = methods.getSponsors();
             lbFormerSponsors.DataBind();
+
+            tbNewSponsorName.Text = "";
+            tbNewSponsorPhone.Text = "";
         }
 
         protected void btnFormerSponsorsAdd_Click(object sender, EventArgs e)

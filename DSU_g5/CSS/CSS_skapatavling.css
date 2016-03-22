@@ -110,7 +110,7 @@ section {
 #sponsors div {
     float: left;
     margin: 0 4% 0 0;
-    width: 15%;
+    width: 18%;
 }
 
 #sponsors select {
@@ -120,5 +120,9 @@ section {
 }
 
 #sponsors input {
-    margin-bottom: 5.3%;
+    margin-bottom: 4%;
+}
+
+#phoneText {
+    margin: 45% 0 0 0;
 }
