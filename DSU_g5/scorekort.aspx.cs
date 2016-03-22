@@ -18,6 +18,9 @@ namespace DSU_g5
 
         protected void Page_Load(object sender, EventArgs e)
         {
+               if (!Page.IsPostBack)
+           {
+            
             lbUserMessage.Text = "";
             g_tournamentId = Convert.ToInt32(Session["g_tournamentId"]);
             g_memberId = Convert.ToInt32(Session["g_memberId"]);
@@ -42,6 +45,7 @@ namespace DSU_g5
                     resultsList = methods.getDefaultResults(g_tournamentId, g_memberId);
                     setTriesValue(resultsList);
                 }
+            }
             }
         }
 
