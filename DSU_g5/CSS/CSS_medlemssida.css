@@ -87,36 +87,51 @@
 /* sektion för medlemsuppgifter */
 #medlemsregistrering
 {
-    clear: both;
+    clear: both; 
     width: 100%;
 }
 
 #medlemsuppgifter {
-    width: 30%;
+    width: 40%;
     float: left;
     padding: 1% 2% 1% 1%;
-    text-align: right;
+    text-align: left;
+}
+
+.membertextbox {
+    width: 30%;
 }
 
 #medlemsaccess {
     width: 30%;
     float: left;
     padding: 1% 2% 1% 1%;
-    text-align: right;
+    text-align: left;
+}
+
+.memberlabel1 {
+     width: 10%;
+    float: left;
+    padding-right: 12%;
+    clear: left; 
+
 }
 
 #ContentPlaceHolder1_ddlGender,
 #ContentPlaceHolder1_ddlAccessCategory,
 #ContentPlaceHolder1_ddlCategory {
-    width: 59%;
+    width: 32%;
 }
 
 #ContentPlaceHolder1_cbPayment {
-    margin-right: 42%;
+    float: left;
 }
 
 .memberlabel {
+    width: 10%;
     float: left;
+    padding-right: 12%;
+    clear: left; 
 }
 
 
