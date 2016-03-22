@@ -549,13 +549,22 @@ namespace DSU_g5
                 lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
                 lbBookedMembers.DataBind();
 
+
                 //presentera info om golfrunda och deltagare: datum, tid, deltagare, handicap, golf-ID, totalt handicap
                 updateBookingInfo();
+
 
                 if (accessId == 2 || accessId == 3)
                 {
                     lbBookedMembers.Visible = true;
                     BtnDelMemberFromGame.Visible = true;
+                }
+                
+                int x = lbBookedMembers.Items.Count;
+                if (x == 0)
+                {
+                    lbBookedMembers.Visible = false;
+                    BtnDelMemberFromGame.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -612,6 +621,8 @@ namespace DSU_g5
             pBokningarInfo.InnerHtml = "";
             tbSearchMember.Text = "";
             lbBookedMembers.Items.Clear();
+            lbBookedMembers.Visible = false;
+            BtnDelMemberFromGame.Visible = false;
         }
         protected void lbAllMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
