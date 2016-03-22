@@ -275,25 +275,35 @@ namespace DSU_g5
                         {
                             if (hfTimeId.Value != "")
                             {
-                                int loggedInMember = inloggadUser.fkIdMember;
-
                                 int playerID = Convert.ToInt32(anotherMember);
-
-                                string chosenDate = hfChosenDate.Value;
-                                trimDate = chosenDate.Substring(0, 10);
-                                trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
-
-                                string placeholderTid = hfTimeId.Value;
-                                int timeID = Convert.ToInt32(placeholderTid);
-                                DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
-
-                                methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember, out message);
-                                if(message != null)
+                                if(methods.IsPayed(playerID) == true)
                                 {
-                                    Response.Write("<script>alert('" + message + "')</script>");
+                                    int loggedInMember = inloggadUser.fkIdMember;
+
+
+                                    string chosenDate = hfChosenDate.Value;
+                                    trimDate = chosenDate.Substring(0, 10);
+                                    trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+
+                                    string placeholderTid = hfTimeId.Value;
+                                    int timeID = Convert.ToInt32(placeholderTid);
+                                    DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+
+                                    methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember, out message);
+                                    if(message != null)
+                                    {
+                                        Response.Write("<script>alert('" + message + "')</script>");
+                                    }
+
+                                    UpdateLBsAndLBLs();
+                                    tbBookAnotherMember.Text = "";
                                 }
 
-                                UpdateLBsAndLBLs();
+                                else
+                                {
+                                    Response.Write("<script>alert('" + "Medlemsavgiften är inte betald för den valda medlemen." + "')</script>");
+                                    tbBookAnotherMember.Text = "";
+                                }
                             }
                             else
                             {
@@ -308,18 +318,21 @@ namespace DSU_g5
                     else
                     {
                         Response.Write("<script>alert('" + "Medlems-IDt finns inte i databasen.\\nVänligen fyll i ett nytt." + "')</script>");
+                        tbBookAnotherMember.Text = "";
                     }
                 }
                 else
                 {
                     Response.Write("<script>alert('" + "Felaktigt format, enbart siffror!" + "')</script>");
+                    tbBookAnotherMember.Text = "";
                 }
             }
             else
             {
                 Response.Write("<script>alert('" + "Du måste fylla i ett medlemsId i fältet." + "')</script>");
+                tbBookAnotherMember.Text = "";
             }
-            tbBookAnotherMember.Text = "";
+            
 
         }
 
@@ -762,7 +775,7 @@ namespace DSU_g5
             lbGamesMemberIsBookableBy.DataBind();
             lbGamesMemberIsBookableBy.SelectedIndex = -1;
 
-            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
+            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen ovan.";
             lblBookedByInfoGame.Text = "Här visas information om den valda bokningen ovan.";
         }
         #endregion

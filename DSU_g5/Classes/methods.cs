@@ -275,6 +275,45 @@ namespace DSU_g5
             }
         }
 
+        public static bool IsPayed(int memId)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["Halslaget"].ConnectionString);
+            bool payedMembership = false;
+
+
+            string sqlIsPayed;
+
+            try
+            {
+                sqlIsPayed = "SELECT payment FROM member_new WHERE id_member ='" + memId + "'";
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlIsPayed, conn);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while(dr.Read())
+                {
+                    member payedMember = new member();
+                    payedMember.payment = Convert.ToBoolean(dr["payment"]);
+
+                    if (payedMember.payment == true)
+                    {
+                        payedMembership = true;
+                    }
+                }
+            }
+
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            
+            return payedMembership;
+        }
 
         //En datatable som innehåller värdet av game_id. Datum och tid kan man sedan läsa ut från detta game_id från en SQL-fråga som sedan kan visas i olika labels tex.
         // /Andreas
@@ -392,7 +431,7 @@ namespace DSU_g5
                 conn.Close();
 
 
-                sqlGetBookedBy = "SELECT (first_name || '' || last_name) AS bokningsansvarig " +
+                sqlGetBookedBy = "SELECT (first_name || ' ' || last_name) AS bokningsansvarig " +
                                 "FROM member_new " +
                                 "INNER JOIN game_member gm ON gm.booked_by = id_member " +
                                 "WHERE gm.game_id = '" + gameId + "'";
@@ -431,7 +470,7 @@ namespace DSU_g5
             namn = m.firstName + " " + m.lastName;
             //bokningsansvarig = BB.firstName + " " + BB.lastName;
 
-            infoAboutGame = datum + ", " + tid + ", " + namn + ". Bokningsansvarig: " + bokningsansvarig + ".";
+            infoAboutGame = datum + ", " + tid + ", " + namn + "." + "<br />" + "Bokningsansvarig: " + bokningsansvarig + ".";
             //infoAboutGame = datum + ", " + tid + ", " + namn + ". Bokningsansvarig: " + bokningsansvarig + ".";
 
             return infoAboutGame;
@@ -2648,7 +2687,7 @@ namespace DSU_g5
 
                 if (dr.HasRows)
                 {
-                    message = "Vald medlem finns redan inbokad på vald tävling";
+                    message = "Vald medlem finns redan inbokad på vald tävling.";
                 }
                 else
                 {
