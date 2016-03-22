@@ -2,6 +2,10 @@
     background-color: #6c7 !important;
 }
 
+section{
+    padding-bottom:38%;
+}
+
 #dropdown {
     margin: 0 0 2% 2%;
 }
