@@ -59,12 +59,6 @@ namespace DSU_g5
                     }
                 }
                                 
-                //// om tävligen finns, hämta alla deltagare för respektive tävling in list boxen lblParticipantList
-                //if (lblTournamentList.Items.Count > -1)
-                //{
-                //    getParticipantList(g_tournamentId, g_gender);
-                //}
-
                 // Steg 3. kontrollerar om det finns rader i deltagar listan för att hämta
                 if (lblParticipantList.Items.Count > -1)
                 {

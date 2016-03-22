@@ -27,63 +27,15 @@ namespace DSU_g5
 
             if (g_tournament_id > 0 && g_acc_member > 0)
             {
-                getTries();
-            }
-        }
-
-        public void getTries()
-        {
-            // resulatet existerar redan för respektive tävling och medlem, gå till update lägge
-            List<results> resultsList = new List<results>();
-            if (methods.checkResultExist(g_tournament_id, g_acc_member) == true)
-            {
-                btnupdate.Text = "Uppdatera scorecard";
-                resultsList = methods.getExistsResults(g_tournament_id, g_acc_member);
-            }
-            else
-            {
-                resultsList = methods.getDefaultResults(g_tournament_id, g_acc_member);
-                btnupdate.Text = "Lägg till scorecard";
-            }
-
-            for (int i = 0; i < resultsList.Count; i++)
-            {
-                if (i == 0)
-                    txb1.Text = resultsList[i].tries.ToString();
-                if (i == 1)
-                    txb2.Text = resultsList[i].tries.ToString();
-                if (i == 2)
-                    txb3.Text = resultsList[i].tries.ToString();
-                if (i == 3)
-                    txb4.Text = resultsList[i].tries.ToString();
-                if (i == 4)
-                    txb5.Text = resultsList[i].tries.ToString();
-                if (i == 5)
-                    txb6.Text = resultsList[i].tries.ToString();
-                if (i == 6)
-                    txb7.Text = resultsList[i].tries.ToString();
-                if (i == 7)
-                    txb8.Text = resultsList[i].tries.ToString();
-                if (i == 8)
-                    txb9.Text = resultsList[i].tries.ToString();
-                if (i == 9)
-                    txb10.Text = resultsList[i].tries.ToString();
-                if (i == 10)
-                    txb11.Text = resultsList[i].tries.ToString();
-                if (i == 11)
-                    txb12.Text = resultsList[i].tries.ToString();
-                if (i == 12)
-                    txb13.Text = resultsList[i].tries.ToString();
-                if (i == 13)
-                    txb14.Text = resultsList[i].tries.ToString();
-                if (i == 14)
-                    txb15.Text = resultsList[i].tries.ToString();
-                if (i == 15)
-                    txb16.Text = resultsList[i].tries.ToString();
-                if (i == 16)
-                    txb17.Text = resultsList[i].tries.ToString();
-                if (i == 17)
-                    txb18.Text = resultsList[i].tries.ToString();
+                // resulatet existerar redan för respektive tävling och medlem, gå till update lägge
+                if (methods.checkResultExist(g_tournament_id, g_acc_member) == true)
+                {
+                    btnupdate.Text = "Uppdatera scorecard";
+                }
+                else
+                {
+                    btnupdate.Text = "Lägg till scorecard";
+                }
             }
         }
 
@@ -200,12 +152,11 @@ namespace DSU_g5
                     }
                     if (methods.modifyResult(resultsList) == true)
                     {
-                        getTries();
                         lbUserMessage.Text = "Uppdatering av slag klar";
                     }
                     else
                     {
-                        lbUserMessage.Text = "Vänligen kontrollera så att alla fält är ifyllda";
+                        lbUserMessage.Text = "Uppdatering misslyckades";
                     }
                 }
                 else
@@ -217,15 +168,8 @@ namespace DSU_g5
                     {
                         if (i == 0)
                         {
-                            if (txb1.Text == string.Empty)
-                            {
-                                lbUserMessage.Text = "Fältet måste vara ifyllt";
-                            }
-                            else
-                            {
-                                resultsList[i].tries = Convert.ToInt32(txb1.Text);
-                                resultsList[i].netto = getNetto(resultsList[i].tries, resultsList[i].pair, resultsList[i].gamehcp);
-                            }
+                            resultsList[i].tries = Convert.ToInt32(txb1.Text);
+                            resultsList[i].netto = getNetto(resultsList[i].tries, resultsList[i].pair, resultsList[i].gamehcp);
                         }
                         else if (i == 1)
                         {
@@ -315,13 +259,12 @@ namespace DSU_g5
                     }
                     if (methods.addResult(resultsList) == true)
                     {
-                        getTries();
                         btnupdate.Text = "Uppdatera scorecard";
                         lbUserMessage.Text = "Registrering av slag klar";
                     }
                     else
                     {
-                        lbUserMessage.Text = "Vänligen kontrollera att alla fält är ifyllda korrekt";
+                        lbUserMessage.Text = "Registrering misslyckades";
                     }
                 }
             }

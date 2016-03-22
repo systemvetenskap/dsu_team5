@@ -2787,7 +2787,6 @@ namespace DSU_g5
                 plsql = plsql + "     LEFT JOIN tournament AS tournament ON tournament.id_tournament = member_tournament.tournament_id";
                 plsql = plsql + "     LEFT JOIN member_new AS member_new ON member_new.id_member = member_tournament.member_id";
                 plsql = plsql + " WHERE member_tournament.tournament_id = :newTournamentId ";
-                plsql = plsql + "     AND member_new.gender = :newGender";
                 plsql = plsql + " ORDER BY id_member";
 
                 NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
