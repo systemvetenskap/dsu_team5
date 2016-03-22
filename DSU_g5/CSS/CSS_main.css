@@ -33,7 +33,7 @@
 
 #logo {
   margin-left: 23.5%;
-  margin-bottom: -11%;
+  margin-bottom: -11.1%;
   width: 53%;
   height: auto;
   position: relative;
@@ -44,7 +44,7 @@
   margin: auto;
   margin-top: 7%;
   padding-bottom: 51px;
-  background-color: #394;
+  background-color: rgba(46, 133, 64, 0.94);
 }
 
 #masterNavTop {
@@ -85,14 +85,18 @@
   display: block;
   width: 150px;
   height: 6px;
-  background-color: #394;
+  background-color: rgba(46, 133, 64, 0);
   padding: 15% 0%;
   text-decoration: none;
   color: white;
 }
 
+.subMenu li {
+  background-color: rgba(46, 133, 64, 0.97);
+}
+
 #masterNavBottom ul li a:hover {
-  background-color: #6c7;
+  background-color: rgba(80, 170, 100, 1);
 }
 
 #masterNavBottom ul li:hover ul {

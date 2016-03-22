@@ -96,15 +96,22 @@ namespace DSU_g5
 
             if (em == "Februari")
             {
-                endDate += "-28";
+                if (DateTime.IsLeapYear(Convert.ToInt32(endYear)))
+                {
+                    endDate += "-29";
+                }
+                else
+                {
+                    endDate += "-28";
+                }
             }
             else if (em == "April" || em == "Juni" || em == "September" || em == "November")
             {
-                endDate += "-31";
+                endDate += "-30";
             }
             else
             {
-                endDate += "-30";
+                endDate += "-31";
             }
 
             DataTable dt = methods.getNewsByDates(startDate, endDate);
