@@ -11,41 +11,42 @@ namespace DSU_g5
     public partial class scorekort : System.Web.UI.Page
     {
         results newResult = new results();
-        public int g_acc_member;
-        public int g_tournament_id;
-        public int tournamentIndex;
-        public int participantIndex;
+        public int g_tournamentId;
+        public int g_memberId;
+        public int g_tournamentIndex;
+        public int g_participantIndex;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             lbUserMessage.Text = "";
-            g_tournament_id = Convert.ToInt32(Session["TournamentId"]);
-            g_acc_member = Convert.ToInt32(Session["AccMember"]);
+            g_tournamentId = Convert.ToInt32(Session["g_tournamentId"]);
+            g_memberId = Convert.ToInt32(Session["g_memberId"]);
 
-            tournamentIndex = Convert.ToInt16(Session["tournamentIndex"]);
-            participantIndex = Convert.ToInt16(Session["participantIndex"]);
+            g_tournamentIndex = Convert.ToInt16(Session["g_tournamentIndex"]);
+            g_participantIndex = Convert.ToInt16(Session["g_participantIndex"]);
 
-            if (g_tournament_id > 0 && g_acc_member > 0)
+            if (g_tournamentId > 0 && g_memberId > 0)
             {
-                getTries();
+                // resulatet existerar redan för respektive tävling och medlem, gå till update lägge
+                if (methods.checkResultExist(g_tournamentId, g_memberId) == true)
+                {
+                    btnupdate.Text = "Uppdatera scorecard";
+                    List<results> resultsList = new List<results>();
+                    resultsList = methods.getExistsResults(g_tournamentId, g_memberId);
+                    setTriesValue(resultsList);
+                }
+                else
+                {
+                    btnupdate.Text = "Lägg till slag";
+                    List<results> resultsList = new List<results>();
+                    resultsList = methods.getDefaultResults(g_tournamentId, g_memberId);
+                    setTriesValue(resultsList);
+                }
             }
         }
 
-        public void getTries()
+        public void setTriesValue(List<results> resultsList)
         {
-            // resulatet existerar redan för respektive tävling och medlem, gå till update lägge
-            List<results> resultsList = new List<results>();
-            if (methods.checkResultExist(g_tournament_id, g_acc_member) == true)
-            {
-                btnupdate.Text = "Uppdatera scorecard";
-                resultsList = methods.getExistsResults(g_tournament_id, g_acc_member);
-            }
-            else
-            {
-                resultsList = methods.getDefaultResults(g_tournament_id, g_acc_member);
-                btnupdate.Text = "Lägg till scorecard";
-            }
-
             for (int i = 0; i < resultsList.Count; i++)
             {
                 if (i == 0)
@@ -89,8 +90,8 @@ namespace DSU_g5
 
         protected void btnupdate_Click(object sender, EventArgs e)
         {
-            newResult.tourId = g_tournament_id;
-            newResult.memberId = g_acc_member;
+            newResult.tourId = Convert.ToInt32(Session["g_tournamentId"]);
+            newResult.memberId = Convert.ToInt32(Session["g_memberId"]);
 
             if (newResult.tourId > 0 && newResult.memberId > 0)
             {
@@ -200,12 +201,11 @@ namespace DSU_g5
                     }
                     if (methods.modifyResult(resultsList) == true)
                     {
-                        getTries();
                         lbUserMessage.Text = "Uppdatering av slag klar";
                     }
                     else
                     {
-                        lbUserMessage.Text = "Vänligen kontrollera så att alla fält är ifyllda";
+                        lbUserMessage.Text = "Uppdatering misslyckades";
                     }
                 }
                 else
@@ -217,15 +217,8 @@ namespace DSU_g5
                     {
                         if (i == 0)
                         {
-                            if (txb1.Text == string.Empty)
-                            {
-                                lbUserMessage.Text = "Fältet måste vara ifyllt";
-                            }
-                            else
-                            {
-                                resultsList[i].tries = Convert.ToInt32(txb1.Text);
-                                resultsList[i].netto = getNetto(resultsList[i].tries, resultsList[i].pair, resultsList[i].gamehcp);
-                            }
+                            resultsList[i].tries = Convert.ToInt32(txb1.Text);
+                            resultsList[i].netto = getNetto(resultsList[i].tries, resultsList[i].pair, resultsList[i].gamehcp);
                         }
                         else if (i == 1)
                         {
@@ -315,13 +308,12 @@ namespace DSU_g5
                     }
                     if (methods.addResult(resultsList) == true)
                     {
-                        getTries();
                         btnupdate.Text = "Uppdatera scorecard";
                         lbUserMessage.Text = "Registrering av slag klar";
                     }
                     else
                     {
-                        lbUserMessage.Text = "Vänligen kontrollera att alla fält är ifyllda korrekt";
+                        lbUserMessage.Text = "Registrering misslyckades";
                     }
                 }
             }
@@ -360,8 +352,11 @@ namespace DSU_g5
         protected void btnReturn_Click(object sender, EventArgs e)
         {
             // hämtar in värdena i globaler
-            Session["tournamentIndex"] = tournamentIndex.ToString();
-            Session["participantIndex"] = participantIndex.ToString();
+            Session["g_tournamentId"] = g_tournamentId.ToString();
+            Session["g_memberId"] = g_memberId.ToString();
+
+            Session["g_tournamentIndex"] = g_tournamentIndex.ToString();
+            Session["g_participantIndex"] = g_participantIndex.ToString();
 
             int accessId = Convert.ToInt32(Session["IdAccess"]);
             FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);

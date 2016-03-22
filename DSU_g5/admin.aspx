@@ -55,5 +55,7 @@
                 <asp:Label ID="lblConformation" runat="server" Text=""></asp:Label>
              </div>
          </div>
+      
      </section>
+       <asp:HiddenField ID="hfNewsId" runat="server" />
 </asp:Content>
