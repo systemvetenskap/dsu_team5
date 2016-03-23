@@ -32,8 +32,6 @@ namespace DSU_g5
         game_dates maxmin = new game_dates();
         List<DateTime> datesList = new List<DateTime>();
 
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -56,10 +54,6 @@ namespace DSU_g5
 
             if (!IsPostBack)
             {                
-                //lbAllMembers.DataValueField = "mID"; //Får värdet av DataTable och lagrar member_id som en sträng i "mID".
-                //lbAllMembers.DataTextField = "namn"; //Får värdet av den sammanslagna kolumnen "namn" som en sträng.
-                //lbAllMembers.DataSource = methods.showAllMembersForBooking();
-                //lbAllMembers.DataBind();
 
                                 //NYTT NEDAN!
                 lbGamesMemberIsBookedOn.DataValueField = "gID";
@@ -96,10 +90,7 @@ namespace DSU_g5
             {
                 try
                 {
-                    //populateGrvBokning();
                     updateBookingInfo();
-                    //lbGamesMemberIsBookedOn.SelectedIndex = -1;
-                    //lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
                 }
                 catch (Exception)
                 {
@@ -132,18 +123,9 @@ namespace DSU_g5
  
         #region KNAPPAR
         protected void Button1_Click(object sender, EventArgs e)
-        { //try/catch verkar inte fungera. Systemet krashar när man inte väljer datum
-            //try
-            //{
-            //    ListBox1.DataSource = methods.getBookedMember(trimDateTime);
-            //    ListBox1.DataBind();
-            //}
-            //catch (NpgsqlException ex)
-            //{
-            //    //Debug.WriteLine(ex.Message);
-            //    Response.Write("<script>alert('" + "Välj ett datum" + "')</script>");
-            //}
+        { 
         }
+
         protected void BtnBookMember_Click(object sender, EventArgs e)
         {
             string message = null;
@@ -174,8 +156,6 @@ namespace DSU_g5
                         }
 
                         lbBookedMembers.Items.Clear();
-                        //lbBookedMembers.DataSource = null;
-                        //lbBookedMembers.DataBind();
                         lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeID));
                         lbBookedMembers.DataBind();
 
@@ -205,7 +185,6 @@ namespace DSU_g5
         }
         protected void BtnDelMemberFromGame_Click(object sender, EventArgs e)
         {
-            //lbBookedMembers.DataSource = null;
             if (hfBookedMembersFromList.Value != "")
             {
                 if (hfChosenDate.Value != "")
@@ -227,12 +206,8 @@ namespace DSU_g5
 
                         methods.unBookMember(trimDateTime, timeID, bookedMember);
 
-                        //grvBokning.DataSource = null;
-                        //grvBokning.DataBind();
 
                         lbBookedMembers.Items.Clear();
-                        //lbBookedMembers.DataSource = null;
-                        //lbBookedMembers.DataBind();
                         lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
                         lbBookedMembers.DataBind();
 
@@ -265,8 +240,6 @@ namespace DSU_g5
         }
         protected void btnBookedByMember_Click(object sender, EventArgs e)
         {
-            //string placeholderMid = hfPlaceholderMemberId.Value;
-            //int playerID = Convert.ToInt32(placeholderMid);
 
             string message = null;
 
@@ -355,11 +328,9 @@ namespace DSU_g5
                 gm.gameId = Convert.ToInt32(hfChosenGameByMem.Value);
                 gm.memberId = inloggadUser.fkIdMember;
 
-
                 //Med variabler
                 int loggedInMem = inloggadUser.fkIdMember;
                 int gameIdForMem = Convert.ToInt32(hfChosenGameByMem.Value);
-
 
                 methods.unBookingByMem(gm.gameId, gm.memberId);
 
@@ -450,9 +421,9 @@ namespace DSU_g5
             }
             catch (Exception ex)
             {
-                //Response.Write("<script>alert('" + ex.Message + "')</script>");
             }
         }
+
         protected void grvBokning_DataBound(object sender, EventArgs e)
         {
             try
@@ -524,6 +495,7 @@ namespace DSU_g5
                 
             }
         }
+
         private void lb_Click(object sender, EventArgs e)
         {
             try
@@ -549,10 +521,8 @@ namespace DSU_g5
                 lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
                 lbBookedMembers.DataBind();
 
-
                 //presentera info om golfrunda och deltagare: datum, tid, deltagare, handicap, golf-ID, totalt handicap
                 updateBookingInfo();
-
 
                 if (accessId == 2 || accessId == 3)
                 {
@@ -602,20 +572,16 @@ namespace DSU_g5
             }
             catch (Exception ex)
             {
-                //Response.Write("<script>alert('" + ex.Message + "')</script>");
             }
         }
 
-        #endregion
-
-            
+        #endregion       
             
         #region SELECTED INDEX CHANGED
         protected void calBokning_SelectionChanged(object sender, EventArgs e)
         {
             selectedDate = calBokning.SelectedDate;
             hfChosenDate.Value = selectedDate.ToShortDateString();
-            //lblTest.Text = selectedDate.ToString();
 
             populateGrvBokning();
             pBokningarInfo.InnerHtml = "";
@@ -624,6 +590,7 @@ namespace DSU_g5
             lbBookedMembers.Visible = false;
             BtnDelMemberFromGame.Visible = false;
         }
+
         protected void lbAllMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListBox lb = (ListBox)sender;
@@ -636,6 +603,7 @@ namespace DSU_g5
             Debug.WriteLine(mid);
 
         }
+        
         protected void lbBookedMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -672,6 +640,7 @@ namespace DSU_g5
             
             }
         }
+        
         protected void lbGamesMemberIsBookableBy_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -692,52 +661,6 @@ namespace DSU_g5
             }
 
         }
-
-        //protected void tbSearchMember_TextChanged(object sender, EventArgs e)
-        //{
-        //    string memberSearch = tbSearchMember.Text.ToLower();
-        //    lbAllMembers.Items.Clear();
-        //    string sqlMemberSearch;
-            
-        //    DataTable dt = new DataTable();
-
-        //    try
-        //    {
-        //        sqlMemberSearch = "SELECT (first_name ||  ' ' ||  last_name) AS namn, id_member AS mID " +
-        //                       "FROM member_new " +
-        //                       "WHERE lower(first_name) LIKE '" + memberSearch + '%' + "'" +
-        //                       "OR lower(last_name) LIKE '" + memberSearch + '%' + "'";
-        //        conn.Open();
-
-        //        //NpgsqlCommand cmd = new NpgsqlCommand(memberSearch, conn);
-        //        //NpgsqlDataReader dr = cmd.ExecuteReader();
-
-        //        //while (dr.Read())
-        //        //{
-        //            //member m = new member();
-        //            //m.memberId = int.Parse(dr["id_member"].ToString());
-        //            //m.firstName = dr["first_name"].ToString();
-        //            //m.lastName = dr["last_name"].ToString();
-
-        //            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sqlMemberSearch, conn);
-        //            da.Fill(dt);
-
-        //            lbAllMembers.DataValueField = "mID";
-        //            lbAllMembers.DataTextField = "namn";
-        //            lbAllMembers.DataSource = dt;
-        //            lbAllMembers.DataBind();
-        //        //}
-        //    }
-
-        //    catch (NpgsqlException ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        conn.Close();
-        //    }
-        //}
         
         #endregion
 
@@ -745,14 +668,6 @@ namespace DSU_g5
         #region VoidMetoder
         protected void calBokning_DayRender(object sender, DayRenderEventArgs e)
         {
-
-            //string maxDate = maxmin.endDate;
-            //string minDate = maxmin.startDate;
-            //DateTime end = DateTime.Parse(maxDate);
-            //DateTime start = DateTime.Parse(minDate);
-            //end.ToShortDateString();
-            //start.ToShortDateString();
-
 
             foreach(DateTime d in datesList)
             {
@@ -774,11 +689,6 @@ namespace DSU_g5
                 
             }
         }
-
-
-
-
-
 
         private void UpdateLBsAndLBLs()
         {

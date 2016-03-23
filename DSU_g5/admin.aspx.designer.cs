@@ -139,15 +139,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.TextBox tbSeasonStartCal;
         
         /// <summary>
-        /// startCalendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar startCalendar;
-        
-        /// <summary>
         /// lblSeasonEnd control.
         /// </summary>
         /// <remarks>
@@ -164,15 +155,6 @@ namespace DSU_g5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbSeasonEndCal;
-        
-        /// <summary>
-        /// endCalendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar endCalendar;
         
         /// <summary>
         /// lblSeasonTimes control.
