@@ -94,33 +94,6 @@ namespace DSU_g5 {
         protected global::System.Web.UI.WebControls.Button btnMailNews;
         
         /// <summary>
-        /// lblSeasonInst control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSeasonInst;
-        
-        /// <summary>
-        /// lblCloseInst control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCloseInst;
-        
-        /// <summary>
-        /// lblSeason control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSeason;
-        
-        /// <summary>
         /// lblSeasonStart control.
         /// </summary>
         /// <remarks>
