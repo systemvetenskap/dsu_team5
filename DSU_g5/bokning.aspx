@@ -56,7 +56,6 @@
     </div>
         <div id="bokningarAdmin" runat="server">
             <div id="listBoxMedlemar">
-               <!-- <asp:ListBox ID="lbAllMembers" runat="server" Rows="10" OnSelectedIndexChanged="lbAllMembers_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox> -->
             </div>
             <br />
             <div id="searchMember">
@@ -67,25 +66,6 @@
                 <asp:Button ID="BtnBookMember" runat="server" Text="Boka medlem" OnClick="BtnBookMember_Click" />
             </div>
         </div>
-
-            <script>
-                //document.getElementById("ContentPlaceHolder1_tbSearchMember").addEventListener("input", ListBoxFilter);
-                function ListBoxFilter() {
-                    var input = $("#ContentPlaceHolder1_tbSearchMember").val();
-                    var regex = new RegExp(input, "i");
-                    var antalPoster = $("#ContentPlaceHolder1_lbAllMembers").children().length;
-                    for (i = 0; i < antalPoster; i++) {
-                        var namn = $("#ContentPlaceHolder1_lbAllMembers").children()[i].innerHTML;
-                        if (!namn.match(regex)) {
-                            $("#ContentPlaceHolder1_lbAllMembers option:eq(" + i + ")").hide();
-                        }
-                        else {
-                            $("#ContentPlaceHolder1_lbAllMembers option:eq(" + i + ")").show();
-                        }
-                    }
-                }                
-            </script>
-
     <br />
     <div id="member" runat="server">
         <hr />

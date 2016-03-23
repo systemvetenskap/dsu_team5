@@ -20,7 +20,6 @@ namespace DSU_g5
         protected void Page_Load(object sender, EventArgs e)
         {
             tourQuery = Request.QueryString["ContentId"];
-            //Response.Write("<script>alert('" + tourQuery + "')</script>");
 
             inloggadUser.idUser = Convert.ToInt32(Session["idUser"]);
             inloggadUser.fkIdMember = Convert.ToInt32(Session["IdMember"]);
@@ -60,13 +59,6 @@ namespace DSU_g5
                 hfTourId.Value = tour.id_tournament.ToString();
                 selectedTournament = methods.GetTournament(tour.id_tournament);
                
-
-               
-                //lbMembersTournament.DataValueField = "mID";
-                //lbMembersTournament.DataTextField = "namn";
-                //lbMembersTournament.DataSource = methods.showAllMembersForBooking();
-                //lbMembersTournament.DataBind();
-
                 //Tar med Queryvärdet och fyller textboxar.
                 infoAboutTourTBs(Convert.ToInt32(tourQuery));
             }
@@ -95,7 +87,6 @@ namespace DSU_g5
             {
 
                 tournament tour = new tournament();
-                //tour.id_tournament = Convert.ToInt32(tourQuery);
                 tour.id_tournament = Convert.ToInt32(ddl.SelectedItem.Value);
                 //int tournamentID = Convert.ToInt32(ddl.SelectedItem.Value);
 
@@ -117,9 +108,10 @@ namespace DSU_g5
                 tbContactPerson.Text = Convert.ToString(methods.ContactPersonName(tour.id_tournament));
                 tbHole.Text = selectedTournament.hole.ToString();
             
-            //Gridview
-            gvTourInfo.DataSource = methods.GetInfoAboutTour(tour.id_tournament);
-            gvTourInfo.DataBind();
+            // Gridview
+            // gvTourInfo.DataSource = methods.GetInfoAboutTour(tour.id_tournament);
+            // gvTourInfo.DataBind();
+            
             }
             else
             {

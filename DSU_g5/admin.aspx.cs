@@ -10,7 +10,6 @@ namespace DSU_g5
     public partial class admin : System.Web.UI.Page
     {
         public news chosenNews;
-        //public int news_id;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,7 +36,6 @@ namespace DSU_g5
                     populateNewsNameList();
                     ddlNewsName.Items.Insert(0, "Välj nyhet");
 
-                    //    methods.addNews(newNews);
                     Response.Write("<script>alert('Publicering klar')</script>");
                     txtNewNews.Text = string.Empty;
                     updateNews.Visible = true;
@@ -79,13 +77,9 @@ namespace DSU_g5
 
                 hfNewsId.Value = "";
 
-                //if (methods.updateNews(newNews) == true)
-                //{
-                //    methods.updateNews(newNews);
                 Response.Write("<script>alert('Uppdatering klar.')</script>");
                 populateNewsNameList();
                 ddlNewsName.Items.Insert(0, "Välj nyhet");
-                //}
             }
             else
             {
@@ -104,13 +98,10 @@ namespace DSU_g5
                     methods.removeNews(newNews);
                     populateNewsNameList();
 
-                    //if (methods.removeNews(newNews) == true)
-                    //{
-                    //    methods.removeNews(newNews);
                     Response.Write("<script>alert('Nyhet är borttagen')</script>");
                     populateNewsNameList();
                     ddlNewsName.Items.Insert(0, "Välj nyhet");
-                    //}
+
                     txtNewNews.Text = string.Empty;
                     updateNews.Visible = true;
                     removeNews.Visible = true;
@@ -130,6 +121,7 @@ namespace DSU_g5
             }
 
         }
+
         protected void btnMailNews_Click(object sender, EventArgs e)
         {
             if (textNews.InnerText != "")
@@ -138,11 +130,8 @@ namespace DSU_g5
                 string rubrik = ddlNewsName.SelectedItem.ToString();
                 methods.SkickaMail(nyhetsbrev, rubrik);
 
-                //if (methods.SkickaMail(nyhetsbrev, rubrik) == true)
-                //{
                 methods.SkickaMail(nyhetsbrev, rubrik);
                 Response.Write("<script>alert('Nyhetsbrev är sänt till medlemmar.')</script>");
-                //}
                 txtNewNews.Text = "";
                 updateNews.Visible = true;
                 removeNews.Visible = true;
@@ -154,10 +143,9 @@ namespace DSU_g5
                 Response.Write("<script>alert('Välj en nyhet att maila.')</script>");
             }
         }
+
         protected void btnAddSeason_Click(object sender, EventArgs e)
         {
-            //DateTime startDate = startCalendar.SelectedDate;
-            //DateTime endDate = endCalendar.SelectedDate;
             DateTime startDate = new DateTime();
             DateTime endDate = new DateTime();
             DateTime.TryParse(tbSeasonStartCal.Text, out startDate);
@@ -186,8 +174,6 @@ namespace DSU_g5
 
         protected void btnRemoveDate_Click(object sender, EventArgs e)
         {
-            //DateTime startDate = startCalendar.SelectedDate;
-            //DateTime endDate = endCalendar.SelectedDate;
             DateTime startDate = new DateTime();
             DateTime endDate = new DateTime();
             DateTime.TryParse(tbSeasonStartCal.Text, out startDate);
@@ -201,8 +187,6 @@ namespace DSU_g5
                     DateTime startTime = DateTime.Parse(txtFrom.Text);
                     DateTime endTime = DateTime.Parse(txtTo.Text);
                     lblConformation.Text = "Du har stängt banan på datum: " + startDate.ToShortDateString() + "\n och på tiderna " + startTime.ToShortTimeString() + " till " + endTime.ToShortTimeString() + ".";
-                    //int startTime = int.Parse(txtFrom.Text);
-                    //int endTime = int.Parse(txtTo.Text);
                     methods.stangbanan(startDate, startTime, endTime);
                 }
                 catch (Exception ex)
@@ -234,10 +218,7 @@ namespace DSU_g5
                     }
                 }
             }
-
-
         }
-
 
         #endregion
 
@@ -257,7 +238,6 @@ namespace DSU_g5
             ddlNewsName.DataValueField = "Value";
             ddlNewsName.DataSource = nyListaNews;
             ddlNewsName.DataBind();
-            //ddlNewsName.Items.Insert(0, "Välj nyhet");
 
             textNews.InnerText = string.Empty;
         }
@@ -271,10 +251,8 @@ namespace DSU_g5
             publishNews.Visible = false;
             lblNewNews.Visible = false;
 
-
             DropDownList newsName = (DropDownList)sender;
             ListItem li = newsName.SelectedItem;
-
 
             if (li.Value == "Välj nyhet")
             {
@@ -295,15 +273,12 @@ namespace DSU_g5
                 btnMailNews.Visible = true;
 
                 news newNews = new news();
-                //news_id = Convert.ToInt32(li.Value);
                 hfNewsId.Value = li.Value;
-
 
                 newNews = methods.getNews(Convert.ToInt32(hfNewsId.Value));
                 textNews.InnerText = newNews.newsInfo;
                 txtNewNews.Text = newNews.newsName;
             }
-
         }
 
         #endregion
@@ -321,10 +296,9 @@ namespace DSU_g5
 
         #endregion
 
-       
-       
     }
 }
+
             
             
 

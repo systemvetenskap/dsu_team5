@@ -30,35 +30,15 @@
                 <ul id="masterNavMenu">
                     <li id="navIndex" runat="server">
                         <a href="/index.aspx">Hem</a>
-                        <!--<ul class="subMenu">
-                            <li><a href="#">alternativ 1</a></li>
-                            <li><a href="#">alternativ 2</a></li>
-                            <li><a href="#">alternativ 3</a></li>
-                        </ul>-->
                     </li>
                     <li id="navTavlingar" runat="server">
                         <a href="/tavlingar.aspx">Tävlingar</a>
-                        <!--<ul class="subMenu">
-                            <li><a href="#">alternativ 1</a></li>
-                            <li><a href="#">alternativ 2</a></li>
-                            <li><a href="#">alternativ 3</a></li>
-                        </ul>-->
                     </li>
                     <li id="navBokning" runat="server">
                         <a href="/bokning.aspx">Boka golfrunda</a>
-                        <!--<ul class="subMenu">
-                            <li><a href="#">alternativ 1</a></li>
-                            <li><a href="#">alternativ 2</a></li>
-                            <li><a href="#">alternativ 3</a></li>
-                        </ul>-->
                     </li>
                     <li id="navMedlemssida" runat="server">
                         <a href="/medlemssida.aspx">Mina uppgifter</a>
-                        <!--<ul class="subMenu">
-                            <li><a href="#">alternativ 1</a></li>
-                            <li><a href="#">alternativ 2</a></li>
-                            <li><a href="#">alternativ 3</a></li>
-                        </ul>-->
                     </li>
                     <li id="navAdmin" runat="server">
                         <a href="/admin.aspx">Administration</a>
@@ -70,22 +50,6 @@
                             <li><a id="aResultat" href="/resultat.aspx">Resultatreg.</a></li>
                         </ul>
                     </li>
-                    <!--<li>
-                        <a href="#">menyval 5</a>
-                        <ul class="subMenu">
-                            <li><a href="#">alternativ 1</a></li>
-                            <li><a href="#">alternativ 2</a></li>
-                            <li><a href="#">alternativ 3</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">menyval 6</a>
-                        <ul class="subMenu">
-                            <li><a href="#">alternativ 1</a></li>
-                            <li><a href="#">alternativ 2</a></li>
-                            <li><a href="#">alternativ 3</a></li>
-                        </ul>
-                    </li>-->
                 </ul>
             </div>
         </nav>

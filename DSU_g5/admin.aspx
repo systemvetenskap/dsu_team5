@@ -32,13 +32,11 @@
                     <asp:Label ID="lblSeasonStart" runat="server" Text="Säsongsstart/Stäng banan från"></asp:Label>
                     <br />
                     <asp:TextBox ID="tbSeasonStartCal" CssClass="calendar" runat="server"></asp:TextBox>
-                   <!-- <asp:Calendar ID="startCalendar" runat="server"></asp:Calendar> -->
                  </div>
                  <div id="seasonEnd">
                     <asp:Label ID="lblSeasonEnd" runat="server" Text="Säsongsslut/Stäng banan till"></asp:Label>
                     <br />
                     <asp:TextBox ID="tbSeasonEndCal" CssClass="calendar" runat="server"></asp:TextBox>
-                   <!-- <asp:Calendar ID="endCalendar" runat="server"></asp:Calendar> -->
                  </div>
              </div>
              <div id="times">

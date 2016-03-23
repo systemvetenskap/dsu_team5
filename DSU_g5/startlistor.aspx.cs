@@ -27,7 +27,6 @@ namespace DSU_g5
         {
             DropDownList tournamentList = (DropDownList)sender;
             ListItem li = tournamentList.SelectedItem;
-            //tournament newTour = new tournament();
             if (li.Value == "Välj tävling")
             {
                 hfTourId.Value = "";
@@ -42,15 +41,10 @@ namespace DSU_g5
             }
         }
 
-        //protected void LsbParticipants_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-
-        //}
-
         protected void btnStartlist_Click(object sender, EventArgs e)
         {
             List<string> medlemStarttime = new List<string>();
-            
+
             string mess = null;
             if (hfTourId.Value != "")
             {
@@ -62,13 +56,10 @@ namespace DSU_g5
                 medlemStarttime = methods.participantsByTourId(Convert.ToInt32(hfTourId.Value), numG, out mess);
 
                 if (medlemStarttime.Count >= 1)
-                {//LsbParticipants.DataSource = medlemStarttime;
-                    //LsbParticipants.DataBind();
+                {
                     DataTable dt = new DataTable();
                     dt.Columns.Add("MemberID");
                     dt.Columns.Add("Namn");
-                    //dt.Columns.Add("Förnamn");
-                    //dt.Columns.Add("Efternamn");
                     dt.Columns.Add("Starttid");
 
                     string[] splitted;
@@ -96,11 +87,7 @@ namespace DSU_g5
             {
                 Response.Write("<script>alert('" + "Du måste välja en tävling" + "')</script>");
             }
-
-
-            
         }
-
 
         public void populateTournamentList()
         {
