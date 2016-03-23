@@ -44,7 +44,7 @@
             <br />
             <asp:Label ID="lbPostalCode" CssClass="memberlabel" runat="server" Text="Postkod"></asp:Label>
             <asp:TextBox ID="tbPostalCode" CssClass="membertextbox" runat="server"></asp:TextBox>
-            <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Endast numeriskt värde" ControlToValidate="tbPostalCode" Type="Integer" MinimumValue="0" MaximumValue="99999" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
+        <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="tbPostalCode" ValidationExpression="([0-9]|\s){5,6}" ErrorMessage ="Endast numeriskt värde" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
             <br />
             <asp:Label ID="lbCity" CssClass="memberlabel" runat="server" Text="Stad"></asp:Label>
             <asp:TextBox ID="tbCity" CssClass="membertextbox" runat="server"></asp:TextBox>
@@ -59,7 +59,7 @@
             <br />
             <asp:Label ID="lbHcp" CssClass="memberlabel" runat="server" Text="HCP"></asp:Label>
             <asp:TextBox ID="tbHcp" CssClass="membertextbox" runat="server" ></asp:TextBox>
-            <asp:RangeValidator ID="rvTextbox" runat="server" ErrorMessage="Värde mellan -10 & 54" Display="Dynamic" ControlToValidate="tbHcp" Type="Integer" MinimumValue="-10" MaximumValue="54" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
+            <asp:RangeValidator ID="rvTextbox" runat="server" ErrorMessage="Värde mellan -10 & 54" Display="Dynamic" ControlToValidate="tbHcp" Type="Double" MinimumValue="-10" MaximumValue="54" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
             <br />
             <asp:Label ID="lbGolfId" CssClass="memberlabel" runat="server" Text="Golf-ID"></asp:Label>
             <asp:TextBox ID="tbGolfId" CssClass="membertextbox" runat="server"></asp:TextBox>
@@ -88,34 +88,12 @@
             <br />
         </div>
         <div id="medlemslista">
-            <%--<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-            <asp:Label ID="lbMembersList" CssClass="memberlabel" runat="server" Text="Medlemslista"></asp:Label>
-            <br />
-            <asp:ListBox ID="lblMembers" CssClass="membertextbox" runat="server" Height="191px" Width="215px" AutoPostBack="true" OnSelectedIndexChanged="lblMembers_SelectedIndexChanged" ></asp:ListBox>
-            <br />--%>
             <asp:Label ID="lbSearch" CssClass="memberlabel" runat="server" Text="Sök medlem"></asp:Label>
             <br />
             <asp:TextBox ID="tbSearch" CssClass="membertextbox" runat="server" Width="209px"></asp:TextBox>
             <asp:HiddenField ID="hfSearchMember" runat="server" OnValueChanged="hfSearchMember_ValueChanged" />
             <br />
             <br />
-            <script>
-                //document.getElementById("ContentPlaceHolder1_tbSearch").addEventListener("input", ListBoxFilter);
-                function ListBoxFilter() {
-                    var input = $("#ContentPlaceHolder1_tbSearch").val();
-                    var regex = new RegExp(input, "i");
-                    var antalPoster = $("#ContentPlaceHolder1_lblMembers").children().length;
-                    for (i = 0; i < antalPoster; i++) {
-                        var namn = $("#ContentPlaceHolder1_lblMembers").children()[i].innerHTML;
-                        if (!namn.match(regex)) {
-                            $("#ContentPlaceHolder1_lblMembers option:eq(" + i + ")").hide();
-                        }
-                        else {
-                            $("#ContentPlaceHolder1_lblMembers option:eq(" + i + ")").show();
-                        }
-                    }
-                }
-            </script>
         </div>
         <div id="knappar">
             <asp:Button ID="btSave" CssClass="memberbutton" runat="server" Text="Spara" OnClick="btSave_Click" />

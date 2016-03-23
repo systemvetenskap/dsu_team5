@@ -136,7 +136,6 @@ namespace DSU_g5
             if (methods.modifyMember(newMember, newUser) == true)
             {
                 populateMember(newMember.memberId);
-                //lbUserMessage.Text = "Uppdatering klar";
                 Response.Write("<script>alert('Uppdatering klar')</script>");
             }
         }
@@ -223,7 +222,6 @@ namespace DSU_g5
             int accessId = Convert.ToInt32(Session["IdAccess"]);
             FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);
             Response.Redirect("tavlingar.aspx");
-            // Response.Redirect("anmalantavling.aspx");
         }
     }
 } 

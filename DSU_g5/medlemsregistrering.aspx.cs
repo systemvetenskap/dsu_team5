@@ -74,21 +74,9 @@ namespace DSU_g5
                 newMember.memberId = Convert.ToInt32(tbIdMember.Text);
                 users newUser = new users();
                 newUser.idUser = Convert.ToInt32(tbIdUser.Text);
-                //int currentMemberIndex = lblMembers.SelectedIndex;
                 if (methods.removeMember(newMember, newUser) == true)
                 {
-                    //populateMemberList();
                     clearMember();
-                    //if ((currentMemberIndex - 1) < 0)
-                    //{
-                    //    lblMembers.SelectedIndex = 0;
-                    //    lblMembers.SelectedItem.Selected = true;
-                    //}
-                    //else
-                    //{
-                    //    lblMembers.SelectedIndex = currentMemberIndex - 1;
-                    //    lblMembers.SelectedItem.Selected = true;
-                    //}
                     btSave.Text = "Lägg till";
                     lbUserMessage.Text = "Användare " + newMember.memberId.ToString() + " borttagen.";
                 }
@@ -101,16 +89,11 @@ namespace DSU_g5
 
         protected void lblMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //int idMember = Convert.ToInt32(lblMembers.SelectedItem.Value);
-            //clearMember();
-            //populateMember(idMember);
-            //btSave.Text = "Uppdatera";
         }
 
         protected void btClear_Click(object sender, EventArgs e)
         {
             clearMember();
-            //lblMembers.ClearSelection();
             tbSearch.Text = "";
             hfSearchMember.Value = "";
             btSave.Text = "Lägg till";
@@ -191,22 +174,9 @@ namespace DSU_g5
                 newUser.userPassword = tbUserPassword.Text;
                 newUser.fkIdMember = newMember.memberId;
                 
-                //int currentMemberIndex = lblMembers.SelectedIndex;
                 
                 if (methods.modifyMember(newMember, newUser) == true)
                 {
-                    //populateMemberList();
-                    //lblMembers.SelectedIndex = currentMemberIndex;
-                    //if ((currentMemberIndex) <= 0)
-                    //{
-                    //    lblMembers.SelectedIndex = 0;
-                    //    lblMembers.SelectedItem.Selected = true;
-                    //}
-                    //else
-                    //{
-                    //    lblMembers.SelectedIndex = currentMemberIndex;
-                    //    lblMembers.SelectedItem.Selected = true;
-                    //}
                     tbIdMember.Text = newMember.memberId.ToString();
                     tbIdUser.Text = newUser.idUser.ToString();
                     tbFkIdMember.Text = newUser.fkIdMember.ToString();
@@ -263,7 +233,6 @@ namespace DSU_g5
 
                 if (methods.addMember(newMember, newUser) == true)
                 {
-                    //populateMemberList();
                     tbIdMember.Text = newMember.memberId.ToString();
                     tbIdUser.Text = newUser.idUser.ToString();
                     tbFkIdMember.Text = newUser.fkIdMember.ToString();
@@ -275,20 +244,6 @@ namespace DSU_g5
         
         protected void populateMemberList()
         {
-            //List<member> memberList = new List<member>();
-            //memberList = methods.getMemberList();
-            //List<ListItem> nyMemberList = new List<ListItem>();
-
-            //lblMembers.Items.Clear();
-            //foreach (member mb in memberList)
-            //{
-            //    nyMemberList.Add(new ListItem(mb.firstName + " " + mb.lastName, mb.memberId.ToString()));
-            //}
-
-            //lblMembers.DataTextField = "Text";
-            //lblMembers.DataValueField = "Value";
-            //lblMembers.DataSource = nyMemberList;
-            //lblMembers.DataBind();
         }
 
         public void clearMember()
