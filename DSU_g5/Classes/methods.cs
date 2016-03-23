@@ -3677,6 +3677,7 @@ namespace DSU_g5
             member m = new member();
             tournament t = new tournament();
             string sqlmembersWithST;
+            string hourMinute;
             DataTable dt = new DataTable();
 
             dt.Columns.Add("MemberID");
@@ -3703,9 +3704,16 @@ namespace DSU_g5
 
 
                     t.id_tournament = Convert.ToInt32(dr["id_tournament"].ToString());
-                    t.tour_start_time = Convert.ToDateTime(dr["start_time"].ToString());
-                    string hourMinute = t.tour_start_time.ToShortTimeString();
-
+                    if (dr["start_time"] != DBNull.Value)
+                    {
+                        t.tour_start_time = Convert.ToDateTime(dr["start_time"].ToString());
+                        hourMinute = t.tour_start_time.ToShortTimeString();
+                    }
+                    else
+                    {
+                        hourMinute = "";
+                        
+                    }
 
                     dt.Rows.Add(m.memberId, m.firstName + " " + m.lastName, hourMinute);
                 }
