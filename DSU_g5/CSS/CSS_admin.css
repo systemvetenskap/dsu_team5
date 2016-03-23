@@ -5,13 +5,123 @@
 #adminsida {
     width: 100%;
     overflow: auto;
-    padding-bottom:3%;
+    padding-bottom:8%;
 }
 
 #newsdiv {
     float: left;
     margin-right: 5%;
 }
+
+#ddlNewsName {
+    
+}}
+
+.newslabel {
+    width: 150px;
+    float: left;
+    margin: 0 0 2% 0;
+}
+
+.newstextbox {
+    width: 193px;
+    margin: 0.2% 0 1% 0;
+}
+
+.newsbutton {
+    width: 150px;
+    margin: 0.3% 0;
+}
+
+.newsddl {
+    width: 200px;
+    margin-bottom: 0px;
+    margin: 0.2% 0 1% 0;
+}
+
+#ContentPlaceHolder1_textNews {
+    margin-bottom: 1%;
+}
+
+#seasons {
+    margin-left:10%;
+    width: 60%;
+    float: left;
+    overflow:auto;
+    height: 482px;
+}
+
+#seasons div {
+    margin: 1% 0 0 0;
+    height: 220px;
+    width: 685px;
+}
+
+#seasons input{
+}
+
+#calendars{
+    overflow: auto;
+    padding: 4% 0 0 0;
+}
+
+#seasonStart {
+    display: block;
+    width: 33%;
+    height: 56px;
+    float:left;
+    padding:0 20% 0 0;
+}
+
+#seasonEnd {
+    display: block;
+    width: 33%;
+    height: 56px;
+    float:left;
+}
+
+#ContentPlaceHolder1_txtFrom,
+#ContentPlaceHolder1_txtTo {
+    width: 100px !important;
+    margin: 0 0 2% 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*#navAdmin a:nth-last-child(2) {
+    background-color: #6c7 !important;
+}
+
+#adminsida {
+    width: 100%;
+    overflow: auto;
+    padding-bottom:8%;
+}
+
+#newsdiv {
+    float: left;
+    margin-right: 5%;
+}
+
+#ddlNewsName {
+    
+}}
 
 .newslabel {
     width: 150px;
@@ -73,4 +183,102 @@
 #ContentPlaceHolder1_txtTo {
     width: 100px !important;
     margin: 0 0 2% 0;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*#navAdmin a:nth-last-child(2) {
+    background-color: #6c7 !important;
 }
+
+#adminsida {
+    width: 100%;
+    overflow: auto;
+    padding-bottom:8%;
+}
+
+#newsdiv {
+    float: left;
+    margin-right: 5%;
+}
+
+#ddlNewsName {
+    
+}}
+
+.newslabel {
+    width: 150px;
+    float: left;
+    margin: 0 0 2% 0;
+}
+
+.newstextbox {
+    width: 193px;
+    margin: 0.2% 0 1% 0;
+}
+
+.newsbutton {
+    width: 150px;
+    margin: 0.3% 0;
+}
+
+.newsddl {
+    width: 200px;
+    margin-bottom: 0px;
+    margin: 0.2% 0 1% 0;
+}
+
+#ContentPlaceHolder1_textNews {
+    margin-bottom: 1%;
+}
+
+#seasons {
+    width: 35%;
+    float: right;
+}
+
+#seasons div {
+    margin: 1% 0 0 0;
+}
+
+#seasons input{
+    width: 160px;
+}
+
+#calendars{
+    overflow: auto;
+    padding: 4% 0 0 0;
+}
+
+#seasonStart {
+    display: block;
+    width: 250px;
+    height: 80px;
+}
+
+#seasonEnd {
+    display: block;
+    width: 250px;
+    height: 80px;
+}
+
+#ContentPlaceHolder1_txtFrom,
+#ContentPlaceHolder1_txtTo {
+    width: 100px !important;
+    margin: 0 0 2% 0;
+}*/

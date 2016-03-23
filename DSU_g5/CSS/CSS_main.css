@@ -167,6 +167,8 @@ select option{
     background-color: beige !important;
 }
 
+
+
 /*.dropdown{
     border:2px solid #7d6754;
     border-radius:5px;
@@ -209,7 +211,7 @@ input[type="submit"] {
     border-radius:8px;
 }
 
-input[type="submit"]:hover{
+t[type="submit"]:hover{
     
     background-color: #4CAF50; /* Grön */
     color: white; 
