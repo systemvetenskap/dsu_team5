@@ -559,7 +559,7 @@ namespace DSU_g5
                     lbBookedMembers.Visible = true;
                     BtnDelMemberFromGame.Visible = true;
                 }
-                
+                //Kontrollerar om listboxen är tom.
                 int x = lbBookedMembers.Items.Count;
                 if (x == 0)
                 {
