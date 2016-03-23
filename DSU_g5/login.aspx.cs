@@ -12,7 +12,6 @@ namespace DSU_g5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void btLoggIn_Click(object sender, EventArgs e)
@@ -66,7 +65,6 @@ namespace DSU_g5
                 {
                     FormsAuthentication.RedirectFromLoginPage(accessId.ToString(), false);
                     Response.Redirect("admin.aspx");
-
                 }
                 else
                 {
