@@ -33,7 +33,7 @@
             <br />
             <asp:Label ID="lbFirstName" CssClass="memberlabel" runat="server" Text="Förnamn"></asp:Label>
             <asp:TextBox ID="tbFirstName" CssClass="membertextbox" runat="server"></asp:TextBox>
-<%--            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbFirstName" ValidationExpression="([a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>--%>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbFirstName" ValidationExpression="([A-Z]|[a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
             <br />
             <asp:Label ID="lbLastName" CssClass="memberlabel" runat="server" Text="Efternamn"></asp:Label>
             <asp:TextBox ID="tbLastName" CssClass="membertextbox" runat="server"></asp:TextBox>
