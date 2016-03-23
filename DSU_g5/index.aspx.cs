@@ -39,7 +39,6 @@ namespace DSU_g5
             DropDownList newsName = (DropDownList)sender;
             ListItem li = newsName.SelectedItem;
             string value = li.Text;
-            //int id = Convert.ToInt32(li.Value);
         }
 
         //Lägger värden i dropdown-menyer för val av år och månad
