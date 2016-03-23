@@ -236,8 +236,17 @@ namespace DSU_g5
                         lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
                         lbBookedMembers.DataBind();
 
+
+                        int x = lbBookedMembers.Items.Count;
+                        if (x == 0)
+                        {
+                            lbBookedMembers.Visible = false;
+                            BtnDelMemberFromGame.Visible = false;
+                        }
+
                         populateGrvBokning();
                         updateBookingInfo();
+
                     }
                     else
                     {
@@ -275,25 +284,35 @@ namespace DSU_g5
                         {
                             if (hfTimeId.Value != "")
                             {
-                                int loggedInMember = inloggadUser.fkIdMember;
-
                                 int playerID = Convert.ToInt32(anotherMember);
-
-                                string chosenDate = hfChosenDate.Value;
-                                trimDate = chosenDate.Substring(0, 10);
-                                trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
-
-                                string placeholderTid = hfTimeId.Value;
-                                int timeID = Convert.ToInt32(placeholderTid);
-                                DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
-
-                                methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember, out message);
-                                if(message != null)
+                                if(methods.IsPayed(playerID) == true)
                                 {
-                                    Response.Write("<script>alert('" + message + "')</script>");
+                                    int loggedInMember = inloggadUser.fkIdMember;
+
+
+                                    string chosenDate = hfChosenDate.Value;
+                                    trimDate = chosenDate.Substring(0, 10);
+                                    trimDateTime = Convert.ToDateTime(trimDate.Substring(0, 10));
+
+                                    string placeholderTid = hfTimeId.Value;
+                                    int timeID = Convert.ToInt32(placeholderTid);
+                                    DateTime datum = Convert.ToDateTime(hfChosenDate.Value);
+
+                                    methods.bookingByMember(trimDateTime, timeID, playerID, loggedInMember, out message);
+                                    if(message != null)
+                                    {
+                                        Response.Write("<script>alert('" + message + "')</script>");
+                                    }
+
+                                    UpdateLBsAndLBLs();
+                                    tbBookAnotherMember.Text = "";
                                 }
 
-                                UpdateLBsAndLBLs();
+                                else
+                                {
+                                    Response.Write("<script>alert('" + "Medlemsavgiften är inte betald för den valda medlemen." + "')</script>");
+                                    tbBookAnotherMember.Text = "";
+                                }
                             }
                             else
                             {
@@ -308,18 +327,21 @@ namespace DSU_g5
                     else
                     {
                         Response.Write("<script>alert('" + "Medlems-IDt finns inte i databasen.\\nVänligen fyll i ett nytt." + "')</script>");
+                        tbBookAnotherMember.Text = "";
                     }
                 }
                 else
                 {
                     Response.Write("<script>alert('" + "Felaktigt format, enbart siffror!" + "')</script>");
+                    tbBookAnotherMember.Text = "";
                 }
             }
             else
             {
                 Response.Write("<script>alert('" + "Du måste fylla i ett medlemsId i fältet." + "')</script>");
+                tbBookAnotherMember.Text = "";
             }
-            tbBookAnotherMember.Text = "";
+            
 
         }
 
@@ -527,13 +549,22 @@ namespace DSU_g5
                 lbBookedMembers.DataSource = methods.showAllMembersForBookingByDateAndTime(datum, Convert.ToInt32(timeId));
                 lbBookedMembers.DataBind();
 
+
                 //presentera info om golfrunda och deltagare: datum, tid, deltagare, handicap, golf-ID, totalt handicap
                 updateBookingInfo();
+
 
                 if (accessId == 2 || accessId == 3)
                 {
                     lbBookedMembers.Visible = true;
                     BtnDelMemberFromGame.Visible = true;
+                }
+                //Kontrollerar om listboxen är tom.
+                int x = lbBookedMembers.Items.Count;
+                if (x == 0)
+                {
+                    lbBookedMembers.Visible = false;
+                    BtnDelMemberFromGame.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -590,6 +621,8 @@ namespace DSU_g5
             pBokningarInfo.InnerHtml = "";
             tbSearchMember.Text = "";
             lbBookedMembers.Items.Clear();
+            lbBookedMembers.Visible = false;
+            BtnDelMemberFromGame.Visible = false;
         }
         protected void lbAllMembers_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -762,8 +795,8 @@ namespace DSU_g5
             lbGamesMemberIsBookableBy.DataBind();
             lbGamesMemberIsBookableBy.SelectedIndex = -1;
 
-            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen i listan ovan.";
-            lblBookedByInfoGame.Text = "Här visas information om det valda gameId:t ovan.";
+            lblInfoAboutGameId.Text = "Här visas information om den valda bokningen ovan.";
+            lblBookedByInfoGame.Text = "Här visas information om den valda bokningen ovan.";
         }
         #endregion
 

@@ -24,7 +24,7 @@
         <br />
         <asp:Button ID="btLoggIn" runat="server" Text="Logga in" Height="42px" Width="120px" OnClick="btLoggIn_Click" ></asp:Button>
         <br />
-        <asp:Label ID="lbUserMessage" runat="server" CssClass="UserMessage"></asp:Label>
+        <asp:Label ID="lbUserMessage" runat="server" CssClass="UserMessage" ForeColor="Red" Font-Bold="True"></asp:Label>
         <br />
     </section>
 </asp:Content>

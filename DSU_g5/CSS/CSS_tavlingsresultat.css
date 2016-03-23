@@ -1,5 +1,9 @@
 ﻿#navTavlingar a {
-    background-color: #6c7 !important;
+    background-color: rgba(80, 170, 100, 1) !important;
+}
+
+section{
+    padding-bottom:38%;
 }
 
 #dropdown {

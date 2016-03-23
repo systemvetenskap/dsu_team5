@@ -160,29 +160,43 @@ namespace DSU_g5
             {
                 if (hfMemberId.Value != "")
                 {
-                    // KÖR PÅ.
-                    int tourId = Convert.ToInt32(hfTourId.Value);
                     int memId = Convert.ToInt32(hfMemberId.Value);
-                    int result = 0;
-                    
-                    methods.RegMemberOnTour(tourId, memId, result, out message);
-
-                    if(message != null)
+                    if (methods.IsPayed(memId) == true)
                     {
-                        if(accessId != 2 && accessId != 3)
+                        int tourId = Convert.ToInt32(hfTourId.Value);
+                        // KÖR PÅ.
+                        int result = 0;
+
+                        methods.RegMemberOnTour(tourId, memId, result, out message);
+
+                        if (message != null)
                         {
-                            Response.Write("<script>alert('" + "Du är redan inbokad på denna tävling." + "')</script>");
+                            if (accessId != 2 && accessId != 3)
+                            {
+                                Response.Write("<script>alert('" + "Du är redan inbokad på denna tävling." + "')</script>");
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('" + message + "')</script>");
+                            }
+
+                            lblConfirmation.Text = "";
                         }
                         else
                         {
-                            Response.Write("<script>alert('" + message + "')</script>");
+                            lblConfirmation.Text = "Registrering av medlem genomförd.";
                         }
-
-                        lblConfirmation.Text = "";
                     }
                     else
                     {
-                        lblConfirmation.Text = "Registrering av medlem genomförd.";
+                        if (accessId != 2 && accessId != 3)
+                        {
+                            Response.Write("<script>alert('" + "Du måste betala medlemsavgiften för att kunna anmäla dig på en tävling." + "')</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('" + "Medlemsavgiften är inte betald för den valda medlemen." + "')</script>");
+                        }
                     }
                 }
 

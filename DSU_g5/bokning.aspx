@@ -98,7 +98,7 @@
             <asp:ListBox ID="lbGamesMemberIsBookedOn" runat="server" OnSelectedIndexChanged="lbGamesMemberIsBookedOn_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
             <br />
             <%-- DIV 2 LBINFOABOUTGAMID --%>
-            <asp:Label ID="lblInfoAboutGameId" runat="server" Text="Här visas information om den valda bokningen i listan ovan."></asp:Label>
+            <asp:Label ID="lblInfoAboutGameId" runat="server" Text="Här visas information om den valda bokningen ovan."></asp:Label>
             <br />
              <%-- DIV 2 UNBOOKEDBYMEMBER --%>
             <asp:Button ID="UnBookedByMember" runat="server" Text="Avboka min bokning" OnClick="btnUnBookedByMember_Click" />
