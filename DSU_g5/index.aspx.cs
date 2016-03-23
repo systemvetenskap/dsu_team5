@@ -14,8 +14,6 @@ namespace DSU_g5
         {
             List<news> newsList = new List<news>();
             newsList = methods.getNewsList();
-            ddlNewsName.DataSource = newsList;
-            ddlNewsName.DataBind();
 
             if (!IsPostBack)
             {

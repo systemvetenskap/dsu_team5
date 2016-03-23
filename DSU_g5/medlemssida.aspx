@@ -29,25 +29,26 @@
                 <br />
                 <asp:Label ID="lbFirstName" CssClass="memberlabel" runat="server" Text="Förnamn"></asp:Label>
                 <asp:TextBox ID="tbFirstName" CssClass="membertextbox" runat="server"></asp:TextBox>
-<%--                <asp:RegularExpressionValidator ID="regexpSSN1" runat="server" ControlToValidate="tbFirstName" ValidationExpression="([a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>--%>
+                <asp:RegularExpressionValidator ID="regexpSSN1" runat="server" ControlToValidate="tbFirstName" ValidationExpression="([A-Z]|Å|Ä|Ö|[a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
                 <br />
                 <asp:Label ID="lbLastName" CssClass="memberlabel" runat="server" Text="Efternamn"></asp:Label>
                 <asp:TextBox ID="tbLastName" CssClass="membertextbox" runat="server"></asp:TextBox>
-<%--                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbLastName" ValidationExpression="([a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>--%>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="tbLastName" ValidationExpression="([A-Z]|Å|Ä|Ö|[a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
                 <br />        
                 <asp:Label ID="lbAddress" CssClass="memberlabel" runat="server" Text="Address"></asp:Label>
                 <asp:TextBox ID="tbAddress" CssClass="membertextbox" runat="server"></asp:TextBox>
                 <br />
                 <asp:Label ID="lbPostalCode" CssClass="memberlabel" runat="server" Text="Postkod"></asp:Label>
                 <asp:TextBox ID="tbPostalCode" CssClass="membertextbox" runat="server"></asp:TextBox>
-<%--                <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Endast numeriskt värde" ControlToValidate="tbPostalCode" Type="Integer" MinimumValue="0" MaximumValue="99999" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>--%>
+                <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Endast numeriskt värde" ControlToValidate="tbPostalCode" Type="Integer" MinimumValue="0" MaximumValue="99999" ForeColor="Red" Font-Bold="True"></asp:RangeValidator>
                 <br />
                 <asp:Label ID="lbCity" CssClass="memberlabel" runat="server" Text="Stad"></asp:Label>
                 <asp:TextBox ID="tbCity" CssClass="membertextbox" runat="server"></asp:TextBox>
-<%--                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="tbLastName" ValidationExpression="([a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>--%>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="tbCity" ValidationExpression="([A-Z]|Å|Ä|Ö|[a-z]|å|ä|ö)*" ErrorMessage ="Endast text" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
                 <br />
                 <asp:Label ID="lbMail" CssClass="memberlabel" runat="server" Text="E-post"></asp:Label>
                 <asp:TextBox ID="tbMail" CssClass="membertextbox" runat="server"></asp:TextBox>
+                <asp:RegularExpressionValidator runat="server" id="RegularExpressionValidator3" ControlToValidate="tbMail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ErrorMessage ="Felaktig E-post" ForeColor="Red" Font-Bold="True"></asp:RegularExpressionValidator>
                 <br />
                 <asp:Label ID="lbGender" CssClass="memberlabel" runat="server" Text="Kön"></asp:Label>
                 <asp:DropDownList ID="ddlGender" runat="server" ></asp:DropDownList>
