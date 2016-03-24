@@ -7,7 +7,6 @@
   overflow: auto;
   padding-left:2%;
   margin-top:-10%;
-  /*background-color:lightgreen;*/
   padding-bottom:3%;
 }
 
@@ -19,15 +18,13 @@
 #ContentPlaceHolder1_membersGames{
   width:40%;
   float:left;
-  /*background-color:yellow;*/
 }
 
 #ContentPlaceHolder1_memberBookedBy{
   width:40%;
   margin-top:-3.5%;
   margin-left:5%;
-    float:left;
-    /*background-color:blue;*/
+  float:left;
 }
 
 
@@ -39,10 +36,8 @@
 }
 
 #ContentPlaceHolder1_bokningarAdmin{
-    /*background-color:purple;*/
     margin-top:-22%;
     padding-bottom:12%;
-    /*float:left;*/
 }
 
 
@@ -55,7 +50,6 @@
 #ContentPlaceHolder1_bokningar{
    overflow: auto;
    height:540px;
-   /*background-color:pink;*/
    padding-top:3%;
 }
 
@@ -67,7 +61,6 @@
   padding-left:2%;
   float:right;
   margin-top:-32.3%;
-  /*background-color:red;*/
   padding-top:0.5%;
 }
 
@@ -119,54 +112,3 @@
   background-color: #f88;
 }
 
-
-
-
-
-/*#navBokning a {
-    background-color: #6c7 !important;
-}
-
-#bokningar {
-  overflow: auto;
-  padding: 1%;
-
-
-}*/
-
-
-
-
-
-
-
-/*
-#bokningarInfo {
-  float: left;
-  margin-top: -1.6%;
-}
-
-#bokningar {
-  margin-top: 2%;
-  /*margin-left: 8%;*/
-/*}
-
-#bokningarAdmin {
-  /*display: none;*/
-/*}
-
-#ContentPlaceHolder1_BtnBookMember,
-#ContentPlaceHolder1_BtnDelMemberFromGame {
-  margin-top: 5px;
-  float: right;
-}
-
-#ContentPlaceHolder1_lbBookedMembers {
-  width: 100%;
-}*/
-
-/*#lbAllMembers{
-    position: absolute;
-    right:0;
-    top: 800px;
-}*/

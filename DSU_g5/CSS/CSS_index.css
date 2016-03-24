@@ -18,10 +18,6 @@
   margin-bottom: 40px;
 }
 
-/*.newsItem:hover {
-  cursor: pointer;
-}*/
-
 .newsItem:hover h2 {
   color: brown;
   text-decoration:underline;

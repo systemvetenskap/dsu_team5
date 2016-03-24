@@ -1,12 +1,10 @@
 ﻿body {
   background-color: #8F9D4E;
-  /*background-color: #65B259;*/
   background-image:url(/Images/golf-787477_960_720.jpg);
   background-repeat:no-repeat;
   background-size:1920px 1080px;
   margin:0 auto;
-    min-height:100%;
-
+  min-height:100%;
 
   font-family: calibri, sans-serif;
   font-size: 17px;
@@ -136,7 +134,6 @@ footer {
   text-align: center;
   color: white;
   background-color: #16171A;
-  /*position:absolute;*/
   bottom:0;
   width:1170px;
   clear: both;
@@ -166,30 +163,6 @@ select option{
     color:brown !important;
     background-color: beige !important;
 }
-
-/*.dropdown{
-    border:2px solid #7d6754;
-    border-radius:5px;
-    padding:3px;
-    -webkit-appearance: none; 
-    background-image:url('Images/Arrowhead-Down-01.png');
-    background-position:88px;
-    background-repeat:no-repeat;
-    text-indent: 0.01px;/*In Firefox*/
-    /*text-overflow: '';/*In Firefox*/
-    /*font-family: calibri, sans-serif;
-    font-size: 14px;
-}
-.dropdown:hover{
-    /*background-color:#A2F096;*/
-    /*background-color: beige !important;
-}
-
-
-.dropdown option{
-    color:brown !important;
-    background-color: beige !important;
-}*/
 
 
 /*KNAPPAR*/

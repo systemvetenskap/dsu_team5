@@ -6,8 +6,6 @@
 #ContentPlaceHolder1_result {
     height: 600px;
     padding: 0.5%;
-    /*border: solid;*/
-    /*border-color: blue;*/
 }
 
 #ContentPlaceHolder1_tournament {
@@ -17,8 +15,6 @@
     margin: 1%;
     margin-top: 0;
     padding-top: 0;
-    /*border: solid;*/
-    /*border-color: red;*/
 }
 
 .tournamentlabel {
@@ -49,8 +45,6 @@
     padding-top: 0;
     margin-bottom: 0;
     padding-bottom: 0;
-    /*border: solid;*/     
-    /*border-color: skyblue;*/
 }
 
 #ContentPlaceHolder1_usertable {
@@ -61,8 +55,6 @@
     padding-top: 0%;
     padding-bottom: 0%;
     float: left;
-    /*border: solid;*/     
-    /*border-color: red;*/
 }
 
 .resultstable {
@@ -93,8 +85,6 @@
     padding: 1%;
     min-width: 15%;
     width: 96%;
-    /*border: solid;*/     
-    /*border-color: greenyellow;*/
     float: left;
 }
 
@@ -110,7 +100,5 @@
     padding: 1%;
     min-width: 15%;
     width: 96%;
-    /*border: solid;*/     
-    /*border-color: red;*/
     clear: both;
 }
